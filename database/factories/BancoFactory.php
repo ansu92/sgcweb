@@ -23,6 +23,7 @@ class BancoFactory extends Factory
     public function definition()
     {
         $name = $this->faker->sentence();
+        
         return [
             'nombre' => $name,
             'slug' => Str::slug($name, '-'),
