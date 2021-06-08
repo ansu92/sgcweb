@@ -15,6 +15,11 @@
             'route' => route('banco.index'),
             'active' => request()->routeIs('banco.index'),
         ],
+        [
+            'name' => 'Proveedor',
+            'route' => route('proveedor.index'),
+            'active' => request()->routeIs('proveedor.index'),
+        ],
     ];
 @endphp
 

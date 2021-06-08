@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CtrBanco;
+use App\Http\Controllers\CtrProveedor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('banco', CtrBanco::class);
+
+Route::resource('proveedor', CtrProveedor::class);

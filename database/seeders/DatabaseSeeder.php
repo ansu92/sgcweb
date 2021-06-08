@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Banco;
+use App\Models\Proveedor;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,5 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         Banco::factory(10)->create();
+        Proveedor::factory(10)->create();
     }
 }
