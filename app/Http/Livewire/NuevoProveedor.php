@@ -50,7 +50,7 @@ class NuevoProveedor extends Component
         ]);
 
         $this->emitTo('tabla-proveedor', 'render');
-        $this->emit('alert', 'El post se creó satisfactoriamente');
+        $this->emit('alert', 'El registro se creó satisfactoriamente');
     }
 
     public function render()

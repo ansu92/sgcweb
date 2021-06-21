@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\CtrBanco;
+use App\Http\Controllers\CtrCategoria;
 use App\Http\Controllers\CtrProveedor;
+use App\Http\Controllers\CtrTipoUnidad;
+use App\Http\Controllers\CtrTipoUsuario;
+use App\Http\Controllers\CtrUnidad;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +30,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::resource('banco', CtrBanco::class);
 
 Route::resource('proveedor', CtrProveedor::class);
+
+Route::resource('categoria', CtrCategoria::class);
+
+Route::resource('tipo-unidad', CtrTipoUnidad::class);
+
+Route::resource('tipo-usuario', CtrTipoUsuario::class);
+
+Route::resource('unidad', CtrUnidad::class);

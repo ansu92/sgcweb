@@ -21,4 +21,7 @@ class Proveedor extends Model
         'direccion',
     ];
 
+    public function servicios() {
+        return $this->belongsToMany(Servicio::class);
+    }
 }
