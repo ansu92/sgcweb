@@ -43,15 +43,26 @@ class DatabaseSeeder extends Seeder
 
 		Cuenta::factory(4)->create();
 
-		Propietario::factory(20)->create();
-		Integrante::factory(50)->create();
-		Administrador::factory(8)->create();
-
 		Servicio::factory(15)
 			->has(Proveedor::factory()->count(3), 'proveedores')
 			->count(10)
 			->create();
 
-		Unidad::factory(20)->create();
+		for ($i = 0; $i < 40; $i++) {
+			Unidad::factory()
+				->has(Integrante::factory()->count(rand(1, 4)))
+				->create();
+		}
+
+		foreach (Unidad::all() as $item) {
+			$integrante = $item->integrantes->random();
+
+			$propietario = Propietario::factory()->create([
+				'integrante_id' => $integrante->id,
+			]);
+
+			$item->propietario()->associate($propietario);
+			$item->save();
+		}
 	}
 }

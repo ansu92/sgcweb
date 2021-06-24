@@ -13,6 +13,10 @@ class Unidad extends Model
 
     protected $table = 'unidades';
 
+	public function integrantes() {
+		return $this->hasMany(Integrante::class);
+	}
+
     public function visitas() {
         return $this->hasMany(Visita::class);
     }
