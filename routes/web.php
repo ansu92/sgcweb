@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CtrBanco;
 use App\Http\Controllers\CtrCategoria;
+use App\Http\Controllers\CtrCuenta;
 use App\Http\Controllers\CtrProveedor;
 use App\Http\Controllers\CtrTipoUnidad;
 use App\Http\Controllers\CtrTipoUsuario;
@@ -29,12 +30,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('banco', CtrBanco::class);
 
-Route::resource('proveedor', CtrProveedor::class);
-
 Route::resource('categoria', CtrCategoria::class);
+
+Route::resource('cuenta', CtrCuenta::class);
+
+Route::resource('proveedor', CtrProveedor::class);
 
 Route::resource('tipo-unidad', CtrTipoUnidad::class);
 
 Route::resource('tipo-usuario', CtrTipoUsuario::class);
 
 Route::resource('unidad', CtrUnidad::class);
+

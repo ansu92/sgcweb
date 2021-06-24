@@ -9,6 +9,10 @@ class Cuenta extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['numero','tipo','documento','beneficiario','banco_id'];
+
+    protected $table = 'cuentas';
+
     public function banco() {
         return $this->belongsTo(Banco::class);
     }

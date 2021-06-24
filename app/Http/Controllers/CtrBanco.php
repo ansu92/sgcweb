@@ -10,8 +10,7 @@ class CtrBanco extends Controller
 {
     public function index()
     {
-        $bancos = Banco::paginate();
-        return view('banco/index', compact('bancos'));
+        return view('banco.index');
     }
 
     public function create()

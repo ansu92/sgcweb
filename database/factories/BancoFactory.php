@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Banco;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+
 
 class BancoFactory extends Factory
 {
@@ -22,11 +22,9 @@ class BancoFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->sentence();
         
         return [
-            'nombre' => $name,
-            'slug' => Str::slug($name, '-'),
+            'nombre' => $this->faker->sentence(),
         ];
     }
 }

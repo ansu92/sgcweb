@@ -9,6 +9,8 @@ class Unidad extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['numero', 'direccion', 'tipo_unidad_id', 'propietario_id'];
+
     protected $table = 'unidades';
 
     public function visitas() {
