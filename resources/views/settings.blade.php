@@ -27,7 +27,7 @@
         ],
         [
             'name' => 'Unidad',
-            'route' => route('.index'),
+            'route' => route('unidad.index'),
             'active' => request()->routeIs('unidad.index'),
         ],
         [
