@@ -76,12 +76,6 @@ class TablaUnidad extends Component
 		}
 	}
 
-	public function show(Unidad $unidad)
-	{
-		$this->unidad = $unidad;
-		redirect(route('unidad.show', $this->unidad));
-	}
-
 	public function edit(Unidad $unidad)
 	{
 		$this->unidad = $unidad;
