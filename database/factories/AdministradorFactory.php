@@ -23,7 +23,7 @@ class AdministradorFactory extends Factory
     public function definition()
     {
         return [
-            'integrante_id' => $this->faker->unique()->randomElement(Integrante::all('id')),
+            'integrante_id' => Integrante::all()->random()->id,
         ];
     }
 }

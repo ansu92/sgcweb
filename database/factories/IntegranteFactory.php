@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Integrante;
+use App\Models\Unidad;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class IntegranteFactory extends Factory
 {

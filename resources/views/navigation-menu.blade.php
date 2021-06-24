@@ -11,34 +11,14 @@
             'active' => request()->routeIs('dashboard'),
         ],
         [
-            'name' => 'Banco',
-            'route' => route('banco.index'),
-            'active' => request()->routeIs('banco.index'),
-        ],
-        [
-            'name' => 'Proveedor',
-            'route' => route('proveedor.index'),
-            'active' => request()->routeIs('proveedor.index'),
-        ],
-        [
-            'name' => 'Categoría',
-            'route' => route('categoria.index'),
-            'active' => request()->routeIs('categoria.index'),
-        ],
-        [
-            'name' => 'Tipo de Unidad',
-            'route' => route('tipo-unidad.index'),
-            'active' => request()->routeIs('tipo-unidad.index'),
-        ],
-        [
-            'name' => 'Tipo de Usuario',
-            'route' => route('tipo-usuario.index'),
-            'active' => request()->routeIs('tipo-usuario.index'),
-        ],
-        [
             'name' => 'Unidad',
             'route' => route('unidad.index'),
             'active' => request()->routeIs('unidad.index'),
+        ],
+        [
+            'name' => 'Configuración',
+            'route' => route('configuracion'),
+            'active' => request()->routeIs('configuracion'),
         ],
     ];
 @endphp

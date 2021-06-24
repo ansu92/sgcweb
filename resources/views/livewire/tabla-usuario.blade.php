@@ -1,4 +1,4 @@
-<div wire:init="loadCategorias">
+<div wire:init="loadUsuarios">
 
 	<div class="space-y-4">
 		<div class="flex space-x-4 items-center">
@@ -17,7 +17,7 @@
 
 			<x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-			@livewire('nueva-categoria')
+			@livewire('nuevo-usuario')
 		</div>
 
 		<!-- tabla -->
@@ -25,16 +25,16 @@
 			<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 				<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 					<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-						@if(count($categorias))
+						@if(count($usuarios))
 						<table class="min-w-full divide-y divide-gray-200">
 							<thead class="bg-gray-50">
 								<tr>
 									<th scope="col"
 										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-										wire:click="orden('nombre')">
+										wire:click="orden('name')">
 										Nombre
 
-										@if ($orden == 'nombre')
+										@if ($orden == 'name')
 
 										@if ($direccion == 'asc')
 										<i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
@@ -51,9 +51,9 @@
 									</th>
 									<th scope="col"
 										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-										wire:click="orden('descripcion')">
-										Descripción
-										@if ($orden == 'descripcion')
+										wire:click="orden('email')">
+										Correo electrónico
+										@if ($orden == 'email')
 
 										@if ($direccion == 'asc')
 										<i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
@@ -74,24 +74,21 @@
 								</tr>
 							</thead>
 							<tbody class="bg-white divide-y divide-gray-200">
-								@foreach ($categorias as $item)
+								@foreach ($usuarios as $item)
 								<tr>
 									<td class="px-6 py-4 whitespace-nowrap">
 										<div class="text-sm font-medium text-gray-900">
-											{{ $item->nombre }}
+											{{ $item->name }}
 										</div>
 									</td>
 									<td class="px-6 py-4">
 										<div class="text-sm font-medium text-gray-900">
-											{{ $item->descripcion }}
+											{{ $item->email }}
 										</div>
 									</td>
 									<td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium flex gap-1">
 										<a class="btn btn-blue">
 											<i class="fas fa-eye"></i>
-										</a>
-										<a class="btn btn-green" wire:click="edit({{ $item }})">
-											<i class="fas fa-edit"></i>
 										</a>
 										<a class="btn btn-red" wire:click="destroy({{ $item }})">
 											<i class="fas fa-trash"></i>
@@ -102,9 +99,9 @@
 							</tbody>
 						</table>
 
-						@if ($categorias->hasPages())
+						@if ($usuarios->hasPages())
 						<div class="px-6 py-3">
-							{{ $categorias->links() }}
+							{{ $usuarios->links() }}
 						</div>
 						@endif
 
@@ -120,55 +117,6 @@
 		{{-- /tabla --}}
 	</div>
 
-	<x-jet-dialog-modal wire:model="openEdit">
-		<x-slot name="title">
-			Editar la categoría
-		</x-slot>
-
-		<x-slot name="content">
-			<div class="mt-10 sm:mt-0">
-
-				{{-- formulario --}}
-				<div class="shadow overflow-hidden sm:rounded-md">
-					<div class="px-4 py-5 bg-white sm:p-6">
-						<div class="grid grid-cols-6 gap-6">
-
-							<div class="col-span-6">
-								<label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-								<input type="text" name="nombre" id="nombre"
-									class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-									wire:model="categoria.nombre">
-								<x-jet-input-error for="nombre" />
-							</div>
-
-							<div class="col-span-6">
-								<label for="descripcion"
-									class="block text-sm font-medium text-gray-700">Descripción</label>
-								<input type="text" name="descripcion" id="descripcion"
-									class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-									wire:model="categoria.descripcion">
-								<x-jet-input-error for="descripcion" />
-							</div>
-
-						</div>
-					</div>
-				</div>
-				{{-- /formulario --}}
-
-			</div>
-		</x-slot>
-
-		<x-slot name="footer">
-			<x-jet-secondary-button class="mr-2" wire:click="$set('openEdit', false)">
-				Cancelar
-			</x-jet-secondary-button>
-
-			<x-jet-button wire:click="update" wire:loading.attr="disabled" class="disabled:opacity-25">
-				Actualizar
-			</x-jet-button>
-		</x-slot>
-	</x-jet-dialog-modal>
-
 	<x-jet-confirmation-modal wire:model="openDestroy">
 
 		<x-slot name="title">
@@ -176,7 +124,7 @@
 		</x-slot>
 
 		<x-slot name="content">
-			¿Seguro que desea eliminar la categoría?
+			¿Seguro que desea eliminar al usuario?
 		</x-slot>
 
 		<x-slot name="footer">

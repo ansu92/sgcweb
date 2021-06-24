@@ -2,15 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Categoria;
+use App\Models\Integrante;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class TablaCategoria extends Component
+class TablaIntegrante extends Component
 {
 	use WithPagination;
 	
-	public $categoria;
+	public $integrante;
 
 	public $busqueda = '';
 	public $orden = 'nombre';
@@ -23,30 +23,31 @@ class TablaCategoria extends Component
 	public $openDestroy = false;
 
 	protected $rules = [
-		'categoria.nombre' => 'required|max:25',
-		'categoria.descripcion' => 'max:255',
+		'integrante.nombre' => 'required|max:25',
+		'integrante.descripcion' => 'max:255',
 	];
 
 	protected $listeners = ['render'];
 
 	public function mount()
 	{
-		$this->categoria = new Categoria;
+		$this->integrante = new Integrante;
 	}
 
-	public function render()
-	{
+    public function render()
+    {
 		if ($this->readyToLoad) {
-			$categorias = Categoria::where('nombre', 'like', '%' . $this->busqueda . '%')
-				->orWhere('descripcion', 'like', '%' . $this->busqueda . '%')
+			$integrantes = Integrante::where('documento', 'like', '%' . $this->busqueda . '%')
+				->orWhere('nombre', 'like', '%' . $this->busqueda . '%')
+				->orWhere('apellido', 'like', '%' . $this->busqueda . '%')
 				->orderBy($this->orden, $this->direccion)
 				->paginate($this->cantidad);
 		} else {
-			$categorias = [];
+			$integrantes = [];
 		}
 
-		return view('livewire.tabla-categoria', compact('categorias'));
-	}
+        return view('livewire.tabla-integrante', compact('integrantes'));
+    }
 
 	public function updatingBusqueda()
 	{
@@ -57,7 +58,7 @@ class TablaCategoria extends Component
 		$this->resetPage();
 	}
 
-	public function loadCategorias()
+	public function loadIntegrantes()
 	{
 		$this->readyToLoad = true;
 	}
@@ -76,9 +77,9 @@ class TablaCategoria extends Component
 		}
 	}
 
-	public function edit(Categoria $categoria)
+	public function edit(Integrante $integrante)
 	{
-		$this->categoria = $categoria;
+		$this->integrante = $integrante;
 		$this->openEdit = true;
 	}
 
@@ -86,23 +87,23 @@ class TablaCategoria extends Component
 	{
 		$this->validate();
 
-		$this->categoria->save();
+		$this->integrante->save();
 
 		$this->reset('openEdit');
 
-		$this->emit('alert', 'La categoría se actualizó satisfactoriamente');
+		$this->emit('alert', 'La persona se actualizó satisfactoriamente');
 	}
 
-	public function destroy(Categoria $categoria) {
-		$this->categoria = $categoria;
+	public function destroy(Integrante $integrante) {
+		$this->integrante = $integrante;
 		$this->openDestroy = true;
 	}
 
 	public function delete() {
-		$this->categoria->delete();
+		$this->integrante->delete();
 
 		$this->reset('openDestroy');
 
-		$this->emit('alert', 'La categoría se eliminó satisfactoriamente');
+		$this->emit('alert', 'La persona se eliminó satisfactoriamente');
 	}
 }

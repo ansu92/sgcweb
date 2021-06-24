@@ -22,8 +22,6 @@ class PropietarioFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'integrante_id' => Integrante::factory(),
-        ];
+        return [];
     }
 }
