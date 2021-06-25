@@ -28,7 +28,6 @@ class IntegranteFactory extends Factory
             'apellido' => $this->faker->lastName(),
             'telefono' => '04'.$this->faker->randomElement(['12', '14', '16', '24', '26']) . $this->faker->unique()->numerify('-#######'),
             'email' => $this->faker->unique()->email(),
-            'direccion' => $this->faker->address(),
         ];
     }
 }

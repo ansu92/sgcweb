@@ -11,7 +11,22 @@
             'active' => request()->routeIs('dashboard'),
         ],
         [
-            'name' => 'Unidad',
+            'name' => 'Pagos',
+            'route' => '',
+            'active' => '',
+        ],
+        [
+            'name' => 'Gastos',
+            'route' => '',
+            'active' => '',
+        ],
+        [
+            'name' => 'Asambleas',
+            'route' => '',
+            'active' => '',
+        ],
+        [
+            'name' => 'Unidades',
             'route' => route('unidad.index'),
             'active' => request()->routeIs('unidad.index'),
         ],

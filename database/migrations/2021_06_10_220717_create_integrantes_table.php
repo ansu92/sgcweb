@@ -22,11 +22,11 @@ class CreateIntegrantesTable extends Migration
             $table->string('s_apellido', 20)->nullable();
             $table->string('telefono', 12)->nullable();
             $table->string('email', 45)->nullable()->unique();
-            $table->string('direccion');
 
             $table->foreignId('unidad_id');
 			
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

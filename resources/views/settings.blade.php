@@ -26,19 +26,9 @@
             'active' => request()->routeIs('tipo-usuario.index'),
         ],
         [
-            'name' => 'Unidad',
-            'route' => route('unidad.index'),
-            'active' => request()->routeIs('unidad.index'),
-        ],
-        [
             'name' => 'Usuario',
             'route' => route('usuario'),
             'active' => request()->routeIs('usuario'),
-        ],
-        [
-            'name' => 'Integrante',
-            'route' => route('integrante'),
-            'active' => request()->routeIs('integrante'),
         ],
     ];
 @endphp

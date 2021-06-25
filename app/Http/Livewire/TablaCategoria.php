@@ -48,6 +48,11 @@ class TablaCategoria extends Component
 		return view('livewire.tabla-categoria', compact('categorias'));
 	}
 
+	public function updated($propertyName)
+	{
+		$this->validateOnly($propertyName);
+	}
+
 	public function updatingBusqueda()
 	{
 		$this->resetPage();
@@ -90,6 +95,7 @@ class TablaCategoria extends Component
 
 		$this->reset('openEdit');
 
+		$this->emitTo('tabla-categoria', 'render');
 		$this->emit('alert', 'La categoría se actualizó satisfactoriamente');
 	}
 
@@ -103,6 +109,7 @@ class TablaCategoria extends Component
 
 		$this->reset('openDestroy');
 
+		$this->emitTo('tabla-categoria', 'render');
 		$this->emit('alert', 'La categoría se eliminó satisfactoriamente');
 	}
 }

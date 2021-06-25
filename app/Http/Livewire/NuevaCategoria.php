@@ -36,11 +36,7 @@ class NuevaCategoria extends Component
 		]);
 
 		$this->emitTo('tabla-categoria', 'render');
-		$this->emit('alert', 'El registro se creó satisfactoriamente');
-	}
-
-	public function update() {
-		
+		$this->emit('alert', 'La categoría se creó satisfactoriamente');
 	}
 
 	public function render()

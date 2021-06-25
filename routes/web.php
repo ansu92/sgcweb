@@ -35,15 +35,17 @@ Route::get('configuracion', CtrConfiguracion::class)->name('configuracion');
 
 Route::resource('banco', CtrBanco::class);
 
-Route::resource('categoria', CtrCategoria::class);
+Route::get('categoria', [CtrCategoria::class, 'index'])->name('categoria.index');
+
+Route::get('categoria/{categoria}', [CtrCategoria::class, 'show'])->name('categoria.show');
 
 Route::resource('cuenta', CtrCuenta::class);
-
-Route::resource('proveedor', CtrProveedor::class);
 
 Route::resource('tipo-unidad', CtrTipoUnidad::class);
 
 Route::resource('tipo-usuario', CtrTipoUsuario::class);
+
+Route::resource('proveedor', CtrProveedor::class);
 
 Route::get('unidad', [CtrUnidad::class, 'index'])->name('unidad.index');
 
@@ -51,4 +53,4 @@ Route::get('unidad/{unidad}', [CtrUnidad::class, 'show'])->name('unidad.show');
 
 Route::get('usuario', CtrUser::class)->name('usuario');
 
-Route::get('integrante', CtrIntegrante::class)->name('integrante');
+Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->name('integrante.show');
