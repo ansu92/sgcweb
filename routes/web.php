@@ -60,3 +60,7 @@ Route::get('tipo-unidad', [CtrTipoUnidad::class, 'index'])->name('tipo-unidad.in
 Route::get('tipo-unidad/{tipoUnidad}', [CtrTipoUnidad::class, 'show'])->name('tipoUnidad.show');
 
 Route::resource('tipo-usuario', CtrTipoUsuario::class);
+
+Route::get('fondo', [CtrFondo::class, 'index'])->name('fondo.index');
+
+Route::get('fondo/{fondo}', [CtrFondo::class, 'show'])->name('fondo.show');

@@ -13,6 +13,11 @@ class Unidad extends Model
 
     protected $table = 'unidades';
 
+	public function getRouteKeyName()
+	{
+		return 'numero';
+	}
+
 	public function integrantes() {
 		return $this->hasMany(Integrante::class);
 	}

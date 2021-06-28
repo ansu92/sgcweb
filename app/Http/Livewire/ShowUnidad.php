@@ -16,12 +16,6 @@ class ShowUnidad extends Component
 
 	protected $listeners = ['render'];
 
-	public function mount()
-	{
-		$this->unidad = Unidad::find($this->unidad->id);
-		$this->integrante = new Integrante;
-	}
-
 	public function render()
 	{
 		return view('livewire.show-unidad');

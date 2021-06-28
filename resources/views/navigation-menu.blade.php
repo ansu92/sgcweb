@@ -21,6 +21,11 @@
             'active' => '',
         ],
         [
+            'name' => 'Fondos',
+            'route' => route('fondo.index'),
+            'active' => request()->routeIs('fondo.index'),
+        ],
+        [
             'name' => 'Asambleas',
             'route' => '',
             'active' => '',

@@ -1,24 +1,25 @@
 <div>
     <div class="px-4 py-2">
-        Unidad: <h1 class="inline">{{ $unidad->numero }}</h1>
+        Descripción: <h1 class="inline">{{ $fondo->descripcion }}</h1>
     </div>
     <div class="px-4 py-2">
-        Dirección: {{ $unidad->direccion }}
+        Moneda: {{ $fondo->moneda }}
+    </div>
+    <div class="px-4 py-2">
+        Saldo: {{ $fondo->saldo }}
     </div>
 
-    @if (count($unidad->integrantes))
-        <div class="border rounded-md shadow-md my-2">
-            <div class="flex items-center px-4 py-2">
-                <h2 class="px-4 py-2 text-lg inline w-full">Habitantes de la unidad</h2>
+    <div class="border rounded-md shadow-md my-2">
+        <div class="flex items-center px-4 py-2">
+            <h2 class="px-4 py-2 text-lg inline w-full">Movimientos</h2>
+        </div>
 
-                @livewire('nuevo-integrante', ['unidad' => $unidad])
-            </div>
-
-            <!-- tabla -->
-            <div class="flex flex-col">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <!-- tabla -->
+        {{-- <div class="flex flex-col">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        @if (count($unidad->integrantes))
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
@@ -80,39 +81,17 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
+                        @else
+                            <div class="px-4 py-2">
+                                Sin habitantes
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
-            {{-- /tabla --}}
+        </div> --}}
+        {{-- /tabla --}}
 
-        </div>
-    @else
-        <div class="px-4 py-2">
-            Sin habitantes
-        </div>
-    @endif
-
-    <x-jet-confirmation-modal wire:model="openDestroy">
-
-        <x-slot name="title">
-            Eliminar
-        </x-slot>
-
-        <x-slot name="content">
-            ¿Seguro que desea eliminar al integrante de la unidad?
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('openDestroy', false)">
-                Cancelar
-            </x-jet-secondary-button>
-
-            <x-jet-danger-button wire:click="remove" wire:loading.attr="disabled" class="disabled:opacity-25">
-                Eliminar
-            </x-jet-danger-button>
-        </x-slot>
-
-    </x-jet-confirmation-modal>
+    </div>
 
 </div>

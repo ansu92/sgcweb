@@ -16,7 +16,7 @@ class CreateFondosTable extends Migration
         Schema::create('fondos', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
-            $table->decimal('saldo');
+            $table->decimal('saldo')->default(0);
             $table->enum('moneda', ['Bolívar', 'Dólar']);
             $table->timestamps();
         });
