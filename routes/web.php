@@ -57,9 +57,11 @@ Route::get('banco/{banco}', [CtrBanco::class, 'show'])->name('banco.show');
 
 Route::get('tipo-unidad', [CtrTipoUnidad::class, 'index'])->name('tipo-unidad.index');
 
-Route::get('tipo-unidad/{tipoUnidad}', [CtrTipoUnidad::class, 'show'])->name('tipoUnidad.show');
+Route::get('tipo-unidad/{tipoUnidad}', [CtrTipoUnidad::class, 'show'])->name('tipo-unidad.show');
 
-Route::resource('tipo-usuario', CtrTipoUsuario::class);
+Route::get('tipo-usuario', [CtrTipoUsuario::class, 'index'])->name('tipo-usuario.index');
+
+Route::get('tipo-usuario/{tipoUsuario}', [CtrTipoUsuario::class, 'show'])->name('tipo-usuario.show');
 
 Route::get('fondo', [CtrFondo::class, 'index'])->name('fondo.index');
 
