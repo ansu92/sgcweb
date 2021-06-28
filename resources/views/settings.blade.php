@@ -18,7 +18,7 @@
         [
             'name' => 'Tipo de Unidad',
             'route' => route('tipo-unidad.index'),
-            'active' => request()->routeIs('tipo-unidad.index'),
+            'active' => request()->routeIs('tipoUnidad.index'),
         ],
         [
             'name' => 'Tipo de Usuario',

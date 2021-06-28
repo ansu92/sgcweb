@@ -16,7 +16,7 @@ class NuevaUnidad extends Component
 
 	protected $rules = [
 		'numero' => 'required|numeric',
-		'tipoUnidad' => 'required',
+		'tipoUnidad' => 'required|not_in:0',
 		'direccion' => 'required|max:255',
 	];
 	
