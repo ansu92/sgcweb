@@ -12,7 +12,8 @@ class NuevaCategoria extends Component
 	public $nombre, $descripcion;
 
 	protected $rules = [
-		'nombre' => 'required',
+		'nombre' => 'required|max:25',
+		'descripcion' => 'max:255',
 	];
 
 	public function updated($propertyName)
