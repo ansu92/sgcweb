@@ -18,7 +18,6 @@ class CreateBancosTable extends Migration
             $table->string('nombre');
             
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

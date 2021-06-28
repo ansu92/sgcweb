@@ -1,291 +1,157 @@
-<div wire:init="loadCuentas">
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
+<div>
+	{{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
 
-    <div class="space-y-4">
-        <div class="flex space-x-4 items-center">
+	<div class="space-y-4">
+		<div class="flex space-x-4 items-center">
+			<x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-            <div class="flex items-center">
-                <span>Mostrar</span>
+			@livewire('nueva-cuenta')
+		</div>
 
-                <select wire:model="cantidad" class="mx-2 form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
+		<!-- tabla -->
+		<div class="flex flex-col">
+			<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+				<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+					<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+						@if($cuentas->count())
+						<table class="min-w-full divide-y divide-gray-200">
+							<thead class="bg-gray-50">
+								<tr>
+									<th scope="col"
+										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+										wire:click="orden('numero')">
+										Número
 
-                <span>entradas</span>
-            </div>
+										@if ($orden == 'numero')
 
-            <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
+										@if ($direccion == 'asc')
+										<i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
 
-            @livewire('nueva-cuenta')
-        </div>
+										@else
+										<i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
 
-        <!-- tabla -->
-        <div class="flex flex-col">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        @if ($readyToLoad)
-                            @if (count($cuentas))
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                                                wire:click="orden('numero')">
-                                                Número
+										@endif
 
-                                                @if ($orden == 'numero')
+										@else
+										<i class="fas fa-sort float-right mt-1"></i>
 
-                                                    @if ($direccion == 'asc')
-                                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+										@endif
+									</th>
+									<th scope="col"
+										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										Tipo
 
-                                                    @else
-                                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+                                        @if ($orden == 'tipo')
 
-                                                    @endif
+										@if ($direccion == 'asc')
+										<i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
 
-                                                @else
-                                                    <i class="fas fa-sort float-right mt-1"></i>
+										@else
+										<i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
 
-                                                @endif
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                                                wire:click="orden('tipo')">
-                                                Tipo
+										@endif
 
-                                                @if ($orden == 'tipo')
+										@else
+										<i class="fas fa-sort float-right mt-1"></i>
 
-                                                    @if ($direccion == 'asc')
-                                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+										@endif
 
-                                                    @else
-                                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+									</th>
+									<th scope="col"
+										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										Documento
 
-                                                    @endif
+                                        @if ($orden == 'documento')
 
-                                                @else
-                                                    <i class="fas fa-sort float-right mt-1"></i>
+										@if ($direccion == 'asc')
+										<i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
 
-                                                @endif
+										@else
+										<i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
 
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                                                wire:click="orden('documento')">
-                                                Documento
+										@endif
 
-                                                @if ($orden == 'documento')
+										@else
+										<i class="fas fa-sort float-right mt-1"></i>
 
-                                                    @if ($direccion == 'asc')
-                                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+										@endif
 
-                                                    @else
-                                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+									</th>
+									<th scope="col"
+										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										Beneficiario
 
-                                                    @endif
+                                        @if ($orden == 'beneficiario')
 
-                                                @else
-                                                    <i class="fas fa-sort float-right mt-1"></i>
+										@if ($direccion == 'asc')
+										<i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
 
-                                                @endif
+										@else
+										<i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
 
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Beneficiario
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Banco
-                                            </th>
-                                            <th scope="col" class="relative px-6 py-3">
-                                                <span class="sr-only">Acciones</span>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        @foreach ($cuentas as $item)
-                                            <tr>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->numero }}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->tipo }}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->documento }}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->beneficiario }}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->banco->nombre }}
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-right text-xs space-x-1 font-medium">
-                                                    <a class="btn btn-blue" href="{{ route('cuenta.show', $item) }}">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <a class="btn btn-green" wire:click="edit({{ $item }})">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a class="btn btn-red" wire:click="destroy({{ $item }})">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                @if ($cuentas->hasPages())
-                                    <div class="px-6 py-3">
-                                        {{ $cuentas->links() }}
-                                    </div>
-                                @endif
-                            @else
-                                <div class="px-6 py-4">
-                                    Su búsqueda no tuvo resultado
-                                </div>
-                            @endif
-                        @else
-                            <div class="px-6 py-4">
-                                Cargando...
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- /tabla --}}
-    </div>
+										@endif
 
-    <x-jet-dialog-modal wire:model="openEdit">
-        <x-slot name="title">
-            Modificar Cuenta
-        </x-slot>
+										@else
+										<i class="fas fa-sort float-right mt-1"></i>
 
-        <x-slot name="content">
-            <div class="mt-10 sm:mt-0">
+										@endif
 
-                {{-- formulario --}}
-                <div class="shadow overflow-hidden sm:rounded-md">
-                    <div class="px-4 py-5 bg-white sm:p-6">
-                        <div class="grid grid-cols-6 gap-6">
-
-                            <div class="col-span-6 sm:col-span-3">
-
-                                <label for="documento"
-                                    class="block text-sm font-medium text-gray-700">Documento:</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <div class="absolute inset-y-0 left-0 flex items-center">
-                                        <select id="letra" name="letra"
-                                            class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
-                                            wire:model="letra">
-                                            <option value="V">V</option>
-                                            <option value="E">E</option>
-                                            <option value="J">J</option>
-                                        </select>
-                                    </div>
-                                    <input type="text" name="documento" id="documento"
-                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 sm:text-sm border-gray-300 rounded-md"
-                                        placeholder="Cédula o RIF" wire:model="documento">
-                                </div>
-                                <x-jet-input-error for="cuenta.documento" />
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="beneficiario"
-                                    class="block text-sm font-medium text-gray-700">Beneficiario:</label>
-                                <input type="text" name="beneficiario" id="beneficiario"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    wire:model="cuenta.beneficiario">
-                                <x-jet-input-error for="cuenta.beneficiario" />
-                            </div>
-
-                            <div class="col-span-6">
-                                <label for="numero" class="block text-sm font-medium text-gray-700">Número de
-                                    cuenta:</label>
-                                <input type="text" name="numero" id="numero" autocomplete="street-address"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    wire:model="cuenta.numero">
-                                <x-jet-input-error for="cuenta.numero" />
-                            </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="banco_id" class="block text-sm font-medium text-gray-700">Banco:</label>
-                                <select id="banco_id" name="banco_id" class="form-control w-full"
-                                    wire:model="cuenta.banco_id">
-                                    <option value="0"> -- </option>
-                                    @foreach ($bancos as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
-                                    @endforeach
-                                </select>
-                                <x-jet-input-error for="cuenta.banco_id" />
-                            </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de cuenta</label>
-                                <select id="tipo" name="tipo" class="form-control w-full" wire:model="cuenta.tipo">
-                                    <option value="0"> -- </option>
-                                    <option value="ahorro">Ahorro</option>
-                                    <option value="corriente">Corriente</option>
-                                </select>
-                                <x-jet-input-error for="cuenta.tipo" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- /formulario --}}
-
-
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-jet-secondary-button class="mr-2" wire:click="$set('openEdit', false)">
-                Cancelar
-            </x-jet-secondary-button>
-
-            <x-jet-button wire:click="update" wire:loading.attr="disabled" class="disabled:opacity-25">
-                Actualizar
-            </x-jet-button>
-        </x-slot>
-    </x-jet-dialog-modal>
-
-    <x-jet-confirmation-modal wire:model="openDestroy">
-
-        <x-slot name="title">
-            Eliminar
-        </x-slot>
-
-        <x-slot name="content">
-            ¿Seguro que desea eliminar la cuenta?
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('openDestroy', false)">
-                Cancelar
-            </x-jet-secondary-button>
-
-            <x-jet-danger-button wire:click="delete" wire:loading.attr="disabled" class="disabled:opacity-25">
-                Eliminar
-            </x-jet-danger-button>
-        </x-slot>
-
-    </x-jet-confirmation-modal>
+									</th>
+                                    <th scope="col"
+										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										Banco
+									</th>
+									<th scope="col" class="relative px-6 py-3">
+										<span class="sr-only">Acciones</span>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="bg-white divide-y divide-gray-200">
+								@foreach ($cuentas as $item)
+								<tr>
+									<td class="px-6 py-4 whitespace-nowrap">
+										<div class="text-sm font-medium text-gray-900">
+											{{ $item->numero }}
+										</div>
+									</td>
+									<td class="px-6 py-4">
+										<div class="text-sm font-medium text-gray-900">
+											{{ $item->tipo }}
+										</div>
+									</td>
+									<td class="px-6 py-4">
+										<div class="text-sm font-medium text-gray-900">
+											{{ $item->documento }}
+										</div>
+									</td>
+                                    <td class="px-6 py-4">
+										<div class="text-sm font-medium text-gray-900">
+											{{ $item->beneficiario}}
+										</div>
+									</td>
+                                    <td class="px-6 py-4">
+										<div class="text-sm font-medium text-gray-900">
+											{{ $item->banco->nombre}}
+										</div>
+									</td>
+									<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+										<a href="#" class="text-indigo-600 hover:text-indigo-900"><i
+												class="fas fa-zoom"></i>Ver</a>
+										<a href="#" class="text-indigo-600 hover:text-indigo-900"><i class="fas fa-edit"></i></a>
+										<a href="#" class="text-indigo-600 hover:text-indigo-900"><i class="fas fa-trash"></i></a>
+									</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+						@else
+						Su búsqueda no tuvo resultado
+						@endif
+					</div>
+				</div>
+			</div>
+		</div>
+		{{-- /tabla --}}
+	</div>
 
 </div>

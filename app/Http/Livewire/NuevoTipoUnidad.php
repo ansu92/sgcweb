@@ -14,7 +14,6 @@ class NuevoTipoUnidad extends Component
     protected $rules = [
         'nombre' => 'required',
         'area' => 'required|numeric',
-        'descripcion' => 'max:255',
     ];
 
     public function updated($propertyName)

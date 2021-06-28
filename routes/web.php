@@ -33,9 +33,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('configuracion', CtrConfiguracion::class)->name('configuracion');
 
+Route::resource('banco', CtrBanco::class);
+
 Route::get('categoria', [CtrCategoria::class, 'index'])->name('categoria.index');
 
 Route::get('categoria/{categoria}', [CtrCategoria::class, 'show'])->name('categoria.show');
+
+Route::resource('cuenta', CtrCuenta::class);
+
+Route::resource('tipo-unidad', CtrTipoUnidad::class);
+
+Route::resource('tipo-usuario', CtrTipoUsuario::class);
 
 Route::resource('proveedor', CtrProveedor::class);
 
@@ -46,17 +54,3 @@ Route::get('unidad/{unidad}', [CtrUnidad::class, 'show'])->name('unidad.show');
 Route::get('usuario', CtrUser::class)->name('usuario');
 
 Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->name('integrante.show');
-
-Route::get('cuenta', [CtrCuenta::class, 'index'])->name('cuenta.index');
-
-Route::get('cuenta/{cuenta}', [CtrCuenta::class, 'show'])->name('cuenta.show');
-
-Route::get('banco', [CtrBanco::class, 'index'])->name('banco.index');
-
-Route::get('banco/{banco}', [CtrBanco::class, 'show'])->name('banco.show');
-
-Route::get('tipo-unidad', [CtrTipoUnidad::class, 'index'])->name('tipo-unidad.index');
-
-Route::get('tipo-unidad/{tipoUnidad}', [CtrTipoUnidad::class, 'show'])->name('tipoUnidad.show');
-
-Route::resource('tipo-usuario', CtrTipoUsuario::class);

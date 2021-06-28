@@ -28,7 +28,7 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="tipoUnidad" class="block text-sm font-medium text-gray-700">Tipo de unidad:</label>
                                 <select name="tipoUnidad" id="tipoUnidad" class="form-control w-full" wire:model="tipoUnidad">
-									<option value="0"> -- </option>
+									<option value="null"> -- </option>
 									@foreach ($tipoUnidades as $item)
 										<option value="{{ $item->id }}">{{ $item->nombre }}</option>
 									@endforeach

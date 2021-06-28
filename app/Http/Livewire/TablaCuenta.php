@@ -2,86 +2,29 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Banco;
 use App\Models\Cuenta;
 use Livewire\Component;
-use Illuminate\Support\Str;
-use Livewire\WithPagination;
 
 class TablaCuenta extends Component
 {
-
-	use WithPagination;
-
-	public $cuenta;
-
-	public $busqueda;
+    public $busqueda;
 	public $orden = 'numero';
 	public $direccion = "desc";
-	public $cantidad = "10";
 
 	protected $listeners = ['render'];
 
-	public $readyToLoad = false;
-
-	public $openEdit = false;
-	public $openDestroy = false;
-
-	public $bancos = [];
-
-	public $letra, $documento;
-
-	protected $rules = [
-		'cuenta.letra' => 'required',
-		'cuenta.documento' => 'required|digits_between: 6,10',
-		'cuenta.beneficiario' => 'required|string|max:45',
-		'cuenta.numero' => 'required|numeric|digits:20',
-		'cuenta.banco_id' => 'required|not_in:0',
-		'cuenta.tipo' => 'required|not_in:0',
-	];
-
-	public function mount()
-	{
-		$this->cuenta = new Cuenta;
-	}
-
 	public function render()
 	{
-		if ($this->readyToLoad) {
 
-			$cuentas = Cuenta::where('numero', 'like', '%' . $this->busqueda . '%')
-				->orwhere('tipo', 'like', '%' . $this->busqueda . '%')
-				->orwhere('documento', 'like', '%' . $this->busqueda . '%')
-				->orwhere('beneficiario', 'like', '%' . $this->busqueda . '%')
-				->orwhere('banco_id', 'like', '%' . $this->busqueda . '%')
-				->orderBy($this->orden, $this->direccion)
-				->paginate($this->cantidad);
-		} else {
-			$cuentas = [];
-		}
+		$cuentas = Cuenta::where('numero', 'like', '%' . $this->busqueda . '%')
+        ->orwhere('tipo','like','%' . $this->busqueda . '%')
+        ->orwhere('documento','like','%' . $this->busqueda . '%')
+        ->orwhere('beneficiario','like','%' . $this->busqueda . '%')
+        ->orwhere('banco_id','like','%' . $this->busqueda . '%')
+        ->orderBy($this->orden, $this->direccion)
+        ->get();
 
-		return view('livewire.tabla-cuenta', compact('cuentas'));
-	}
-
-	public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
-	public function loadCuentas()
-	{
-
-		$this->readyToLoad = true;
-	}
-
-	public function updatingBusqueda()
-	{
-		$this->resetPage();
-	}
-
-	public function updatingCantidad()
-	{
-		$this->resetPage();
+        return view('livewire.tabla-cuenta', compact('cuentas'));
 	}
 
 	public function orden($orden)
@@ -96,43 +39,5 @@ class TablaCuenta extends Component
 			$this->orden = $orden;
 			$this->direccion = 'asc';
 		}
-	}
-
-	public function edit(Cuenta $cuenta)
-	{
-
-		$this->letra = Str::substr($cuenta->documento, 0, 1);
-		$this->documento = Str::substr($cuenta->documento, 2);
-		$this->bancos = Banco::all();
-		$this->cuenta = $cuenta;
-		$this->openEdit = true;
-	}
-
-	public function update()
-	{
-		$this->validate();
-
-		$this->cuenta->documento = $this->letra . '-' . $this->documento;
-
-		$this->cuenta->save();
-
-		$this->reset('openEdit');
-
-		$this->emit('alert', 'La cuenta se actualizó satisfactoriamente');
-	}
-
-	public function destroy(Cuenta $cuenta)
-	{
-		$this->cuenta = $cuenta;
-		$this->openDestroy = true;
-	}
-
-	public function delete()
-	{
-		$this->cuenta->delete();
-
-		$this->reset('openDestroy');
-
-		$this->emit('alert', 'La categoría se eliminó satisfactoriamente');
 	}
 }
