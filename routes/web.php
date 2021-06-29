@@ -69,3 +69,8 @@ Route::get('tipo-usuario/{tipoUsuario}', [CtrTipoUsuario::class, 'show'])->name(
 Route::get('fondo', [CtrFondo::class, 'index'])->name('fondo.index');
 
 Route::get('fondo/{fondo}', [CtrFondo::class, 'show'])->name('fondo.show');
+
+Route::get('asamblea', [CtrAsamblea::class, 'index'])->name('asamblea.index');
+
+Route::get('asamblea/{asamblea}', [CtrAsamblea::class, 'show'])->name('asamblea.show');
+

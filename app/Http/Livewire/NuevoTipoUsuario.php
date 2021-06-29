@@ -13,6 +13,7 @@ class NuevoTipoUsuario extends Component
 
 	protected $rules = [
 		'nombre' => 'required',
+		'descripcion' => 'max:255',
 	];
 
 	public function updated($propertyName)

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TipoUsuario;
+
 class CtrTipoUsuario extends Controller
 {
 
@@ -9,4 +11,10 @@ class CtrTipoUsuario extends Controller
 	{
 		return view('tipo-usuario.index');
 	}
+
+	public function show(TipoUsuario $tipoUsuario)
+	{
+		return view('tipo-usuario.show', compact('tipoUsuario'));
+	}
+
 }
