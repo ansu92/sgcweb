@@ -22,12 +22,10 @@ class ProveedorFactory extends Factory
      */
     public function definition()
     {
-        $nombre = $this->faker->unique()->company();
-
         return [
-            'documento' => $this->faker->randomElement(['V', 'E', 'J']) . '-' . $this->faker->unique()->numberBetween(1000000, 35000000),
-            'nombre' => $nombre,
-            'slug' => Str::slug($nombre),
+			'letra' => $this->faker->randomElement(['V', 'E', 'J']),
+            'documento' =>$this->faker->unique()->numberBetween(1000000, 35000000),
+            'nombre' => $this->faker->unique()->company(),
             'contacto' => $this->faker->name(),
             'telefono' => '04'.$this->faker->randomElement(['12', '14', '16', '24', '26']) . $this->faker->unique()->numerify('-#######'),
             'email' => $this->faker->unique()->email(),

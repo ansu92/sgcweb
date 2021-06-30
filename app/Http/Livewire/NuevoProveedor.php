@@ -3,58 +3,97 @@
 namespace App\Http\Livewire;
 
 use App\Models\Proveedor;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class NuevoProveedor extends Component
 {
-    public $abierto = false;
+	public $open = false;
 
-    public $documento, $nombre, $contacto, $telefono, $email, $direccion;
+	public $letra = 'V', $documento, $nombre, $contacto, $telefono, $email, $direccion;
+	public $codigo, $numeroTelefono;
 
-    protected $rules = [
-        'documento' => 'required|max:12',
-        'nombre' => 'required',
-        'contacto' => 'required',
-        'telefono' => 'required|max:12',
-    ];
+	protected function rules()
+	{
+		return [
+			'letra' => 'required',
+			'documento' => 'required|digits_between:6,8|unique:proveedores,documento,NULL,id,letra,' . $this->letra . ',deleted_at,NULL',
+			'nombre' => 'required',
+			'contacto' => 'required',
+			'codigo' => 'required|not_in:0',
+			'numeroTelefono' => 'required|digits:7',
+			'email' => 'nullable|email|unique:proveedores',
+		];
+	}
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
+	public function updated($propertyName)
+	{
+		$this->validateOnly($propertyName);
+	}
 
-    public function save()
-    {
-        $this->validate();
+	public function updatedLetra()
+	{
+		$this->validateOnly('letra');
+		$this->validateOnly('documento');
+	}
 
-        Proveedor::create([
-            'documento' => $this->documento,
-            'nombre' => $this->nombre,
-            'slug' => Str::slug($this->nombre),
-            'contacto' => $this->contacto,
-            'telefono' => $this->telefono,
-            'email' => $this->email,
-            'direccion' => $this->direccion,
-        ]);
+	public function updatedNumeroDocumento()
+	{
+		$this->validateOnly('documento');
+		$this->validateOnly('letra');
+	}
 
-        $this->reset([
-            'abierto',
-            'documento',
-            'nombre',
-            'slug',
-            'contacto',
-            'telefono',
-            'email',
-            'direccion',
-        ]);
+	public function save()
+	{
+		$this->validate();
 
-        $this->emitTo('tabla-proveedor', 'render');
-        $this->emit('alert', 'El registro se creó satisfactoriamente');
-    }
+		$this->telefono = $this->codigo . '-' . $this->numeroTelefono;
 
-    public function render()
-    {
-        return view('livewire.nuevo-proveedor');
-    }
+		$proveedor = Proveedor::withTrashed()
+			->where('letra', $this->letra)
+			->where('documento', $this->documento)->first();
+
+		if ($proveedor === null) {
+
+			Proveedor::create([
+				'letra' => $this->letra,
+				'documento' => $this->documento,
+				'nombre' => $this->nombre,
+				'contacto' => $this->contacto,
+				'telefono' => $this->telefono,
+				'email' => $this->email,
+				'direccion' => $this->direccion,
+			]);
+		} else {
+			$proveedor->restore();
+
+			$proveedor->letra = $this->letra;
+			$proveedor->documento = $this->documento;
+			$proveedor->nombre = $this->nombre;
+			$proveedor->contacto = $this->contacto;
+			$proveedor->telefono = $this->telefono;
+			$proveedor->email = $this->email;
+
+			$proveedor->save();
+		}
+
+		$this->reset([
+			'open',
+			'letra',
+			'documento',
+			'nombre',
+			'contacto',
+			'codigo',
+			'numeroTelefono',
+			'email',
+			'direccion',
+		]);
+
+		$this->emitTo('tabla-proveedor', 'render');
+		$this->emit('alert', 'El registro se creó satisfactoriamente');
+	}
+
+	public function render()
+	{
+		return view('livewire.nuevo-proveedor');
+	}
 }

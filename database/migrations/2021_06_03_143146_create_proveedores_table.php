@@ -15,16 +15,18 @@ class CreateProveedoresTable extends Migration
     {
         Schema::create('proveedores', function (Blueprint $table) {
             $table->id();
-            $table->string('documento', 12)->unique();
+            $table->enum('letra', ['V', 'E', 'J']);
+            $table->string('documento', 12);
             $table->string('nombre', 60);
             $table->string('contacto', 45);
             $table->string('telefono', 12);
             $table->string('email', 45)->nullable()->unique();
             $table->string('direccion')->nullable();
 
-            $table->string('slug');
-            
+			$table->unique(['letra', 'documento'], 'documento');
+
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fondo;
-use Illuminate\Http\Request;
 
 class CtrFondo extends Controller
 {
