@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CtrAsamblea;
 use App\Http\Controllers\CtrBanco;
 use App\Http\Controllers\CtrCategoria;
 use App\Http\Controllers\CtrCuenta;
@@ -71,6 +72,4 @@ Route::get('fondo', [CtrFondo::class, 'index'])->name('fondo.index');
 Route::get('fondo/{fondo}', [CtrFondo::class, 'show'])->name('fondo.show');
 
 Route::get('asamblea', [CtrAsamblea::class, 'index'])->name('asamblea.index');
-
-Route::get('asamblea/{asamblea}', [CtrAsamblea::class, 'show'])->name('asamblea.show');
 
