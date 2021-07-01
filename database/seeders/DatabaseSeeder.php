@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
 		]);
 
 		Banco::factory(15)->create();
-		Categoria::factory(20)->create();
+		Categoria::factory(7)->create();
 		TipoUnidad::factory(5)->create();
 		TipoUsuario::factory(5)->create();
 

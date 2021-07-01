@@ -23,7 +23,7 @@ class ServicioFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->words(3, true),
+            'nombre' => $this->faker->unique()->words(3, true),
             'descripcion' => $this->faker->sentence(),
             'categoria_id' => $this->faker->randomElement(Categoria::all('id')),
         ];

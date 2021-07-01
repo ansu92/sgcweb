@@ -6,14 +6,19 @@
             'active' => request()->routeIs('banco.index'),
         ],
         [
+            'name' => 'Categoría',
+            'route' => route('categoria.index'),
+            'active' => request()->routeIs('categoria.index'),
+        ],
+        [
             'name' => 'Proveedor',
             'route' => route('proveedor.index'),
             'active' => request()->routeIs('proveedor.index'),
         ],
         [
-            'name' => 'Categoría',
-            'route' => route('categoria.index'),
-            'active' => request()->routeIs('categoria.index'),
+            'name' => 'Servicio',
+            'route' => route('servicio.index'),
+            'active' => request()->routeIs('servicio.index'),
         ],
         [
             'name' => 'Tipo de Unidad',

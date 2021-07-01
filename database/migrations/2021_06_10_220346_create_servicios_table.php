@@ -15,10 +15,11 @@ class CreateServiciosTable extends Migration
     {
         Schema::create('servicios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 60);
-            $table->string('descripcion');
+            $table->string('nombre', 60)->unique();
+            $table->string('descripcion')->nullable();
             $table->foreignId('categoria_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

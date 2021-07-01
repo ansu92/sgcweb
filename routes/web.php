@@ -8,6 +8,7 @@ use App\Http\Controllers\CtrConfiguracion;
 use App\Http\Controllers\CtrFondo;
 use App\Http\Controllers\CtrIntegrante;
 use App\Http\Controllers\CtrProveedor;
+use App\Http\Controllers\CtrServicio;
 use App\Http\Controllers\CtrTipoUnidad;
 use App\Http\Controllers\CtrTipoUsuario;
 use App\Http\Controllers\CtrUnidad;
@@ -72,4 +73,8 @@ Route::get('fondo', [CtrFondo::class, 'index'])->name('fondo.index');
 Route::get('fondo/{fondo}', [CtrFondo::class, 'show'])->name('fondo.show');
 
 Route::get('asamblea', [CtrAsamblea::class, 'index'])->name('asamblea.index');
+
+Route::get('servicio', [CtrServicio::class, 'index'])->name('servicio.index');
+
+Route::get('servicio', [CtrServicio::class, 'index'])->name('servicio.index');
 
