@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Unidad;
 
 use App\Models\Unidad;
 use Livewire\Component;
@@ -44,7 +44,7 @@ class TablaUnidad extends Component
 			$unidades = [];
 		}
 
-		return view('livewire.tabla-unidad', compact('unidades'));
+		return view('livewire.unidad.tabla-unidad', compact('unidades'));
 	}
 
 	public function updatingBusqueda()

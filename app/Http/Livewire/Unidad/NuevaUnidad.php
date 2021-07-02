@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Unidad;
 
 use App\Models\TipoUnidad;
 use App\Models\Unidad;
@@ -40,7 +40,7 @@ class NuevaUnidad extends Component
 			'direccion',
 		]);
 
-		$this->emitTo('tabla-unidad', 'render');
+		$this->emitTo('unidad.tabla-unidad', 'render');
 		$this->emit('alert', 'La unidad se registró satisfactoriamente');
 	}
 
@@ -50,6 +50,6 @@ class NuevaUnidad extends Component
 
     public function render()
     {
-        return view('livewire.nueva-unidad');
+        return view('livewire.unidad.nueva-unidad');
     }
 }

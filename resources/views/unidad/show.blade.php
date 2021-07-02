@@ -10,7 +10,7 @@
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
 				<div class="p-4">
-					@livewire('show-unidad', ['unidad' => $unidad])
+					@livewire('unidad.show-unidad', ['unidad' => $unidad])
 				</div>
 
 			</div>

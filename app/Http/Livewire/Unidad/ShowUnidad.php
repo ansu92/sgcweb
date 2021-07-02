@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Unidad;
 
 use App\Models\Integrante;
 use App\Models\Unidad;
@@ -18,7 +18,7 @@ class ShowUnidad extends Component
 
 	public function render()
 	{
-		return view('livewire.show-unidad');
+		return view('livewire.unidad.show-unidad');
 	}
 
 	public function destroy(Integrante $integrante)
@@ -33,7 +33,7 @@ class ShowUnidad extends Component
 
 		$this->reset('openDestroy');
 
-		$this->emitTo('show-unidad', 'render');
+		$this->emitTo('unidad.show-unidad', 'render');
 		$this->emit('alert', 'El integrante fue removido satisfactoriamente');
 	}
 }
