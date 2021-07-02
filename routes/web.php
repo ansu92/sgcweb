@@ -74,6 +74,8 @@ Route::get('fondo/{fondo}', [CtrFondo::class, 'show'])->name('fondo.show');
 
 Route::get('asamblea', [CtrAsamblea::class, 'index'])->name('asamblea.index');
 
+Route::get('asamblea', [CtrAsamblea::class, 'show'])->name('asamblea.show');
+
 Route::get('servicio', [CtrServicio::class, 'index'])->name('servicio.index');
 
 Route::get('servicio', [CtrServicio::class, 'index'])->name('servicio.index');
