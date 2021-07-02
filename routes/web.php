@@ -78,5 +78,8 @@ Route::get('asamblea/{asamblea}', [CtrAsamblea::class, 'show'])->name('asamblea.
 
 Route::get('servicio', [CtrServicio::class, 'index'])->name('servicio.index');
 
-Route::get('servicio', [CtrServicio::class, 'index'])->name('servicio.index');
+Route::get('servicio/{servicio}', [CtrServicio::class, 'show'])->name('servicio.show');
 
+Route::get('gasto', [CtrGasto::class, 'index'])->name('gasto.index');
+
+Route::get('gasto/{gasto}', [CtrGasto::class, 'show'])->name('gasto.show');
