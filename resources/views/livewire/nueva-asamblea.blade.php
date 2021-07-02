@@ -19,12 +19,11 @@
 
                             <div class="col-span-6 sm:col-span-3">
 
-                                <label for="descripcion"
-                                    class="block text-sm font-medium text-gray-700">Descripción:</label>
+                                <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input type="text" name="descripcion" id="descripcion"
-                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 sm:text-sm border-gray-300 rounded-md"
-                                        wire:model="descripcion">
+                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    wire:model="descripcion">
                                 </div>
                                 <x-jet-input-error for="descripcion" />
                             </div>
@@ -39,7 +38,7 @@
                             <div class="col-span-6">
                                 <label for="observacion"
                                     class="block text-sm font-medium text-gray-700">Observación:</label>
-                                <textarea name="observacion" class="form-control w-full" cols="30" rows="10"></textarea>
+                                <textarea name="observacion" class="form-control w-full" cols="30" rows="5" wire:model="observacion"></textarea>
                                 <x-jet-input-error for="observacion" />
                             </div>
                             <div class="col-span-6">

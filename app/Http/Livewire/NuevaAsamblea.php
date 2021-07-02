@@ -13,7 +13,7 @@ class NuevaAsamblea extends Component
 
     public $descripcion, $fecha, $observacion;
     public $asistentes = [];
-public $count = 0;
+    public $count = 0;
     // public $integrantes;
 
     public $abierto = false;
@@ -93,7 +93,7 @@ public $count = 0;
         $asamblea = Asamblea::create([
             'descripcion'=> $this->descripcion,
             'fecha'=> $this->fecha,
-            'observacion'=> $this->observacion,
+            'observaciones'=> $this->observacion,
         ]);
         $this->count++;
         

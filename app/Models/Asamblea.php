@@ -9,11 +9,13 @@ class Asamblea extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['descripcion', 'fecha', 'observaciones'];
+
     public function gastos() {
         return $this->hasMany(GastoExtraordinario::class);
     }
 
-    public function integrantes() {
+    public function asistentes() {
         return $this->belongsToMany(Integrante::class, 'asistentes');
     }
 }
