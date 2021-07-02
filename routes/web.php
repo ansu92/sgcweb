@@ -6,6 +6,7 @@ use App\Http\Controllers\CtrCategoria;
 use App\Http\Controllers\CtrCuenta;
 use App\Http\Controllers\CtrConfiguracion;
 use App\Http\Controllers\CtrFondo;
+use App\Http\Controllers\CtrGasto;
 use App\Http\Controllers\CtrIntegrante;
 use App\Http\Controllers\CtrProveedor;
 use App\Http\Controllers\CtrServicio;
