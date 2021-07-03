@@ -6,6 +6,7 @@ use App\Http\Controllers\CtrCategoria;
 use App\Http\Controllers\CtrCuenta;
 use App\Http\Controllers\CtrConfiguracion;
 use App\Http\Controllers\CtrFondo;
+use App\Http\Controllers\CtrGasto;
 use App\Http\Controllers\CtrIntegrante;
 use App\Http\Controllers\CtrProveedor;
 use App\Http\Controllers\CtrServicio;
@@ -78,5 +79,8 @@ Route::get('asamblea/{asamblea}', [CtrAsamblea::class, 'show'])->name('asamblea.
 
 Route::get('servicio', [CtrServicio::class, 'index'])->name('servicio.index');
 
-Route::get('servicio', [CtrServicio::class, 'index'])->name('servicio.index');
+Route::get('servicio/{servicio}', [CtrServicio::class, 'show'])->name('servicio.show');
 
+Route::get('gasto', [CtrGasto::class, 'index'])->name('gasto.index');
+
+Route::get('gasto/{gasto}', [CtrGasto::class, 'show'])->name('gasto.show');
