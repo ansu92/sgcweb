@@ -17,8 +17,8 @@
         ],
         [
             'name' => 'Gastos',
-            'route' => '',
-            'active' => '',
+            'route' => route('gasto.index'),
+            'active' => request()->routeIs('gasto.index'),
         ],
         [
             'name' => 'Fondos',
@@ -27,8 +27,8 @@
         ],
         [
             'name' => 'Asambleas',
-            'route' => '',
-            'active' => '',
+            'route' => route('asamblea.index'),
+            'active' => request()->routeIs(('asamblea.index')),
         ],
         [
             'name' => 'Unidades',
