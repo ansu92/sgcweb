@@ -100,7 +100,7 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-right text-xs space-x-1 font-medium">
-                                                    <a class="btn btn-blue" {{-- href="{{ route('asamblea.show', $item) }}" --}}>
+                                                    <a class="btn btn-blue" href="{{ route('asamblea.show', $item) }}">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 </td>

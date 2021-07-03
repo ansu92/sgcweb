@@ -254,7 +254,6 @@
             <x-jet-secondary-button class="mr-2" wire:click="$set('abierto', false)">
                 Cancelar
             </x-jet-secondary-button>
-{{$count}}
             <x-jet-button wire:click="save()">
                 Registrar
             </x-jet-button>
