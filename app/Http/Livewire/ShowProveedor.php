@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Proveedor;
+use App\Models\Servicio;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,7 +13,9 @@ class ShowProveedor extends Component
 
     public $proveedor;
 
+    public $servicio;
 
+    public $openDestroy = false;
 
     public $busqueda = '';
     public $direccion = 'desc';
@@ -60,5 +62,23 @@ class ShowProveedor extends Component
             $this->orden = $orden;
             $this->direccion = 'asc';
         }
+    }
+
+    public function destroy(Servicio $servicio) {
+		$this->servicio = $servicio;
+		$this->openDestroy = true;
+	}
+
+    public function removeServicios(){
+
+
+        $this->proveedor->servicios()->detach($this->servicio);
+
+        $this->reset('openDestroy');
+
+		$this->emitTo('show-proveedor', 'render');
+		$this->emit('alert', 'El servicio fue removido satisfactoriamente');
+		
+
     }
 }

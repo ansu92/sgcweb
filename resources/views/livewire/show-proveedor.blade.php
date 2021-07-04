@@ -14,7 +14,7 @@
                         Documento:
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $proveedor->documento }}
+                        {{ $proveedor->letra.'-'.$proveedor->documento }}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -49,7 +49,7 @@
                         {{ $proveedor->email }}
                     </dd>
                 </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
                         Dirección:
                     </dt>
@@ -133,7 +133,7 @@
                                                                 @endif
                                                             </th>
                                                             <th scope="col"
-                                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                                 Categoría
                                                             </th>
                                                             <th scope="col" class="relative px-6 py-3">
@@ -165,13 +165,9 @@
                                                                         class="btn btn-blue">
                                                                         <i class="fas fa-eye"></i>
                                                                     </a>
-                                                                    <a class="btn btn-green"
-                                                                        wire:click="edit({{ $item }})">
-                                                                        <i class="fas fa-edit"></i>
-                                                                    </a>
                                                                     <a class="btn btn-red"
                                                                         wire:click="destroy({{ $item }})">
-                                                                        <i class="fas fa-trash"></i>
+                                                                        <i class="fas fa-minus"></i>
                                                                     </a>
                                                                 </td>
                                                             </tr>
@@ -206,6 +202,28 @@
             </dl>
         </div>
     </div>
+
+    <x-jet-confirmation-modal wire:model="openDestroy">
+
+        <x-slot name="title">
+            Remover servicio
+        </x-slot>
+
+        <x-slot name="content">
+            ¿Seguro que desea remover el servicio?
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$set('openDestroy', false)">
+                Cancelar
+            </x-jet-secondary-button>
+
+            <x-jet-danger-button wire:click="removeServicios" wire:loading.attr="disabled" class="disabled:opacity-25">
+                Remover
+            </x-jet-danger-button>
+        </x-slot>
+
+    </x-jet-confirmation-modal>
 
 
 </div>
