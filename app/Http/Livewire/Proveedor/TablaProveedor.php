@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Proveedor;
 
 use App\Models\Proveedor;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +11,6 @@ class TablaProveedor extends Component
 	use WithPagination;
 
 	public Proveedor $proveedor;
-	public $codigo, $telefono;
 
 	public $busqueda;
 	public $orden = 'nombre';
@@ -27,12 +25,10 @@ class TablaProveedor extends Component
 	protected function rules()
 	{
 		return [
-			// 'proveedor.letra' => 'required',
-			// 'proveedor.documento' => 'required|digits_between:6,8|unique:proveedores,documento,' . $this->proveedor->id . ',id,letra,' . $this->proveedor->letra . ',deleted_at,NULL',
+			'proveedor.letra' => '',
+			'proveedor.documento' => '',
 			'proveedor.nombre' => 'required',
 			'proveedor.contacto' => 'required',
-			'codigo' => 'required|not_in:0',
-			'telefono' => 'required|digits:7',
 			'proveedor.telefono' => [
 				'required',
 				'regex:/\d{4}-\d{7}/',
@@ -61,7 +57,7 @@ class TablaProveedor extends Component
 			$proveedores = [];
 		}
 
-		return view('livewire.tabla-proveedor', compact('proveedores'));
+		return view('livewire.proveedor.tabla-proveedor', compact('proveedores'));
 	}
 
 	public function updated($propertyName)
@@ -91,11 +87,6 @@ class TablaProveedor extends Component
 		$this->resetPage();
 	}
 
-	public function loadFondos()
-	{
-		$this->readyToLoad = true;
-	}
-
 	public function orden($orden)
 	{
 		if ($this->orden == $orden) {
@@ -114,23 +105,17 @@ class TablaProveedor extends Component
 	{
 		$this->proveedor = $proveedor;
 
-		$this->codigo = Str::substr($this->proveedor->telefono, 0, 4);
-		$this->telefono = Str::substr($this->proveedor->telefono, 5);
-
 		$this->openEdit = true;
 	}
 
 	public function update()
 	{
-		$this->proveedor->telefono = $this->codigo . '-' . $this->telefono;
-
 		$this->validate();
 
 		$this->proveedor->save();
 
 		$this->reset('openEdit');
 
-		$this->emitTo('tabla-proveedor', 'render');
 		$this->emit('alert', 'El proveedor se actualizó satisfactoriamente');
 	}
 
@@ -146,7 +131,6 @@ class TablaProveedor extends Component
 
 		$this->reset('openDestroy');
 
-		$this->emitTo('tabla-proveedor', 'render');
 		$this->emit('alert', 'El proveedor se eliminó satisfactoriamente');
 	}
 }

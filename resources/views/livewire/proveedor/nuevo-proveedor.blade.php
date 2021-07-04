@@ -30,8 +30,8 @@
                                         </select>
                                     </div>
                                     <input type="text" name="numero_documento" id="numero_documento"
-                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 sm:text-sm border-gray-300 rounded-md"
-                                        placeholder="Cédula o RIF" wire:model="documento">
+                                        class="form-control block w-full pl-12" placeholder="Cédula o RIF"
+                                        wire:model="documento">
                                 </div>
                                 <x-jet-input-error for="letra" />
                                 <x-jet-input-error for="documento" />
@@ -39,24 +39,22 @@
 
                             <div class="col-span-6 sm:col-span-4">
                                 <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-                                <input type="text" name="nombre" id="nombre"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    wire:model="nombre">
+                                <input wire:model="nombre" type="text" name="nombre" id="nombre"
+                                    class="form-control w-full">
                                 <x-jet-input-error for="nombre" />
                             </div>
 
                             <div class="col-span-3">
                                 <label for="contacto" class="block text-sm font-medium text-gray-700">Contacto</label>
-                                <input type="text" name="contacto" id="contacto" autocomplete="street-address"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    wire:model="contacto">
+                                <input wire:model="contacto" type="text" name="contacto" id="contacto"
+                                    class="form-control w-full">
                                 <x-jet-input-error for="contacto" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3 sm:col-start-1">
                                 <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
                                 <input type="tel" name="telefono" id="telefono" pattern="\d{4}-\d{7}"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    class="form-control w-full"
                                     wire:model="telefono">
                                 <small class="text-xs text-gray-600">Formato: 0412-1234567</small>
                                 <x-jet-input-error for="telefono" />
@@ -65,7 +63,7 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                                 <input type="email" name="email" id="email" autocomplete="email"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    class="form-control w-full"
                                     wire:model="email">
                                 <x-jet-input-error for="email" />
                             </div>
@@ -73,14 +71,14 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
                                 <input type="text" name="direccion" id="direccion"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    class="form-control w-full"
                                     wire:model="direccion">
                                 <x-jet-input-error for="direccion" />
                             </div>
 
                             <div class="col-span-6">
                                 <label class="block text-sm font-medium text-gray-700">Servicios:</label>
-
+								<x-jet-input-error for="servicios" />
                                 <div class="space-y-4">
                                     <div class="flex space-x-4 items-center">
 

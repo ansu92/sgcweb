@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Proveedor;
 
 use App\Models\Proveedor;
 use App\Models\Servicio;
@@ -34,6 +34,7 @@ class NuevoProveedor extends Component
 			'contacto' => 'required',
 			'telefono' => 'required|regex:/\d{4}-\d{7}/',
 			'email' => 'nullable|email|unique:proveedores',
+			'servicios' => 'required',
 		];
 	}
 
@@ -62,7 +63,7 @@ class NuevoProveedor extends Component
 			->paginate($this->cantidad) :
 			[];
 
-		return view('livewire.nuevo-proveedor', compact('listaServicios'));
+		return view('livewire.proveedor.nuevo-proveedor', compact('listaServicios'));
 	}
 
 	public function updated($propertyName)
@@ -127,7 +128,7 @@ class NuevoProveedor extends Component
 
 		if ($proveedor === null) {
 
-			Proveedor::create([
+			$proveedor = Proveedor::create([
 				'letra' => $this->letra,
 				'documento' => $this->documento,
 				'nombre' => $this->nombre,
@@ -149,20 +150,21 @@ class NuevoProveedor extends Component
 			$proveedor->save();
 		}
 
+		$proveedor->servicios()->attach($this->servicios);
+
 		$this->reset([
 			'open',
 			'letra',
 			'documento',
 			'nombre',
 			'contacto',
-			'codigo',
 			'telefono',
 			'email',
 			'direccion',
 			'servicios',
 		]);
 
-		$this->emitTo('tabla-proveedor', 'render');
+		$this->emitTo('proveedor.tabla-proveedor', 'render');
 		$this->emit('alert', 'El registro se creó satisfactoriamente');
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Proveedor;
 
 use App\Models\Servicio;
 use Livewire\Component;
@@ -37,7 +37,7 @@ class ShowProveedor extends Component
         }else{
             $servicios = [];
         }
-        return view('livewire.show-proveedor', compact('servicios'));
+        return view('livewire.proveedor.show-proveedor', compact('servicios'));
     }
 
     public function updatingBusqueda()
@@ -76,7 +76,6 @@ class ShowProveedor extends Component
 
         $this->reset('openDestroy');
 
-		$this->emitTo('show-proveedor', 'render');
 		$this->emit('alert', 'El servicio fue removido satisfactoriamente');
 		
 

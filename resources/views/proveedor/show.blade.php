@@ -10,7 +10,7 @@
 			<div>
 
 				
-					@livewire('show-proveedor', ['proveedor' => $proveedor])
+					@livewire('proveedor.show-proveedor', ['proveedor' => $proveedor])
 				
 
 			</div>

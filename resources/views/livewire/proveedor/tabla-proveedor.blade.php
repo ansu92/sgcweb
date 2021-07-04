@@ -6,7 +6,7 @@
 
             <x-jet-input type="search" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-            @livewire('nuevo-proveedor')
+            @livewire('proveedor.nuevo-proveedor')
         </div>
 
         <!-- tabla -->
@@ -209,24 +209,11 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
-                                    <div class="absolute inset-y-0 left-0 flex items-center">
-                                        <select id="codigo" name="codigo"
-                                            class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
-                                            wire:model="codigo">
-                                            <option value="0">----</option>
-                                            <option>0412</option>
-                                            <option>0414</option>
-                                            <option>0416</option>
-                                            <option>0424</option>
-                                            <option>0426</option>
-                                        </select>
-                                    </div>
-                                    <input type="text" name="telefono" id="telefono"
-                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-20 sm:text-sm border-gray-300 rounded-md"
-                                        wire:model="telefono">
+                                    <input type="tel" name="telefono" id="telefono" pattern="\d{4}-\d{7}"
+                                        class="form-control w-full" wire:model="proveedor.telefono">
+                                    <small class="text-xs text-gray-600">Formato: 0412-1234567</small>
                                 </div>
-                                <x-jet-input-error for="codigo" />
-                                <x-jet-input-error for="telefono" />
+                                <x-jet-input-error for="proveedor.telefono" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
