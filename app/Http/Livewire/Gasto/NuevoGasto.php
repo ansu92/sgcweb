@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Gasto;
 
+use App\Models\Asamblea;
 use App\Models\Gasto;
 use App\Models\Servicio;
 use Livewire\Component;
@@ -32,6 +33,8 @@ class NuevoGasto extends Component
 
 	public function render()
 	{
+		$asambleas = Asamblea::all();
+		
 		if ($this->readyToLoad) {
 			$listaServicios = Servicio::where('nombre', 'LIKE', '%' . $this->busqueda . '%')
 				->orWhere('descripcion', 'LIKE', '%' . $this->busqueda . '%')
@@ -41,7 +44,7 @@ class NuevoGasto extends Component
 			$listaServicios = [];
 		}
 
-		return view('livewire.gasto.nuevo-gasto', compact('listaServicios'));
+		return view('livewire.gasto.nuevo-gasto', compact('listaServicios', 'asambleas'));
 	}
 
 	// public function loadServicios()

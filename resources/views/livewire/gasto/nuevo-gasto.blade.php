@@ -18,6 +18,15 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
 
+                            <div class="col-span-6 sm:col-span-6">
+                                <label for="descripcion" class="block text-sm font-medium text-gray-700">
+                                    Descripción:
+                                </label>
+                                <input wire:model="descripcion" type="text" name="descripcion" id="descripcion"
+                                    class="form-control w-full">
+                                <x-jet-input-error for="descripcion" />
+                            </div>
+
                             <div class="col-span-6 sm:col-span-2">
                                 <label for="tipo" class="block text-sm font-medium text-gray-700">
                                     Tipo de gasto:
@@ -33,16 +42,44 @@
                                 <x-jet-input-error for="tipo" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-4">
-                                <label for="descripcion" class="block text-sm font-medium text-gray-700">
-                                    Descripción:
+                            <div class="col-span-6 sm:col-span-2">
+                                <label for="numero-meses" class="block text-sm font-medium text-gray-700">
+                                    Número de meses:
                                 </label>
-                                <input wire:model="descripcion" type="text" name="descripcion" id="descripcion"
+                                <input wire:model="numero-meses" type="number" name="numero-meses" id="numero-meses"
                                     class="form-control w-full">
-                                <x-jet-input-error for="descripcion" />
+                                <x-jet-input-error for="numero-meses" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-4">
+                            <div class="col-span-6 sm:col-span-2">
+                                <label for="elegido-asamblea" class="block text-sm font-medium text-gray-700">
+                                    ¿El gasto fue decidio en una asamblea?:
+                                </label>
+                                <div>
+                                    <input type="radio" name="elegido-asamblea" id="si" value="true">
+                                    <label for="si">Sí</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="elegido-asamblea" id="no" value="false">
+                                    <label for="no">No</label>
+                                </div>
+                                <x-jet-input-error for="elegido-asamblea" />
+                            </div>
+
+                            <div class="col-span-6">
+                                <label for="asamblea" class="block text-sm font-medium text-gray-700">
+                                    Asamblea:
+                                </label>
+                                <select wire:model="asamblea" name="asamblea" id="asamblea" class="form-control w-full">
+                                    <option value="0"> -- </option>
+                                    @foreach ($asambleas as $item)
+                                        <option value="{{ $item->id }}">{{ $item->fecha }}</option>
+                                    @endforeach
+                                </select>
+                                <x-jet-input-error for="asamblea" />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
                                 <label for="calculo" class="block text-sm font-medium text-gray-700">
                                     Calcular por:
                                 </label>
@@ -58,12 +95,23 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="monto" class="block text-sm font-medium text-gray-700">
+                                <label for="comienzo-cobro" class="block text-sm font-medium text-gray-700">
                                     Comienzo de cobro:
                                 </label>
-                                <input wire:model="monto" type="month" name="monto" id="monto"
+                                <input wire:model="comienzo-cobro" type="month" name="comienzo-cobro" id="comienzo-cobro"
                                     class="form-control w-full">
-                                <x-jet-input-error for="monto" />
+                                <x-jet-input-error for="comienzo-cobro" />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="moneda" class="block text-sm font-medium text-gray-700">
+                                    Moneda:
+                                </label>
+                                <select wire:model="moneda" name="moneda" id="moneda" class="form-control w-full">
+                                    <option>Bolívar</option>
+                                    <option>Dólar</option>
+                                </select>
+                                <x-jet-input-error for="moneda" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
@@ -73,15 +121,6 @@
                                 <input wire:model="monto" type="text" name="monto" id="monto" readonly
                                     class="form-control w-full">
                                 <x-jet-input-error for="monto" />
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="fecha" class="block text-sm font-medium text-gray-700">
-                                    Fecha:
-                                </label>
-                                <input wire:model="fecha" type="date" name="fecha" id="fecha"
-                                    class="form-control w-full">
-                                <x-jet-input-error for="fecha" />
                             </div>
 
                             <div class="col-span-6">
@@ -94,7 +133,7 @@
                             </div>
 
                             <div class="col-span-6">
-                                <label class="block text-sm font-medium text-gray-700">Servicios</label>
+                                {{-- <label class="block text-sm font-medium text-gray-700">Servicios</label> --}}
                                 <x-jet-input-error for="servicios" />
 
                                 <div class="space-y-4">
