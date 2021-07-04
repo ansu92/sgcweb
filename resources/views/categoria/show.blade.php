@@ -10,7 +10,7 @@
 			<div>
 
 				
-					@livewire('show-categoria', ['categoria' => $categoria])
+					@livewire('categoria.show-categoria', ['categoria' => $categoria])
 				
 
 			</div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Cuenta;
 
 use App\Models\Cuenta;
 use Livewire\Component;
@@ -12,6 +12,6 @@ class ShowCuenta extends Component
 
     public function render()
     {
-        return view('livewire.show-cuenta');
+        return view('livewire.cuenta.show-cuenta');
     }
 }

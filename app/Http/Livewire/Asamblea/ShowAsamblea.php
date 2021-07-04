@@ -1,53 +1,45 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Asamblea;
 
 use App\Models\Asamblea;
-use App\Models\Integrante;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class TablaAsamblea extends Component
+class ShowAsamblea extends Component
 {
     use WithPagination;
 
-    public $asamblea;
+    public Asamblea $asamblea;
 
     public $busqueda;
-    public $orden = 'fecha';
+    public $orden = 'documento';
     public $direccion = 'desc';
     public $cantidad = '10';
 
     public $readyToLoad = false;
 
-    public $integrantes = [];
-
-    public $listeners = ['render'];
-
-    public function mount()
-    {
-        $this->asamblea = new Asamblea();
-    }
-
     public function render()
     {
+
         if ($this->readyToLoad) {
-            $asambleas = Asamblea::where('descripcion', 'like', '%' . $this->busqueda . '%')
-                ->orwhere('fecha', 'like', '%' . $this->busqueda . '%')
+            $asistentes = $this->asamblea->asistentes()
+                ->where(function($query) {
+                    $query->where('documento', 'LIKE', '%'.$this->busqueda.'%')
+                    ->orWhere('nombre', 'LIKE', '%'.$this->busqueda.'%')
+                    ->orWhere('apellido', 'LIKE', '%'.$this->busqueda.'%');
+                })
                 ->orderBy($this->orden, $this->direccion)
                 ->paginate($this->cantidad);
+
         } else {
-            $asambleas = [];
+            $asistentes = [];
         }
 
-        return view('livewire.tabla-asamblea', compact('asambleas'));
+        return view('livewire.asamblea.show-asamblea', compact('asistentes'));
     }
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-    public function loadAsambleas()
+    public function loadAsistentes()
     {
         $this->readyToLoad = true;
     }
@@ -56,7 +48,7 @@ class TablaAsamblea extends Component
     {
         $this->resetPage();
     }
-    
+
     public function updatingCantidad()
     {
         $this->resetPage();
@@ -64,7 +56,7 @@ class TablaAsamblea extends Component
 
     public function orden($orden)
     {
-        if($this->orden == $orden){
+        if ($this->orden == $orden) {
             if ($this->direccion == 'desc') {
                 $this->direccion = 'asc';
             } else {
@@ -74,12 +66,5 @@ class TablaAsamblea extends Component
             $this->orden = $orden;
             $this->direccion = 'asc';
         }
-    }
-
-    public function edit(Asamblea $asamblea)
-    {
-        $this->integrantes = Integrante::all();
-        $this->asamblea = $asamblea;
-        $this-> true;
     }
 }

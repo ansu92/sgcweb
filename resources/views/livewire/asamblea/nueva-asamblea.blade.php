@@ -44,6 +44,7 @@
                                 <x-jet-input-error for="observacion" />
                             </div>
                             <div class="col-span-6">
+                                <x-jet-input-error for="asistentes" />
 
                                 <div class="space-y-4">
                                     <div class="flex space-x-4 items-center">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Cuenta;
 
 use App\Models\Banco;
 use App\Models\Cuenta;
@@ -12,11 +12,11 @@ class NuevaCuenta extends Component
     public $abierto = false;
 
     public $numero;
-    public $tipo;
+    public $tipo = 0;
     public $letra = 'V';
     public $documento;
     public $beneficiario;
-    public $banco_id;
+    public $banco_id = 0;
 
     public $bancos;
 
@@ -56,14 +56,14 @@ class NuevaCuenta extends Component
             'banco_id',
         ]);
 
-        $this->emitTo('tabla-cuenta', 'render');
+        $this->emitTo('cuenta.tabla-cuenta', 'render');
         $this->emit('alert', 'El registro se creó satisfactoriamente');
     }
 
     public function render()
     {
         $this->bancos = Banco::all();
-        return view('livewire.nueva-cuenta');
+        return view('livewire.cuenta.nueva-cuenta');
 
     }
 }

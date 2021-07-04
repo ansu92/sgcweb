@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Gasto;
 use App\Models\Gasto;
 use App\Models\Servicio;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class NuevoGasto extends Component
 {
+	use WithPagination;
+	
 	public $descripcion, $monto, $fecha, $factura, $observaciones, $servicios = [];
 
 	public $readyToLoad = false;
@@ -23,9 +26,8 @@ class NuevoGasto extends Component
 		'descripcion' => 'required|max:255',
 		'monto' => 'required|numeric',
 		'fecha' => 'required',
-		'factura' => 'required',
 		'observaciones' => 'nullable',
-		'servicios' => 'required',
+		'servicios' => 'nullable',
 	];
 
 	public function render()
@@ -80,19 +82,21 @@ class NuevoGasto extends Component
 	{
 		$this->validate();
 
-		Gasto::create([
+		$gasto = Gasto::create([
 			'descripcion' => $this->descripcion,
 			'monto' => $this->monto,
 			'fecha' => $this->fecha,
-			'factura' => $this->factura,
+			'observaciones' => $this->observaciones,
 		]);
+
+		$gasto->servicios()->attach($$this->servicios);
 
 		$this->reset([
 			'open',
 			'descripcion',
 			'monto',
 			'fecha',
-			'factura',
+			'observaciones',
 			'servicios',
 		]);
 

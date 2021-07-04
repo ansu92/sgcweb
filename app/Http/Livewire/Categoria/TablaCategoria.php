@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Categoria;
 
 use App\Models\Categoria;
 use Livewire\Component;
@@ -45,7 +45,7 @@ class TablaCategoria extends Component
 			$categorias = [];
 		}
 
-		return view('livewire.tabla-categoria', compact('categorias'));
+		return view('livewire.categoria.tabla-categoria', compact('categorias'));
 	}
 
 	public function updated($propertyName)
@@ -95,7 +95,7 @@ class TablaCategoria extends Component
 
 		$this->reset('openEdit');
 
-		$this->emitTo('tabla-categoria', 'render');
+		$this->emitTo('categoria.tabla-categoria', 'render');
 		$this->emit('alert', 'La categoría se actualizó satisfactoriamente');
 	}
 
@@ -109,7 +109,7 @@ class TablaCategoria extends Component
 
 		$this->reset('openDestroy');
 
-		$this->emitTo('tabla-categoria', 'render');
+		$this->emitTo('categoria.tabla-categoria', 'render');
 		$this->emit('alert', 'La categoría se eliminó satisfactoriamente');
 	}
 }

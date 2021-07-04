@@ -10,7 +10,7 @@
 			<div>
 
 				
-					@livewire('show-asamblea', ['asamblea' => $asamblea])
+					@livewire('asamblea.show-asamblea', ['asamblea' => $asamblea])
 				
 
 			</div>

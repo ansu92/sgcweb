@@ -18,8 +18,7 @@ class CreateGastosTable extends Migration
             $table->string('descripcion');
             $table->decimal('monto');
             $table->date('fecha');
-            $table->string('num_factura');
-            $table->text('observaciones');
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }

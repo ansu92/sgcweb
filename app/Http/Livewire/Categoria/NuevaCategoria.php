@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Categoria;
 
 use App\Models\Categoria;
 use Livewire\Component;
@@ -36,12 +36,12 @@ class NuevaCategoria extends Component
 			'descripcion',
 		]);
 
-		$this->emitTo('tabla-categoria', 'render');
+		$this->emitTo('categoria.tabla-categoria', 'render');
 		$this->emit('alert', 'La categoría se creó satisfactoriamente');
 	}
 
 	public function render()
 	{
-		return view('livewire.nueva-categoria');
+		return view('livewire.categoria.nueva-categoria');
 	}
 }

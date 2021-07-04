@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Asamblea;
 
 use App\Models\Asamblea;
 use App\Models\Integrante;
@@ -60,7 +60,7 @@ class NuevaAsamblea extends Component
 
         $integrantes = $this->readyToLoad ? $this->integrantes : [];
 
-        return view('livewire.nueva-asamblea', compact('integrantes'));
+        return view('livewire.asamblea.nueva-asamblea', compact('integrantes'));
     }
 
     public function loadIntegrantes()
@@ -128,7 +128,7 @@ class NuevaAsamblea extends Component
             'asistentes',
         ]);
 
-        $this->emitTo('tabla-asamblea', 'render');
+        $this->emitTo('asamblea.tabla-asamblea', 'render');
         $this->emit('alert', 'La asamblea se registró satisfactoriamente');
     }
 }

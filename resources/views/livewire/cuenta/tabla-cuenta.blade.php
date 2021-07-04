@@ -1,25 +1,13 @@
 <div wire:init="loadCuentas">
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
 
-            <div class="flex items-center">
-                <span>Mostrar</span>
-
-                <select wire:model="cantidad" class="mx-2 form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-
-                <span>entradas</span>
-            </div>
+            <x-select-cantidad />
 
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-            @livewire('nueva-cuenta')
+            @livewire('cuenta.nueva-cuenta')
         </div>
 
         <!-- tabla -->
@@ -175,7 +163,7 @@
 
     <x-jet-dialog-modal wire:model="openEdit">
         <x-slot name="title">
-            Modificar Cuenta
+            Modificar cuenta
         </x-slot>
 
         <x-slot name="content">
@@ -204,7 +192,8 @@
                                         class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 sm:text-sm border-gray-300 rounded-md"
                                         placeholder="Cédula o RIF" wire:model="documento">
                                 </div>
-                                <x-jet-input-error for="cuenta.documento" />
+                                <x-jet-input-error for="letra" />
+                                <x-jet-input-error for="documento" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
@@ -236,7 +225,7 @@
                                 <x-jet-input-error for="cuenta.banco_id" />
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de cuenta</label>
+                                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de cuenta:</label>
                                 <select id="tipo" name="tipo" class="form-control w-full" wire:model="cuenta.tipo">
                                     <option value="0"> -- </option>
                                     <option value="ahorro">Ahorro</option>

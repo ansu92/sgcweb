@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Categoria;
 
 use App\Models\Categoria;
 use Livewire\Component;
@@ -11,6 +11,6 @@ class ShowCategoria extends Component
 	
     public function render()
     {
-        return view('livewire.show-categoria');
+        return view('livewire.categoria.show-categoria');
     }
 }

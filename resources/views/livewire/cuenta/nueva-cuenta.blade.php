@@ -6,7 +6,7 @@
 
     <x-jet-dialog-modal wire:model="abierto">
         <x-slot name="title">
-            Nueva Cuenta
+            Nueva cuenta
         </x-slot>
 
         <x-slot name="content">
@@ -66,7 +66,7 @@
                                 <x-jet-input-error for="banco_id" />
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de cuenta</label>
+                                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de cuenta:</label>
                                 <select id="tipo" name="tipo" class="form-control w-full" wire:model="tipo">
                                     <option value="0"> -- </option>
                                     <option value="ahorro">Ahorro</option>

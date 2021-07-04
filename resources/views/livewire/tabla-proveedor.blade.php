@@ -2,20 +2,9 @@
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
-            <div class="flex items-center">
-                <span>Mostrar</span>
+            <x-select-cantidad />
 
-                <select wire:model="cantidad" class="mx-2 form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-
-                <span>entradas</span>
-            </div>
-
-            <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
+            <x-jet-input type="search" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
             @livewire('nuevo-proveedor')
         </div>

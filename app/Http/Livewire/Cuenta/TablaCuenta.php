@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Cuenta;
 
 use App\Models\Banco;
 use App\Models\Cuenta;
@@ -29,11 +29,11 @@ class TablaCuenta extends Component
 
 	public $bancos = [];
 
-	public $letra, $documento;
+	public $letra = 'V', $documento;
 
 	protected $rules = [
-		'cuenta.letra' => 'required',
-		'cuenta.documento' => 'required|digits_between: 6,10',
+		'letra' => 'required',
+		'documento' => 'required|digits_between: 6,10',
 		'cuenta.beneficiario' => 'required|string|max:45',
 		'cuenta.numero' => 'required|numeric|digits:20',
 		'cuenta.banco_id' => 'required|not_in:0',
@@ -60,7 +60,7 @@ class TablaCuenta extends Component
 			$cuentas = [];
 		}
 
-		return view('livewire.tabla-cuenta', compact('cuentas'));
+		return view('livewire.cuenta.tabla-cuenta', compact('cuentas'));
 	}
 
 	public function updated($propertyName)
@@ -110,9 +110,9 @@ class TablaCuenta extends Component
 
 	public function update()
 	{
-		$this->validate();
-
 		$this->cuenta->documento = $this->letra . '-' . $this->documento;
+		
+		$this->validate();
 
 		$this->cuenta->save();
 
@@ -133,6 +133,6 @@ class TablaCuenta extends Component
 
 		$this->reset('openDestroy');
 
-		$this->emit('alert', 'La categoría se eliminó satisfactoriamente');
+		$this->emit('alert', 'La cuenta se eliminó satisfactoriamente');
 	}
 }
