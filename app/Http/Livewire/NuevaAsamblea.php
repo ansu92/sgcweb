@@ -13,10 +13,11 @@ class NuevaAsamblea extends Component
 
     public $descripcion, $fecha, $observacion;
     public $asistentes = [];
-    public $count = 0;
-    // public $integrantes;
 
     public $abierto = false;
+
+    public $selectAll = false;
+    public $selectPage = false;
 
     public $busqueda = '';
     public $orden = 'documento';
@@ -37,17 +38,28 @@ class NuevaAsamblea extends Component
         // $this->integrantes = Integrante::all();
     }
 
+    public function getConsultaIntegrantesProperty()
+    {
+        return Integrante::where('documento', 'like', '%' . $this->busqueda . '%')
+            ->orwhere('nombre', 'like', '%' . $this->busqueda . '%')
+            ->orwhere('apellido', 'like', '%' . $this->busqueda . '%')
+            ->orderBy($this->orden, $this->direccion);
+    }
+
+    public function getIntegrantesProperty()
+    {
+        return $this->consultaIntegrantes->paginate($this->cantidad);
+    }
+
     public function render()
     {
-        if ($this->readyToLoad) {
-            $integrantes = Integrante::where('documento', 'like', '%' . $this->busqueda . '%')
-                ->orwhere('nombre', 'like', '%' . $this->busqueda . '%')
-                ->orwhere('apellido', 'like', '%' . $this->busqueda . '%')
-                ->orderBy($this->orden, $this->direccion)
-                ->paginate($this->cantidad);
-        } else {
-            $integrantes = [];
+
+        if ($this->selectAll) {
+            $this->asistentes = $this->consultaIntegrantes->pluck('id')->map(fn ($id) => (string)$id);
         }
+
+        $integrantes = $this->readyToLoad ? $this->integrantes : [];
+
         return view('livewire.nueva-asamblea', compact('integrantes'));
     }
 
@@ -56,7 +68,8 @@ class NuevaAsamblea extends Component
         $this->readyToLoad = true;
     }
 
-    public function updated($propertyName) {
+    public function updated($propertyName)
+    {
         $this->validateOnly($propertyName);
     }
 
@@ -64,15 +77,26 @@ class NuevaAsamblea extends Component
     {
         $this->resetPage();
     }
-    
+
     public function updatingCantidad()
     {
         $this->resetPage();
     }
 
+    public function updatedAsistentes()
+    {
+      $this->selectAll = false;
+      $this->selectPage = false;
+    }
+
+    public function updatedSelectPage($value)
+    {
+        $this->asistentes = $value ? $this->integrantes->pluck('id')->map(fn ($id) => (string)$id) : [];
+    }
+
     public function orden($orden)
     {
-        if($this->orden == $orden){
+        if ($this->orden == $orden) {
             if ($this->direccion == 'desc') {
                 $this->direccion = 'asc';
             } else {
@@ -86,23 +110,25 @@ class NuevaAsamblea extends Component
 
     function save()
     {
-        $this->count++;
         $this->validate();
-        $this->count++;
-        
+
         $asamblea = Asamblea::create([
-            'descripcion'=> $this->descripcion,
-            'fecha'=> $this->fecha,
-            'observaciones'=> $this->observacion,
+            'descripcion' => $this->descripcion,
+            'fecha' => $this->fecha,
+            'observaciones' => $this->observacion,
         ]);
-        $this->count++;
-        
+
         $asamblea->asistentes()->attach($this->asistentes);
-        $this->count++;
+
+        $this->reset([
+            'abierto',
+            'descripcion',
+            'fecha',
+            'observacion',
+            'asistentes',
+        ]);
 
         $this->emitTo('tabla-asamblea', 'render');
-
-        $this->abierto = false;
+        $this->emit('alert', 'La asamblea se registró satisfactoriamente');
     }
-
 }

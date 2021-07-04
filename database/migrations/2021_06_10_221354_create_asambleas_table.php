@@ -15,9 +15,9 @@ class CreateAsambleasTable extends Migration
     {
         Schema::create('asambleas', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->timestamp('fecha');
-            $table->text('observaciones');
+            $table->string('descripcion', 120);
+            $table->date('fecha');
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }
