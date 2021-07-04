@@ -11,6 +11,6 @@ class CtrServicio extends Controller
 	}
 
 	public function show(Servicio $servicio) {
-		return view('servicion.show', compact('servicio'));
+		return view('servicio.show', compact('servicio'));
 	}
 }
