@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Fondo;
 
 use App\Models\Fondo;
 use Livewire\Component;
@@ -40,7 +40,7 @@ class TablaFondo extends Component
 			$fondos = [];
 		}
 
-		return view('livewire.tabla-fondo', compact('fondos'));
+		return view('livewire.fondo.tabla-fondo', compact('fondos'));
 	}
 
 	public function updated($propertyName)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Fondo;
 
 use App\Models\Fondo;
 use Livewire\Component;
@@ -36,12 +36,12 @@ class NuevoFondo extends Component
 			'moneda',
 		]);
 
-		$this->emitTo('tabla-fondo', 'render');
+		$this->emitTo('fondo.tabla-fondo', 'render');
 		$this->emit('alert', 'El fondo se registró satisfactoriamente');
 	}
 
 	public function render()
 	{
-		return view('livewire.nuevo-fondo');
+		return view('livewire.fondo.nuevo-fondo');
 	}
 }

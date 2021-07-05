@@ -10,7 +10,7 @@
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
 				<div class="p-4">
-					@livewire('show-fondo', ['fondo' => $fondo])
+					@livewire('fondo.show-fondo', ['fondo' => $fondo])
 				</div>
 
 			</div>

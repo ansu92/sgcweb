@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Fondo;
 
 use App\Models\Fondo;
 use Livewire\Component;
@@ -13,6 +13,6 @@ class ShowFondo extends Component
 	
     public function render()
     {
-        return view('livewire.show-fondo');
+        return view('livewire.fondo.show-fondo');
     }
 }
