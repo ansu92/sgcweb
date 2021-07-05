@@ -2,20 +2,11 @@
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
-            <div class="flex items-center">
-                <span>Mostrar</span>
-                <select wire:model="cantidad" class="mx-2 form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-                <span>entradas</span>
-            </div>
+            <x-select-cantidad />
 
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-            @livewire('nuevo-tipo-unidad')
+            @livewire('tipo-unidad.nuevo-tipo-unidad')
         </div>
 
         <!-- tabla -->

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\TipoUnidad;
 
 use App\Models\TipoUnidad;
 use Livewire\Component;
@@ -48,7 +48,7 @@ class TablaTipoUnidad extends Component
 			$tipoUnidades = [];
 		}
 
-		return view('livewire.tabla-tipo-unidad', compact('tipoUnidades'));
+		return view('livewire.tipo-unidad.tabla-tipo-unidad', compact('tipoUnidades'));
 	}
 
 	public function updated($propertyName)
@@ -96,7 +96,6 @@ class TablaTipoUnidad extends Component
 		$this->validate();
 		$this->tipoUnidad->save();
 		$this->reset('openEdit');
-		$this->emitTo('tabla-tipoUnidad', 'render');
 		$this->emit('alert', 'El tipo de unidad se actualizó satisfactoriamente');
 	}
 
@@ -110,7 +109,6 @@ class TablaTipoUnidad extends Component
 	{
 		$this->tipoUnidad->delete();
 		$this->reset('openDestroy');
-		$this->emitTo('tabla-tipoUnidad', 'render');
 		$this->emit('alert', 'El tipo de unidad se eliminó satisfactoriamente');
 	}
 }

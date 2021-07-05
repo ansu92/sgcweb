@@ -10,7 +10,7 @@
 			<div>
 
 				
-					@livewire('show-tipo-unidad', ['tipoUnidad' => $tipoUnidad])
+					@livewire('tipo-unidad.show-tipo-unidad', ['tipoUnidad' => $tipoUnidad])
 				
 
 			</div>
