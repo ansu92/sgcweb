@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Banco;
 
 use App\Models\Banco;
 use Livewire\Component;
@@ -45,7 +45,7 @@ class TablaBanco extends Component
         } else {
             $bancos = [];
         }
-        return view('livewire.tabla-banco', compact('bancos'));
+        return view('livewire.banco.tabla-banco', compact('bancos'));
     }
 
     public function updated($propertyName)

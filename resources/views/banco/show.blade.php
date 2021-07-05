@@ -10,7 +10,7 @@
 			<div>
 
 				
-					@livewire('show-banco', ['banco' => $banco])
+					@livewire('banco.show-banco', ['banco' => $banco])
 				
 
 			</div>

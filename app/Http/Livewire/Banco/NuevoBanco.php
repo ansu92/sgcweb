@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Banco;
 
 use App\Models\Banco;
 use Livewire\Component;
@@ -34,12 +34,12 @@ class NuevoBanco extends Component
             'nombre',
         ]);
 
-        $this->emitTo('tabla-banco', 'render');
+        $this->emitTo('banco.tabla-banco', 'render');
         $this->emit('alert', 'El registro se creó satisfactoriamente');
     }
 
     public function render()
     {
-        return view('livewire.nuevo-banco');
+        return view('livewire.banco.nuevo-banco');
     }
 }
