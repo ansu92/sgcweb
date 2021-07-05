@@ -1,13 +1,40 @@
-<div>
-    <div class="px-4 py-2">
-        Unidad: <h1 class="inline">{{ $unidad->numero }}</h1>
+<div class="bg-white overflow-hidden  shadow-xl rounded-xl">
+    <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Unidad
+        </h3>
     </div>
-    <div class="px-4 py-2">
-        Dirección: {{ $unidad->direccion }}
+    <div class="border-t border-gray-200">
+        <dl>
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Unidad:
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {{ $unidad->numero }}
+                </dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Descripción:
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {{ $unidad->direccion }}
+                </dd>
+            </div>
+
+
+        </dl>
+
+
+
     </div>
 
-    @if (count($unidad->integrantes))
-        <div class="border rounded-md shadow-md my-2">
+    <div class="border rounded-md shadow-md my-2 mx-4">
+
+        @if (count($unidad->integrantes))
+            {{-- <div class="border rounded-md shadow-md my-2"> --}}
             <div class="flex items-center px-4 py-2">
                 <h2 class="px-4 py-2 text-lg inline w-full">Habitantes de la unidad</h2>
 
@@ -86,33 +113,35 @@
             </div>
             {{-- /tabla --}}
 
-        </div>
-    @else
-        <div class="px-4 py-2">
-            Sin habitantes
-        </div>
-    @endif
+            {{-- </div> --}}
+        @else
+            <div class="px-4 py-2">
+                Sin habitantes
+            </div>
+        @endif
 
-    <x-jet-confirmation-modal wire:model="openDestroy">
+        <x-jet-confirmation-modal wire:model="openDestroy">
 
-        <x-slot name="title">
-            Eliminar
-        </x-slot>
-
-        <x-slot name="content">
-            ¿Seguro que desea eliminar al integrante de la unidad?
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('openDestroy', false)">
-                Cancelar
-            </x-jet-secondary-button>
-
-            <x-jet-danger-button wire:click="remove" wire:loading.attr="disabled" class="disabled:opacity-25">
+            <x-slot name="title">
                 Eliminar
-            </x-jet-danger-button>
-        </x-slot>
+            </x-slot>
 
-    </x-jet-confirmation-modal>
+            <x-slot name="content">
+                ¿Seguro que desea eliminar al integrante de la unidad?
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$set('openDestroy', false)">
+                    Cancelar
+                </x-jet-secondary-button>
+
+                <x-jet-danger-button wire:click="remove" wire:loading.attr="disabled" class="disabled:opacity-25">
+                    Eliminar
+                </x-jet-danger-button>
+            </x-slot>
+
+        </x-jet-confirmation-modal>
+
+    </div>
 
 </div>
