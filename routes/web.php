@@ -84,3 +84,9 @@ Route::get('servicio/{servicio}', [CtrServicio::class, 'show'])->name('servicio.
 Route::get('gasto', [CtrGasto::class, 'index'])->name('gasto.index');
 
 Route::get('gasto/{gasto}', [CtrGasto::class, 'show'])->name('gasto.show');
+
+Route::get('visita', [CtrVisita::class, 'index'])->name('visita.index');
+
+Route::get('visita/{visita}', [CtrVisita::class, 'show'])->name('visita.show');
+
+
