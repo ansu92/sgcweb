@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\TipoUsuario;
 
 use App\Models\TipoUsuario;
 use Livewire\Component;
@@ -45,7 +45,7 @@ class TablaTipoUsuario extends Component
 		} else {
 			$tipoUsuarios = [];
 		}
-		return view('livewire.tabla-tipo-usuario', compact('tipoUsuarios'));
+		return view('livewire.tipo-usuario.tabla-tipo-usuario', compact('tipoUsuarios'));
 	}
 
 	public function updated($propertyName)

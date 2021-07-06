@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\TipoUsuario;
 
 use App\Models\TipoUsuario;
 use Livewire\Component;
@@ -12,6 +12,6 @@ class ShowTipoUsuario extends Component
 
     public function render()
     {
-        return view('livewire.show-tipo-usuario');
+        return view('livewire.tipo-usuario.show-tipo-usuario');
     }
 }
