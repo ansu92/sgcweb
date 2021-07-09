@@ -14,6 +14,7 @@ use App\Http\Controllers\CtrTipoUnidad;
 use App\Http\Controllers\CtrTipoUsuario;
 use App\Http\Controllers\CtrUnidad;
 use App\Http\Controllers\CtrUser;
+use App\Http\Controllers\CtrVisita;
 use Illuminate\Support\Facades\Route;
 
 /*
