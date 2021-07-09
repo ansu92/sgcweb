@@ -90,4 +90,6 @@ Route::get('visita', [CtrVisita::class, 'index'])->name('visita.index');
 
 Route::get('visita/{visita}', [CtrVisita::class, 'show'])->name('visita.show');
 
+Route::get('pagos', [CtrPago::class, 'index'])->name('pago.index');
 
+Route::get('pagos/{pago}', [CtrPago::class, 'show'])->name('pago.show');
