@@ -88,7 +88,7 @@ return [
         'numeric' => 'El campo :attribute debe ser al menos :min.',
         'file'    => 'El archivo :attribute debe pesar al menos :min kilobytes.',
         'string'  => 'El campo :attribute debe contener al menos :min caracteres.',
-        'array'   => 'El campo :attribute debe contener al menos :min elementos.',
+        'array'   => 'El campo :attribute debe contener al menos :min elemento(s).',
     ],
     'multiple_of' => 'El atributo :attribute debe ser un multiplo de :value.',
     'not_in'               => 'El campo :attribute seleccionado es inválido.',
@@ -131,9 +131,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+		'asamblea.id' => [
+			'required_if' => 'Debe seleccionar una asamblea si el gasto fue elegido en una.',
+		],
     ],
 
     /*

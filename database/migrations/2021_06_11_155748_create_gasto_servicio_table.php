@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGastosServiciosTable extends Migration
+class CreateGastoServicioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateGastosServiciosTable extends Migration
      */
     public function up()
     {
-        Schema::create('gastos_servicios', function (Blueprint $table) {
+        Schema::create('gasto_servicio', function (Blueprint $table) {
             $table->foreignId('gasto_id');
             $table->foreignId('servicio_id');
+			$table->decimal('monto');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateGastosServiciosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gastos_servicios');
+        Schema::dropIfExists('gasto_servicio');
     }
 }

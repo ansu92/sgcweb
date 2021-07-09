@@ -1,4 +1,4 @@
-<div>
+<div wire:init="$set('readyToLoad', true)">
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
@@ -27,7 +27,11 @@
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Fecha
+                                        Tipo
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Estado
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Edit</span>
@@ -35,16 +39,31 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    </td>
-                                </tr>
+                                @foreach ($gastos as $gasto)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            {{ $gasto->descripcion }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            {{ $gasto->monto }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            @if ($gasto->extraordinario)
+                                                Extraordinario
+                                            @else
+                                                Ordinario
+                                            @endif
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            {{ $gasto->estado }}
+                                        </td>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium">
+                                            <a href="{{ route('gasto.show', $gasto) }}" class="btn btn-blue">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

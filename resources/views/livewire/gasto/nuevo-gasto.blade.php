@@ -4,7 +4,7 @@
         Nuevo
     </x-jet-button>
 
-    <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
+    <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
 
         <x-slot name="title">
             Nuevo gasto
@@ -22,7 +22,7 @@
                                 <label for="descripcion" class="block text-sm font-medium text-gray-700">
                                     Descripción:
                                 </label>
-                                <input wire:model="descripcion" type="text" name="descripcion" id="descripcion"
+                                <input wire:model.lazy="descripcion" type="text" name="descripcion" id="descripcion"
                                     class="form-control w-full">
                                 <x-jet-input-error for="descripcion" />
                             </div>
@@ -32,64 +32,70 @@
                                     Tipo de gasto:
                                 </label>
                                 <div>
-                                    <input type="radio" name="tipo" id="ordinario">
+                                    <input wire:model="tipo" type="radio" name="tipo" id="ordinario" value="ordinario">
                                     <label for="ordinario">Ordinario</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="tipo" id="extraordinario">
+                                    <input wire:model="tipo" type="radio" name="tipo" id="extraordinario"
+                                        value="extraordinario">
                                     <label for="extraordinario">Extraordinario</label>
                                 </div>
                                 <x-jet-input-error for="tipo" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-2">
-                                <label for="numero-meses" class="block text-sm font-medium text-gray-700">
-                                    Número de meses:
-                                </label>
-                                <input wire:model="numero-meses" type="number" name="numero-meses" id="numero-meses"
-                                    class="form-control w-full">
-                                <x-jet-input-error for="numero-meses" />
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-2">
-                                <label for="elegido-asamblea" class="block text-sm font-medium text-gray-700">
-                                    ¿El gasto fue decidio en una asamblea?:
-                                </label>
-                                <div>
-                                    <input type="radio" name="elegido-asamblea" id="si" value="true">
-                                    <label for="si">Sí</label>
+                            @if ($tipo == 'extraordinario')
+                                <div class="col-span-6 sm:col-span-2">
+                                    <label for="numero-meses" class="block text-sm font-medium text-gray-700">
+                                        Número de meses:
+                                    </label>
+                                    <input wire:model.lazy="numeroMeses" type="number" name="numero-meses"
+                                        id="numero-meses" class="form-control w-full">
+                                    <x-jet-input-error for="numeroMeses" />
                                 </div>
-                                <div>
-                                    <input type="radio" name="elegido-asamblea" id="no" value="false">
-                                    <label for="no">No</label>
-                                </div>
-                                <x-jet-input-error for="elegido-asamblea" />
-                            </div>
 
-                            <div class="col-span-6">
-                                <label for="asamblea" class="block text-sm font-medium text-gray-700">
-                                    Asamblea:
-                                </label>
-                                <select wire:model="asamblea" name="asamblea" id="asamblea" class="form-control w-full">
-                                    <option value="0"> -- </option>
-                                    @foreach ($asambleas as $item)
-                                        <option value="{{ $item->id }}">{{ $item->fecha }}</option>
-                                    @endforeach
-                                </select>
-                                <x-jet-input-error for="asamblea" />
-                            </div>
+                                <div class="col-span-6 sm:col-span-2">
+                                    <label for="elegido-asamblea" class="block text-sm font-medium text-gray-700">
+                                        ¿El gasto fue decidio en una asamblea?
+                                    </label>
+                                    <div>
+                                        <input wire:model="elegidoAsamblea" type="radio" name="elegido-asamblea" id="si"
+                                            value="si">
+                                        <label for="si">Sí</label>
+                                        <input wire:model="elegidoAsamblea" type="radio" name="elegido-asamblea" id="no"
+                                            value="no" class="ml-2">
+                                        <label for="no">No</label>
+                                    </div>
+                                    <x-jet-input-error for="elegidoAsamblea" />
+                                </div>
+
+                                @if ($elegidoAsamblea == 'si')
+                                    <div class="col-span-6">
+                                        <label for="asamblea" class="block text-sm font-medium text-gray-700">
+                                            Asamblea:
+                                        </label>
+                                        <select wire:model="asamblea.id" name="asamblea" id="asamblea"
+                                            class="form-control w-full">
+                                            <option value="0"> -- </option>
+                                            @foreach ($asambleas as $item)
+                                                <option value="{{ $item->id }}">{{ $item->fecha }} - {{ $item->descripcion }}</option>
+                                            @endforeach
+                                        </select>
+                                        <x-jet-input-error for="asamblea.id" />
+                                    </div>
+                                @endif
+                            @endif
 
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="calculo" class="block text-sm font-medium text-gray-700">
                                     Calcular por:
                                 </label>
                                 <div>
-                                    <input type="radio" name="calculo" id="alicuota">
-                                    <label for="alicuota">Alícuota</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="calculo" id="inmuebles">
-                                    <label for="inmuebles">Total de inmuebles</label>
+                                    <select wire:model="calculo" name="calculo" id="calculo"
+                                        class="form-control w-full">
+                                        <option>--</option>
+                                        <option>Alícuota</option>
+                                        <option>Total de inmuebles</option>
+                                    </select>
                                 </div>
                                 <x-jet-input-error for="calculo" />
                             </div>
@@ -98,9 +104,9 @@
                                 <label for="comienzo-cobro" class="block text-sm font-medium text-gray-700">
                                     Comienzo de cobro:
                                 </label>
-                                <input wire:model="comienzo-cobro" type="month" name="comienzo-cobro" id="comienzo-cobro"
+                                <input wire:model="comienzoCobro" type="month" name="comienzo-cobro" id="comienzo-cobro"
                                     class="form-control w-full">
-                                <x-jet-input-error for="comienzo-cobro" />
+                                <x-jet-input-error for="comienzoCobro" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
@@ -124,11 +130,11 @@
                             </div>
 
                             <div class="col-span-6">
-                                <label for="observaciones" class="block text-sm font-medium text-gray-700">
-                                    Observaciones:
+								<label for="observaciones" class="block text-sm font-medium text-gray-700">
+									Observaciones:
                                 </label>
-                                <textarea wire:model="observaciones" name="observaciones" id="observaciones" rows="5"
-                                    class="form-control w-full"></textarea>
+                                <textarea wire:model.lazy="observaciones" name="observaciones" id="observaciones"
+								rows="5" class="form-control w-full"></textarea>
                                 <x-jet-input-error for="observaciones" />
                             </div>
 
@@ -207,14 +213,49 @@
                                                                             Monto
                                                                         </th>
                                                                         <th scope="col" class="relative px-6 py-3">
-                                                                            <span class="sr-only">Selección</span>
+                                                                            <input wire:model="selectPage"
+                                                                                type="checkbox" name="selectPage"
+                                                                                id="selectPage" class="form-control">
                                                                         </th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="bg-white divide-y divide-gray-200">
-                                                                    @foreach ($listaServicios as $item)
+                                                                    @if ($selectPage)
+                                                                        <tr>
+                                                                            <td colspan="5"
+                                                                                class=" text-sm px-6 py-4 whitespace-nowrap bg-gray-200">
+
+                                                                                @unless($selectAll)
+                                                                                    <div>
+                                                                                        <span>Ha seleccionado
+                                                                                            <strong>{{ count($servicios) }}</strong>
+                                                                                            servicios. ¿Quiere seleccionar a
+                                                                                            todos las
+                                                                                            <strong>{{ $listaServicios->total() }}</strong>
+                                                                                            servicios?</span>
+
+
+                                                                                        <button class="text-blue-500"
+                                                                                            wire:click="$set('selectAll', true)">
+                                                                                            Seleccionar todo
+                                                                                        </button>
+                                                                                    </div>
+                                                                                @else
+
+                                                                                    <span>Ha seleccionado
+                                                                                        <strong>{{ $listaServicios->total() }}</strong>
+                                                                                        personas
+																					</span>
+
+                                                                                @endunless
+
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                    @foreach ($listaServicios as $key => $item)
                                                                         <tr>
                                                                             <td class="px-6 py-4 whitespace-nowrap">
+																				{{$item->id}}
                                                                                 <div
                                                                                     class="text-sm font-medium text-gray-900">
                                                                                     {{ $item->nombre }}
@@ -232,21 +273,19 @@
                                                                                     {{ $item->categoria->nombre }}
                                                                                 </div>
                                                                             </td>
-                                                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                                            <td class="px-6 py-4">
                                                                                 <div
                                                                                     class="text-sm font-medium text-gray-900">
-                                                                                    <input type="text"
-                                                                                        name="monto_{{ $item->id }}"
-                                                                                        id="monto_{{ $item->id }}"
+                                                                                    <input wire:model.lazy="montos.{{ $item->id }}"
+                                                                                        type="number"
                                                                                         class="form-control">
+																					<x-jet-input-error for="montos.{{ $item->id }}" />
                                                                                 </div>
                                                                             </td>
                                                                             <td
                                                                                 class="px-6 py-4 whitespace-nowrap space-x-1 text-xs">
-                                                                                <input wire:model="servicios"
+                                                                                <input wire:model="servicios.{{ $item->id }}"
                                                                                     type="checkbox"
-                                                                                    name="servicio_{{ $item->id }}"
-                                                                                    id="servicio_{{ $item->id }}"
                                                                                     value="{{ $item->id }}"
                                                                                     class="form-control">
                                                                             </td>
@@ -295,7 +334,7 @@
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-button wire:loading.attr="disabled" class="disabled: bg-opacity-25">
+            <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
                 Registrar
             </x-jet-button>
 

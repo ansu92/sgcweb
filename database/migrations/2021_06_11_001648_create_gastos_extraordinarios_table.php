@@ -14,8 +14,8 @@ class CreateGastosExtraordinariosTable extends Migration
     public function up()
     {
         Schema::create('gastos_extraordinarios', function (Blueprint $table) {
+			$table->id();
             $table->foreignId('gasto_id');
-            $table->date('mes_inicio');
             $table->integer('num_meses');
             $table->foreignId('asamblea_id')->nullable();
             $table->timestamps();
