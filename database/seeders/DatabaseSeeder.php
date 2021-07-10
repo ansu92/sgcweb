@@ -55,7 +55,6 @@ class DatabaseSeeder extends Seeder
 
 		Servicio::factory(15)
 			->has(Proveedor::factory()->count(3), 'proveedores')
-			->count(10)
 			->create();
 
 		for ($i = 0; $i < 40; $i++) {
