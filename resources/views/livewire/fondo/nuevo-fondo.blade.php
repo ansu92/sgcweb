@@ -21,9 +21,18 @@
                                 <label for="descripcion"
                                     class="block text-sm font-medium text-gray-700">Descripción:</label>
                                 <input type="text" name="descripcion" id="descripcion"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    class="form-control w-full"
                                     wire:model="descripcion">
                                 <x-jet-input-error for="descripcion" />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="saldo-inicial"
+                                    class="block text-sm font-medium text-gray-700">Saldo inicial:</label>
+                                <input type="number" name="saldo-inicial" id="saldo-inicial"
+                                    class="form-control w-full"
+                                    wire:model="saldoInicial">
+                                <x-jet-input-error for="saldoInicial" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">

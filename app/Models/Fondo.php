@@ -9,5 +9,5 @@ class Fondo extends Model
 {
     use HasFactory;
 
-	protected $fillable = ['descripcion', 'moneda'];
+	protected $fillable = ['descripcion', 'saldo', 'moneda'];
 }

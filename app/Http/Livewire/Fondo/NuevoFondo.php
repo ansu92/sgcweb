@@ -7,12 +7,13 @@ use Livewire\Component;
 
 class NuevoFondo extends Component
 {
-	public $descripcion, $moneda = 'Bolívar';
+	public $descripcion, $moneda = 'Bolívar', $saldoInicial = 0;
 
 	public $open = false;
 
 	protected $rules = [
 		'descripcion' => 'required|max:255',
+		'saldoInicial' => 'nullable|numeric',
 		'moneda' => 'required'
 	];
 
@@ -28,11 +29,13 @@ class NuevoFondo extends Component
 		Fondo::create([
 			'descripcion' => $this->descripcion,
 			'moneda' => $this->moneda,
+			'saldo' => $this->saldoInicial,
 		]);
 
 		$this->reset([
 			'open',
 			'descripcion',
+			'saldoInicial',
 			'moneda',
 		]);
 
