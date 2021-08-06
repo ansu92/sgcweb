@@ -7,13 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Propietario extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-	 public function integrante() {
-		 return $this->belongsTo(Integrante::class);
-	 }
+	/**
+	 * Las relaciones que siempre deberían cargarse.
+	 *
+	 * @var array
+	 */
+	protected $with = ['integrante'];
 
-    public function unidades() {
-        return $this->hasMany(Unidad::class);
-    }
+	public function integrante()
+	{
+		return $this->belongsTo(Integrante::class);
+	}
+
+	public function unidades()
+	{
+		return $this->hasMany(Unidad::class);
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
 }

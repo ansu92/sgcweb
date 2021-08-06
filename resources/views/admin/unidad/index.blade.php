@@ -10,7 +10,7 @@
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
 				<div class="p-4">
-					@livewire('unidad.tabla-unidad')
+					@livewire('admin.unidad.tabla-unidad')
 				</div>
 
 			</div>

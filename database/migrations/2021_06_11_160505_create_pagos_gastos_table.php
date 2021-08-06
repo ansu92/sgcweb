@@ -16,12 +16,15 @@ class CreatePagosGastosTable extends Migration
         Schema::create('pagos_gastos', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
-            $table->decimal('monto');
+            $table->decimal('monto', 12);
             $table->date('fecha');
-            $table->string('ref');
-            $table->foreignId('gasto_id');
-            $table->foreignId('fondo_id');
-            $table->foreignId('cuenta_id');
+            $table->string('recibo');
+            $table->string('referencia')->nullable();
+			$table->enum('forma_pago', ['Efectivo', 'Transferencia', 'Depósito', 'Pago móvil', 'Cheque', 'Punto de venta']);
+			$table->enum('moneda', ['Bolívar', 'Dólar',]);
+			$table->decimal('tasa_cambio')->nullable();
+            $table->foreignId('gasto_id')->nullable();
+            $table->foreignId('fondo_id')->nullable();
             $table->timestamps();
         });
     }

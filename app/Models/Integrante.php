@@ -12,6 +12,7 @@ class Integrante extends Model
 	use SoftDeletes;
 
 	protected $fillable = [
+		'letra',
 		'documento',
 		'nombre',
 		's_nombre',
@@ -20,11 +21,6 @@ class Integrante extends Model
 		'telefono',
 		'unidad_id',
 	];
-
-	public function user()
-	{
-		return $this->hasOne(User::class);
-	}
 
 	public function propietario()
 	{

@@ -24,7 +24,7 @@ class CuentaFactory extends Factory
     {
         return [
             'numero' => $this->faker->unique()->numerify('####################'),
-            'tipo' => $this->faker->randomElement(['corriente', 'ahorro']),
+            'tipo' => $this->faker->randomElement(['Corriente', 'Ahorro']),
             'beneficiario' => 'Condominio',
             'documento' => $this->faker->numerify('V-########-#'),
             'banco_id' => $this->faker->unique()->randomElement(Banco::all('id')),

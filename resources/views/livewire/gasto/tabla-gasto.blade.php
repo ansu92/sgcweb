@@ -34,7 +34,7 @@
                                         Estado
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
-                                        <span class="sr-only">Edit</span>
+                                        <span class="sr-only">Acciones</span>
                                     </th>
                                 </tr>
                             </thead>
@@ -46,6 +46,15 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $gasto->monto }}
+
+                                            @switch($gasto->moneda)
+                                                @case('Bolívar')
+                                                    Bs.
+                                                @break
+                                                @case('Dólar')
+                                                    $
+                                                @break
+                                            @endswitch
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @if ($gasto->extraordinario)
@@ -53,9 +62,9 @@
                                             @else
                                                 Ordinario
                                             @endif
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $gasto->estado }}
-                                        </td>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium">
                                             <a href="{{ route('gasto.show', $gasto) }}" class="btn btn-blue">

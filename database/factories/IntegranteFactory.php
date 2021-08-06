@@ -23,7 +23,8 @@ class IntegranteFactory extends Factory
     public function definition()
     {
         return [
-            'documento' => $this->faker->randomElement(['V', 'E']) . '-' . $this->faker->numberBetween(1000000, 35000000),
+            'letra' => $this->faker->randomElement(['V', 'E']),
+            'documento' => $this->faker->unique()->numberBetween(1000000, 35000000),
             'nombre' => $this->faker->firstName(),
             'apellido' => $this->faker->lastName(),
             'telefono' => '04'.$this->faker->randomElement(['12', '14', '16', '24', '26']) . $this->faker->unique()->numerify('-#######'),

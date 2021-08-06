@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Unidad;
+namespace App\Http\Livewire\Admin\Unidad;
 
 use App\Models\TipoUnidad;
 use App\Models\Unidad;
@@ -50,6 +50,6 @@ class NuevaUnidad extends Component
 
     public function render()
     {
-        return view('livewire.unidad.nueva-unidad');
+        return view('livewire.admin.unidad.nueva-unidad');
     }
 }

@@ -16,7 +16,7 @@ class CreateGastoServicioTable extends Migration
         Schema::create('gasto_servicio', function (Blueprint $table) {
             $table->foreignId('gasto_id');
             $table->foreignId('servicio_id');
-			$table->decimal('monto');
+			$table->decimal('monto', 12);
             $table->timestamps();
         });
     }

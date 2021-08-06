@@ -15,8 +15,11 @@ class CreateAdministradoresTable extends Migration
     {
         Schema::create('administradores', function (Blueprint $table) {
             $table->id();
+			$table->string('rol');
             $table->foreignId('integrante_id');
+			$table->foreignId('usuario_id');
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 

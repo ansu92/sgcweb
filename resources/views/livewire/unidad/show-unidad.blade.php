@@ -15,6 +15,7 @@
                     {{ $unidad->numero }}
                 </dd>
             </div>
+
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">
                     Descripción:
@@ -24,11 +25,7 @@
                 </dd>
             </div>
 
-
         </dl>
-
-
-
     </div>
 
     <div class="border rounded-md shadow-md my-2 mx-4">
@@ -81,7 +78,7 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">
-                                                    {{ $item->documento }}
+                                                    {{$item->letra}}-{{ $item->documento }}
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4">

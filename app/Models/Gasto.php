@@ -15,8 +15,15 @@ class Gasto extends Model
 		'mes_cobro',
 		'moneda',
 		'monto',
+		'saldo',
 		'observaciones',
+		'factura',
+		'proveedor_id',
 	];
+
+	public function proveedor() {
+		return $this->belongsTo(Proveedor::class);
+	}
 
 	public function extraordinario() {
 		return $this->hasOne(GastoExtraordinario::class);

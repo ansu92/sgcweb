@@ -6,12 +6,8 @@ use App\Models\Unidad;
 
 class CtrUnidad extends Controller
 {
-	public function index()
+    public function __invoke(Unidad $unidad)
 	{
-		return view('unidad.index');
-	}
-
-	public function show(Unidad $unidad) {
 		return view('unidad.show', compact('unidad'));
 	}
 }

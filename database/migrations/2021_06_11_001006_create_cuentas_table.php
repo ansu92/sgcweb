@@ -16,7 +16,7 @@ class CreateCuentasTable extends Migration
         Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
             $table->string('numero');
-            $table->enum('tipo', ['corriente', 'ahorro']);
+            $table->enum('tipo', ['Corriente', 'Ahorro']);
             $table->string('documento', 12);
             $table->string('beneficiario', 45);
             $table->foreignId('banco_id');

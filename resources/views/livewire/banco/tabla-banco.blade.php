@@ -1,5 +1,4 @@
 <div wire:init="loadBancos">
-    {{-- Do your work, then step back. --}}
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
@@ -8,7 +7,10 @@
 
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-            @livewire('banco.nuevo-banco')
+            @can('banco.create')
+                @livewire('admin.banco.nuevo-banco')
+            @endcan
+
         </div>
 
         <!-- tabla -->
@@ -44,7 +46,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-										
+
                                         @foreach ($bancos as $item)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -54,15 +56,25 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-right text-xs space-x-1 font-medium">
-                                                    <a class="btn btn-blue" href="{{ route('banco.show', $item) }}">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <a class="btn btn-green" wire:click="edit({{ $item }})">
-														<i class="fas fa-edit"></i>
-													</a>
-                                                    <a class="btn btn-red" wire:click="destroy({{ $item }})">
-														<i class="fas fa-trash"></i>
-													</a>
+
+                                                    @can('admin.banco.show')
+                                                        <a class="btn btn-blue" href="{{ route('banco.show', $item) }}">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @endcan
+
+                                                    @can('admin.banco.edit')
+                                                        <a class="btn btn-green" wire:click="edit({{ $item }})">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    @endcan
+
+                                                    @can('admin.banco.delete')
+                                                        <a class="btn btn-red" wire:click="destroy({{ $item }})">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    @endcan
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -133,7 +145,7 @@
         </x-slot>
     </x-jet-dialog-modal>
 
-	<x-jet-confirmation-modal wire:model="openDestroy">
+    <x-jet-confirmation-modal wire:model="openDestroy">
 
         <x-slot name="title">
             Eliminar

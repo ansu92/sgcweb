@@ -9,12 +9,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
+	use HasRoles;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
@@ -59,7 +61,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function integrante() {
-        return $this->hasOne(Integrante::class);
+    public function propietario() {
+        return $this->hasOne(Propietario::class);
+    }
+
+    public function administrador() {
+        return $this->hasOne(Administrador::class);
     }
 }

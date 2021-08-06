@@ -10,4 +10,8 @@ class Fondo extends Model
     use HasFactory;
 
 	protected $fillable = ['descripcion', 'saldo', 'moneda'];
+
+	public function cuenta() {
+		return $this->belongsTo(Cuenta::class);
+	}
 }

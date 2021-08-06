@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Administrador;
 use App\Models\Integrante;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AdministradorFactory extends Factory
@@ -24,6 +25,8 @@ class AdministradorFactory extends Factory
     {
         return [
             'integrante_id' => Integrante::all()->random()->id,
+			'rol' => $this->faker->jobTitle,
+			'usuario_id' => User::factory(),
         ];
     }
 }

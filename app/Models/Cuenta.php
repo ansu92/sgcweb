@@ -14,4 +14,8 @@ class Cuenta extends Model
     public function banco() {
         return $this->belongsTo(Banco::class);
     }
+
+	public function fondo() {
+		return $this->hasOne(Fondo::class);
+	}
 }

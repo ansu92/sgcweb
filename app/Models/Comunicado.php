@@ -9,7 +9,16 @@ class Comunicado extends Model
 {
     use HasFactory;
 
-    public function autor() {
-        return $this->belongsTo(Administrador::class);
+	protected $with = ['autor'];
+
+    /**
+     * Los atributos que permiten asignación masiva.
+     *
+     * @var array
+     */
+    protected $fillable = ['asunto', 'contenido'];
+
+	public function autor() {
+        return $this->belongsTo(Administrador::class, 'administrador_id');
     }
 }

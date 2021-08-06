@@ -5,12 +5,14 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 
 class TablaUsuario extends Component
 {
 	use WithPagination;
-	
-	public $usuario;
+
+	public User $usuario;
+	public $roles = [];
 
 	public $busqueda = '';
 	public $orden = 'name';
@@ -19,11 +21,11 @@ class TablaUsuario extends Component
 
 	public $readyToLoad = false;
 
+	public $openEdit = false;
 	public $openDestroy = false;
 
 	protected $rules = [
-		'usuario.name' => 'required|max:25',
-		'usuario.descripcion' => 'max:255',
+		'roles' => 'required|min:1',
 	];
 
 	protected $listeners = ['render'];
@@ -33,8 +35,8 @@ class TablaUsuario extends Component
 		$this->usuario = new User;
 	}
 
-    public function render()
-    {
+	public function render()
+	{
 		if ($this->readyToLoad) {
 			$usuarios = User::where('name', 'like', '%' . $this->busqueda . '%')
 				->orWhere('email', 'like', '%' . $this->busqueda . '%')
@@ -44,15 +46,18 @@ class TablaUsuario extends Component
 			$usuarios = [];
 		}
 
-        return view('livewire.tabla-usuario', compact('usuarios'));
-    }
+		$listaRoles = Role::all();
+
+		return view('livewire.tabla-usuario', compact('usuarios', 'listaRoles'));
+	}
 
 	public function updatingBusqueda()
 	{
 		$this->resetPage();
 	}
 
-	public function updatingCantidad() {
+	public function updatingCantidad()
+	{
 		$this->resetPage();
 	}
 
@@ -75,12 +80,34 @@ class TablaUsuario extends Component
 		}
 	}
 
-	public function destroy(User $usuario) {
+	public function edit(User $usuario)
+	{
+		$this->usuario = $usuario;
+		$this->roles = $this->usuario->roles()->allRelatedIds();
+
+		$this->openEdit = true;
+	}
+
+	public function update()
+	{
+		$this->validate();
+
+		$this->usuario->roles()->sync($this->roles);
+
+		$this->reset(['openEdit', 'roles']);
+
+		$this->emitTo('tabla-usuario', 'render');
+		$this->emit('alert', 'Los roles fueron asignados satisfactoriamente');
+	}
+
+	public function destroy(User $usuario)
+	{
 		$this->usuario = $usuario;
 		$this->openDestroy = true;
 	}
 
-	public function delete() {
+	public function delete()
+	{
 		$this->usuario->delete();
 
 		$this->reset('openDestroy');

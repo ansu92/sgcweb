@@ -6,7 +6,7 @@
 
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-            @livewire('unidad.nueva-unidad')
+            @livewire('admin.unidad.nueva-unidad')
         </div>
 
         @if ($readyToLoad)
@@ -15,7 +15,7 @@
 
                 <div class="grid sm:grid-cols-3 xl:grid-cols-5 gap-3">
                     @foreach ($unidades as $item)
-                        <a href="{{ route('unidad.show', $item) }}">
+                        <a href="{{ route('admin.unidad.show', $item) }}">
                             <x-card-unidad class="h-40">
 
                                 <x-slot name="numero">

@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Gasto;
 use App\Models\Asamblea;
 use App\Models\Gasto;
 use App\Models\GastoExtraordinario;
-use App\Models\Servicio;
+use App\Models\Proveedor;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,6 +21,8 @@ class NuevoGasto extends Component
 	public $moneda = 'Bolívar';
 	public float $monto = 0.00;
 	public $observaciones;
+	public Proveedor $proveedor;
+	public $factura;
 
 	public $servicios = [];
 	public $montos = [];
@@ -51,12 +53,15 @@ class NuevoGasto extends Component
 			'moneda' => 'required',
 			'monto' => 'required|numeric',
 			'observaciones' => 'nullable',
+			'proveedor.id' => 'required|not_in:----',
+			'factura' => 'required',
 			'servicios' => 'min:1',
 			'montos.*' => 'exclude_if:servicios.*,false|required_with:servicios.*|numeric|gt:0',
 		];
 	}
 
 	protected $messages = [
+		'proveedor.id.required' => 'Debe seleccionar un proveedor',
 		'servicios.min' => 'Debe seleccionar al menos un servicio.',
 		'montos.*.required_with' => 'El monto es requerido si ha seleccionado el servicio.',
 	];
@@ -64,15 +69,13 @@ class NuevoGasto extends Component
 	public function mount()
 	{
 		$this->asamblea = new Asamblea;
-
-		foreach ($this->listaServicios as $key => $servicio) {
-			$this->montos[$servicio->id] = '';
-		}
+		$this->proveedor = new Proveedor;
 	}
 
 	public function render()
 	{
 		$asambleas = Asamblea::all();
+		$proveedores = Proveedor::all();
 
 		if ($this->selectAll) {
 			$this->servicios = $this->consultaServicios->pluck('id')->map(fn ($id) => (string)$id);
@@ -80,13 +83,16 @@ class NuevoGasto extends Component
 
 		$listaServicios = $this->readyToLoad ? $this->listaServicios : [];
 
-		return view('livewire.gasto.nuevo-gasto', compact('listaServicios', 'asambleas'));
+		return view('livewire.gasto.nuevo-gasto', compact('listaServicios', 'asambleas', 'proveedores'));
 	}
 
 	public function getConsultaServiciosProperty()
 	{
-		return Servicio::where('nombre', 'LIKE', '%' . $this->busqueda . '%')
-			->orWhere('descripcion', 'LIKE', '%' . $this->busqueda . '%')
+		return $this->proveedor->servicios()
+			->where(function ($query) {
+				$query->where('nombre', 'LIKE', '%' . $this->busqueda . '%')
+					->orWhere('descripcion', 'LIKE', '%' . $this->busqueda . '%');
+			})
 			->orderBy($this->orden, $this->direccion);
 	}
 
@@ -115,6 +121,23 @@ class NuevoGasto extends Component
 		$this->asamblea = $value == '--' ? new Asamblea : Asamblea::find($value);
 	}
 
+	public function updatingProveedor($value)
+	{
+		$this->proveedor = $value == '----' ? new Proveedor : Proveedor::find($value);
+	}
+
+	public function updatedProveedor()
+	{
+		$this->selectAll = false;
+		$this->selectPage = false;
+
+		$this->servicios = [];
+
+		foreach ($this->listaServicios as $key => $servicio) {
+			$this->montos[$servicio->id] = '';
+		}
+	}
+
 	public function updatingServicios()
 	{
 		$this->reset('monto');
@@ -124,12 +147,6 @@ class NuevoGasto extends Component
 	{
 		$this->selectAll = false;
 		$this->selectPage = false;
-
-		foreach ($this->listaServicios as $key => $servicio) {
-			if ($this->montos <= 0) {
-				$this->montos[$servicio->id] = '';
-			}
-		}
 
 		$this->sumarMontos();
 	}
@@ -195,7 +212,10 @@ class NuevoGasto extends Component
 			'mes_cobro' => $this->comienzoCobro,
 			'moneda' => $this->moneda,
 			'monto' => $this->monto,
+			'saldo' => $this->monto,
 			'observaciones' => $this->observaciones,
+			'proveedor_id' => $this->proveedor->id,
+			'factura' => $this->factura,
 		]);
 
 		if ($this->tipo == 'extraordinario') {
@@ -225,6 +245,7 @@ class NuevoGasto extends Component
 			'moneda',
 			'monto',
 			'observaciones',
+			'factura',
 			'servicios',
 			'montos',
 			'selectPage',
@@ -232,6 +253,7 @@ class NuevoGasto extends Component
 		]);
 
 		$this->asamblea = new Asamblea;
+		$this->proveedor = new Proveedor;
 
 		$this->emitTo('gasto.tabla-gasto', 'render');
 		$this->emit('alert', 'El gasto se registró satisfactoriamente');
