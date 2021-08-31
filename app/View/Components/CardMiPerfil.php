@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Integrante;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
@@ -9,6 +10,7 @@ use Illuminate\View\Component;
 class CardMiPerfil extends Component
 {
 	public User $usuario;
+	public Integrante $persona;
     /**
      * Create a new component instance.
      *
@@ -17,7 +19,8 @@ class CardMiPerfil extends Component
     public function __construct()
     {
         $this->usuario = Auth::user();
-		$this->usuario->propietario->loadCount('unidades');
+
+		$this->persona = $this->usuario->propietario ? $this->usuario->propietario->integrante : $this->usuario->administrador->integrante;
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Gasto;
 
 use App\Models\Gasto;
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 use Livewire\WithPagination;
 

@@ -6,7 +6,7 @@
 
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-            @livewire('administrador.nuevo-administrador')
+            @livewire('admin.administrador.nuevo-administrador')
         </div>
 
         <!-- tabla -->
@@ -62,7 +62,7 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap space-x-1 text-xs">
-                                            <a href="{{ route('administrador.show', $item) }}" class="btn btn-blue">
+                                            <a href="{{ route('admin.administrador.show', $item) }}" class="btn btn-blue">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <a class="btn btn-green" wire:click="edit({{ $item }})">

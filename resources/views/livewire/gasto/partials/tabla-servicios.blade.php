@@ -1,5 +1,4 @@
 {{-- <label class="block text-sm font-medium text-gray-700">Servicios</label> --}}
-<x-jet-input-error for="servicios" />
 
 <div class="space-y-4">
     <div class="flex space-x-4 items-center">
@@ -126,7 +125,7 @@
                                             </td>
                                             <td class="px-6 py-4">
                                                 <div class="text-sm font-medium text-gray-900">
-                                                    <input wire:model.lazy="montos.{{ $item->id }}" type="number"
+                                                    <input wire:model.lazy="montos.{{ $item->id }}" type="text"
                                                         class="form-control w-36">
                                                     <x-jet-input-error for="montos.{{ $item->id }}" />
                                                 </div>

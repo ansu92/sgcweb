@@ -30,8 +30,6 @@ class DatabaseSeeder extends Seeder
 		// \App\Models\User::factory(10)->create();
 
 		$this->call(RoleSeeder::class);
-		$this->call(UserSeeder::class);
-
 		$this->call(BancoSeeder::class);
 
 		Banco::factory(6)->create();
@@ -74,5 +72,7 @@ class DatabaseSeeder extends Seeder
 		Administrador::factory(20)
 			->has(Comunicado::factory(4))
 			->create();
+
+		$this->call(UserSeeder::class);
 	}
 }

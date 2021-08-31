@@ -17,7 +17,7 @@ class CreateComunicadosTable extends Migration
             $table->id();
             $table->string('asunto', 45);
             $table->text('contenido');
-            $table->foreignId('administrador_id');
+            $table->foreignId('administrador_id')->nullable();
             $table->timestamps();
         });
     }

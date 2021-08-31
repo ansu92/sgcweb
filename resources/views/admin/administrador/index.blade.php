@@ -10,7 +10,7 @@
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
 				<div class="p-4">
-					@livewire('administrador.tabla-administrador')
+					@livewire('admin.administrador.tabla-administrador')
 				</div>
 
 			</div>

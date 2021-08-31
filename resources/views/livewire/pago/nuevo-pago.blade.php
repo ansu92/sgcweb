@@ -1,10 +1,17 @@
 <div>
 
-    <div>
-        <h1 class="text-lg">Seleccione el gasto a pagar...</h1>
+    <div class="w-full flex justify-end gap-4">
+
+        <a href="{{route('pago.index')}}" class="w-full">
+            <button class="btn btn-blue w-full h-20 text-2xl">Lista de pagos</button>
+        </a>
+
+        {{-- <button class="btn btn-blue w-44 h-20">Pagar gasto</button> --}}
     </div>
 
-    <div class="py-4">
+    <div class="py-6 space-y-2">
+        <h1 class="text-lg self-end">Seleccione el gasto a pagar...</h1>
+
         @include('livewire.pago.partials.tabla-gastos')
     </div>
 
@@ -26,7 +33,7 @@
                                 <label for="gasto" class="block text-sm font-medium text-gray-700">
                                     Gasto:
                                 </label>
-                                <input wire:model="gasto.descripcion" type="text" name="gasto" id="gasto" readonly
+                                <input type="text" name="gasto" id="gasto" readonly value="{{ $gasto->descripcion }}"
                                     class="form-control w-full">
                             </div>
 
@@ -34,8 +41,8 @@
                                 <label for="monto-por-pagar" class="block text-sm font-medium text-gray-700">
                                     Monto restante por pagar:
                                 </label>
-                                <input wire:model="gasto.saldo" type="text" name="monto-por-pagar" id="monto-por-pagar"
-                                    readonly class="form-control w-full">
+                                <input type="text" name="monto-por-pagar" id="monto-por-pagar" readonly
+                                    value="{{ $montoFormateado }}" class="form-control w-full">
                             </div>
 
                             @if ($gasto->moneda != $moneda && $this->tasaCambio)
@@ -45,7 +52,8 @@
                                         Monto restante por pagar (convertido):
                                     </label>
                                     <input type="text" name="monto-por-pagar-convertido" id="monto-por-pagar-convertido"
-                                        value="{{ $montoConvertido }}" readonly class="form-control w-full">
+                                        value="{{ $montoGastoConvertidoFormateado }}" readonly
+                                        class="form-control w-full">
                                 </div>
                             @endif
 
@@ -53,7 +61,7 @@
                                 <label for="descripcion" class="block text-sm font-medium text-gray-700">
                                     Descripción:
                                 </label>
-                                <input wire:model.defer="descripcion" type="text" name="descripcion" id="descripcion"
+                                <input wire:model.lazy="descripcion" type="text" name="descripcion" id="descripcion"
                                     class="form-control w-full">
                                 <x-jet-input-error for="descripcion" />
                             </div>
@@ -102,7 +110,7 @@
                                     Fondo:
                                 </label>
                                 <select wire:model="fondo.id" name="fondo" id="fondo" class="form-control w-full">
-                                    <option>----</option>
+                                    <option value="0">----</option>
 
                                     @foreach ($fondos as $item)
                                         <option value="{{ $item->id }}">{{ $item->descripcion }} -
@@ -114,13 +122,18 @@
                                 <x-jet-input-error for="fondo.id" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-3">
+                            <div class="col-span-6 sm:col-span-2">
                                 <label for="monto" class="block text-sm font-medium text-gray-700">
                                     Monto:
                                 </label>
                                 <input wire:model="monto" type="text" name="monto" id="monto"
                                     class="form-control w-full">
                                 <x-jet-input-error for="monto" />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-1">
+                                <input wire:click="pagarTotal" wire:loading.attr="disabled" type="button"
+                                    value="Monto total" class="btn btn-blue text-xs h-14 disabled:bg-opacity-25">
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
@@ -160,6 +173,8 @@
                                 </div>
                             @endif
 
+                            <x-jet-input-error for="referencia" />
+                            <x-jet-input-error for="tasaCambio" />
                         </div>
                     </div>
                 </div>

@@ -69,8 +69,8 @@
                                 <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de cuenta:</label>
                                 <select id="tipo" name="tipo" class="form-control w-full" wire:model="tipo">
                                     <option value="0"> -- </option>
-                                    <option value="ahorro">Ahorro</option>
-                                    <option value="corriente">Corriente</option>
+                                    <option>Ahorro</option>
+                                    <option>Corriente</option>
                                 </select>
                                 <x-jet-input-error for="tipo" />
                             </div>

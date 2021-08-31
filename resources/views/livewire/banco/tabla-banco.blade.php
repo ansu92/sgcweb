@@ -8,7 +8,7 @@
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
             @can('banco.create')
-                @livewire('admin.banco.nuevo-banco')
+                @livewire('banco.nuevo-banco')
             @endcan
 
         </div>
@@ -57,19 +57,19 @@
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-right text-xs space-x-1 font-medium">
 
-                                                    @can('admin.banco.show')
+                                                    @can('banco.show')
                                                         <a class="btn btn-blue" href="{{ route('banco.show', $item) }}">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     @endcan
 
-                                                    @can('admin.banco.edit')
+                                                    @can('banco.edit')
                                                         <a class="btn btn-green" wire:click="edit({{ $item }})">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     @endcan
 
-                                                    @can('admin.banco.delete')
+                                                    @can('banco.delete')
                                                         <a class="btn btn-red" wire:click="destroy({{ $item }})">
                                                             <i class="fas fa-trash"></i>
                                                         </a>

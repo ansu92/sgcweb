@@ -6,7 +6,7 @@
 
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
-            Nuevo integrante
+            Nuevo administrador
         </x-slot>
 
         <x-slot name="content">

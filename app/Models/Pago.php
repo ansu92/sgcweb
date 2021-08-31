@@ -32,23 +32,21 @@ class Pago extends Model
 		return $this->belongsTo(Fondo::class);
 	}
 
-	public function pagarGasto()
+	public function pagarGasto(bool $conCambio)
 	{
-		if ($this->moneda == $this->gasto->moneda) {
-			$this->gasto->saldo = $this->gasto->saldo - $this->monto;
-			$this->fondo->saldo = $this->fondo->saldo - $this->monto;
-		} else {
+		$this->fondo->debitar($this->monto);
 
+		if ($conCambio) {
 			if ($this->moneda == 'Bolívar') {
-				$montoConvertido = $this->monto / $this->tasaCambio;
+				$montoConvertido = $this->monto / $this->tasa_cambio;
 			} else if ($this->moneda == 'Dólar') {
-				$montoConvertido = $this->monto * $this->tasaCambio;
+				$montoConvertido = $this->monto * $this->tasa_cambio;
 			}
 
-			$this->gasto->saldo -= $montoConvertido;
-			$this->fondo->saldo -= $this->monto;
-		}
+			$this->gasto->pagar($montoConvertido);
+		} else {
 
-		$this->push();
+			$this->gasto->pagar($this->monto);
+		}
 	}
 }

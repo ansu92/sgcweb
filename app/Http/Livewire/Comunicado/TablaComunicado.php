@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Comunicado;
 
 use App\Models\Comunicado;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -32,7 +33,7 @@ class TablaComunicado extends Component
 	public function render()
 	{
 		$comunicados = $this->readyToLoad ?
-			Comunicado::where('asunto', 'like', '%' . $this->busqueda . '%')
+			Auth::user()->administrador->comunicados()->where('asunto', 'like', '%' . $this->busqueda . '%')
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad)
 			: [];

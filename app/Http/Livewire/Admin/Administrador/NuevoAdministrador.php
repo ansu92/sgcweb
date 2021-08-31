@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Administrador;
+namespace App\Http\Livewire\Admin\Administrador;
 
 use App\Models\Administrador;
 use App\Models\Integrante;
@@ -10,7 +10,7 @@ class NuevoAdministrador extends Component
 {
 	public $open = false;
 
-	public $letra = 'V', $documento, $nombre, $segundoNombre = null, $apellido, $segundoApellido = null, $telefono = null, $email = null, $rol;
+	public $letra = 'V', $documento, $nombre, $segundoNombre = null, $apellido, $segundoApellido = null, $telefono = null, $email, $rol;
 
 	protected $rules = [
 		'letra' => 'required',
@@ -20,13 +20,13 @@ class NuevoAdministrador extends Component
 		'apellido' => 'required|alpha|max:20',
 		'segundoApellido' => 'nullable|alpha|max:20',
 		'telefono' => 'nullable|regex:/\d{4}-\d{7}/',
-		'email' => 'nullable|email|max:45',
+		'email' => 'required|email|max:45|unique:integrantes',
 		'rol' => 'required',
 	];
 
 	public function render()
 	{
-		return view('livewire.administrador.nuevo-administrador');
+		return view('livewire.admin.administrador.nuevo-administrador');
 	}
 
 	public function updated($propertyName)

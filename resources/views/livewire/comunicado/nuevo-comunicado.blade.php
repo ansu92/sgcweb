@@ -27,7 +27,7 @@
                             <div class="col-span-6">
                                 <label for="contenido"
                                     class="block text-sm font-medium text-gray-700">Contenido</label>
-                                <textarea wire:model.lazy="contenido" name="contenido" id="contenido" class="mt-1 w-full form-control"></textarea>
+                                <textarea wire:model.lazy="contenido" name="contenido" id="contenido" rows="15" class="mt-1 w-full form-control"></textarea>
                                 <x-jet-input-error for="contenido" />
                             </div>
                         </div>

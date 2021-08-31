@@ -3,7 +3,7 @@
     <div class="col-span-3 grid grid-cols-5 p-4 gap-4">
         @for ($i = 0; $i < 5; $i++)
             <div class="h-full">
-                <a href="{{route('pago.index')}}">
+                <a href="{{ route('pago.index') }}">
                     <x-card-acceso-directo nombre="Pagar" class="border h-full" />
                 </a>
             </div>
@@ -11,7 +11,9 @@
 
         <div class="col-span-5 row-span-3 flex flex-col gap-4">
             @foreach ($comunicados as $item)
-                <x-card-comunicado :comunicado="$item" class="border" />
+                <a href="{{ route('comunicado.show', $item) }}">
+                    <x-card-comunicado :comunicado="$item" class="border" />
+                </a>
             @endforeach
         </div>
     </div>
@@ -22,10 +24,12 @@
                 <x-card-mi-perfil class="h-full border" />
             </a>
         </div>
-        <div class="h-full">
-            <a href="{{ route('unidad.show', Auth::user()->propietario->unidades->first()) }}">
-                <x-card-mi-unidad class="h-full border" />
-            </a>
-        </div>
+        @if (Auth::user()->propietario)
+            <div class="h-full">
+                <a href="{{ route('unidad.show', Auth::user()->propietario->unidades->first()) }}">
+                    <x-card-mi-unidad class="h-full border" />
+                </a>
+            </div>
+        @endif
     </div>
 </div>

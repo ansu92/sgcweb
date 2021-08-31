@@ -18,11 +18,11 @@ class CreatePagosGastosTable extends Migration
             $table->string('descripcion');
             $table->decimal('monto', 12);
             $table->date('fecha');
-            $table->string('recibo');
+            $table->string('recibo')->unique();
             $table->string('referencia')->nullable();
 			$table->enum('forma_pago', ['Efectivo', 'Transferencia', 'Depósito', 'Pago móvil', 'Cheque', 'Punto de venta']);
 			$table->enum('moneda', ['Bolívar', 'Dólar',]);
-			$table->decimal('tasa_cambio')->nullable();
+			$table->decimal('tasa_cambio', 12)->nullable();
             $table->foreignId('gasto_id')->nullable();
             $table->foreignId('fondo_id')->nullable();
             $table->timestamps();

@@ -151,6 +151,7 @@
                                     @endforeach
                                 </select>
                                 <x-jet-input-error for="proveedor.id" />
+								<x-jet-input-error for="servicios" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
@@ -164,9 +165,11 @@
 
                         </div>
 
-                        <div class="py-4">
-                            @include('livewire.gasto.partials.tabla-servicios')
-                        </div>
+                        @if ($this->proveedor->id)
+                            <div class="py-4">
+                                @include('livewire.gasto.partials.tabla-servicios')
+                            </div>
+                        @endif
 
                     </div>
                 </div>

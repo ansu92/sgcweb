@@ -49,21 +49,24 @@ class NuevoGasto extends Component
 			'numeroMeses' => 'required_if:tipo,extraordinario',
 			'asamblea.id' => 'exclude_if:tipo,ordinario|required_if:elegidoAsamblea,si',
 			'calculo' => 'required|not_in:--',
-			'comienzoCobro' => 'required',
+			'comienzoCobro' => 'required|date|after:last month',
 			'moneda' => 'required',
 			'monto' => 'required|numeric',
 			'observaciones' => 'nullable',
-			'proveedor.id' => 'required|not_in:----',
+			'proveedor.id' => 'required|not_in:0',
 			'factura' => 'required',
-			'servicios' => 'min:1',
+			'servicios' => 'exclude_if:proveedor.id,0|min:1',
 			'montos.*' => 'exclude_if:servicios.*,false|required_with:servicios.*|numeric|gt:0',
 		];
 	}
 
 	protected $messages = [
-		'proveedor.id.required' => 'Debe seleccionar un proveedor',
+		'comienzoCobro.after' => 'El comienzo de cobro no puede ser un mes anterior al actual.',
+		'proveedor.id.required' => 'Debe seleccionar un proveedor.',
+		'proveedor.id.not_in' => 'Debe seleccionar un proveedor.',
 		'servicios.min' => 'Debe seleccionar al menos un servicio.',
 		'montos.*.required_with' => 'El monto es requerido si ha seleccionado el servicio.',
+		'montos.*.gt' => 'El monto debe ser mayor que 0.',
 	];
 
 	public function mount()

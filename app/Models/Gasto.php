@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gasto extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
 	protected $fillable = [
 		'descripcion',
@@ -21,15 +21,29 @@ class Gasto extends Model
 		'proveedor_id',
 	];
 
-	public function proveedor() {
+	public function proveedor()
+	{
 		return $this->belongsTo(Proveedor::class);
 	}
 
-	public function extraordinario() {
+	public function extraordinario()
+	{
 		return $this->hasOne(GastoExtraordinario::class);
 	}
 
-    public function servicios() {
-        return $this->belongsToMany(Servicio::class)->withPivot('monto')->withTimestamps();
-    }
+	public function servicios()
+	{
+		return $this->belongsToMany(Servicio::class)->withPivot('monto')->withTimestamps();
+	}
+
+	public function pagar(float $monto)
+	{
+		$this->saldo -= $monto;
+
+		if ($this->saldo == 0) {
+			$this->estado = 'Pagado';
+		}
+
+		$this->save();
+	}
 }

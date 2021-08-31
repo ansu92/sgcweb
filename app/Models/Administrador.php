@@ -13,7 +13,11 @@ class Administrador extends Integrante
 
 	protected $table = 'administradores';
 
-	protected $fillable = ['rol'];
+	protected $fillable = [
+		'rol',
+		'integrante_id',
+		'user_id',
+	];
 
 	/**
 	 * Las relaciones que siempre deberían cargarse.
@@ -22,6 +26,22 @@ class Administrador extends Integrante
 	 */
 	protected $with = ['integrante'];
 
+	protected static function booted()
+	{
+		static::creating(function ($administrador) {
+			if (!\App::runningInConsole()) {
+				$persona = $administrador->integrante;
+
+				$usuario = User::create([
+					'name' => $persona->nombre . ' ' . $persona->apellido,
+					'email' => $persona->email,
+					'password' => bcrypt($persona->email),
+				]);
+
+				$administrador->user()->associate($usuario);
+			}
+		});
+	}
 
 	public function integrante()
 	{

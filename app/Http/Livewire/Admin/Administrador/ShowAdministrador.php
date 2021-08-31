@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Administrador;
+namespace App\Http\Livewire\Admin\Administrador;
 
 use App\Models\Administrador;
 use Livewire\Component;
@@ -11,6 +11,6 @@ class ShowAdministrador extends Component
 	
     public function render()
     {
-        return view('livewire.administrador.show-administrador');
+        return view('livewire.admin.administrador.show-administrador');
     }
 }

@@ -20,29 +20,38 @@
                             <div class="col-span-6">
                                 <label for="descripcion"
                                     class="block text-sm font-medium text-gray-700">Descripción:</label>
-                                <input type="text" name="descripcion" id="descripcion"
-                                    class="form-control w-full"
+                                <input type="text" name="descripcion" id="descripcion" class="form-control w-full"
                                     wire:model="descripcion">
                                 <x-jet-input-error for="descripcion" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="saldo-inicial"
-                                    class="block text-sm font-medium text-gray-700">Saldo inicial:</label>
-                                <input type="number" name="saldo-inicial" id="saldo-inicial"
-                                    class="form-control w-full"
+                                <label for="saldo-inicial" class="block text-sm font-medium text-gray-700">Saldo
+                                    inicial:</label>
+                                <input type="number" name="saldo-inicial" id="saldo-inicial" class="form-control w-full"
                                     wire:model="saldoInicial">
                                 <x-jet-input-error for="saldoInicial" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="moneda"
-                                    class="block text-sm font-medium text-gray-700">Moneda:</label>
+                                <label for="moneda" class="block text-sm font-medium text-gray-700">Moneda:</label>
                                 <select name="moneda" id="moneda" class="form-control w-full" wire:model="moneda">
-									<option>Bolívar</option>
-									<option>Dólar</option>
-								</select>
+                                    <option>Bolívar</option>
+                                    <option>Dólar</option>
+                                </select>
                                 <x-jet-input-error for="moneda" />
+                            </div>
+
+                            <div class="col-span-6">
+                                <label for="cuenta" class="block text-sm font-medium text-gray-700">Cuenta afiliada:</label>
+                                <select wire:model="cuenta.id" name="cuenta" id="cuenta" class="form-control w-full">
+                                    <option>----</option>
+                                    @foreach ($cuentas as $item)
+                                        <option value="{{ $item->id }}">{{ $item->numero }} - {{ $item->banco->nombre }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <x-jet-input-error for="cuenta.id" />
                             </div>
 
                         </div>

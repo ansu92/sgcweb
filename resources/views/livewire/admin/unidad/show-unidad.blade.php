@@ -28,7 +28,7 @@
         </dl>
     </div>
 
-    <div class="border rounded-md shadow-md my-2 mx-4">
+    <div class="border rounded-md shadow-md m-4">
 
         @if (count($unidad->integrantes))
             {{-- <div class="border rounded-md shadow-md my-2"> --}}

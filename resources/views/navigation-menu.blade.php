@@ -7,8 +7,13 @@ $nav_links = [
     ],
     [
         'name' => 'Pagos',
-        'route' => route('admin.pago.index'),
-        'active' => request()->routeIs('admin.pago.index'),
+        'route' => route('pago.create'),
+        'active' => request()->routeIs('pago.create'),
+    ],
+    [
+        'name' => 'Cobros',
+        'route' => route('pago.create'),
+        'active' => request()->routeIs('pago.create'),
     ],
     [
         'name' => 'Gastos',
@@ -24,6 +29,11 @@ $nav_links = [
         'name' => 'Asambleas',
         'route' => route('asamblea.index'),
         'active' => request()->routeIs('asamblea.index'),
+    ],
+    [
+        'name' => 'Proveedores',
+        'route' => route('proveedor.index'),
+        'active' => request()->routeIs('proveedor.index'),
     ],
 ];
 @endphp
@@ -146,7 +156,7 @@ $nav_links = [
 
                             <x-slot name="content">
 
-                                @can('configuracion')
+                                @can('admin.configuracion')
                                     <x-jet-dropdown-link href="{{ route('admin.configuracion') }}">
                                         {{-- <i class="fa fas-settings"></i> --}}
                                         {{ __('Configuración') }}

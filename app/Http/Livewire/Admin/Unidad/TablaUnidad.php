@@ -37,7 +37,8 @@ class TablaUnidad extends Component
 	public function render()
 	{
 		if ($this->readyToLoad) {
-			$unidades = Unidad::select()
+			$unidades = Unidad::where('numero', 'LIKE', '%'.$this->busqueda.'%')
+				->orWhere('direccion', 'LIKE', '%'.$this->busqueda.'%')
 				->orderBy($this->orden, $this->direccion)
 				->paginate($this->cantidad);
 		} else {

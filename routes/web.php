@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\CtrAdministrador;
 use App\Http\Controllers\CtrAsamblea;
+use App\Http\Controllers\CtrBanco;
+use App\Http\Controllers\CtrCategoria;
 use App\Http\Controllers\CtrComunicado;
 use App\Http\Controllers\CtrCuenta;
 use App\Http\Controllers\CtrFondo;
@@ -10,6 +11,8 @@ use App\Http\Controllers\CtrInicio;
 use App\Http\Controllers\CtrIntegrante;
 use App\Http\Controllers\CtrPago;
 use App\Http\Controllers\CtrProveedor;
+use App\Http\Controllers\CtrServicio;
+use App\Http\Controllers\CtrTipoUnidad;
 use App\Http\Controllers\CtrUnidad;
 use App\Http\Controllers\CtrVisita;
 use Illuminate\Support\Facades\Route;
@@ -31,38 +34,38 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('proveedor', [CtrProveedor::class, 'index'])->name('proveedor.index');
+Route::get('asamblea', [CtrAsamblea::class, 'index'])->name('asamblea.index');
 
-Route::get('proveedor/{proveedor}', [CtrProveedor::class, 'show'])->name('proveedor.show');
+Route::get('asamblea/{asamblea}', [CtrAsamblea::class, 'show'])->name('asamblea.show');
 
-Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->name('integrante.show');
+Route::resource('banco', CtrBanco::class)->only(['index', 'show'])->names('banco');
+
+Route::get('categoria', [CtrCategoria::class, 'index'])->name('categoria.index');
+
+Route::get('categoria/{categoria}', [CtrCategoria::class, 'show'])->name('categoria.show');
+
+Route::resource('comunicado', CtrComunicado::class)->only('index', 'show')->names('comunicado');
 
 Route::get('cuenta', [CtrCuenta::class, 'index'])->name('cuenta.index');
 
 Route::get('cuenta/{cuenta}', [CtrCuenta::class, 'show'])->name('cuenta.show');
 
-Route::get('fondo', [CtrFondo::class, 'index'])->name('fondo.index');
+Route::resource('fondo', CtrFondo::class)->only(['index', 'show'])->names('fondo');
 
-Route::get('fondo/{fondo}', [CtrFondo::class, 'show'])->name('fondo.show');
+Route::resource('gasto', CtrGasto::class)->only(['index', 'show'])->names('gasto');
 
-Route::get('asamblea', [CtrAsamblea::class, 'index'])->name('asamblea.index');
+Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->name('integrante.show');
 
-Route::get('asamblea/{asamblea}', [CtrAsamblea::class, 'show'])->name('asamblea.show');
+Route::resource('pago', CtrPago::class)->only(['index', 'create', 'show'])->names('pago');
 
-Route::get('gasto', [CtrGasto::class, 'index'])->name('gasto.index');
+Route::resource('proveedor', CtrProveedor::class)->only(['index', 'show'])->names('proveedor');
 
-Route::get('gasto/{gasto}', [CtrGasto::class, 'show'])->name('gasto.show');
+Route::resource('servicio', CtrServicio::class)->only(['index', 'show'])->names('servicio');
+
+Route::resource('tipo-unidad', CtrTipoUnidad::class)->only(['index', 'show'])->names('tipo-unidad');
 
 Route::get('visita', [CtrVisita::class, 'index'])->name('visita.index');
 
 Route::get('visita/{visita}', [CtrVisita::class, 'show'])->name('visita.show');
-
-Route::get('administrador', [CtrAdministrador::class, 'index'])->name('administrador.index');
-
-Route::get('administrador/{administrador}', [CtrAdministrador::class, 'show'])->name('administrador.show');
-
-Route::get('comunicado', [CtrComunicado::class, 'index'])->name('comunicado.index');
-
-Route::get('comunicado/{comunicado}', [CtrComunicado::class, 'comunicado.show'])->name('comunicado.show');
 
 Route::get('unidad/{unidad}', CtrUnidad::class)->name('unidad.show');

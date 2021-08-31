@@ -17,7 +17,7 @@ class CreateAdministradoresTable extends Migration
             $table->id();
 			$table->string('rol');
             $table->foreignId('integrante_id');
-			$table->foreignId('usuario_id');
+			$table->foreignId('user_id');
             $table->timestamps();
 			$table->softDeletes();
         });

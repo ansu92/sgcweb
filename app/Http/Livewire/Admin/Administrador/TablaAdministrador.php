@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Administrador;
+namespace App\Http\Livewire\Admin\Administrador;
 
 use App\Models\Administrador;
 use App\Models\Integrante;
@@ -44,7 +44,7 @@ class TablaAdministrador extends Component
 	{
 		$administradores = $this->readyToLoad ? Administrador::all() : [];
 
-		return view('livewire.administrador.tabla-administrador', compact('administradores'));
+		return view('livewire.admin.administrador.tabla-administrador', compact('administradores'));
 	}
 
 	public function updated($propertyName)

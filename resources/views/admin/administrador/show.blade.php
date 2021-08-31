@@ -8,7 +8,7 @@
     <div class="py-12 ">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
             <div>
-                @livewire('administrador.show-administrador', ['administrador' => $administrador])
+                @livewire('admin.administrador.show-administrador', ['administrador' => $administrador])
             </div>
         </div>
     </div>

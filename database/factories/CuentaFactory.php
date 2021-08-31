@@ -27,7 +27,7 @@ class CuentaFactory extends Factory
             'tipo' => $this->faker->randomElement(['Corriente', 'Ahorro']),
             'beneficiario' => 'Condominio',
             'documento' => $this->faker->numerify('V-########-#'),
-            'banco_id' => $this->faker->unique()->randomElement(Banco::all('id')),
+            'banco_id' => Banco::all('id')->random(),
         ];
     }
 }

@@ -19,12 +19,18 @@ class Integrante extends Model
 		'apellido',
 		's_apellido',
 		'telefono',
+		'email',
 		'unidad_id',
 	];
 
 	public function propietario()
 	{
 		return $this->hasOne(Propietario::class);
+	}
+
+	public function administrador()
+	{
+		return $this->hasOne(Administrador::class);
 	}
 
 	public function unidad()

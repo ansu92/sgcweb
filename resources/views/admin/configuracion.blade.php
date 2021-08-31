@@ -5,21 +5,17 @@ $modulos = [
         'route' => route('admin.banco.index'),
     ],
     [
-        'name' => 'Categoría',
-        'route' => route('admin.categoria.index'),
+        'name' => 'Cuenta',
+        'route' => route('admin.cuenta.index'),
     ],
     [
-        'name' => 'Fondo',
-        'route' => route('fondo.index'),
+        'name' => 'Categoría',
+        'route' => route('admin.categoria.index'),
     ],
     // [
     //     'name' => 'Permisos',
     //     'route' => route('proveedor.index'),
     // ],
-    [
-        'name' => 'Proveedor',
-        'route' => route('proveedor.index'),
-    ],
     // [
     //     'name' => 'Roles',
     //     'route' => route('servicio.index'),
