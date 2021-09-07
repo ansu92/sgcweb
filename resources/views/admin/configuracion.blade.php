@@ -2,15 +2,15 @@
 $modulos = [
     [
         'name' => 'Banco',
-        'route' => route('admin.banco.index'),
+        'route' => route('banco.index'),
     ],
     [
         'name' => 'Cuenta',
-        'route' => route('admin.cuenta.index'),
+        'route' => route('cuenta.index'),
     ],
     [
         'name' => 'Categoría',
-        'route' => route('admin.categoria.index'),
+        'route' => route('categoria.index'),
     ],
     // [
     //     'name' => 'Permisos',
@@ -22,11 +22,11 @@ $modulos = [
     // ],
     [
         'name' => 'Servicio',
-        'route' => route('admin.servicio.index'),
+        'route' => route('servicio.index'),
     ],
     [
         'name' => 'Tipo de Unidad',
-        'route' => route('admin.tipo-unidad.index'),
+        'route' => route('tipo-unidad.index'),
     ],
     [
         'name' => 'Unidad',

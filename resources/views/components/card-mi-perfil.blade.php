@@ -5,7 +5,7 @@
 
     {{-- Imagen --}}
     <div>
-        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"
+        <img src="img/mob.png" alt="{{ Auth::user()->name }}"
             class="max-h-80 h-full w-full object-scale-down" />
     </div>
 
