@@ -22,6 +22,8 @@ class PropietarioFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+			'documento' => $this->faker->unique()->numerify('####################'),
+		];
     }
 }

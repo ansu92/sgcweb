@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFondosTable extends Migration
+class CreateFacturasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateFondosTable extends Migration
      */
     public function up()
     {
-        Schema::create('fondos', function (Blueprint $table) {
+        Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->decimal('saldo', 12)->default(0);
-            $table->enum('moneda', ['Bolívar', 'Dólar']);
-			$table->foreignId('cuenta_id')->nullable();
+			$table->decimal('monto', 12);
+			$table->decimal('monto_por_pagar', 12);
+			$table->enum('moneda', ['Bolívar', 'Dólar']);
+			$table->date('fecha');
+			$table->foreignId('gasto_id');
+			$table->foreignId('unidad_id');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateFondosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fondos');
+        Schema::dropIfExists('facturas');
     }
 }

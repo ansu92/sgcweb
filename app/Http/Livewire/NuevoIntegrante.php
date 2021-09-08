@@ -37,7 +37,8 @@ class NuevoIntegrante extends Component
         $this->validate();
 
         Integrante::create([
-            'documento' => $this->letra.'-'.$this->documento,
+			'letra' => $this->letra,
+            'documento' => $this->documento,
             'nombre' => $this->nombre,
             's_nombre' => $this->segundoNombre,
             'apellido' => $this->apellido,
@@ -60,7 +61,7 @@ class NuevoIntegrante extends Component
             'email',
         ]);
 
-        $this->emitTo('show-unidad', 'render');
+        $this->emitTo('unidad.show-unidad', 'render');
         $this->emit('alert', 'El integrante se añadió satisfactoriamente');
     }
 

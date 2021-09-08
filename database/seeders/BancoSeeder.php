@@ -24,6 +24,7 @@ class BancoSeeder extends Seeder
 			'Banesco',
 			'Bancaribe',
 			'Banco Nacional de Crédito',
+			'Bancamiga',
 		] as $nombre) {
 			Banco::create([
 				'nombre' => $nombre,

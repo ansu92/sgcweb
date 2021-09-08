@@ -10,7 +10,6 @@ class Unidad extends Model
     use HasFactory;
 
     protected $fillable = ['numero', 'direccion', 'tipo_unidad_id', 'propietario_id'];
-
     protected $table = 'unidades';
 
 	public function getRouteKeyName()
@@ -33,4 +32,8 @@ class Unidad extends Model
     public function propietario() {
         return $this->belongsTo(Propietario::class);
     }
+
+	public function factura() {
+		return $this->hasMany(Factura::class);
+	}
 }

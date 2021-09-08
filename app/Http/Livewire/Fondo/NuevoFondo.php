@@ -17,11 +17,11 @@ class NuevoFondo extends Component
 		'descripcion' => 'required|max:255',
 		'saldoInicial' => 'nullable|numeric',
 		'moneda' => 'required',
-		'cuenta.id' => 'required',
+		'cuenta.id' => 'nullable',
 	];
 
 	protected $messages = [
-		'cuenta.id.required' => 'Debe seleccionar una cuenta.',
+		// 'cuenta.id.required' => 'Debe seleccionar una cuenta.',
 	];
 
 	public function mount() {

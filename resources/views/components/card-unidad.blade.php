@@ -9,6 +9,8 @@
         <div>
             @if ($unidad->propietario)
                 <span class="text-xs">Propietario: </span>{{ $propietario->nombre }} {{$propietario->apellido}}
+			@else
+				<span class="text-red-500">Sin propietario</span>
             @endif
         </div>
         <div>

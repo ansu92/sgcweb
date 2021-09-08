@@ -7,7 +7,6 @@ use App\Models\Propietario;
 use App\Models\Unidad;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -31,12 +30,14 @@ class UserSeeder extends Seeder
 			'password' => bcrypt('645362'),
 		])->create()->assignRole('Administrador');
 
-		$propietario = Propietario::create([
+		$propietario = Propietario::factory()->create([
 			'integrante_id' => $integrante->id,
 			'user_id' => $usuario->id,
 		]);
 
-		Unidad::factory()->create()->propietario()->associate($propietario)->save();
+		$unidad = Unidad::factory()->create();
+		$unidad->propietario()->associate($propietario)->save();
+		$integrante->unidad()->associate($unidad)->save();
 
 		$integrante = Integrante::factory([
 			'nombre' => 'Anthony',
@@ -50,11 +51,13 @@ class UserSeeder extends Seeder
 			'password' => bcrypt('password'),
 		])->create()->assignRole('Administrador');
 
-		$propietario = Propietario::create([
+		$propietario = Propietario::factory()->create([
 			'integrante_id' => $integrante->id,
 			'user_id' => $usuario->id,
 		]);
 
-		Unidad::factory()->create()->propietario()->associate($propietario)->save();
+		$unidad = Unidad::factory()->create();
+		$unidad->propietario()->associate($propietario)->save();
+		$integrante->unidad()->associate($unidad);
 	}
 }

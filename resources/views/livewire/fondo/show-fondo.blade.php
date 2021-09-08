@@ -98,7 +98,7 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
-                                                    <a href="{{ route('admin.pago.show', $item) }}"
+                                                    <a href="{{ route('pago.show', $item) }}"
                                                         class="btn btn-blue">
                                                         <i class="fas fa-eye"></i>
                                                     </a>

@@ -15,16 +15,18 @@ class CreateVisitasTable extends Migration
     {
         Schema::create('visitas', function (Blueprint $table) {
             $table->id();
-            $table->string('ci', 12);
+			$table->enum('letra', ['V', 'E']);
+            $table->string('ci', 8);
             $table->string('nombre', 45);
             $table->string('apellido', 45);
-            $table->timestamp('fecha_hora');
-            $table->string('matricula')->nullable();
-            $table->string('marca')->nullable();
-            $table->string('modelo')->nullable();
-            $table->string('color')->nullable();
-            $table->integer('num_personas')->nullable();
             $table->foreignId('unidad_id');
+            $table->integer('numero_personas')->nullable();
+            $table->timestamp('fecha_hora_entrada')->default(now());
+            $table->timestamp('fecha_hora_salida')->nullable();
+            $table->string('matricula', 7)->nullable();
+            $table->string('marca', 25)->nullable();
+            $table->string('modelo', 25)->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

@@ -12,6 +12,7 @@ class ShowUnidad extends Component
 
 	// public Integrante $integrante;
 
+	public $openAsignar = false;
 	// public $openDestroy = false;
 
 	protected $listeners = ['render'];

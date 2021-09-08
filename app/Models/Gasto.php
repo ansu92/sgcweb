@@ -36,6 +36,10 @@ class Gasto extends Model
 		return $this->belongsToMany(Servicio::class)->withPivot('monto')->withTimestamps();
 	}
 
+	public function factura() {
+		return $this->hasMany(Factura::class);
+	}
+
 	public function pagar(float $monto)
 	{
 		$this->saldo -= $monto;

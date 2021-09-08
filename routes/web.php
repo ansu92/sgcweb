@@ -3,6 +3,7 @@
 use App\Http\Controllers\CtrAsamblea;
 use App\Http\Controllers\CtrBanco;
 use App\Http\Controllers\CtrCategoria;
+use App\Http\Controllers\CtrCierreMes;
 use App\Http\Controllers\CtrComunicado;
 use App\Http\Controllers\CtrCuenta;
 use App\Http\Controllers\CtrFondo;
@@ -44,6 +45,8 @@ Route::get('categoria', [CtrCategoria::class, 'index'])->name('categoria.index')
 
 Route::get('categoria/{categoria}', [CtrCategoria::class, 'show'])->name('categoria.show');
 
+Route::get('cierre-de-mes', CtrCierreMes::class)->name('cierre-mes.index');
+
 Route::resource('comunicado', CtrComunicado::class)->only('index', 'show')->names('comunicado');
 
 Route::get('cuenta', [CtrCuenta::class, 'index'])->name('cuenta.index');
@@ -56,7 +59,9 @@ Route::resource('gasto', CtrGasto::class)->only(['index', 'show'])->names('gasto
 
 Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->name('integrante.show');
 
-Route::resource('pago', CtrPago::class)->only(['index', 'create', 'show'])->names('pago');
+Route::resource('pago-condominio', CtrPago::class)->only(['index', 'create', 'show'])->names('pago');
+
+Route::resource('pago-propietario', CtrPagoPropietario::class)->only(['index', 'show'])->names('pago-propietario');
 
 Route::resource('proveedor', CtrProveedor::class)->only(['index', 'show'])->names('proveedor');
 

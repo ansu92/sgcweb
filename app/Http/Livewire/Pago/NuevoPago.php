@@ -52,7 +52,7 @@ class NuevoPago extends Component
 			'formaPago' => 'required',
 			'moneda' => 'required',
 			'fondo.id' => 'required',
-			'referencia' => 'required_if:formaPago,Transferencia,Pago móvil',
+			'referencia' => 'required_if:formaPago,Transferencia,Pago móvil|min:4|max:8',
 			'tasaCambio' => 'exclude_if:conCambio,false|required|numeric',
 		];
 

@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class NuevaUnidad extends Component
 {
-	public $numero, $direccion, $tipoUnidad;
+	public $numero;
+	public $direccion;
+	public TipoUnidad $tipo;
 
 	public $tipoUnidades;
 
@@ -16,8 +18,12 @@ class NuevaUnidad extends Component
 
 	protected $rules = [
 		'numero' => 'required|numeric',
-		'tipoUnidad' => 'required|not_in:0',
+		'tipo.id' => 'required',
 		'direccion' => 'required|max:255',
+	];
+
+	protected $messages = [
+		'tipo.id.required' => 'Debe seleccionar un tipo de unidad.',
 	];
 	
 	public function updated($propertyName)
@@ -30,7 +36,7 @@ class NuevaUnidad extends Component
 
 		Unidad::create([
 			'numero' => $this->numero,
-			'tipo_unidad_id' => $this->tipoUnidad,
+			'tipo_unidad_id' => $this->tipo->id,
 			'direccion' => $this->direccion,
 		]);
 
@@ -40,7 +46,9 @@ class NuevaUnidad extends Component
 			'direccion',
 		]);
 
-		$this->emitTo('unidad.tabla-unidad', 'render');
+		$this->tipoUnidad = new TipoUnidad;
+
+		$this->emitTo('admin.unidad.tabla-unidad', 'render');
 		$this->emit('alert', 'La unidad se registró satisfactoriamente');
 	}
 

@@ -30,14 +30,14 @@
 
     <div class="border rounded-md shadow-md m-4">
 
+        {{-- <div class="border rounded-md shadow-md my-2"> --}}
+        <div class="flex items-center px-4 py-2">
+            <h2 class="px-4 py-2 text-lg inline w-full">Habitantes de la unidad</h2>
+
+            @livewire('nuevo-integrante', ['unidad' => $unidad])
+        </div>
+
         @if (count($unidad->integrantes))
-            {{-- <div class="border rounded-md shadow-md my-2"> --}}
-            <div class="flex items-center px-4 py-2">
-                <h2 class="px-4 py-2 text-lg inline w-full">Habitantes de la unidad</h2>
-
-                @livewire('nuevo-integrante', ['unidad' => $unidad])
-            </div>
-
             <!-- tabla -->
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -78,7 +78,7 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">
-                                                    {{$item->letra}}-{{ $item->documento }}
+                                                    {{ $item->letra }}-{{ $item->documento }}
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4">
@@ -93,7 +93,8 @@
                                             </td>
                                             <td
                                                 class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
-                                                <a href="{{ route('integrante.show', $item) }}" class="btn btn-blue">
+                                                <a href="{{ route('integrante.show', $item) }}"
+                                                    class="btn btn-blue">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 <a class="btn btn-red" wire:click="destroy({{ $item }})">
@@ -110,12 +111,12 @@
             </div>
             {{-- /tabla --}}
 
-            {{-- </div> --}}
         @else
             <div class="px-4 py-2">
                 Sin habitantes
             </div>
         @endif
+        {{-- </div> --}}
 
         <x-jet-confirmation-modal wire:model="openDestroy">
 

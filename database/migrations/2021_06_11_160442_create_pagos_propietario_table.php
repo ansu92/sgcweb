@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePagosFondosTable extends Migration
+class CreatePagosPropietarioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreatePagosFondosTable extends Migration
      */
     public function up()
     {
-        Schema::create('pagos_fondos', function (Blueprint $table) {
+        Schema::create('pagos_propietario', function (Blueprint $table) {
             $table->id();
-            $table->decimal('monto');
             $table->string('descripcion');
+            $table->decimal('monto', 12);
             $table->date('fecha');
-            $table->string('ref');
+            $table->string('referencia');
             $table->foreignId('fondo_id');
             $table->foreignId('unidad_id');
-            $table->foreignId('cuenta_id');
+            $table->foreignId('factura_id');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreatePagosFondosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pagos_fondos');
+        Schema::dropIfExists('pagos_propietario');
     }
 }

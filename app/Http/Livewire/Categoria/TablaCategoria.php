@@ -10,7 +10,7 @@ class TablaCategoria extends Component
 {
 	use WithPagination;
 	
-	public $categoria;
+	public Categoria $categoria;
 
 	public $busqueda = '';
 	public $orden = 'nombre';
@@ -28,11 +28,6 @@ class TablaCategoria extends Component
 	];
 
 	protected $listeners = ['render'];
-
-	public function mount()
-	{
-		$this->categoria = new Categoria;
-	}
 
 	public function render()
 	{

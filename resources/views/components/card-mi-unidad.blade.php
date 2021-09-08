@@ -18,7 +18,7 @@
             {{ $unidad->integrantes_count }}
 
 
-            @if ($unidad->integrantes_count > '1')
+            @if ($unidad->integrantes_count != '1')
                 <span class="text-xs"> habitantes</span>
             @else
                 <span class="text-xs"> habitante</span>

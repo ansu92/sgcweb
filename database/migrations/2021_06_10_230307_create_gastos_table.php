@@ -26,6 +26,7 @@ class CreateGastosTable extends Migration
             $table->foreignId('proveedor_id');
 			$table->string('factura');
 			$table->enum('estado', ['Pendiente', 'Pagado'])->default('Pendiente');
+			$table->date('fecha')->default(now());
             $table->timestamps();
         });
     }

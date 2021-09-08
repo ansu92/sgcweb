@@ -4,6 +4,15 @@
             Unidad
         </h3>
     </div>
+
+    @if (!$unidad->propietario)
+        <div class="px-4 py-3 sm:px-6">
+            <x-jet-button wire:click="$set('openAsignar', true)">
+                Asignar propietario
+            </x-jet-button>
+        </div>
+    @endif
+
     <div class="border-t border-gray-200">
         <dl>
 
@@ -24,6 +33,35 @@
                     {{ $unidad->direccion }}
                 </dd>
             </div>
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Tipo de unidad:
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {{ $unidad->tipoUnidad->nombre }}
+                </dd>
+            </div>
+
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">
+                    Área:
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {{ $unidad->tipoUnidad->area }} m2
+                </dd>
+            </div>
+
+            @if ($unidad->propietario)
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        Número de documento:
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        {{ $unidad->propietario->documento }}
+                    </dd>
+                </div>
+            @endif
 
         </dl>
     </div>
@@ -93,7 +131,8 @@
                                             </td>
                                             <td
                                                 class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
-                                                <a href="{{ route('integrante.show', $item) }}" class="btn btn-blue">
+                                                <a href="{{ route('integrante.show', $item) }}"
+                                                    class="btn btn-blue">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 {{-- <a class="btn btn-red" wire:click="destroy({{ $item }})">
@@ -118,6 +157,28 @@
         @endif
 
     </div>
+
+    <x-jet-dialog-modal wire:model="openAsignar">
+
+        <x-slot name="title">
+            Asignar propietario
+        </x-slot>
+
+        <x-slot name="content">
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$set('openAsignar', false)">
+                Cancelar
+            </x-jet-secondary-button>
+
+            <x-jet-button wire:click="asignarPropietario({{ $unidad }})" wire:loading.attr="disabled"
+                class="disabled:opacity-25">
+                Asignar propietario
+            </x-jet-button>
+        </x-slot>
+
+    </x-jet-dialog-modal>
 
     {{-- <x-jet-confirmation-modal wire:model="openDestroy">
 
