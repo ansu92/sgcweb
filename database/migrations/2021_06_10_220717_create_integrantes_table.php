@@ -16,15 +16,16 @@ class CreateIntegrantesTable extends Migration
         Schema::create('integrantes', function (Blueprint $table) {
             $table->id();
 			$table->enum('letra', ['V', 'E']);
-            $table->string('documento', 10)->unique();
+            $table->string('documento', 10);
             $table->string('nombre', 20);
             $table->string('s_nombre', 20)->nullable();
             $table->string('apellido', 20);
             $table->string('s_apellido', 20)->nullable();
             $table->string('telefono', 12)->nullable();
             $table->string('email', 45)->nullable()->unique();
-
             $table->foreignId('unidad_id')->nullable();
+			
+			$table->unique(['letra', 'documento']);
 			
             $table->timestamps();
             $table->softDeletes();

@@ -11,9 +11,9 @@ $nav_links = [
         'active' => request()->routeIs('pago.create'),
     ],
     [
-        'name' => 'Cobros',
-        'route' => route('pago.create'),
-        'active' => request()->routeIs('pago.create'),
+        'name' => 'Cierre de mes',
+        'route' => route('cierre-mes.index'),
+        'active' => request()->routeIs('cierre-mes.index'),
     ],
     [
         'name' => 'Gastos',
@@ -34,6 +34,11 @@ $nav_links = [
         'name' => 'Proveedores',
         'route' => route('proveedor.index'),
         'active' => request()->routeIs('proveedor.index'),
+    ],
+    [
+        'name' => 'Visita',
+        'route' => route('visita.index'),
+        'active' => request()->routeIs('visita.index'),
     ],
 ];
 @endphp

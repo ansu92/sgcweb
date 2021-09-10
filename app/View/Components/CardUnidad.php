@@ -11,6 +11,7 @@ class CardUnidad extends Component
 	public Unidad $unidad;
 	public Integrante $propietario;
 	public int $numHabitantes = 0;
+	public $color = 'blue';
 
 	/**
 	 * Create a new component instance.
@@ -27,6 +28,7 @@ class CardUnidad extends Component
 			$this->numHabitantes = $this->unidad->loadCount('integrantes')->integrantes_count;
 		} else {
 			$this->propietario = new Integrante;
+			$this->color = 'red';
 		}
 	}
 

@@ -26,6 +26,16 @@ class NuevaUnidad extends Component
 		'tipo.id.required' => 'Debe seleccionar un tipo de unidad.',
 	];
 	
+	public function mount() {
+		$this->tipo = new TipoUnidad;
+		$this->tipoUnidades = TipoUnidad::all();
+	}
+
+    public function render()
+    {
+        return view('livewire.admin.unidad.nueva-unidad');
+    }
+
 	public function updated($propertyName)
 	{
 		$this->validateOnly($propertyName);
@@ -46,18 +56,9 @@ class NuevaUnidad extends Component
 			'direccion',
 		]);
 
-		$this->tipoUnidad = new TipoUnidad;
+		$this->tipo = new TipoUnidad;
 
 		$this->emitTo('admin.unidad.tabla-unidad', 'render');
 		$this->emit('alert', 'La unidad se registró satisfactoriamente');
 	}
-
-	public function mount() {
-		$this->tipoUnidades = TipoUnidad::all();
-	}
-
-    public function render()
-    {
-        return view('livewire.admin.unidad.nueva-unidad');
-    }
 }

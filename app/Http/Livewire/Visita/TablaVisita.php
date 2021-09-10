@@ -13,7 +13,7 @@ class TablaVisita extends Component
 	public Visita $visita;
 
 	public $busqueda;
-	public $orden = 'fecha_hora';
+	public $orden = 'fecha_hora_entrada';
 	public $direccion = 'asc';
 	public $cantidad = '10';
 
@@ -21,6 +21,8 @@ class TablaVisita extends Component
 
 	public $openEdit = false;
 	public $openDestroy = false;
+
+	protected $listeners = ['render'];
 
 	public function render()
 	{

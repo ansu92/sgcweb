@@ -19,27 +19,25 @@
 
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="numero" class="block text-sm font-medium text-gray-700">Número:</label>
-                                <input type="text" name="numero" id="numero"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                <input type="text" name="numero" id="numero" class="form-control mt-1 w-full"
                                     wire:model="numero">
                                 <x-jet-input-error for="numero" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="tipoUnidad" class="block text-sm font-medium text-gray-700">Tipo de unidad:</label>
-                                <select name="tipoUnidad" id="tipoUnidad" class="form-control w-full" wire:model="tipoUnidad">
-									<option value="0"> -- </option>
-									@foreach ($tipoUnidades as $item)
-										<option value="{{ $item->id }}">{{ $item->nombre }}</option>
-									@endforeach
-								</select>
-                                <x-jet-input-error for="tipoUnidad" />
+                                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de unidad:</label>
+                                <select wire:model="tipo.id" name="tipo" id="tipo" class="form-control mt-1 w-full">
+                                    <option value="0"> -- </option>
+                                    @foreach ($tipoUnidades as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                    @endforeach
+                                </select>
+                                <x-jet-input-error for="tipo.id" />
                             </div>
 
                             <div class="col-span-6">
                                 <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
-                                <input type="text" name="direccion" id="direccion"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                <input type="text" name="direccion" id="direccion" class="form-control mt-1 w-full"
                                     wire:model="direccion">
                                 <x-jet-input-error for="direccion" />
                             </div>

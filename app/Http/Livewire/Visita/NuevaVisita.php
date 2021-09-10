@@ -52,7 +52,7 @@ class NuevaVisita extends Component
 
 	public function render()
 	{
-		$unidades = Unidad::all();
+		$unidades = Unidad::has('propietario')->get();
 
 		return view('livewire.visita.nueva-visita', compact('unidades'));
 	}
@@ -97,7 +97,7 @@ class NuevaVisita extends Component
 			'color',
 		]);
 
-		$this->unidad = new Unidad;
+		// $this->unidad = new Unidad;
 
 		$this->emitTo('visita.tabla-visita', 'render');
 		$this->emit('alert', 'La visita se registró satisfactoriamente');
