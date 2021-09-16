@@ -14,6 +14,7 @@ class NuevoGasto extends Component
 	use WithPagination;
 
 	public $descripcion;
+	public $tipo = 'Ordinario';
 	public $numeroMeses;
 	public Asamblea $asamblea;
 	public $calculo;
@@ -27,7 +28,6 @@ class NuevoGasto extends Component
 	public $servicios = [];
 	public $montos = [];
 
-	public $tipo = 'ordinario';
 	public $elegidoAsamblea = 'no';
 
 	public $open = false;
@@ -46,9 +46,10 @@ class NuevoGasto extends Component
 	{
 		return [
 			'descripcion' => 'required|max:255',
-			'numeroMeses' => 'required_if:tipo,extraordinario',
-			'asamblea.id' => 'exclude_if:tipo,ordinario|required_if:elegidoAsamblea,si',
-			'calculo' => 'required|not_in:--',
+			'tipo' => 'required',
+			'numeroMeses' => 'required_if:tipo,Extraordinario',
+			'asamblea.id' => 'exclude_if:tipo,Ordinario|required_if:elegidoAsamblea,si',
+			'calculo' => 'required|not_in:----',
 			'comienzoCobro' => 'required|date|after:last month',
 			'moneda' => 'required',
 			'monto' => 'required|numeric',
@@ -136,7 +137,7 @@ class NuevoGasto extends Component
 
 		$this->servicios = [];
 
-		foreach ($this->listaServicios as $key => $servicio) {
+		foreach ($this->listaServicios as $servicio) {
 			$this->montos[$servicio->id] = '';
 		}
 	}
@@ -211,6 +212,7 @@ class NuevoGasto extends Component
 
 		$gasto = Gasto::create([
 			'descripcion' => $this->descripcion,
+			'tipo' => $this->tipo,
 			'calculo_por' => $this->calculo,
 			'mes_cobro' => $this->comienzoCobro,
 			'moneda' => $this->moneda,
@@ -221,7 +223,7 @@ class NuevoGasto extends Component
 			'factura' => $this->factura,
 		]);
 
-		if ($this->tipo == 'extraordinario') {
+		if ($this->tipo == 'Extraordinario') {
 			$gastoExtraordinario = GastoExtraordinario::create([
 				'gasto_id' => $gasto->id,
 				'num_meses' => $this->numeroMeses,

@@ -17,7 +17,7 @@ class NuevaUnidad extends Component
 	public $open = false;
 
 	protected $rules = [
-		'numero' => 'required|numeric',
+		'numero' => 'required|numeric|unique:unidades,numero',
 		'tipo.id' => 'required',
 		'direccion' => 'required|max:255',
 	];

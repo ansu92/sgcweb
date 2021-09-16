@@ -18,7 +18,12 @@ class RoleSeeder extends Seeder
 		$role1 = Role::create(['name' => 'Administrador']);
 		$role2 = Role::create(['name' => 'Propietario']);
 		$role3 = Role::create(['name' => 'Portero']);
+		$role4 = Role::create(['name' => 'Condominio']);
 
+
+		Permission::create(['name' => 'asamblea.index'])->assignRole($role4);
+		Permission::create(['name' => 'asamblea.create'])->assignRole($role4);
+		Permission::create(['name' => 'asamblea.show'])->assignRole($role4);
 
 		Permission::create(['name' => 'banco.index']);
 		Permission::create(['name' => 'banco.create']);
@@ -30,29 +35,35 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'categoria.edit']);
 		Permission::create(['name' => 'categoria.delete']);
 
-		Permission::create(['name' => 'cuenta.index']);
-		Permission::create(['name' => 'cuenta.create']);
-		Permission::create(['name' => 'cuenta.edit']);
-		Permission::create(['name' => 'cuenta.show']);
+		Permission::create(['name' => 'cuenta.index'])->assignRole($role4);
+		Permission::create(['name' => 'cuenta.create'])->assignRole($role4);
+		Permission::create(['name' => 'cuenta.edit'])->assignRole($role4);
+		Permission::create(['name' => 'cuenta.show'])->assignRole($role4);
 
-		Permission::create(['name' => 'comunicado.index']);
-		Permission::create(['name' => 'comunicado.create']);
-		Permission::create(['name' => 'comunicado.edit']);
-		Permission::create(['name' => 'comunicado.show']);
+		Permission::create(['name' => 'cierre-mes.index'])->assignRole($role4);
 
-		Permission::create(['name' => 'fondo.index']);
-		Permission::create(['name' => 'fondo.create']);
-		Permission::create(['name' => 'fondo.edit']);
-		Permission::create(['name' => 'fondo.show']);
+		Permission::create(['name' => 'comunicado.index'])->assignRole($role4);
+		Permission::create(['name' => 'comunicado.create'])->assignRole($role4);
+		Permission::create(['name' => 'comunicado.edit'])->assignRole($role4);
+		Permission::create(['name' => 'comunicado.show'])->assignRole($role4);
 
-		Permission::create(['name' => 'pago.index']);
-		Permission::create(['name' => 'pago.create']);
-		Permission::create(['name' => 'pago.show']);
+		Permission::create(['name' => 'fondo.index'])->assignRole($role4);
+		Permission::create(['name' => 'fondo.create'])->assignRole($role4);
+		Permission::create(['name' => 'fondo.edit'])->assignRole($role4);
+		Permission::create(['name' => 'fondo.show'])->assignRole($role4);
 
-		Permission::create(['name' => 'proveedor.index']);
-		Permission::create(['name' => 'proveedor.create']);
-		Permission::create(['name' => 'proveedor.edit']);
-		Permission::create(['name' => 'proveedor.show']);
+		Permission::create(['name' => 'gasto.index'])->assignRole($role4);
+		Permission::create(['name' => 'gasto.create'])->assignRole($role4);
+		Permission::create(['name' => 'gasto.show'])->assignRole($role4);
+
+		Permission::create(['name' => 'pago.index'])->assignRole($role4);
+		Permission::create(['name' => 'pago.create'])->assignRole($role4);
+		Permission::create(['name' => 'pago.show'])->assignRole($role4);
+
+		Permission::create(['name' => 'proveedor.index'])->assignRole($role4);
+		Permission::create(['name' => 'proveedor.create'])->assignRole($role4);
+		Permission::create(['name' => 'proveedor.edit'])->assignRole($role4);
+		Permission::create(['name' => 'proveedor.show'])->assignRole($role4);
 
 		Permission::create(['name' => 'servicio.index']);
 		Permission::create(['name' => 'servicio.create']);
@@ -73,7 +84,7 @@ class RoleSeeder extends Seeder
 
 
 		// Permisos exclusivos de administrador
-		Permission::create(['name' => 'admin.configuracion']);
+		Permission::create(['name' => 'admin']);
 
 		Permission::create(['name' => 'admin.administrador.index']);
 		Permission::create(['name' => 'admin.administrador.create']);

@@ -15,7 +15,7 @@
                 <div class="flex flex-col gap-4">
                     @foreach ($fondos as $item)
                         <a href="{{ route('fondo.show', $item) }}">
-							<x-horizontal-card :descripcion="$item->descripcion" :moneda="$item->moneda" :saldo="$item->saldo" />
+							<x-horizontal-card :descripcion="$item->descripcion" :moneda="$item->moneda" :saldo="$item->saldoFormateado" />
 						</a>
                     @endforeach
 

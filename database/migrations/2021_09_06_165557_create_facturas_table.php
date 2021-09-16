@@ -18,7 +18,9 @@ class CreateFacturasTable extends Migration
 			$table->decimal('monto', 12);
 			$table->decimal('monto_por_pagar', 12);
 			$table->enum('moneda', ['Bolívar', 'Dólar']);
+			$table->decimal('tasa_cambio', 12);
 			$table->date('fecha');
+			$table->enum('estado', ['Pendiente', 'Pagada'])->default('Pendiente');
 			$table->foreignId('gasto_id');
 			$table->foreignId('unidad_id');
             $table->timestamps();

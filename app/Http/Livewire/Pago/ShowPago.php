@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class ShowPago extends Component
 {
-	public Pago $pago;
+	public Pago $pagoCondominio;
 	
     public function render()
     {

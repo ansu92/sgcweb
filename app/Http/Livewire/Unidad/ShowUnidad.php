@@ -21,7 +21,7 @@ class ShowUnidad extends Component
 		return view('livewire.unidad.show-unidad');
 	}
 
-	public function destroy(Integrante $integrante)
+	public function removerIntegrante(Integrante $integrante)
 	{
 		$this->integrante = $integrante;
 		$this->openDestroy = true;
@@ -29,7 +29,8 @@ class ShowUnidad extends Component
 
 	public function remove()
 	{
-		$this->integrante->delete();
+		$this->integrante->unidad()->dissociate($this->unidad);
+		$this->integrante->save();
 
 		$this->reset('openDestroy');
 

@@ -28,6 +28,7 @@ class UnidadFactory extends Factory
 			'numero' => $this->faker->unique->numerify('####'),
 			'direccion' => $this->faker->address,
 			'tipo_unidad_id' => TipoUnidad::all()->random()->id,
+			'documento' => $this->faker->unique()->numerify('####################'),
 		];
 	}
 }

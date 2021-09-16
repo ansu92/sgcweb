@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Pago;
+namespace App\Http\Livewire\PagoPropietario;
 
+use App\Models\Factura;
 use App\Models\Fondo;
-use App\Models\Gasto;
-use App\Models\Pago;
+use App\Models\PagoPropietario;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use NumberFormatter;
@@ -17,18 +18,17 @@ class NuevoPago extends Component
 	public $monto;
 	public $montoFormateado;
 	public $fecha;
-	public $recibo;
 	public $referencia;
 	public $formaPago;
 	public $moneda = 'Bolívar';
 	public $tasaCambio;
 
-	public Gasto $gasto;
+	public Factura $factura;
 	public Fondo $fondo;
 
 	public bool $conCambio = false;
-	public $montoGastoConvertido;
-	public $montoGastoConvertidoFormateado;
+	public $montoFacturaConvertido;
+	public $montoFacturaConvertidoFormateado;
 
 	private NumberFormatter $formatoDinero;
 	private $bolivar = 'VES';
@@ -43,15 +43,12 @@ class NuevoPago extends Component
 
 	protected function rules()
 	{
-		// $this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
-
 		$rules = [
 			'descripcion' => 'required',
 			'fecha' => 'required|before_or_equal:today',
-			'recibo' => 'required|numeric|unique:pagos_gastos,recibo',
 			'formaPago' => 'required',
 			'moneda' => 'required',
-			'fondo.id' => 'required',
+			'fondo.id' => 'required|not_in:0',
 			'referencia' => 'exclude_unless:formaPago,Transferencia,Pago móvil,Cheque|min:4|max:8',
 			'tasaCambio' => 'exclude_if:conCambio,false|required|numeric',
 		];
@@ -62,7 +59,7 @@ class NuevoPago extends Component
 					'required',
 					'numeric',
 					'gt:0',
-					'lte:' . $this->montoGastoConvertido,
+					'lte:' . $this->montoFacturaConvertido,
 				];
 
 				if ($this->fondo->id > 0) {
@@ -75,7 +72,7 @@ class NuevoPago extends Component
 			$rules['monto'] = [
 				'required',
 				'numeric',
-				'lte:gasto.saldo',
+				'lte:factura.monto_por_pagar',
 			];
 
 			if ($this->fondo->id > 0) {
@@ -88,53 +85,54 @@ class NuevoPago extends Component
 
 	protected $messages = [
 		'fondo.id.required' => 'Debe seleccionar un fondo.',
+		'fondo.id.not_in' => 'Debe seleccionar un fondo.',
 		'monto.lte' => 'El monto no debe ser mayor al saldo del fondo seleccionado o al total de la deuda.',
 		'tasaCambio.required_if' => 'Debe ingresar la tasa de cambio.'
 	];
 
 	public function mount()
 	{
-		$this->gasto = new Gasto;
+		$this->factura = new Factura;
 		$this->fondo = new Fondo;
 
-		$this->conCambio = $this->moneda != $this->gasto->moneda;
+		$this->conCambio = $this->moneda != $this->factura->moneda;
 
 		$this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
 	}
 
 	public function render()
 	{
-		$gastos = Gasto::where('estado_pago', 'Pendiente')
-			->orderBy($this->orden, $this->direccion)
+		$facturas = Auth::user()->propietario->facturas()
+			->where('estado', 'Pendiente')
 			->paginate($this->cantidad);
 
 		$fondos = Fondo::where('moneda', $this->moneda)->get();
 
-		return view('livewire.pago.nuevo-pago', compact('gastos', 'fondos'));
+		return view('livewire.pago-propietario.nuevo-pago', compact('facturas', 'fondos'));
 	}
 
-	public function mostrarForm(Gasto $gasto)
+	public function mostrarForm(Factura $factura)
 	{
 		$this->reset([
 			'descripcion',
 			'monto',
 			'fecha',
-			'recibo',
+			// 'recibo',
 			'referencia',
 			'formaPago',
 			'moneda',
 		]);
 
-		$this->gasto = $gasto;
-		$this->moneda = $this->gasto->moneda;
-		$this->conCambio = $this->moneda != $this->gasto->moneda;
+		$this->factura = $factura;
+		$this->moneda = $this->factura->moneda;
+		$this->conCambio = $this->moneda != $this->factura->moneda;
 
 		$this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
 
-		if ($this->gasto->moneda == 'Bolívar') {
-			$this->montoFormateado = $this->formatoDinero->format($this->gasto->saldo);
-		} elseif ($this->gasto->moneda == 'Dólar') {
-			$this->montoFormateado = $this->formatoDinero->formatCurrency($this->gasto->saldo, $this->dolar);
+		if ($this->factura->moneda == 'Bolívar') {
+			$this->montoFormateado = $this->formatoDinero->format($this->factura->monto_por_pagar);
+		} elseif ($this->factura->moneda == 'Dólar') {
+			$this->montoFormateado = $this->formatoDinero->formatCurrency($this->factura->monto_por_pagar, $this->dolar);
 		}
 
 		$this->open = true;
@@ -155,7 +153,7 @@ class NuevoPago extends Component
 	{
 		$this->fondo = new Fondo;
 
-		$this->conCambio = $this->moneda != $this->gasto->moneda;
+		$this->conCambio = $this->moneda != $this->factura->moneda;
 
 		$this->validarMonto();
 	}
@@ -189,7 +187,7 @@ class NuevoPago extends Component
 					'required',
 					'numeric',
 					'gt:0',
-					'lte:' . $this->montoGastoConvertido,
+					'lte:' . $this->montoFacturaConvertido,
 				];
 
 				if ($this->fondo->id > 0) {
@@ -206,7 +204,7 @@ class NuevoPago extends Component
 				'required',
 				'numeric',
 				'gt:0',
-				'lte:gasto.saldo',
+				'lte:factura.monto_por_pagar',
 			];
 
 			if ($this->fondo->id > 0) {
@@ -222,11 +220,11 @@ class NuevoPago extends Component
 		$this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
 
 		if ($this->moneda == 'Bolívar') {
-			$this->montoGastoConvertido = $this->gasto->saldo * $this->tasaCambio;
-			$this->montoGastoConvertidoFormateado = $this->formatoDinero->formatCurrency($this->montoGastoConvertido, 'VES');
+			$this->montoFacturaConvertido = $this->factura->monto_por_pagar * $this->tasaCambio;
+			$this->montoFacturaConvertidoFormateado = $this->formatoDinero->formatCurrency($this->montoFacturaConvertido, 'VES');
 		} else if ($this->moneda == 'Dólar') {
-			$this->montoGastoConvertido = $this->gasto->saldo / $this->tasaCambio;
-			$this->montoGastoConvertidoFormateado = $this->formatoDinero->formatCurrency($this->montoGastoConvertido, 'USD');
+			$this->montoFacturaConvertido = $this->factura->monto_por_pagar / $this->tasaCambio;
+			$this->montoFacturaConvertidoFormateado = $this->formatoDinero->formatCurrency($this->montoFacturaConvertido, 'USD');
 		}
 	}
 
@@ -236,11 +234,11 @@ class NuevoPago extends Component
 			if ($this->tasaCambio) {
 				if ($this->moneda == 'Bolívar') {
 
-					$this->monto = $this->montoGastoConvertido;
+					$this->monto = $this->montoFacturaConvertido;
 					// $this->monto = '1';
 				} elseif ($this->moneda == 'Dólar') {
 
-					$this->monto = $this->montoGastoConvertido;
+					$this->monto = $this->montoFacturaConvertido;
 					// $this->monto = '2';
 				}
 			} else {
@@ -248,7 +246,7 @@ class NuevoPago extends Component
 			}
 		} else {
 
-			$this->monto = $this->gasto->saldo;
+			$this->monto = $this->factura->monto_por_pagar;
 			// $this->monto = '3';
 		}
 
@@ -259,36 +257,37 @@ class NuevoPago extends Component
 	{
 		$this->validate();
 
-		$pago = Pago::create([
+		$pago = PagoPropietario::create([
 			'descripcion' => $this->descripcion,
 			'monto' => $this->monto,
 			'fecha' => $this->fecha,
-			'recibo' => $this->recibo,
 			'referencia' => $this->referencia,
 			'forma_pago' => $this->formaPago,
 			'moneda' => $this->moneda,
 			'tasa_cambio' => $this->tasaCambio,
+			'fondo_id' => $this->fondo->id,
+			'unidad_id' => $this->factura->unidad->id,
+			'factura_id' => $this->factura->id
 		]);
 
-		$pago->gasto()->associate($this->gasto);
-		$pago->fondo()->associate($this->fondo);
+		// $pago->factura()->associate($this->factura);
+		// $pago->fondo()->associate($this->fondo);
 
 		$pago->save();
 
-		$pago->pagarGasto($this->conCambio);
+		$pago->pagarFactura($this->conCambio);
 
 		$this->reset([
 			'open',
 			'descripcion',
 			'monto',
 			'fecha',
-			'recibo',
 			'referencia',
 			'formaPago',
 			'moneda',
 		]);
 
-		$this->gasto = new Gasto;
+		$this->factura = new Factura;
 		$this->fondo = new Fondo;
 
 		$this->emit('alert', 'El pago se ha realizado satisfactoriamente');

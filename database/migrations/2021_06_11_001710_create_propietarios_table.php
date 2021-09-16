@@ -15,9 +15,8 @@ class CreatePropietariosTable extends Migration
     {
         Schema::create('propietarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('integrante_id');
-			$table->string('documento', 20)->unique();
-            $table->foreignId('user_id');
+            $table->foreignId('integrante_id')->unique();
+            $table->foreignId('user_id')->unique();
             $table->timestamps();
         });
     }

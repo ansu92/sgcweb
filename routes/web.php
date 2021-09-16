@@ -11,6 +11,7 @@ use App\Http\Controllers\CtrGasto;
 use App\Http\Controllers\CtrInicio;
 use App\Http\Controllers\CtrIntegrante;
 use App\Http\Controllers\CtrPago;
+use App\Http\Controllers\CtrPagoPropietario;
 use App\Http\Controllers\CtrProveedor;
 use App\Http\Controllers\CtrServicio;
 use App\Http\Controllers\CtrTipoUnidad;
@@ -61,7 +62,7 @@ Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->name('int
 
 Route::resource('pago-condominio', CtrPago::class)->only(['index', 'create', 'show'])->names('pago');
 
-Route::resource('pago-propietario', CtrPagoPropietario::class)->only(['index', 'show'])->names('pago-propietario');
+Route::resource('pago-propietario', CtrPagoPropietario::class)->only(['index', 'create', 'show'])->names('pago-propietario');
 
 Route::resource('proveedor', CtrProveedor::class)->only(['index', 'show'])->names('proveedor');
 
@@ -73,4 +74,6 @@ Route::get('visita', [CtrVisita::class, 'index'])->name('visita.index');
 
 Route::get('visita/{visita}', [CtrVisita::class, 'show'])->name('visita.show');
 
-Route::get('unidad/{unidad}', CtrUnidad::class)->name('unidad.show');
+Route::get('unidad', [CtrUnidad::class, 'index'])->name('unidad.index');
+
+Route::get('unidad/{unidad}', [CtrUnidad::class, 'show'])->name('unidad.show');

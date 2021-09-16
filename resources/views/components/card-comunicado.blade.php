@@ -9,11 +9,11 @@
             {{ $comunicado->contenido }}
         </div>
         <div>
-            <span class="text-sm">Autor: </span>{{ $comunicado->autor->integrante->nombre }}
+            <strong class="text-sm text-gray-700">Autor: </strong>{{ $comunicado->autor->integrante->nombre }}
             {{ $comunicado->autor->integrante->apellido }}
         </div>
         <div>
-            <span class="text-sm">Rol: </span>{{ $comunicado->autor->rol }}
+            <strong class="text-sm text-gray-700">Rol: </strong>{{ $comunicado->autor->rol }}
         </div>
     </div>
 </div>

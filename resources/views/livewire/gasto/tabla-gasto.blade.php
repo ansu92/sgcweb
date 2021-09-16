@@ -37,7 +37,11 @@
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Estado
+                                                Estado del pago
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Estado del cobro
                                             </th>
                                             <th scope="col" class="relative px-6 py-3">
                                                 <span class="sr-only">Acciones</span>
@@ -73,7 +77,10 @@
                                                     @endif
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $gasto->estado }}
+                                                    {{ $gasto->estado_pago }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    {{ $gasto->estado_cobro }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium">
                                                     <a href="{{ route('gasto.show', $gasto) }}"

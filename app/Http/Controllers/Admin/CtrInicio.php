@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-class CtrConfiguracion extends Controller
+class CtrInicio extends Controller
 {
     public function __invoke()
 	{
-		return view('admin.configuracion');
+		return view('admin.inicio');
 	}
 }

@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\Admin\CtrAdministrador;
 use App\Http\Controllers\Admin\CtrComunicado;
-use App\Http\Controllers\Admin\CtrConfiguracion;
+use App\Http\Controllers\Admin\CtrInicio;
 use App\Http\Controllers\Admin\CtrUnidad;
 use App\Http\Controllers\Admin\CtrUser;
 use Illuminate\Support\Facades\Route;
 
-Route::get('configuracion', CtrConfiguracion::class)->middleware('can:admin.configuracion')->name('admin.configuracion');
+Route::get('/', CtrInicio::class)->middleware('can:admin')->name('admin');
 
 Route::resource('administrador', CtrAdministrador::class)->only(['index', 'show'])->names('admin.administrador');
 

@@ -3,7 +3,7 @@
         Mi unidad
     </div>
 
-    <div>
+    <div class="p-4">
 		<img src="{{asset('img/casa.png')}}" alt="casa" />
 	</div>
 

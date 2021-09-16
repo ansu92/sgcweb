@@ -17,7 +17,7 @@ class CardMiUnidad extends Component
      */
     public function __construct()
     {
-        $this->unidad = Auth::user()->propietario->unidades->first();
+        $this->unidad = Auth::user()->propietario->integrante->unidad;
 		$this->unidad->loadCount('integrantes');
     }
 

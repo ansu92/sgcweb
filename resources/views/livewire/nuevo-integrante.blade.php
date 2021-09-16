@@ -18,19 +18,17 @@
                         <div class="grid grid-cols-6 gap-6">
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="documento" class="block text-sm font-medium text-gray-700">Documento:</label>
+                                <label for="documento" class="block text-sm font-medium text-gray-700">Cédula:</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 flex items-center">
-                                        <select id="letra" name="letra"
-                                            class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
-                                            wire:model="letra">
+                                        <select wire:model="letra" id="letra" name="letra"
+                                            class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
                                             <option>V</option>
                                             <option>E</option>
                                         </select>
                                     </div>
-                                    <input type="text" name="documento" id="documento"
-                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 sm:text-sm border-gray-300 rounded-md"
-                                        placeholder="Cédula" wire:model="documento">
+                                    <input wire:model="documento" type="text" name="documento" id="documento"
+                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 sm:text-sm border-gray-300 rounded-md">
                                 </div>
                                 <x-jet-input-error for="documento" />
                             </div>

@@ -18,6 +18,8 @@ class UserSeeder extends Seeder
 	public function run()
 	{
 		$integrante = Integrante::factory([
+			'letra' => 'V',
+			'documento' => '26942316',
 			'nombre' => 'Diego',
 			's_nombre' => 'A.',
 			'apellido' => 'Rodríguez',

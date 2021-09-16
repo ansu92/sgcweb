@@ -56,7 +56,7 @@
                                                     {{ $pago->descripcion }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $pago->monto }}
+                                                    {{ $pago->montoFormateado }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     {{ $pago->fecha }}

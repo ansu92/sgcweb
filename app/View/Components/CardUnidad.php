@@ -12,13 +12,14 @@ class CardUnidad extends Component
 	public Integrante $propietario;
 	public int $numHabitantes = 0;
 	public $color = 'blue';
+	public bool $tieneFacturas = false;
 
 	/**
 	 * Create a new component instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(Unidad $unidad)
+	public function __construct(Unidad $unidad, bool $conFactura = false)
 	{
 		$this->unidad = $unidad;
 
@@ -29,6 +30,10 @@ class CardUnidad extends Component
 		} else {
 			$this->propietario = new Integrante;
 			$this->color = 'red';
+		}
+
+		if ($conFactura) {
+			$this->tieneFacturas = $unidad->facturas->count();
 		}
 	}
 

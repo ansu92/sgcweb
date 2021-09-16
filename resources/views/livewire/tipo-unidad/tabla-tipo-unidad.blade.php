@@ -97,7 +97,7 @@
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->area }}
+                                                        {{ $item->area }} m2
                                                     </div>
                                                 </td>
                                                 <td

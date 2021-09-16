@@ -1,44 +1,46 @@
 @php
 $nav_links = [
     [
-        'name' => 'Inicio',
-        'route' => route('home'),
-        'active' => request()->routeIs('home'),
-    ],
-    [
         'name' => 'Pagos',
         'route' => route('pago.create'),
         'active' => request()->routeIs('pago.create'),
+        'can' => 'pago.create',
     ],
     [
         'name' => 'Cierre de mes',
         'route' => route('cierre-mes.index'),
         'active' => request()->routeIs('cierre-mes.index'),
+        'can' => 'cierre-mes.index',
     ],
     [
         'name' => 'Gastos',
         'route' => route('gasto.index'),
         'active' => request()->routeIs('gasto.index'),
+        'can' => 'gasto.index',
     ],
     [
         'name' => 'Fondos',
         'route' => route('fondo.index'),
         'active' => request()->routeIs('fondo.index'),
+        'can' => 'fondo.index',
     ],
     [
         'name' => 'Asambleas',
         'route' => route('asamblea.index'),
         'active' => request()->routeIs('asamblea.index'),
+        'can' => 'asamblea.index',
     ],
     [
         'name' => 'Proveedores',
         'route' => route('proveedor.index'),
         'active' => request()->routeIs('proveedor.index'),
+        'can' => 'proveedor.index',
     ],
     [
         'name' => 'Visita',
         'route' => route('visita.index'),
         'active' => request()->routeIs('visita.index'),
+        'can' => 'visita.index',
     ],
 ];
 @endphp
@@ -58,17 +60,22 @@ $nav_links = [
                 <!-- Título -->
                 <div class="self-center pl-3">
                     <a href="{{ route('home') }}">
-						<h1 class="font-semibold text-xl">SGC Web</h1>
+                        <h1 class="font-semibold text-xl">SGC Web</h1>
                     </a>
                 </div>
 
                 @auth
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        @foreach ($nav_links as $item)
-                            <x-jet-nav-link href="{{ $item['route'] }}" :active="$item['active']">
-                                {{ $item['name'] }}
-                            </x-jet-nav-link>
+						<x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+							Inicio
+						</x-jet-nav-link>
+						@foreach ($nav_links as $item)
+                            @can($item['can'])
+                                <x-jet-nav-link href="{{ $item['route'] }}" :active="$item['active']">
+                                    {{ $item['name'] }}
+                                </x-jet-nav-link>
+                            @endcan
                         @endforeach
                     </div>
                 @endauth
@@ -161,8 +168,8 @@ $nav_links = [
 
                             <x-slot name="content">
 
-                                @can('admin.configuracion')
-                                    <x-jet-dropdown-link href="{{ route('admin.configuracion') }}">
+                                @can('admin')
+                                    <x-jet-dropdown-link href="{{ route('admin') }}">
                                         {{-- <i class="fa fas-settings"></i> --}}
                                         {{ __('Configuración') }}
                                     </x-jet-dropdown-link>
@@ -190,7 +197,7 @@ $nav_links = [
                                     @csrf
 
                                     <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                            this.closest('form').submit();">
+                                                                this.closest('form').submit();">
                                         {{ __('Cerrar sesión') }}
                                     </x-jet-dropdown-link>
                                 </form>
@@ -214,8 +221,8 @@ $nav_links = [
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -276,7 +283,7 @@ $nav_links = [
                         @csrf
 
                         <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                                    this.closest('form').submit();">
                             {{ __('Cerrar sesión') }}
                         </x-jet-responsive-nav-link>
                     </form>

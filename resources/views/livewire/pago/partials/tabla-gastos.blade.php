@@ -32,15 +32,8 @@
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Saldo restante
+                                        Monto por pagar
                                     </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Tipo
-                                    </th>
-                                    {{-- <th scope="col" class="relative px-6 py-3">
-                                    <span class="sr-only">Acciones</span>
-                                </th> --}}
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -54,7 +47,7 @@
                                             {{ $item->proveedor->nombre }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $item->created_at->format('d/m/Y') }}
+                                            {{ $item->fecha }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $item->monto }}
@@ -80,19 +73,6 @@
                                                 @break
                                             @endswitch
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            @if ($item->extraordinario)
-                                                Extraordinario
-                                            @else
-                                                Ordinario
-                                            @endif
-                                        </td>
-                                        {{-- <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium">
-                                        <a class="btn btn-blue">
-                                            Pagar
-                                            <i class="fas fa-"></i>
-                                        </a>
-                                    </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

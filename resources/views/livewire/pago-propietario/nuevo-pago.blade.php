@@ -2,17 +2,15 @@
 
     <div class="w-full flex justify-end gap-4">
 
-        <a href="{{route('pago.index')}}" class="w-full">
+        <a href="{{ route('pago-propietario.index') }}" class="w-full">
             <button class="btn btn-blue w-full h-20 text-2xl">Lista de pagos</button>
         </a>
-
-        {{-- <button class="btn btn-blue w-44 h-20">Pagar gasto</button> --}}
     </div>
 
     <div class="py-6 space-y-2">
-        <h1 class="text-lg self-end">Seleccione el gasto a pagar...</h1>
+        <h1 class="text-lg self-end">Seleccione la factura a pagar...</h1>
 
-        @include('livewire.pago.partials.tabla-gastos')
+        @include('livewire.pago-propietario.partials.tabla-facturas')
     </div>
 
     <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
@@ -30,10 +28,10 @@
                         <div class="grid grid-cols-6 gap-6">
 
                             <div class="col-span-6">
-                                <label for="gasto" class="block text-sm font-medium text-gray-700">
-                                    Gasto:
+                                <label for="factura" class="block text-sm font-medium text-gray-700">
+                                    Factura:
                                 </label>
-                                <input type="text" name="gasto" id="gasto" readonly value="{{ $gasto->descripcion }}"
+                                <input type="text" name="factura" id="factura" readonly value="{{ $factura->id }}"
                                     class="form-control w-full">
                             </div>
 
@@ -45,14 +43,14 @@
                                     value="{{ $montoFormateado }}" class="form-control w-full">
                             </div>
 
-                            @if ($gasto->moneda != $moneda && $this->tasaCambio)
+                            @if ($conCambio && $this->tasaCambio)
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="monto-por-pagar-convertido"
                                         class="block text-sm font-medium text-gray-700">
                                         Monto restante por pagar (convertido):
                                     </label>
                                     <input type="text" name="monto-por-pagar-convertido" id="monto-por-pagar-convertido"
-                                        value="{{ $montoGastoConvertidoFormateado }}" readonly
+                                        value="{{ $montoFacturaConvertidoFormateado }}" readonly
                                         class="form-control w-full">
                                 </div>
                             @endif
@@ -110,12 +108,10 @@
                                     Fondo:
                                 </label>
                                 <select wire:model="fondo.id" name="fondo" id="fondo" class="form-control w-full">
-                                    <option value="0">----</option>
+                                    <option value="0" selected>----</option>
 
                                     @foreach ($fondos as $item)
-                                        <option value="{{ $item->id }}">{{ $item->descripcion }} -
-                                            {{ $item->saldo }} @if ($item->moneda == 'Bolívar')Bs. @else $ @endif
-                                        </option>
+                                        <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
                                     @endforeach
 
                                 </select>
@@ -136,14 +132,14 @@
                                     value="Monto total" class="btn btn-blue text-xs h-14 disabled:bg-opacity-25">
                             </div>
 
-                            <div class="col-span-6 sm:col-span-3">
+                            {{-- <div class="col-span-6 sm:col-span-3">
                                 <label for="recibo" class="block text-sm font-medium text-gray-700">
                                     Número de recibo:
                                 </label>
                                 <input wire:model="recibo" type="text" name="recibo" id="recibo"
                                     class="form-control w-full">
                                 <x-jet-input-error for="recibo" />
-                            </div>
+                            </div> --}}
 
                             @switch($formaPago)
                                 @case('Transferencia')
@@ -163,37 +159,37 @@
                                 @break
                             @endswitch
 
-                            @if ($gasto->moneda != $moneda)
+                            @if ($factura->moneda != $moneda)
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="tasa-cambio" class="block text-sm font-medium text-gray-700">
                                         Tasa de cambio:
                                     </label>
-                                    <input wire:model.lazy="tasaCambio" type="text" name="tasa-cambio" id="tasa-cambio"
-                                        class="form-control w-full">
+                                    <input wire:model.lazy="tasaCambio" type="text" name="tasa-cambio"
+                                        id="tasa-cambio" class="form-control w-full">
                                     <x-jet-input-error for="tasaCambio" />
                                 </div>
                             @endif
 
-                        </div>
                     </div>
                 </div>
             </div>
-            {{-- /formulario --}}
+        </div>
+        {{-- /formulario --}}
 
-        </x-slot>
+    </x-slot>
 
-        <x-slot name="footer">
+    <x-slot name="footer">
 
-            <x-jet-secondary-button wire:click="$set('open', false)">
-                Cancelar
-            </x-jet-secondary-button>
+        <x-jet-secondary-button wire:click="$set('open', false)">
+            Cancelar
+        </x-jet-secondary-button>
 
-            <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
-                Registrar
-            </x-jet-button>
+        <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
+            Registrar
+        </x-jet-button>
 
-        </x-slot>
+    </x-slot>
 
-    </x-jet-dialog-modal>
+</x-jet-dialog-modal>
 
 </div>

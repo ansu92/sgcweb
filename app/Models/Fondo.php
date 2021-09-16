@@ -11,6 +11,18 @@ class Fondo extends Model
 
 	protected $fillable = ['descripcion', 'saldo', 'moneda', 'cuenta_id'];
 
+	public function acreditar(float $monto)
+	{
+		$this->saldo += $monto;
+		$this->save();
+	}
+
+	public function debitar(float $monto)
+	{
+		$this->saldo -= $monto;
+		$this->save();
+	}
+
 	public function cuenta()
 	{
 		return $this->belongsTo(Cuenta::class);
@@ -22,10 +34,4 @@ class Fondo extends Model
 	}
 
 	public function cobros() {}
-
-	public function debitar(float $monto)
-	{
-		$this->saldo -= $monto;
-		$this->save();
-	}
 }

@@ -5,7 +5,6 @@ namespace App\Http\Livewire\CierreMes;
 use App\Models\Factura;
 use App\Models\Gasto;
 use App\Models\Unidad;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class NuevoCierre extends Component
@@ -42,18 +41,30 @@ class NuevoCierre extends Component
 	{
 		$this->validate();
 
-		$unidades = Unidad::all();
+		$unidades = Unidad::has('propietario')->get();
 
-		$areaTotal = DB::table('unidades')
-			->join('tipo_unidades', 'unidades.tipo_unidad_id', '=', 'tipo_unidades.id')
-			->sum('area');
+		$areaTotal = Unidad::getAreaTotal();
 
-		foreach (Gasto::where('comienzo_cobro', $this->mes) as $gasto) {
+		$gastosOrdinarios = Gasto::where('tipo', 'Ordinario')
+			->where('mes_cobro', '<=', $this->mes)
+			->where('estado_cobro', 'Pendiente')
+			->orWhere('estado_cobro', 'En proceso')
+			->get();
+
+		$gastosExtraordinarios = Gasto::where('tipo', 'Extraordinario')
+			->where('mes_cobro', '<=', $this->mes)
+			->where('estado_cobro', 'Pendiente')
+			->orWhere('estado_cobro', 'En proceso')
+			->get();
+
+		foreach ($gastosOrdinarios as $gasto) {
 
 			foreach ($unidades as $unidad) {
+
 				if ($gasto->calculo_por == 'Total de inmuebles') {
 					$monto = $gasto->monto / $unidades->count();
 				} else if ($gasto->calculo_por == 'Alícuota') {
+
 					$alicuota = $unidad->tipoUnidad->area / $areaTotal;
 
 					$monto = $gasto->monto * $alicuota;
@@ -63,10 +74,44 @@ class NuevoCierre extends Component
 					'monto' => $monto,
 					'monto_por_pagar' => $monto,
 					'moneda' => $this->moneda,
+					'tasa_cambio' => $this->tasaCambio,
 					'fecha' => now(),
 					'gasto_id' => $gasto->id,
 					'unidad_id' => $unidad->id,
 				]);
+
+				$gasto->estado_cobro = 'En proceso';
+				$gasto->save();
+			}
+		}
+
+		foreach ($gastosExtraordinarios as $gasto) {
+
+			if ($gasto->getFechaFin() >= $this->mes) {
+
+				foreach ($unidades as $unidad) {
+
+					if ($gasto->calculo_por == 'Total de inmuebles') {
+						$monto = $gasto->monto / $unidades->count();
+					} else if ($gasto->calculo_por == 'Alícuota') {
+						$alicuota = $unidad->tipoUnidad->area / $areaTotal;
+
+						$monto = $gasto->monto * $alicuota;
+					}
+
+					Factura::create([
+						'monto' => $monto,
+						'monto_por_pagar' => $monto,
+						'moneda' => $this->moneda,
+						'tasa_cambio' => $this->tasaCambio,
+						'fecha' => now(),
+						'gasto_id' => $gasto->id,
+						'unidad_id' => $unidad->id,
+					]);
+
+					$gasto->estado_cobro = 'En proceso';
+					$gasto->save();
+				}
 			}
 		}
 

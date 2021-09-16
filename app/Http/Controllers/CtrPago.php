@@ -14,7 +14,7 @@ class CtrPago extends Controller
 		return view('pago.index');
 	}
 
-	public function show(Pago $pago) {
-		return view('pago.show', compact('pago'));
+	public function show(Pago $pagoCondominio) {
+		return view('pago.show', compact('pagoCondominio'));
 	}
 }

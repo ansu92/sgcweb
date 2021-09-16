@@ -17,6 +17,7 @@ class CreateGastosTable extends Migration
         Schema::create('gastos', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
+			$table->enum('tipo', ['Ordinario', 'Extraordinario']);
             $table->enum('calculo_por', ['Alícuota', 'Total de inmuebles']);
             $table->string('mes_cobro');
             $table->enum('moneda', ['Bolívar', 'Dólar']);
@@ -25,8 +26,9 @@ class CreateGastosTable extends Migration
             $table->text('observaciones')->nullable();
             $table->foreignId('proveedor_id');
 			$table->string('factura');
-			$table->enum('estado', ['Pendiente', 'Pagado'])->default('Pendiente');
 			$table->date('fecha')->default(now());
+			$table->enum('estado_pago', ['Pendiente', 'Pagado'])->default('Pendiente');
+			$table->enum('estado_cobro', ['Pendiente','En proceso', 'Procesado'])->default('Pendiente');
             $table->timestamps();
         });
     }

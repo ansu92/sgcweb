@@ -18,7 +18,7 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
 
-                            <div class="col-span-6 sm:col-span-6">
+                            <div class="col-span-6 sm:col-span-4">
                                 <label for="descripcion" class="block text-sm font-medium text-gray-700">
                                     Descripción:
                                 </label>
@@ -32,18 +32,18 @@
                                     Tipo de gasto:
                                 </label>
                                 <div>
-                                    <input wire:model="tipo" type="radio" name="tipo" id="ordinario" value="ordinario">
+                                    <input wire:model="tipo" type="radio" name="tipo" id="ordinario" value="Ordinario">
                                     <label for="ordinario">Ordinario</label>
                                 </div>
                                 <div>
                                     <input wire:model="tipo" type="radio" name="tipo" id="extraordinario"
-                                        value="extraordinario">
+                                        value="Extraordinario">
                                     <label for="extraordinario">Extraordinario</label>
                                 </div>
                                 <x-jet-input-error for="tipo" />
                             </div>
 
-                            @if ($tipo == 'extraordinario')
+                            @if ($tipo == 'Extraordinario')
                                 <div class="col-span-6 sm:col-span-2">
                                     <label for="numero-meses" class="block text-sm font-medium text-gray-700">
                                         Número de meses:
@@ -69,7 +69,7 @@
                                 </div>
 
                                 @if ($elegidoAsamblea == 'si')
-                                    <div class="col-span-6">
+                                    <div class="col-span-2">
                                         <label for="asamblea" class="block text-sm font-medium text-gray-700">
                                             Asamblea:
                                         </label>
@@ -86,14 +86,14 @@
                                 @endif
                             @endif
 
-                            <div class="col-span-6 sm:col-span-3">
+                            <div class="col-span-6 sm:col-span-2 sm:col-start-1">
                                 <label for="calculo" class="block text-sm font-medium text-gray-700">
                                     Calcular por:
                                 </label>
                                 <div>
                                     <select wire:model="calculo" name="calculo" id="calculo"
                                         class="form-control w-full">
-                                        <option>--</option>
+                                        <option>----</option>
                                         <option>Alícuota</option>
                                         <option>Total de inmuebles</option>
                                     </select>
@@ -101,7 +101,7 @@
                                 <x-jet-input-error for="calculo" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-3">
+                            <div class="col-span-6 sm:col-span-2">
                                 <label for="comienzo-cobro" class="block text-sm font-medium text-gray-700">
                                     Comienzo de cobro:
                                 </label>
@@ -110,7 +110,7 @@
                                 <x-jet-input-error for="comienzoCobro" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-3">
+                            <div class="col-span-6 sm:col-span-2">
                                 <label for="moneda" class="block text-sm font-medium text-gray-700">
                                     Moneda:
                                 </label>
@@ -130,6 +130,15 @@
                                 <x-jet-input-error for="monto" />
                             </div>
 
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="factura" class="block text-sm font-medium text-gray-700">
+                                    Factura:
+                                </label>
+                                <input wire:model="factura" type="text" name="factura" id="factura"
+                                    class="form-control w-full">
+                                <x-jet-input-error for="factura" />
+                            </div>
+
                             <div class="col-span-6">
                                 <label for="observaciones" class="block text-sm font-medium text-gray-700">
                                     Observaciones:
@@ -146,21 +155,13 @@
                                 <select wire:model="proveedor.id" name="proveedor" id="proveedor"
                                     class="form-control w-full">
                                     <option>----</option>
-                                    @foreach ($proveedores as $proveedor)
-                                        <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
+                                    @foreach ($proveedores as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                                     @endforeach
                                 </select>
                                 <x-jet-input-error for="proveedor.id" />
 								<x-jet-input-error for="servicios" />
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="factura" class="block text-sm font-medium text-gray-700">
-                                    Factura:
-                                </label>
-                                <input wire:model="factura" type="text" name="factura" id="factura"
-                                    class="form-control w-full">
-                                <x-jet-input-error for="factura" />
+								{{$proveedor->id}}
                             </div>
 
                         </div>
@@ -168,6 +169,13 @@
                         @if ($this->proveedor->id)
                             <div class="py-4">
                                 @include('livewire.gasto.partials.tabla-servicios')
+								{{$proveedor}}
+								<br>
+								<br>
+								{{var_dump($servicios)}}
+								<br>
+								<br>
+								{{var_dump($montos)}}
                             </div>
                         @endif
 

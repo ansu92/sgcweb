@@ -13,13 +13,25 @@ class Factura extends Model
 		'monto',
 		'monto_por_pagar',
 		'moneda',
+		'tasa_cambio',
 		'fecha',
 		'unidad_id',
 		'gasto_id',
 	];
 
+	public function pagar(float $monto)
+	{
+		$this->monto_por_pagar -= $monto;
+
+		if ($this->monto_por_pagar == 0) {
+			$this->estado = 'Pagada';
+		}
+
+		$this->save();
+	}
+
 	public function gasto() {
-		$this->belongsTo(Gasto::class);
+		return $this->belongsTo(Gasto::class);
 	}
 
 	public function unidad() {
