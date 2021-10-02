@@ -19,12 +19,12 @@
 
                             <div class="col-span-6 sm:col-span-3">
 
-                                <label for="documento"
-                                    class="block text-sm font-medium text-gray-700">Documento:</label>
+                                <label for="documento" class="block text-sm font-medium text-gray-700">Documento:</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 flex items-center">
                                         <select id="letra" name="letra"
-                                            class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md" wire:model="letra">
+                                            class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                                            wire:model="letra">
                                             <option value="V">V</option>
                                             <option value="E">E</option>
                                             <option value="J">J</option>
@@ -60,13 +60,14 @@
                                 <select id="banco_id" name="banco_id" class="form-control w-full" wire:model="banco_id">
                                     <option value="0"> -- </option>
                                     @foreach ($bancos as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                                     @endforeach
                                 </select>
                                 <x-jet-input-error for="banco_id" />
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de cuenta:</label>
+                                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de
+                                    cuenta:</label>
                                 <select id="tipo" name="tipo" class="form-control w-full" wire:model="tipo">
                                     <option value="0"> -- </option>
                                     <option>Ahorro</option>
@@ -79,9 +80,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            {{-- /formulario --}}
+                {{-- /formulario --}}
 
+            </div>
 
         </x-slot>
 

@@ -1,12 +1,6 @@
 @php
 $nav_links = [
     [
-        'name' => 'Pagos',
-        'route' => route('pago.create'),
-        'active' => request()->routeIs('pago.create'),
-        'can' => 'pago.create',
-    ],
-    [
         'name' => 'Cierre de mes',
         'route' => route('cierre-mes.index'),
         'active' => request()->routeIs('cierre-mes.index'),
@@ -67,10 +61,27 @@ $nav_links = [
                 @auth
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-						<x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-							Inicio
-						</x-jet-nav-link>
-						@foreach ($nav_links as $item)
+                        <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                            Inicio
+                        </x-jet-nav-link>
+                        <x-jet-dropdown>
+                            <x-slot name="trigger">
+                                <x-jet-nav-link class="h-full cursor-pointer">
+                                    Pagos
+                                </x-jet-nav-link>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-jet-dropdown-link href="{{ route('pago.create') }}"
+                                    :active="request()->routeIs('pago.create')">
+                                    Pagos del condominio
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('pago-propietario.create') }}"
+                                    :active="request()->routeIs('pago-propietario.create')">
+                                    Pagos del propietario
+                                </x-jet-dropdown-link>
+                            </x-slot>
+                        </x-jet-dropdown>
+                        @foreach ($nav_links as $item)
                             @can($item['can'])
                                 <x-jet-nav-link href="{{ $item['route'] }}" :active="$item['active']">
                                     {{ $item['name'] }}
@@ -197,7 +208,7 @@ $nav_links = [
                                     @csrf
 
                                     <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">
+                                                                        this.closest('form').submit();">
                                         {{ __('Cerrar sesión') }}
                                     </x-jet-dropdown-link>
                                 </form>
@@ -258,9 +269,8 @@ $nav_links = [
 
                 <div class="mt-3 space-y-1">
 
-                    @can('configuracion')
-                        <x-jet-responsive-nav-link href="{{ route('admin.configuracion') }}"
-                            :active="request()->routeIs('admin.configuracion')">
+                    @can('admin')
+                        <x-jet-responsive-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')">
                             {{ __('Configuración') }}
                         </x-jet-responsive-nav-link>
                     @endcan
@@ -283,7 +293,7 @@ $nav_links = [
                         @csrf
 
                         <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
+                                                            this.closest('form').submit();">
                             {{ __('Cerrar sesión') }}
                         </x-jet-responsive-nav-link>
                     </form>

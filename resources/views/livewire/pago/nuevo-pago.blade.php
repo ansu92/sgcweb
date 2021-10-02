@@ -10,7 +10,7 @@
     </div>
 
     <div class="py-6 space-y-2">
-        <h1 class="text-lg self-end">Seleccione el gasto a pagar...</h1>
+        <h1 class="text-center text-xl font-semibold">Seleccione el gasto a pagar...</h1>
 
         @include('livewire.pago.partials.tabla-gastos')
     </div>

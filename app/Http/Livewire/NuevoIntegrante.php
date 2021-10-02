@@ -9,14 +9,21 @@ use Livewire\Component;
 
 class NuevoIntegrante extends Component
 {
-	public $open = false;
 	public $letra = 'V';
+	public $documento;
+	public $nombre;
+	public $segundoNombre = null;
+	public $apellido;
+	public $segundoApellido = null;
+	public $telefono = null;
+	public $email = null;
+
 	public $codigo = '0412';
 
 	public Unidad $unidad;
-
-	public $documento, $nombre, $segundoNombre = null, $apellido, $segundoApellido = null, $telefono = null, $email = null;
-
+	
+	public $open = false;
+	
 	protected $rules = [
 		'letra' => 'required',
 		'documento' => 'required|digits_between:6,8',

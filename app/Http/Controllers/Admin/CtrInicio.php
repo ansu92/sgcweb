@@ -8,6 +8,6 @@ class CtrInicio extends Controller
 {
     public function __invoke()
 	{
-		return view('admin.inicio');
+		return view('admin.index');
 	}
 }

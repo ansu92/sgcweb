@@ -16,6 +16,9 @@ class PagoPropietario extends Model
 		'monto',
 		'fecha',
 		'referencia',
+		'forma_pago',
+		'moneda',
+		'tasa_cambio',
 		'fondo_id',
 		'unidad_id',
 		'factura_id',
@@ -45,5 +48,9 @@ class PagoPropietario extends Model
 
 	public function fondo() {
 		return $this->belongsTo(Fondo::class);
+	}
+
+	public function unidad() {
+		return $this->belongsTo(Unidad::class);
 	}
 }

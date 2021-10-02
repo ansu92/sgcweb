@@ -11,7 +11,15 @@ class NuevoProveedor extends Component
 {
 	use WithPagination;
 
-	public $letra = 'V', $documento, $nombre, $contacto, $telefono, $email, $direccion, $servicios = [];
+	public $letra = 'V';
+	public $documento;
+	public $nombre;
+	public $contacto;
+	public $codigo = '0412';
+	public $telefono;
+	public $email;
+	public $direccion;
+	public $servicios = [];
 
 	public $open = false;
 
@@ -22,8 +30,8 @@ class NuevoProveedor extends Component
 	public $direction = 'asc';
 	public $cantidad = '10';
 
-    public $selectAll = false;
-    public $selectPage = false;
+	public $selectAll = false;
+	public $selectPage = false;
 
 	protected function rules()
 	{
@@ -32,27 +40,29 @@ class NuevoProveedor extends Component
 			'documento' => 'required|digits_between:6,8|unique:proveedores,documento,NULL,id,letra,' . $this->letra . ',deleted_at,NULL',
 			'nombre' => 'required',
 			'contacto' => 'required',
-			'telefono' => 'required|regex:/\d{4}-\d{7}/',
+			'codigo' => 'nullable',
+			'telefono' => 'nullable|digits:7',
 			'email' => 'nullable|email|unique:proveedores',
-			'servicios' => 'required',
+			'direccion' => 'nullable',
+			'servicios' => 'nullable',
 		];
 	}
 
-    public function getConsultaListaServiciosProperty()
-    {
-        return Servicio::where('nombre', 'LIKE', '%' . $this->busqueda . '%')
-		->orWhere('descripcion', 'LIKE', '%' . $this->busqueda . '%')
-		->orderBy($this->orden, $this->direction);
-    }
+	public function getConsultaListaServiciosProperty()
+	{
+		return Servicio::where('nombre', 'LIKE', '%' . $this->busqueda . '%')
+			->orWhere('descripcion', 'LIKE', '%' . $this->busqueda . '%')
+			->orderBy($this->orden, $this->direction);
+	}
 
-    public function getListaServiciosProperty()
-    {
-        return $this->consultaListaServicios->paginate($this->cantidad);
-    }
+	public function getListaServiciosProperty()
+	{
+		return $this->consultaListaServicios->paginate($this->cantidad);
+	}
 
 	public function render()
 	{
-		if($this->selectAll) {
+		if ($this->selectAll) {
 			$this->servicios = $this->getConsultaListaServiciosProperty()->pluck('id')->map(fn ($id) => (string)$id);
 		}
 
@@ -83,26 +93,26 @@ class NuevoProveedor extends Component
 		$this->validateOnly('letra');
 	}
 
-    public function updatingBusqueda()
-    {
-        $this->resetPage();
-    }
+	public function updatingBusqueda()
+	{
+		$this->resetPage();
+	}
 
-    public function updatingCantidad()
-    {
-        $this->resetPage();
-    }
+	public function updatingCantidad()
+	{
+		$this->resetPage();
+	}
 
-    public function updatedServicios()
-    {
-      $this->selectAll = false;
-      $this->selectPage = false;
-    }
+	public function updatedServicios()
+	{
+		$this->selectAll = false;
+		$this->selectPage = false;
+	}
 
-    public function updatedSelectPage($value)
-    {
-        $this->servicios = $value ? $this->listaServicios->pluck('id')->map(fn ($id) => (string)$id) : [];
-    }
+	public function updatedSelectPage($value)
+	{
+		$this->servicios = $value ? $this->listaServicios->pluck('id')->map(fn ($id) => (string)$id) : [];
+	}
 
 	public function orden($orden)
 	{
@@ -133,24 +143,22 @@ class NuevoProveedor extends Component
 				'documento' => $this->documento,
 				'nombre' => $this->nombre,
 				'contacto' => $this->contacto,
-				'telefono' => $this->telefono,
+				'telefono' => $this->codigo . '-' . $this->telefono,
 				'email' => $this->email,
 				'direccion' => $this->direccion,
 			]);
 		} else {
 			$proveedor->restore();
 
-			$proveedor->letra = $this->letra;
-			$proveedor->documento = $this->documento;
 			$proveedor->nombre = $this->nombre;
 			$proveedor->contacto = $this->contacto;
-			$proveedor->telefono = $this->telefono;
+			$proveedor->telefono = $this->codigo . '-' . $this->telefono;
 			$proveedor->email = $this->email;
 
 			$proveedor->save();
 		}
 
-		$proveedor->servicios()->attach($this->servicios);
+		$proveedor->servicios()->sync($this->servicios);
 
 		$this->reset([
 			'open',
@@ -158,6 +166,7 @@ class NuevoProveedor extends Component
 			'documento',
 			'nombre',
 			'contacto',
+			'codigo',
 			'telefono',
 			'email',
 			'direccion',

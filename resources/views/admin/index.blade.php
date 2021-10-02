@@ -1,15 +1,15 @@
 @php
 $modulos = [
     [
-        'name' => 'Banco',
+        'name' => 'Bancos',
         'route' => route('banco.index'),
     ],
     [
-        'name' => 'Cuenta',
+        'name' => 'Cuentas bancarias',
         'route' => route('cuenta.index'),
     ],
     [
-        'name' => 'Categoría',
+        'name' => 'Categorías',
         'route' => route('categoria.index'),
     ],
     // [
@@ -21,19 +21,19 @@ $modulos = [
     //     'route' => route('servicio.index'),
     // ],
     [
-        'name' => 'Servicio',
+        'name' => 'Servicios',
         'route' => route('servicio.index'),
     ],
     [
-        'name' => 'Tipo de Unidad',
+        'name' => 'Tipos de unidad',
         'route' => route('tipo-unidad.index'),
     ],
     [
-        'name' => 'Unidad',
+        'name' => 'Unidades',
         'route' => route('admin.unidad.index'),
     ],
     [
-        'name' => 'Usuario',
+        'name' => 'Usuarios',
         'route' => route('admin.usuario'),
     ],
 ];
@@ -50,7 +50,39 @@ $modulos = [
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
-                <div>
+				<div class="flex flex-col p-4 gap-3">
+
+					<a href="">
+						<x-card-condominio />
+					</a>
+
+					<a href="{{route('admin.unidad.index')}}">
+						<div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+							Lista de unidades
+						</div>
+					</a>
+
+					<a href="{{route('pago.create')}}">
+						<div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+							Pagar gastos
+						</div>
+					</a>
+
+					<a href="{{route('comunicado.index')}}">
+						<div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+							Comunicados
+						</div>
+					</a>
+
+					<a href="{{route('gasto.index')}}">
+						<div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+							Registrar gastos
+						</div>
+					</a>
+
+				</div>
+
+                {{-- <div>
                     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
 
                         <h2 class="text-lg">Datos del sistema</h2>
@@ -62,7 +94,7 @@ $modulos = [
                         </div>
 
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>

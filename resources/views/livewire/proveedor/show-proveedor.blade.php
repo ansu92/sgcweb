@@ -29,7 +29,7 @@
 
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        Contacto:
+                        Nombre del contacto:
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ $proveedor->contacto }}
@@ -49,7 +49,7 @@
                     <dt class="text-sm font-medium text-gray-500">
                         Email:
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 capitalize">
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ $proveedor->email }}
                     </dd>
                 </div>
@@ -74,8 +74,6 @@
 
                     <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full"
                         wire:model="busqueda" />
-
-                    @livewire('servicio.nuevo-servicio')
                 </div>
 
                 <!-- tabla -->

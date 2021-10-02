@@ -14,7 +14,8 @@ class CtrPagoPropietario extends Controller
 		return view('pago-propietario.create');
 	}
 
-	public function show(PagoPropietario $pago) {
+	public function show(PagoPropietario $pagoPropietario) {
+		$pago = $pagoPropietario;
 		return view('pago-propietario.show', compact('pago'));
 	}
 }
