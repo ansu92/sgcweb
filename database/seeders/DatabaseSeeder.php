@@ -11,6 +11,7 @@ use App\Models\Fondo;
 use App\Models\Integrante;
 use App\Models\Propietario;
 use App\Models\Proveedor;
+use App\Models\Sancion;
 use App\Models\Servicio;
 use App\Models\TipoUnidad;
 use App\Models\TipoUsuario;
@@ -42,7 +43,9 @@ class DatabaseSeeder extends Seeder
 			->create();
 
 		Servicio::factory(15)->create();
-		Proveedor::factory(10)->create();
+		Proveedor::factory(15)->create();
+		Sancion::factory(15)->create();
+
 
 		foreach (Proveedor::all() as $proveedor) {
 			$proveedor->servicios()->attach(Servicio::all()->random(4));
@@ -75,4 +78,5 @@ class DatabaseSeeder extends Seeder
 
 		$this->call(UserSeeder::class);
 	}
+	
 }

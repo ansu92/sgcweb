@@ -80,6 +80,18 @@ $modulos = [
 						</div>
 					</a>
 
+					<a href="{{route('admin.sancion.index')}}">
+						<div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+							Gestionar sanciones
+						</div>
+					</a>
+
+                    <a href="{{route('aplicar-sancion.index')}}">
+						<div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+							Aplicar sanción
+						</div>
+					</a>
+
 				</div>
 
                 {{-- <div>

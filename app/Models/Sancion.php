@@ -9,5 +9,6 @@ class Sancion extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['descripcion', 'monto', 'moneda'];
     protected $table = 'sanciones';
 }

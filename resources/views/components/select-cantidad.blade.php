@@ -1,3 +1,7 @@
+@props([
+	'cantidad'
+])
+
 <div class="flex items-center text-sm">
 	<span>Mostrar</span>
 

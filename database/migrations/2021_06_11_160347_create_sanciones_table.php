@@ -15,10 +15,10 @@ class CreateSancionesTable extends Migration
     {
         Schema::create('sanciones', function (Blueprint $table) {
             $table->id();
-            $table->string('descipcion');
+            $table->string('descripcion');
             $table->decimal('monto');
-            $table->date('fecha');
-            $table->foreignId('unidad_id');
+            $table->enum('moneda', ['Bolívar','Dólar']);
+
             $table->timestamps();
         });
     }

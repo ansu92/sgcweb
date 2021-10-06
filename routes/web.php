@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CtrAplicarSancion;
 use App\Http\Controllers\CtrAsamblea;
 use App\Http\Controllers\CtrBanco;
 use App\Http\Controllers\CtrCategoria;
@@ -65,6 +66,8 @@ Route::resource('pago-condominio', CtrPago::class)->only(['index', 'create', 'sh
 Route::resource('pago-propietario', CtrPagoPropietario::class)->only(['index', 'create', 'show'])->names('pago-propietario');
 
 Route::resource('proveedor', CtrProveedor::class)->only(['index', 'show'])->names('proveedor');
+
+Route::get('aplicar-sancion', [CtrAplicarSancion::class, 'index'])->name('aplicar-sancion.index');
 
 Route::resource('servicio', CtrServicio::class)->only(['index', 'show'])->names('servicio');
 
