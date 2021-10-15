@@ -43,6 +43,7 @@
                                     wire:model="observacion"></textarea>
                                 <x-jet-input-error for="observacion" />
                             </div>
+
                             <div class="col-span-6">
                                 <x-jet-input-error for="asistentes" />
 
@@ -51,8 +52,8 @@
 
                                         <x-select-cantidad />
 
-                                        <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full"
-                                            wire:model="busqueda" />
+                                        <x-jet-input type="text" placeholder="Escriba para buscar..."
+                                            class="w-full" wire:model="busqueda" />
 
                                         {{-- @livewire('nueva-asamblea') --}}
                                     </div>

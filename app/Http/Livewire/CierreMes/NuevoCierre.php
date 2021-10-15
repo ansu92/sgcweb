@@ -4,6 +4,7 @@ namespace App\Http\Livewire\CierreMes;
 
 use App\Models\Factura;
 use App\Models\Gasto;
+use App\Models\Mensualidad;
 use App\Models\Unidad;
 use Livewire\Component;
 
@@ -45,6 +46,8 @@ class NuevoCierre extends Component
 
 		$areaTotal = Unidad::getAreaTotal();
 
+		$mensualidad = Mensualidad::orderBy('created_at', 'desc')->first();
+
 		$gastosOrdinarios = Gasto::where('tipo', 'Ordinario')
 			->where('mes_cobro', '<=', $this->mes)
 			->where('estado_cobro', 'Pendiente')
@@ -53,9 +56,24 @@ class NuevoCierre extends Component
 
 		$gastosExtraordinarios = Gasto::where('tipo', 'Extraordinario')
 			->where('mes_cobro', '<=', $this->mes)
-			->where('estado_cobro', 'Pendiente')
-			->orWhere('estado_cobro', 'En proceso')
+			->where(function ($query) {
+				$query->where('estado_cobro', 'Pendiente')
+					->orWhere('estado_cobro', 'En proceso');
+			})
 			->get();
+
+		foreach ($unidades as $unidad) {
+			Factura::create([
+				'monto' => $mensualidad->monto,
+				'monto_por_pagar' => $mensualidad->monto,
+				'moneda' => $mensualidad->moneda,
+				'tasa_cambio' => $this->tasaCambio,
+				'fecha' => now(),
+				'facturable_id' => $mensualidad->id,
+				'facturable_type' => Mensualidad::class,
+				'unidad_id' => $unidad->id,
+			]);
+		}
 
 		foreach ($gastosOrdinarios as $gasto) {
 
@@ -76,7 +94,8 @@ class NuevoCierre extends Component
 					'moneda' => $this->moneda,
 					'tasa_cambio' => $this->tasaCambio,
 					'fecha' => now(),
-					'gasto_id' => $gasto->id,
+					'facturable_id' => $gasto->id,
+					'facturable_type' => Gasto::class,
 					'unidad_id' => $unidad->id,
 				]);
 
@@ -105,7 +124,8 @@ class NuevoCierre extends Component
 						'moneda' => $this->moneda,
 						'tasa_cambio' => $this->tasaCambio,
 						'fecha' => now(),
-						'gasto_id' => $gasto->id,
+						'facturable_id' => $gasto->id,
+						'facturable_type' => Gasto::class,
 						'unidad_id' => $unidad->id,
 					]);
 

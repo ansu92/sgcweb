@@ -2,10 +2,13 @@
 
 namespace App\View\Components;
 
+use App\Models\Condominio;
+use App\Models\Unidad;
 use Illuminate\View\Component;
 
 class CardCondominio extends Component
 {
+    public $condominio;
     /**
      * Create a new component instance.
      *
@@ -13,7 +16,7 @@ class CardCondominio extends Component
      */
     public function __construct()
     {
-        //
+        $this->condominio = Condominio::first();
     }
 
     /**
@@ -23,6 +26,8 @@ class CardCondominio extends Component
      */
     public function render()
     {
-        return view('components.card-condominio');
+        $numUnidades = Unidad::all()->count();
+
+        return view('components.card-condominio', compact('numUnidades'));
     }
 }

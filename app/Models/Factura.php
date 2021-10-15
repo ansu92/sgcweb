@@ -16,7 +16,8 @@ class Factura extends Model
 		'tasa_cambio',
 		'fecha',
 		'unidad_id',
-		'gasto_id',
+		'facturable_id',
+		'facturable_type',
 	];
 
 	public function pagar(float $monto)
@@ -30,8 +31,8 @@ class Factura extends Model
 		$this->save();
 	}
 
-	public function gasto() {
-		return $this->belongsTo(Gasto::class);
+	public function facturable() {
+		return $this->morphTo();
 	}
 
 	public function unidad() {

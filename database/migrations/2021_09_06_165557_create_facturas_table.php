@@ -21,8 +21,10 @@ class CreateFacturasTable extends Migration
 			$table->decimal('tasa_cambio', 12);
 			$table->date('fecha');
 			$table->enum('estado', ['Pendiente', 'Pagada'])->default('Pendiente');
-			$table->foreignId('gasto_id');
 			$table->foreignId('unidad_id');
+			// $table->foreignId('gasto_id');
+            $table->integer('facturable_id');
+            $table->string('facturable_type');
             $table->timestamps();
         });
     }

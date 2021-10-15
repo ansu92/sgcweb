@@ -182,7 +182,7 @@ $nav_links = [
                                 @can('admin')
                                     <x-jet-dropdown-link href="{{ route('admin') }}">
                                         {{-- <i class="fa fas-settings"></i> --}}
-                                        {{ __('Configuración') }}
+                                        {{ __('Administración del condominio') }}
                                     </x-jet-dropdown-link>
                                 @endcan
 

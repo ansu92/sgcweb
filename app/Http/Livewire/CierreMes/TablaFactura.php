@@ -11,8 +11,8 @@ class TablaFactura extends Component
 	use WithPagination;
 
 	public $busqueda = '';
-	public $orden = 'fecha';
-	public $direccion = "asc";
+	public $orden = 'created_at';
+	public $direccion = "desc";
 	public $cantidad = '10';
 
 	public $readyToLoad = false;

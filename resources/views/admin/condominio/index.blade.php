@@ -17,6 +17,10 @@
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
 
+                                    @csrf
+
+                                    <h3 class="col-span-6 text-center">Datos del condominio</h3>
+
                                     <div class="col-span-6">
                                         <label for="rif" class="block text-sm font-medium text-gray-700">RIF:</label>
                                         <div class="mt-1 relative rounded-md shadow-sm">
@@ -49,14 +53,34 @@
                                         <x-jet-input-error for="direccion" />
                                     </div>
 
+                                    <h3 class="col-span-6 text-center">Mensualidad inicial</h3>
+
+                                    <div class="col-span-6">
+                                        <label for="monto" class="block text-sm font-medium text-gray-700">
+                                            Monto:
+                                        </label>
+                                        <input type="text" name="monto" id="monto" class="form-control w-full">
+                                        <x-jet-input-error for="monto" />
+                                    </div>
+
+                                    <div class="col-span-6">
+                                        <label for="moneda" class="block text-sm font-medium text-gray-700">
+                                            Moneda:
+                                        </label>
+                                        <select name="moneda" id="moneda" class="form-control w-full">
+                                            <option>Bolívar</option>
+                                            <option>Dólar</option>
+                                        </select>
+                                        <x-jet-input-error for="moneda" />
+                                    </div>
+
                                 </div>
                             </div>
 
                             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Actualizar
-                                </button>
+                                <x-jet-button type="submit">
+                                    Registrar
+                                </x-jet-button>
                             </div>
 
                         </div>

@@ -66,6 +66,6 @@ class Gasto extends Model
 
 	public function factura()
 	{
-		return $this->hasMany(Factura::class);
+		return $this->morphOne(Factura::class, 'facturable');
 	}
 }
