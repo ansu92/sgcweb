@@ -15,5 +15,8 @@
         <div>
             <strong class="text-sm text-gray-700">Rol: </strong>{{ $comunicado->autor->rol }}
         </div>
+        <div>
+            <strong class="text-sm text-gray-700">Fecha: </strong>{{ $comunicado->fecha}}
+        </div>
     </div>
 </div>

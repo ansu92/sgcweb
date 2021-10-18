@@ -7,8 +7,10 @@ use App\Models\Banco;
 use App\Models\Categoria;
 use App\Models\Comunicado;
 use App\Models\Cuenta;
+use App\Models\Enfermedad;
 use App\Models\Fondo;
 use App\Models\Integrante;
+use App\Models\Medicamento;
 use App\Models\Propietario;
 use App\Models\Proveedor;
 use App\Models\Sancion;
@@ -33,6 +35,8 @@ class DatabaseSeeder extends Seeder
 		$this->call(RoleSeeder::class);
 		$this->call(BancoSeeder::class);
 
+		Enfermedad::factory(15)->create();
+		Medicamento::factory(15)->create();
 		Banco::factory(6)->create();
 		Categoria::factory(7)->create();
 		TipoUnidad::factory(5)->create();

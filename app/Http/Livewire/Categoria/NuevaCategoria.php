@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class NuevaCategoria extends Component
 {
-	public $abierto = false;
+	public $open = false;
 
 	public $nombre, $descripcion;
 
@@ -31,7 +31,7 @@ class NuevaCategoria extends Component
 		]);
 
 		$this->reset([
-			'abierto',
+			'open',
 			'nombre',
 			'descripcion',
 		]);

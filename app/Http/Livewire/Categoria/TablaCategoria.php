@@ -57,11 +57,6 @@ class TablaCategoria extends Component
 		$this->resetPage();
 	}
 
-	public function loadCategorias()
-	{
-		$this->readyToLoad = true;
-	}
-
 	public function orden($orden)
 	{
 		if ($this->orden == $orden) {

@@ -40,6 +40,24 @@
                 </div>
             </a>
 
+            <a href="{{ route('categoria.index') }}">
+                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+                    Gestionar categorías
+                </div>
+            </a>
+
+            <a href="{{ route('enfermedad.index') }}">
+                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+                    Gestionar enfermedades
+                </div>
+            </a>
+
+            <a href="{{ route('medicamento.index') }}">
+                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+                    Gestionar medicamentos
+                </div>
+            </a>
+
         </div>
 
         <x-card-condominio class="col-span-2" />

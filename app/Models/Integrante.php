@@ -18,6 +18,7 @@ class Integrante extends Model
 		's_nombre',
 		'apellido',
 		's_apellido',
+		'fecha_nacimiento',
 		'telefono',
 		'email',
 		'unidad_id',
@@ -41,5 +42,13 @@ class Integrante extends Model
 	public function asambleas()
 	{
 		return $this->belongsToMany(Asamblea::class, 'asistentes');
+	}
+
+	public function enfermedades() {
+		return $this->belongsToMany(Enfermedad::class);
+	}
+
+	public function medicamentos() {
+		return $this->belongsToMany(Medicamento::class);
 	}
 }

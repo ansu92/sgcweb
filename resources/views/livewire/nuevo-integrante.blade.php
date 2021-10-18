@@ -60,12 +60,20 @@
                                 <label for="s_apellido" class="block text-sm font-medium text-gray-700">Segundo
                                     apellido:</label>
                                 <input wire:model="segundoApellido" type="text" name="s_apellido" id="s_apellido"
-                                    autocomplete="street-address"
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 <x-jet-input-error for="segundoApellido" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
+                                <label for="fecha_nacimiento" class="block text-sm font-medium text-gray-700">Fecha de
+                                    nacimiento:</label>
+                                <input wire:model="fecha_nacimiento" type="date" name="fecha_nacimiento"
+                                    id="fecha_nacimiento"
+                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <x-jet-input-error for="fecha_nacimiento" />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3 sm:col-start-1">
                                 <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 flex items-center">
@@ -89,6 +97,36 @@
                                 <input wire:model="email" type="text" name="email" id="email" autocomplete="email"
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 <x-jet-input-error for="email" />
+                            </div>
+
+                            <h3 class="col-span-6 text-center">Enfermedades que padece</h3>
+
+                            <div class="col-span-6 grid grid-cols-4">
+                                @foreach ($listaEnfermedades as $item)
+                                    <div>
+                                        <input wire:model="enfermedades" type="checkbox" name="{{ $item->nombre }}"
+                                            id="{{ $item->nombre }}" value="{{ $item->id }}"
+                                            class="form-control">
+                                        <label for="{{ $item->nombre }}"
+                                            class=" text-sm font-medium text-gray-700">{{ $item->nombre }}</label>
+                                    </div>
+                                @endforeach
+                                <x-jet-input-error for="enfermedades" />
+                            </div>
+
+                            <h3 class="col-span-6 text-center">Medicamentos que utiliza</h3>
+
+                            <div class="col-span-6 grid grid-cols-4">
+                                @foreach ($listaMedicamentos as $item)
+                                    <div>
+                                        <input wire:model="medicamentos" type="checkbox" name="{{ $item->nombre }}"
+                                            id="{{ $item->nombre }}" value="{{ $item->id }}"
+                                            class="form-control">
+                                        <label for="{{ $item->nombre }}"
+                                            class=" text-sm font-medium text-gray-700">{{ $item->nombre }}</label>
+                                    </div>
+                                @endforeach
+                                <x-jet-input-error for="medicamentos" />
                             </div>
 
                         </div>

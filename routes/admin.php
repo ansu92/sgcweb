@@ -23,4 +23,6 @@ Route::resource('sancion', CtrSancion::class)->only(['index', 'show'])->names('a
 
 Route::resource('unidad', CtrUnidad::class)->only(['index', 'show'])->names('admin.unidad');
 
-Route::get('usuario', CtrUser::class)->middleware('can:admin.usuario.index')->name('admin.usuario');
+Route::get('usuario', [CtrUser::class, 'index'])->middleware('can:admin.usuario.index')->name('admin.usuario.index');
+
+Route::get('usuario/{usuario}', [CtrUser::class, 'show'])->middleware('can:admin.usuario.show')->name('admin.usuario.show');

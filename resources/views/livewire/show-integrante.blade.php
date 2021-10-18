@@ -12,9 +12,10 @@
                     Cédula:
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$integrante->letra}}-{{ $integrante->documento }}
+                    {{ $integrante->letra }}-{{ $integrante->documento }}
                 </dd>
             </div>
+
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">
                     Nombre:
@@ -24,6 +25,7 @@
                     {{ $integrante->s_apellido }}
                 </dd>
             </div>
+
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">
                     Teléfono:
@@ -32,6 +34,7 @@
                     {{ $integrante->telefono }}
                 </dd>
             </div>
+
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">
                     Email:
@@ -40,6 +43,7 @@
                     {{ $integrante->email }}
                 </dd>
             </div>
+
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">
                     Dirección:
@@ -49,10 +53,6 @@
                 </dd>
             </div>
 
-
         </dl>
-
-
-
     </div>
 </div>

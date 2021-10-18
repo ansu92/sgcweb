@@ -140,7 +140,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap space-x-1 text-xs">
-                                                    <a href="{{ route('proveedor.show', $item) }}"
+                                                    <a href="{{ route('visita.show', $item) }}"
                                                         class="btn btn-blue">
                                                         <i class="fas fa-eye"></i>
                                                     </a>

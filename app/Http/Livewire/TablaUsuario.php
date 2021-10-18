@@ -61,11 +61,6 @@ class TablaUsuario extends Component
 		$this->resetPage();
 	}
 
-	public function loadUsuarios()
-	{
-		$this->readyToLoad = true;
-	}
-
 	public function orden($orden)
 	{
 		if ($this->orden == $orden) {

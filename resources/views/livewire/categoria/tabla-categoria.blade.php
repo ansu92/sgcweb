@@ -1,4 +1,4 @@
-<div wire:init="loadCategorias">
+<div wire:init="$set('readyToLoad', true)">
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">

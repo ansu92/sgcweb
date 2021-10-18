@@ -1,10 +1,10 @@
 <div>
 
-    <x-jet-button wire:click="$set('abierto', true)">
+    <x-jet-button wire:click="$set('open', true)">
         Nuevo
     </x-jet-button>
 
-    <x-jet-dialog-modal wire:model="abierto">
+    <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             Nueva categoría
         </x-slot>
@@ -42,11 +42,11 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button class="mr-2" wire:click="$set('abierto', false)">
+            <x-jet-secondary-button class="mr-2" wire:click="$set('open', false)">
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-button wire:click="save()">
+            <x-jet-button wire:click="save">
                 Registrar
             </x-jet-button>
         </x-slot>

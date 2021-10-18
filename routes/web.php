@@ -7,10 +7,12 @@ use App\Http\Controllers\CtrCategoria;
 use App\Http\Controllers\CtrCierreMes;
 use App\Http\Controllers\CtrComunicado;
 use App\Http\Controllers\CtrCuenta;
+use App\Http\Controllers\CtrEnfermedad;
 use App\Http\Controllers\CtrFondo;
 use App\Http\Controllers\CtrGasto;
 use App\Http\Controllers\CtrInicio;
 use App\Http\Controllers\CtrIntegrante;
+use App\Http\Controllers\CtrMedicamento;
 use App\Http\Controllers\CtrPago;
 use App\Http\Controllers\CtrPagoPropietario;
 use App\Http\Controllers\CtrProveedor;
@@ -55,11 +57,15 @@ Route::get('cuenta', [CtrCuenta::class, 'index'])->name('cuenta.index');
 
 Route::get('cuenta/{cuenta}', [CtrCuenta::class, 'show'])->name('cuenta.show');
 
+Route::resource('enfermedad', CtrEnfermedad::class)->only('index', 'show')->names('enfermedad');
+
 Route::resource('fondo', CtrFondo::class)->only(['index', 'show'])->names('fondo');
 
 Route::resource('gasto', CtrGasto::class)->only(['index', 'show'])->names('gasto');
 
 Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->name('integrante.show');
+
+Route::resource('medicamento', CtrMedicamento::class)->only('index', 'show')->names('medicamento');
 
 Route::resource('pago-condominio', CtrPago::class)->only(['index', 'create', 'show'])->names('pago');
 

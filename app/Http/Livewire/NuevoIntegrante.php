@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Enfermedad;
 use App\Models\Integrante;
+use App\Models\Medicamento;
 use App\Models\Unidad;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -15,15 +17,19 @@ class NuevoIntegrante extends Component
 	public $segundoNombre = null;
 	public $apellido;
 	public $segundoApellido = null;
+	public $fecha_nacimiento;
 	public $telefono = null;
 	public $email = null;
+
+	public $enfermedades = [];
+	public $medicamentos = [];
 
 	public $codigo = '0412';
 
 	public Unidad $unidad;
-	
+
 	public $open = false;
-	
+
 	protected $rules = [
 		'letra' => 'required',
 		'documento' => 'required|digits_between:6,8',
@@ -31,10 +37,25 @@ class NuevoIntegrante extends Component
 		'segundoNombre' => 'nullable|max:20',
 		'apellido' => 'required|max:20',
 		'segundoApellido' => 'nullable|max:20',
+		'fecha_nacimiento' => 'required|before_or_equal:today',
 		'codigo' => 'nullable',
 		'telefono' => 'nullable|digits:7',
 		'email' => 'nullable|email|max:45',
 	];
+
+	protected $messages = [
+		'documento.required' => 'El campo cédula es obligatorio.',
+		'fecha_nacimiento.required' => 'El campo fecha de nacimiento es obligatorio.',
+		'fecha_nacimiento.before_or_equal' => 'La fecha no puede ser mayor a la fecha de hoy.',
+	];
+
+	public function render()
+	{
+		$listaEnfermedades = Enfermedad::orderBy('nombre')->get();
+		$listaMedicamentos = Medicamento::orderBy('nombre')->get();
+
+		return view('livewire.nuevo-integrante', compact('listaEnfermedades', 'listaMedicamentos'));
+	}
 
 	public function updated($propertyName)
 	{
@@ -61,19 +82,27 @@ class NuevoIntegrante extends Component
 			$this->segundoNombre = $integrante->s_nombre;
 			$this->apellido = $integrante->apellido;
 			$this->segundoApellido = $integrante->s_apellido;
+			$this->fecha_nacimiento = $integrante->fecha_nacimiento;
 			$this->codigo = Str::substr($integrante->telefono, 0, 4);
 			$this->telefono = Str::substr($integrante->telefono, 5, 7);
 			$this->email = $integrante->email;
+			$this->enfermedades = $integrante->enfermedades()->pluck('enfermedades.id')->toArray();
+			$this->medicamentos = $integrante->medicamentos()->pluck('medicamentos.id')->toArray();
+
 		} else {
 			$this->integrante = new Integrante;
+
 			$this->reset([
 				'nombre',
 				'segundoNombre',
 				'apellido',
 				'segundoApellido',
+				'fecha_nacimiento',
 				'codigo',
 				'telefono',
 				'email',
+				'enfermedades',
+				'medicamentos',
 			]);
 		}
 	}
@@ -90,45 +119,58 @@ class NuevoIntegrante extends Component
 			$integrante->s_nombre = $this->segundoNombre;
 			$integrante->apellido = $this->apellido;
 			$integrante->s_apellido = $this->segundoApellido;
-			$integrante->telefono = $this->codigo . '-' . $this->telefono;
+			$integrante->fecha_nacimiento = $this->fecha_nacimiento;
+
+			if ($this->telefono) {
+				$integrante->telefono = $this->codigo . '-' . $this->telefono;
+			}
+
 			$integrante->email = $this->email;
 			$integrante->unidad_id = $this->unidad->id;
 			$integrante->save();
 		} else {
 
-			Integrante::create([
+			$datosIntegrante = [
 				'letra' => $this->letra,
 				'documento' => $this->documento,
 				'nombre' => $this->nombre,
 				's_nombre' => $this->segundoNombre,
 				'apellido' => $this->apellido,
+				'fecha_nacimiento' => $this->fecha_nacimiento,
 				's_apellido' => $this->segundoApellido,
-				'telefono' => $this->codigo . '-' . $this->telefono,
 				'email' => $this->email,
 				'unidad_id' => $this->unidad->id,
-			]);
+			];
+
+			if ($this->telefono) {
+				$datosIntegrante['telefono'] = $this->codigo . '-' . $this->telefono;
+			}
+
+			$integrante = Integrante::create($datosIntegrante);
 		}
 
+		$integrante->enfermedades()->sync($this->enfermedades);
+		$integrante->medicamentos()->sync($this->medicamentos);
+
+		$this->reset('open');
+
 		$this->reset([
-			'open',
 			'letra',
 			'documento',
 			'nombre',
 			'segundoNombre',
 			'apellido',
 			'segundoApellido',
+			'fecha_nacimiento',
 			'codigo',
 			'telefono',
 			'email',
+			'enfermedades',
+			'medicamentos',
 		]);
 
 		$this->emitTo('unidad.show-unidad', 'render');
 		$this->emit('alert', 'El integrante se añadió satisfactoriamente');
 		// redirect()->route('unidad.show', $this->unidad);
-	}
-
-	public function render()
-	{
-		return view('livewire.nuevo-integrante');
 	}
 }

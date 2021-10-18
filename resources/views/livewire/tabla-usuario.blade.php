@@ -1,4 +1,4 @@
-<div wire:init="loadUsuarios">
+<div wire:init="$set('readyToLoad', true)">
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
@@ -77,7 +77,8 @@
                                             </td>
                                             <td
                                                 class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium flex gap-1">
-                                                <a class="btn btn-blue">
+                                                <a href="{{ route('admin.usuario.show', $item) }}"
+                                                    class="btn btn-blue">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 <a class="btn btn-green" wire:click="edit({{ $item }})">

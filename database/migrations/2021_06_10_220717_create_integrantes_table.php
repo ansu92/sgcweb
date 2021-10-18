@@ -21,6 +21,7 @@ class CreateIntegrantesTable extends Migration
             $table->string('s_nombre', 20)->nullable();
             $table->string('apellido', 20);
             $table->string('s_apellido', 20)->nullable();
+            $table->date('fecha_nacimiento');
             $table->string('telefono', 12)->nullable();
             $table->string('email', 45)->nullable()->unique();
             $table->foreignId('unidad_id')->nullable();
