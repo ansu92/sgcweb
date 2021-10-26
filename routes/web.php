@@ -13,6 +13,7 @@ use App\Http\Controllers\CtrGasto;
 use App\Http\Controllers\CtrInicio;
 use App\Http\Controllers\CtrIntegrante;
 use App\Http\Controllers\CtrMedicamento;
+use App\Http\Controllers\CtrNosotros;
 use App\Http\Controllers\CtrPago;
 use App\Http\Controllers\CtrPagoPropietario;
 use App\Http\Controllers\CtrProveedor;
@@ -86,3 +87,5 @@ Route::get('visita/{visita}', [CtrVisita::class, 'show'])->name('visita.show');
 Route::get('unidad', [CtrUnidad::class, 'index'])->name('unidad.index');
 
 Route::get('unidad/{unidad}', [CtrUnidad::class, 'show'])->name('unidad.show');
+
+Route::get('nosotros', CtrNosotros::class)->name('nosotros.index');

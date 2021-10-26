@@ -19,6 +19,7 @@ class Visita extends Model
 		'matricula',
 		'marca',
 		'modelo',
+		'color',
 	];
 
     public function unidad() {

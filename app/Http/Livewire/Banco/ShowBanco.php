@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class ShowBanco extends Component
 {
-
     public Banco $banco;
 
     public function render()
