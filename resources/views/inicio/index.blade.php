@@ -21,7 +21,7 @@
 
         {{-- Mi perfil --}}
         <a href="{{ route('profile.show') }}">
-            <x-card-mi-perfil class="border" />
+            <x-card-mi-perfil />
         </a>
 
         @if (Auth::user()->propietario->integrante->unidad)
@@ -33,8 +33,8 @@
 
         {{-- Mis otras unidades --}}
         <a href="{{ route('unidad.index') }}">
-            <div class="flex flex-col shadow-md rounded bg-gray-50'">
-                <div class="px-4 py-2 bg-blue-500 rounded-t text-xl text-white font-bold text-center">
+            <div class="flex flex-col shadow-md p-2 pl-5 pr-5 bg-transparent border-2 border-blue-500 text-gray-900 text-lg rounded-lg transition-colors duration-700 transform hover:bg-blue-500 hover:text-white focus:border-4 focus:border-blue-300">
+                <div class="px-4 py-2  rounded-t text-xl font-bold text-center">
                     Mis otras unidades
                 </div>
             </div>
