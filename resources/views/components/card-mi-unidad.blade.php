@@ -33,7 +33,7 @@
     <img class="rounded-t-lg" src="{{ asset('img/casa.jpg') }}" alt="">
 
     <div class="p-5">
-        <h5 class="text-gray-900 font-bold text-2xl tracking-tight mb-2 text-center">Mi unidad</h5>
+        <h5 class="text-gray-900 border-b-2 font-bold text-2xl tracking-tight mb-2 text-center">Mi unidad</h5>
 
         <span class="text-xs">Número: </span>{{ $unidad->numero }}
 
