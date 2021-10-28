@@ -41,6 +41,10 @@
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Autor
                                             </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Fecha
+                                            </th>
                                             <th scope="col" class="relative px-6 py-3">
                                                 <span class="sr-only">Acciones</span>
                                             </th>
@@ -56,7 +60,13 @@
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->autor->integrante->nombre }} {{$item->autor->integrante->apellido}}
+                                                        {{ $item->autor->integrante->nombre }}
+                                                        {{ $item->autor->integrante->apellido }}
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm font-medium text-gray-900">
+                                                        {{ $item->fecha }}
                                                     </div>
                                                 </td>
                                                 <td

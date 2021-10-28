@@ -40,7 +40,7 @@ class NuevoIntegrante extends Component
 		'fecha_nacimiento' => 'required|before_or_equal:today',
 		'codigo' => 'nullable',
 		'telefono' => 'nullable|digits:7',
-		'email' => 'nullable|email|max:45',
+		'email' => 'nullable|email|max:45|unique:integrantes',
 	];
 
 	protected $messages = [

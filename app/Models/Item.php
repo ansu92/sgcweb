@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Interes extends Model
+class Item extends Model
 {
     use HasFactory;
 
-    protected $table = 'intereses';
-
 	protected $fillable = [
-		'factor',
-		'estado',
+		'itemable_id',
+		'itemable_type',
 	];
 }

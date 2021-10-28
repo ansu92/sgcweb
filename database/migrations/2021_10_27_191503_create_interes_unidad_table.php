@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInteresesTable extends Migration
+class CreateInteresUnidadTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateInteresesTable extends Migration
      */
     public function up()
     {
-        Schema::create('intereses', function (Blueprint $table) {
-            $table->id();
-            $table->double('factor');
-			$table->date('fecha')->default(now());
-			$table->boolean('estado')->default(false);
+        Schema::create('interes_unidad', function (Blueprint $table) {
+			$table->id();
+            $table->foreignId('unidad_id');
+			$table->foreignId('interes_id');
+			$table->date('fecha');
+			$table->boolean('estado');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateInteresesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('intereses');
+        Schema::dropIfExists('interes_unidad');
     }
 }

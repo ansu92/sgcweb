@@ -42,7 +42,7 @@ class TablaAdministrador extends Component
 
 	public function render()
 	{
-		$administradores = $this->readyToLoad ? Administrador::all() : [];
+		$administradores = $this->readyToLoad ? Administrador::paginate($this->cantidad) : [];
 
 		return view('livewire.admin.administrador.tabla-administrador', compact('administradores'));
 	}

@@ -2,57 +2,113 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Interes;
 use App\Models\Mensualidad;
 use Livewire\Component;
 
 class Administracion extends Component
 {
-    public $monto;
-    public $moneda = 'Bolívar';
+	public $monto;
+	public $moneda = 'Bolívar';
 
-    public $openMensualidad = false;
+	public $factor;
+	public $estado;
 
-    public $orden = 'created_at', $cantidad = 10, $busqueda = '', $direccion = 'desc';
+	public $openMensualidad = false;
+	public $openInteres = false;
 
-    protected $rules = [
-        'monto' => 'required|numeric|gt:0',
-        'moneda' => 'required',
-    ];
+	public $orden = 'created_at';
+	public $cantidad = 10;
+	public $busqueda = '';
+	public $direccion = 'desc';
 
-    public function mount()
-    {
-        $this->monto = Mensualidad::orderBy('created_at', 'desc')->first()->monto;
-        $this->moneda = Mensualidad::orderBy('created_at', 'desc')->first()->moneda;
-    }
+	protected $rules = [
+		'monto' => 'required|numeric|gt:0',
+		'moneda' => 'required',
+	];
 
-    public function render()
-    {
-        $mensualidades = Mensualidad::where('fecha', 'LIKE', '%' . $this->busqueda . '%')
-            ->orderBy($this->orden, $this->direccion)
-            ->paginate($this->cantidad);
+	public function mount()
+	{
+		$this->monto = Mensualidad::orderBy('created_at', 'desc')->first()->monto;
+		$this->moneda = Mensualidad::orderBy('created_at', 'desc')->first()->moneda;
 
-        return view('livewire.admin.administracion', compact('mensualidades'));
-    }
+		$interes = Interes::orderBy('created_at', 'desc')->first();
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
+		if ($interes) {
+			$this->factor = $interes->factor;
+			$this->estado = $interes->estado;
+		}
+	}
 
-    public function actualizar()
-    {
-        $this->validate();
+	public function render()
+	{
+		$mensualidades = Mensualidad::where('fecha', 'LIKE', '%' . $this->busqueda . '%')
+			->orderBy($this->orden, $this->direccion)
+			->paginate($this->cantidad);
 
-        Mensualidad::create([
-            'monto' => $this->monto,
-            'moneda' => $this->moneda,
-        ]);
+		$intereses = Interes::where('fecha', 'LIKE', '%' . $this->busqueda . '%')
+			->orderBy($this->orden, $this->direccion)
+			->paginate($this->cantidad);
 
-        $this->reset('openMensualidad');
+		return view('livewire.admin.administracion', compact('mensualidades', 'intereses'));
+	}
 
-        $this->monto = Mensualidad::orderBy('created_at', 'desc')->first()->monto;
-        $this->moneda = Mensualidad::orderBy('created_at', 'desc')->first()->moneda;
+	public function updated($propertyName)
+	{
+		$this->validateOnly($propertyName);
+	}
 
-        $this->emit('alert', 'La mensaulidad fue actualizada con éxito');
-    }
+	public function actualizar()
+	{
+		$this->validate();
+
+		Mensualidad::create([
+			'monto' => $this->monto,
+			'moneda' => $this->moneda,
+		]);
+
+		$this->reset('openMensualidad');
+
+		$this->monto = Mensualidad::orderBy('created_at', 'desc')->first()->monto;
+		$this->moneda = Mensualidad::orderBy('created_at', 'desc')->first()->moneda;
+
+		$this->emit('alert', 'La mensaulidad fue actualizada con éxito');
+	}
+
+	public function actualizarInteres()
+	{
+		$rules = [
+			'factor' => 'required|numeric',
+			'estado' => 'required|boolean',
+		];
+
+		$this->validate($rules);
+
+		$interesActual = Interes::orderBy('created_at', 'desc')->first();
+
+		if ($interesActual) {
+
+			if ($interesActual->factor == $this->factor) {
+
+				if ($interesActual->estado != $this->estado) {
+					$interesActual->estado = $this->estado;
+					$interesActual->save();
+				}
+			} else {
+				Interes::create([
+					'factor' => $this->factor,
+					'estado' => $this->estado,
+				]);
+			}
+		} else {
+			Interes::create([
+				'factor' => $this->factor,
+				'estado' => $this->estado,
+			]);
+		}
+
+		$this->reset('openInteres');
+
+		$this->emit('alert', 'El interés fue actualizado con éxito');
+	}
 }

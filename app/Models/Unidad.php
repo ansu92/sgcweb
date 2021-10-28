@@ -45,6 +45,11 @@ class Unidad extends Model
 		return $this->belongsTo(Propietario::class);
 	}
 
+	public function sanciones()
+	{
+		return $this->belongsToMany(Sancion::class);
+	}
+
 	public function facturas()
 	{
 		return $this->hasMany(Factura::class);

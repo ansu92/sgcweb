@@ -33,6 +33,7 @@
                                         class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 sm:text-sm border-gray-300 rounded-md"
                                         placeholder="Cédula">
                                 </div>
+                                <x-jet-input-error for="idResponsable" />
                                 <x-jet-input-error for="documento" />
                             </div>
 
@@ -69,10 +70,30 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
+                                <label for="fecha_nacimiento" class="block text-sm font-medium text-gray-700">Fecha de
+                                    nacimiento:</label>
+                                <input wire:model="fecha_nacimiento" type="date" name="fecha_nacimiento"
+                                    id="fecha_nacimiento"
+                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <x-jet-input-error for="fecha_nacimiento" />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3 sm:col-start-1">
                                 <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                                <input wire:model.lazy="telefono" type="tel" name="telefono" id="telefono"
-                                    pattern="\d{4}-\d{7}" class="form-control w-full">
-                                <small class="text-xs text-gray-600">Formato: 0412-1234567</small>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <div class="absolute inset-y-0 left-0 flex items-center">
+                                        <select wire:model="codigo" id="codigo" name="codigo"
+                                            class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                                            <option>0412</option>
+                                            <option>0414</option>
+                                            <option>0416</option>
+                                            <option>0424</option>
+                                            <option>0426</option>
+                                        </select>
+                                    </div>
+                                    <input wire:model="telefono" type="text" name="telefono" id="telefono"
+                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-16 sm:text-sm border-gray-300 rounded-md">
+                                </div>
                                 <x-jet-input-error for="telefono" />
                             </div>
 

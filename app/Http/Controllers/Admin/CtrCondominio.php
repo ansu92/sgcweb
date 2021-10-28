@@ -17,7 +17,6 @@ class CtrCondominio extends Controller
 	public function store(Request $request)
 	{
 		$request->validate([
-			'letra' => 'required',
 			'rif' => 'required|max:10',
 			'nombre' => 'required',
 			'direccion' => 'required',
