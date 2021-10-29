@@ -13,6 +13,7 @@ class Interes extends Model
 
 	protected $fillable = [
 		'factor',
+		'meses',
 		'estado',
 	];
 }

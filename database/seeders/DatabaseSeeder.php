@@ -81,6 +81,12 @@ class DatabaseSeeder extends Seeder
 			->create();
 
 		$this->call(UserSeeder::class);
+
+		$integrantes = Integrante::all();
+
+		foreach ($integrantes as $item) {
+			$item->enfermedades()->attach(Enfermedad::all()->random(3));
+			$item->medicamentos()->attach(Medicamento::all()->random(2));
+		}
 	}
-	
 }

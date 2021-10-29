@@ -12,6 +12,7 @@ class Administracion extends Component
 	public $moneda = 'Bolívar';
 
 	public $factor;
+	public $meses;
 	public $estado = false;
 
 	public $openMensualidad = false;
@@ -36,6 +37,7 @@ class Administracion extends Component
 
 		if ($interes) {
 			$this->factor = $interes->factor;
+			$this->meses = $interes->meses;
 			$this->estado = $interes->estado;
 		}
 	}
@@ -79,6 +81,7 @@ class Administracion extends Component
 	{
 		$rules = [
 			'factor' => 'required|numeric|lte:5',
+			'meses' => 'required|numeric|gt:0',
 			'estado' => 'boolean',
 		];
 
@@ -101,12 +104,14 @@ class Administracion extends Component
 			} else {
 				Interes::create([
 					'factor' => $this->factor,
+					'meses' => $this->meses,
 					'estado' => $this->estado,
 				]);
 			}
 		} else {
 			Interes::create([
 				'factor' => $this->factor,
+				'meses' => $this->meses,
 				'estado' => $this->estado,
 			]);
 		}

@@ -16,6 +16,7 @@ class CreateInteresesTable extends Migration
         Schema::create('intereses', function (Blueprint $table) {
             $table->id();
             $table->double('factor');
+			$table->integer('meses');
 			$table->date('fecha')->default(now());
 			$table->boolean('estado')->default(false);
             $table->timestamps();

@@ -235,6 +235,15 @@
                         </div>
 
                         <div class="col-span-6">
+                            <label for="meses" class="block text-sm font-medium text-gray-700">
+                                Número de meses que debe tener una factura para que se aplique el interés:
+                            </label>
+                            <input wire:model="meses" type="text" name="meses" id="meses"
+                                class="form-control w-full">
+                            <x-jet-input-error for="meses" />
+                        </div>
+
+                        <div class="col-span-6">
                             <label for="activar-intereses" class="block text-sm font-medium text-gray-700">
                                 Activar intereses?
                             </label>
