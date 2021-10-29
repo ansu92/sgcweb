@@ -22,9 +22,10 @@
 </div> --}}
 
 
-<div {{ $attributes->merge(['class' => 'shadow-lg border rounded-xl p-4 bg-white relative overflow-hidden']) }}>
+<div
+    {{ $attributes->merge(['class' => 'shadow-lg group border hover:border-blue-500 transition-colors duration-1000 transform rounded-xl p-4 bg-white relative overflow-hidden']) }}>
 
-    <div class="flex items-center border-b-2 mb-2 py-2">
+    <div class="flex items-center border-b-2 group-hover:border-blue-500 transition-colors duration-1000 transform mb-2 py-2 ">
         <img class='w-10 h-10 object-cover rounded-full' alt='User avatar'
             src='{{ $comunicado->autor->user->profile_photo_url }}'>
 
