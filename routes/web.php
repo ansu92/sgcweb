@@ -8,6 +8,7 @@ use App\Http\Controllers\CtrCierreMes;
 use App\Http\Controllers\CtrComunicado;
 use App\Http\Controllers\CtrCuenta;
 use App\Http\Controllers\CtrEnfermedad;
+use App\Http\Controllers\CtrFactura;
 use App\Http\Controllers\CtrFondo;
 use App\Http\Controllers\CtrGasto;
 use App\Http\Controllers\CtrInicio;
@@ -59,6 +60,8 @@ Route::get('cuenta', [CtrCuenta::class, 'index'])->name('cuenta.index');
 Route::get('cuenta/{cuenta}', [CtrCuenta::class, 'show'])->name('cuenta.show');
 
 Route::resource('enfermedad', CtrEnfermedad::class)->only('index', 'show')->names('enfermedad');
+
+Route::get('factura/{factura}', [CtrFactura::class, 'show'])->name('factura.show');
 
 Route::resource('fondo', CtrFondo::class)->only(['index', 'show'])->names('fondo');
 
