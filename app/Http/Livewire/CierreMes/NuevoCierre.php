@@ -100,7 +100,7 @@ class NuevoCierre extends Component
 				$item = Item::make([
 					'itemable_id' => $gasto->id,
 					'itemable_type' => Gasto::class,
-					'monto' => $gasto->monto,
+					'monto' => $monto,
 				]);
 
 				// Se agrega el item a la colección
@@ -127,7 +127,7 @@ class NuevoCierre extends Component
 					// Se crea el item para la factura
 					$item = Item::make([
 						'itemable_id' => $gasto->id,
-						'item_type' => Gasto::class,
+						'itemable_type' => Gasto::class,
 						'monto' => $monto,
 					]);
 
@@ -145,7 +145,7 @@ class NuevoCierre extends Component
 				// Se crea el item para la factura
 				$item = Item::make([
 					'itemable_id' => $item->id,
-					'item_type' => Sancion::class,
+					'itemable_type' => Sancion::class,
 					'monto' => $item->monto,
 				]);
 
@@ -162,7 +162,7 @@ class NuevoCierre extends Component
 			}
 
 			// Se crea la factura
-			Factura::create([
+			$factura = Factura::create([
 				'monto' => $montoFactura,
 				'monto_por_pagar' => $montoFactura,
 				'moneda' => $this->moneda,
@@ -172,6 +172,7 @@ class NuevoCierre extends Component
 
 			// Se guardan los items en la base de datos
 			foreach ($itemsFactura as $item) {
+				$item->factura()->associate($factura->id);
 				$item->save();
 			}
 		}

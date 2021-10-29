@@ -66,7 +66,16 @@
                 <x-jet-input-error for="integrante.s_apellido" />
             </div>
 
-            <div class="col-span-6 sm:col-span-3">
+			<div class="col-span-6 sm:col-span-3">
+				<label for="fecha_nacimiento" class="block text-sm font-medium text-gray-700">Fecha de
+					nacimiento:</label>
+				<input wire:model="integrante.fecha_nacimiento" type="date" name="fecha_nacimiento"
+					id="fecha_nacimiento"
+					class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+				<x-jet-input-error for="integrante.fecha_nacimiento" />
+			</div>
+
+            <div class="col-span-6 sm:col-span-3  sm:col-start-1">
                 <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
                     <div class="absolute inset-y-0 left-0 flex items-center">

@@ -8,9 +8,14 @@ use Livewire\Component;
 class ShowIntegrante extends Component
 {
 	public Integrante $integrante;
-	
-    public function render()
-    {
-        return view('livewire.show-integrante');
-    }
+
+	public function mount(Integrante $integrante)
+	{
+		$this->integrante = $integrante;
+	}
+
+	public function render()
+	{
+		return view('livewire.show-integrante');
+	}
 }

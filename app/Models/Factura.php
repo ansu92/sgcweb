@@ -31,8 +31,8 @@ class Factura extends Model
 		$this->save();
 	}
 
-	public function facturable() {
-		return $this->morphTo();
+	public function items() {
+		return $this->hasMany(Item::class);
 	}
 
 	public function unidad() {

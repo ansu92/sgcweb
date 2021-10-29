@@ -12,7 +12,7 @@ class Administracion extends Component
 	public $moneda = 'Bolívar';
 
 	public $factor;
-	public $estado;
+	public $estado = false;
 
 	public $openMensualidad = false;
 	public $openInteres = false;
@@ -78,11 +78,15 @@ class Administracion extends Component
 	public function actualizarInteres()
 	{
 		$rules = [
-			'factor' => 'required|numeric',
-			'estado' => 'required|boolean',
+			'factor' => 'required|numeric|lte:5',
+			'estado' => 'boolean',
 		];
 
-		$this->validate($rules);
+		$messages = [
+			'factor.lte' => 'El factor no puede ser mayor a :value%.',
+		];
+
+		$this->validate($rules, $messages);
 
 		$interesActual = Interes::orderBy('created_at', 'desc')->first();
 

@@ -10,6 +10,12 @@
                 </div>
             </a>
 
+            <a href="{{ route('admin.habitante.index') }}">
+                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
+                    Lista de habitantes
+                </div>
+            </a>
+
             <a href="{{ route('pago.create') }}">
                 <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
                     Pagar gastos

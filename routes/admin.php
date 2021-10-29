@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CtrAdministrador;
 use App\Http\Controllers\Admin\CtrComunicado;
 use App\Http\Controllers\Admin\CtrCondominio;
+use App\Http\Controllers\Admin\CtrHabitante;
 use App\Http\Controllers\Admin\CtrInicio;
 use App\Http\Controllers\Admin\CtrSancion;
 use App\Http\Controllers\Admin\CtrUnidad;
@@ -18,6 +19,8 @@ Route::get('condominio', [CtrCondominio::class, 'index'])->name('admin.condomini
 Route::post('condominio', [CtrCondominio::class, 'store'])->name('admin.condominio.store');
 
 Route::resource('comunicado', CtrComunicado::class)->only('index', 'show')->names('admin.comunicado');
+
+Route::resource('habitante', CtrHabitante::class)->only(['index', 'show'])->names('admin.habitante');
 
 Route::resource('sancion', CtrSancion::class)->only(['index', 'show'])->names('admin.sancion');
 

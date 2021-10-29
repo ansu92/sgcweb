@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin\Habitante;
 
 use App\Models\Integrante;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class TablaIntegrante extends Component
+class TablaHabitante extends Component
 {
 	use WithPagination;
 	
@@ -46,7 +46,7 @@ class TablaIntegrante extends Component
 			$integrantes = [];
 		}
 
-        return view('livewire.tabla-integrante', compact('integrantes'));
+        return view('livewire.admin.habitante.tabla-habitante', compact('integrantes'));
     }
 
 	public function updatingBusqueda()

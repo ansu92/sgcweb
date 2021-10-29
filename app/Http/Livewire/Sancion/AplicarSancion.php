@@ -59,6 +59,7 @@ class AplicarSancion extends Component
     public function mostrarForm($id)
     {
         $this->unidad = Unidad::find($id);
+		$this->resetPage();
 
         $this->open = true;
     }

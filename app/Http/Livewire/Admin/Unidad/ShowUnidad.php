@@ -37,6 +37,7 @@ class ShowUnidad extends Component
 			'integrante.s_nombre' => 'nullable|max:20',
 			'integrante.apellido' => 'required|max:20',
 			'integrante.s_apellido' => 'nullable|max:20',
+			'integrante.fecha_nacimiento' => 'required|before_or_equal:today',
 			'codigo' => 'nullable',
 			'telefono' => 'nullable|digits:7',
 		];
