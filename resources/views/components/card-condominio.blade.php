@@ -1,14 +1,10 @@
-<div {{ $attributes->merge(['class' => 'flex flex-col shadow-md rounded bg-gray-50']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col shadow-md rounded bg-white h-auto']) }}>
 
-    {{-- Header --}}
-    <div class="px-4 py-2 bg-blue-500 rounded-t text-3xl text-white font-bold text-center">
-        Nombre del condominio
-    </div>
+    <div class="p-5">
+        <h5 class="text-gray-900 border-b-2 font-bold text-2xl tracking-tight mb-2 text-center">
+            {{ $condominio->nombre }}
+        </h5>
 
-    {{-- Body --}}
-    <div class="flex p-2 justify-between">
-
-        {{-- Datos --}}
         <div class="flex flex-col gap-1">
             <div>Rif: {{ $condominio->rif }}</div>
             <div>Dirección:</div>
@@ -16,21 +12,21 @@
             <div>Número de unidades: {{ $numUnidades }}</div>
         </div>
 
-        {{-- Botones --}}
+        <hr class="mt-3 mb-3">
         <div class="space-y-2">
-            <div class="self-end">
-                <x-jet-button wire:click="$set('openMensualidad', true)">
-                    Actualizar mensualidad
-                </x-jet-button>
+
+            <div wire:click="$set('openMensualidad', true)">
+                <x-btn-admin-ancho nombre="Actualizar mensualidad" icono="img/iconos/comunicados.png" />
             </div>
-            <div class="self-end">
-                <x-jet-button wire:click="$set('openInteres', true)">
-                    Configurar interés
-                </x-jet-button>
+
+            <div wire:click="$set('openInteres', true)">
+                <x-btn-admin-ancho nombre="Configurar interés" icono="img/iconos/comunicados.png" />
             </div>
+
             <div class="self-end">
-				@livewire('admin.configurar-iva')
+                @livewire('admin.configurar-iva')
             </div>
+
         </div>
     </div>
 </div>

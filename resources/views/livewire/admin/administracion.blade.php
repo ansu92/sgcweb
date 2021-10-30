@@ -1,6 +1,6 @@
 <div>
 
-    <div class="grid grid-cols-5 gap-4">
+    <div class="grid grid-cols-5 gap-4 h-auto">
 
         <div class="col-span-3 grid grid-cols-3 gap-3">
 
@@ -9,12 +9,6 @@
                     <x-btn-admin nombre="{{ $item['nombre'] }}" imagen="{{ $item['imagen']}}" />
                 </a>
             @endforeach
-
-            {{-- <div wire:click="$set('openInteres', true)" class="bg-white border border-gray-200 shadow-lg rounded-lg text-center p-8">
-                <img alt="..." class="shadow-md rounded-full max-w-full w-14 mx-auto p-2 border border-gray-200 bg-white"
-                    src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/svelte.jpg">
-                    <p class="text-lg text-gray-800 mt-4 font-semibold">Configurar interés</p>
-            </div> --}}
 
         </div>
 

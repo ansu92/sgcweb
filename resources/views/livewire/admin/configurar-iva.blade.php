@@ -1,7 +1,8 @@
 <div>
-	<x-jet-button wire:click="$set('open', true)">
-		Configurar IVA
-	</x-jet-button>
+    <div wire:click="$set('open', true)">
+        <x-btn-admin-ancho nombre="Configurar IVA"
+            icono="/img/iconos/comunicados.png" />
+    </div>
 
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
@@ -19,8 +20,7 @@
                             <label for="factor" class="block text-sm font-medium text-gray-700">
                                 Factor (%):
                             </label>
-                            <input wire:model="factor" type="text" name="factor" id="factor"
-                                class="form-control w-full">
+                            <input wire:model="factor" type="text" name="factor" id="factor" class="form-control w-full">
                             <x-jet-input-error for="factor" />
                         </div>
 
