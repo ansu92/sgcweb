@@ -44,6 +44,63 @@ class Administracion extends Component
 
 	public function render()
 	{
+		$menu = [
+			[
+				'nombre' => 'Lista de unidades',
+				'ruta' => 'admin.unidad.index',
+				'imagen' => 'img/iconos/lista-unidades.png',
+			],
+			[
+				'nombre' => 'Lista de habitantes',
+				'ruta' => 'admin.habitante.index',
+				'imagen' => 'img/iconos/lista-habitantes.png',
+			],
+			[
+				'nombre' => 'Pagar gastos',
+				'ruta' => 'pago.create',
+				'imagen' => 'img/iconos/pagar-gastos.png',
+			],
+			[
+				'nombre' => 'Comunicados',
+				'ruta' => 'comunicado.index',
+				'imagen' => 'img/iconos/comunicados.png',
+			],
+			[
+				'nombre' => 'Registrar gastos',
+				'ruta' => 'gasto.index',
+				'imagen' => 'img/iconos/registrar-gastos.png',
+			],
+			[
+				'nombre' => 'Gestionar sanciones',
+				'ruta' => 'admin.sancion.index',
+				'imagen' => 'img/iconos/gestionar-sanciones.png',
+			],
+			[
+				'nombre' => 'Aplicar sanciones',
+				'ruta' => 'aplicar-sancion.index',
+				'imagen' => 'img/iconos/aplicar-sanciones.png',
+
+			],
+			[
+				'nombre' => 'Gestionar categorías',
+				'ruta' => 'categoria.index',
+				'imagen' => 'img/iconos/gestionar-categorias.png',
+
+			],
+			[
+				'nombre' => 'Gestionar enfermedades',
+				'ruta' => 'enfermedad.index',
+				'imagen' => 'img/iconos/gestionar-enfermedades.png',
+
+			],
+			[
+				'nombre' => 'Gestionar medicamentos',
+				'ruta' => 'medicamento.index',
+				'imagen' => 'img/iconos/gestionar-medicamentos.png',
+
+			],
+		];
+
 		$mensualidades = Mensualidad::where('fecha', 'LIKE', '%' . $this->busqueda . '%')
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad);
@@ -52,7 +109,7 @@ class Administracion extends Component
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad);
 
-		return view('livewire.admin.administracion', compact('mensualidades', 'intereses'));
+		return view('livewire.admin.administracion', compact('mensualidades', 'intereses', 'menu'));
 	}
 
 	public function updated($propertyName)
