@@ -2,72 +2,19 @@
 
     <div class="grid grid-cols-5 gap-4">
 
-        <div class="col-span-3 flex flex-col gap-3">
+        <div class="col-span-3 grid grid-cols-3 gap-3">
 
-            <a href="{{ route('admin.unidad.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Lista de unidades
-                </div>
-            </a>
+            @foreach ($menu as $item)
+                <a href="{{ route($item['ruta']) }}">
+                    <x-btn-admin nombre="{{ $item['nombre'] }}" imagen="{{ $item['imagen']}}" />
+                </a>
+            @endforeach
 
-            <a href="{{ route('admin.habitante.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Lista de habitantes
-                </div>
-            </a>
-
-            <a href="{{ route('pago.create') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Pagar gastos
-                </div>
-            </a>
-
-            <a href="{{ route('comunicado.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Comunicados
-                </div>
-            </a>
-
-            <a href="{{ route('gasto.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Registrar gastos
-                </div>
-            </a>
-
-            <a href="{{ route('admin.sancion.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Gestionar sanciones
-                </div>
-            </a>
-
-            <a href="{{ route('aplicar-sancion.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Aplicar sanción
-                </div>
-            </a>
-
-            <div wire:click="$set('openInteres', true)"
-                class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center cursor-pointer">
-                Configurar interés
-            </div>
-
-            <a href="{{ route('categoria.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Gestionar categorías
-                </div>
-            </a>
-
-            <a href="{{ route('enfermedad.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Gestionar enfermedades
-                </div>
-            </a>
-
-            <a href="{{ route('medicamento.index') }}">
-                <div class="px-4 py-2 bg-blue-500 rounded text-lg text-white font-bold text-center">
-                    Gestionar medicamentos
-                </div>
-            </a>
+            {{-- <div wire:click="$set('openInteres', true)" class="bg-white border border-gray-200 shadow-lg rounded-lg text-center p-8">
+                <img alt="..." class="shadow-md rounded-full max-w-full w-14 mx-auto p-2 border border-gray-200 bg-white"
+                    src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/svelte.jpg">
+                    <p class="text-lg text-gray-800 mt-4 font-semibold">Configurar interés</p>
+            </div> --}}
 
         </div>
 
@@ -238,8 +185,7 @@
                             <label for="meses" class="block text-sm font-medium text-gray-700">
                                 Número de meses que debe tener una factura para que se aplique el interés:
                             </label>
-                            <input wire:model="meses" type="text" name="meses" id="meses"
-                                class="form-control w-full">
+                            <input wire:model="meses" type="text" name="meses" id="meses" class="form-control w-full">
                             <x-jet-input-error for="meses" />
                         </div>
 
@@ -248,11 +194,10 @@
                                 Activar intereses?
                             </label>
                             <div>
-                                <input wire:model="estado" type="radio" name="activar-intereses" id="si"
-                                    value="1">
+                                <input wire:model="estado" type="radio" name="activar-intereses" id="si" value="1">
                                 <label for="si">Sí</label>
-                                <input wire:model="estado" type="radio" name="activar-intereses" id="no"
-                                    value="0" class="ml-2">
+                                <input wire:model="estado" type="radio" name="activar-intereses" id="no" value="0"
+                                    class="ml-2">
                                 <label for="no">No</label>
                             </div>
                             <x-jet-input-error for="estado" />
