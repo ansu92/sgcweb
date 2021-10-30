@@ -149,7 +149,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            {{ $item->monto }}
+                                            {{ $item->montoSinIva }}
                                         </div>
                                     </td>
                                 </tr>
@@ -167,7 +167,7 @@
                                 <th scope="col"
                                     class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{ $factura->monto }}
+                                        {{ $subSinIva }}
                                     </div>
                                 </th>
                             </tr>
@@ -177,12 +177,12 @@
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 border-r border-gray-200 text-right text-xs text-gray-800 font-black uppercase tracking-wider">
-                                    IVA (15%):
+                                    IVA ({{$factura->iva->factor}}%):
                                 </th>
                                 <th scope="col"
                                     class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        2
+                                        {{$montoIva}}
                                     </div>
                                 </th>
                             </tr>
@@ -197,7 +197,8 @@
                                 <th scope="col"
                                     class="bg-white px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{ $factura->monto }}
+                                        {{ $total }}
+                                        {{-- {{ $factura->monto }} --}}
                                     </div>
                                 </th>
                             </tr>

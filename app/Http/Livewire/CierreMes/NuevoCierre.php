@@ -5,6 +5,7 @@ namespace App\Http\Livewire\CierreMes;
 use App\Models\Factura;
 use App\Models\Gasto;
 use App\Models\Item;
+use App\Models\Iva;
 use App\Models\Mensualidad;
 use App\Models\Sancion;
 use App\Models\Unidad;
@@ -70,17 +71,22 @@ class NuevoCierre extends Component
 			})
 			->get();
 
+		// Se obtienen los datos del interés
+
+		// Se obtienen los datos del IVA
+		$iva = Iva::orderBy('created_at', 'desc')->first();
+
 		foreach ($unidades as $unidad) {
 
 			// Se genera una colección para los elementos de la factura
 			$itemsFactura = new Collection;
 
-		// Se crea el item de mensualidad de la factura, ya que será igual para todo
-		$itemMensualidad = Item::make([
-			'itemable_id' => $mensualidad->id,
-			'itemable_type' => Mensualidad::class,
-			'monto' => $mensualidad->monto,
-		]);
+			// Se crea el item de mensualidad de la factura, ya que será igual para todo
+			$itemMensualidad = Item::make([
+				'itemable_id' => $mensualidad->id,
+				'itemable_type' => Mensualidad::class,
+				'monto' => $mensualidad->monto,
+			]);
 
 			// Se agrega a la colección el item de la mensualidad creado anteriormente
 			$itemsFactura->push($itemMensualidad);
@@ -169,6 +175,7 @@ class NuevoCierre extends Component
 				'moneda' => $this->moneda,
 				'fecha' => now(),
 				'unidad_id' => $unidad->id,
+				'iva_id' => $iva->id,
 			]);
 
 			// Se guardan los items en la base de datos

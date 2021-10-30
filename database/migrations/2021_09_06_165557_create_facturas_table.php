@@ -20,6 +20,7 @@ class CreateFacturasTable extends Migration
 			$table->enum('moneda', ['Bolívar', 'Dólar']);
 			$table->date('fecha');
 			$table->foreignId('unidad_id');
+			$table->foreignId('iva_id');
 			$table->enum('estado', ['Pendiente', 'Pagada'])->default('Pendiente');
             $table->timestamps();
         });

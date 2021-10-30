@@ -13,11 +13,10 @@ class Factura extends Model
 		'monto',
 		'monto_por_pagar',
 		'moneda',
-		'tasa_cambio',
 		'fecha',
+		'tasa_cambio',
 		'unidad_id',
-		'facturable_id',
-		'facturable_type',
+		'iva_id',
 	];
 
 	public function pagar(float $monto)
@@ -37,5 +36,9 @@ class Factura extends Model
 
 	public function unidad() {
 		return $this->belongsTo(Unidad::class);
+	}
+
+	public function iva() {
+		return $this->belongsTo(Iva::class);
 	}
 }

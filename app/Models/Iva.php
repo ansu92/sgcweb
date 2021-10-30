@@ -9,8 +9,6 @@ class Iva extends Model
 {
 	use HasFactory;
 
-	protected $table = 'iva';
-
 	protected $fillable = [
 		'factor',
 		'fecha',
