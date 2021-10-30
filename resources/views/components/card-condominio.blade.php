@@ -16,11 +16,11 @@
         <div class="space-y-2">
 
             <div wire:click="$set('openMensualidad', true)">
-                <x-btn-admin-ancho nombre="Actualizar mensualidad" icono="img/iconos/comunicados.png" />
+                <x-btn-admin-ancho nombre="Actualizar mensualidad" icono="img/iconos/mensualidad.png" />
             </div>
 
             <div wire:click="$set('openInteres', true)">
-                <x-btn-admin-ancho nombre="Configurar interés" icono="img/iconos/comunicados.png" />
+                <x-btn-admin-ancho nombre="Configurar interés" icono="img/iconos/interes.png" />
             </div>
 
             <div class="self-end">

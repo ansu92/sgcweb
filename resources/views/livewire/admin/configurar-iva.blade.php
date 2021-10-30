@@ -1,7 +1,7 @@
 <div>
     <div wire:click="$set('open', true)">
         <x-btn-admin-ancho nombre="Configurar IVA"
-            icono="/img/iconos/comunicados.png" />
+            icono="/img/iconos/iva.png" />
     </div>
 
     <x-jet-dialog-modal wire:model="open">
