@@ -20,4 +20,8 @@ class Item extends Model
 	{
 		return $this->belongsTo(Factura::class);
 	}
+
+	public function itemable() {
+		return $this->morphTo();
+	}
 }

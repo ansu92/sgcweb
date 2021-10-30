@@ -122,17 +122,34 @@
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            2
+                                            {{ ++$countItems }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            mensualidad
+                                            @switch(Str::substr($item->itemable_type, 11))
+
+                                                @case(Mensualidad::class)
+                                                    {{ Str::substr($item->itemable_type, 11) }}
+                                                    ({{ Str::substr($item->itemable->fecha, 0, 7) }})
+                                                @break
+
+                                                @case(Gasto::class)
+                                                    {{ Str::substr($item->itemable_type, 11) }}
+                                                    ({{ $item->itemable->descripcion }})
+                                                @break
+
+                                                @case(Sancion::class)
+                                                    {{ Str::substr($item->itemable_type, 11) }}
+                                                    ({{ $item->itemable->descripcion }})
+                                                @break
+
+                                            @endswitch
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            20.2
+                                            {{ $item->monto }}
                                         </div>
                                     </td>
                                 </tr>
@@ -150,7 +167,7 @@
                                 <th scope="col"
                                     class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        2
+                                        {{ $factura->monto }}
                                     </div>
                                 </th>
                             </tr>
@@ -160,7 +177,7 @@
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 border-r border-gray-200 text-right text-xs text-gray-800 font-black uppercase tracking-wider">
-                                    IVA(15%):
+                                    IVA (15%):
                                 </th>
                                 <th scope="col"
                                     class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -180,7 +197,7 @@
                                 <th scope="col"
                                     class="bg-white px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        2
+                                        {{ $factura->monto }}
                                     </div>
                                 </th>
                             </tr>

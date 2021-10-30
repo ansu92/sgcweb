@@ -6,6 +6,7 @@ use App\Models\Factura;
 use App\Models\Gasto;
 use App\Models\Item;
 use App\Models\Mensualidad;
+use App\Models\Sancion;
 use App\Models\Unidad;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
@@ -53,13 +54,6 @@ class NuevoCierre extends Component
 		// Se obtienen los datos de la mensualidad del condominio
 		$mensualidad = Mensualidad::orderBy('created_at', 'desc')->first();
 
-		// Se crea el item de mensualidad de la factura, ya que será igual para todo
-		$itemMensualidad = Item::make([
-			'itemable_id' => $mensualidad->id,
-			'itemable_type' => Mensualidad::class,
-			'monto' => $mensualidad->monto,
-		]);
-
 		// Se obtienen todos los gastos ordinarios que se estén cobrando en el mes
 		$gastosOrdinarios = Gasto::where('tipo', 'Ordinario')
 			->where('mes_cobro', '<=', $this->mes)
@@ -79,9 +73,16 @@ class NuevoCierre extends Component
 		foreach ($unidades as $unidad) {
 
 			// Se genera una colección para los elementos de la factura
-			$itemsFactura = new Collection();
+			$itemsFactura = new Collection;
 
-			// Se agrela a la colección el item de la mensualidad creado anteriormente
+		// Se crea el item de mensualidad de la factura, ya que será igual para todo
+		$itemMensualidad = Item::make([
+			'itemable_id' => $mensualidad->id,
+			'itemable_type' => Mensualidad::class,
+			'monto' => $mensualidad->monto,
+		]);
+
+			// Se agrega a la colección el item de la mensualidad creado anteriormente
 			$itemsFactura->push($itemMensualidad);
 
 			foreach ($gastosOrdinarios as $gasto) {

@@ -17,10 +17,20 @@
         </div>
 
         {{-- Botones --}}
-        <div class="self-end">
-            <x-jet-button wire:click="$set('openMensualidad', true)">
-                Actualizar mensualidad
-            </x-jet-button>
+        <div class="space-y-2">
+            <div class="self-end">
+                <x-jet-button wire:click="$set('openMensualidad', true)">
+                    Actualizar mensualidad
+                </x-jet-button>
+            </div>
+            <div class="self-end">
+                <x-jet-button wire:click="$set('openInteres', true)">
+                    Configurar interés
+                </x-jet-button>
+            </div>
+            <div class="self-end">
+				@livewire('admin.configurar-iva')
+            </div>
         </div>
     </div>
 </div>
