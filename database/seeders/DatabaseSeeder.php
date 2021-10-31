@@ -10,6 +10,7 @@ use App\Models\Cuenta;
 use App\Models\Enfermedad;
 use App\Models\Fondo;
 use App\Models\Integrante;
+use App\Models\Iva;
 use App\Models\Medicamento;
 use App\Models\Propietario;
 use App\Models\Proveedor;
@@ -88,5 +89,7 @@ class DatabaseSeeder extends Seeder
 			$item->enfermedades()->attach(Enfermedad::all()->random(3));
 			$item->medicamentos()->attach(Medicamento::all()->random(2));
 		}
+
+		Iva::create(['factor' => 12]);
 	}
 }
