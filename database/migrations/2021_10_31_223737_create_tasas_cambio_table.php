@@ -16,7 +16,7 @@ class CreateTasasCambioTable extends Migration
         Schema::create('tasas_cambio', function (Blueprint $table) {
             $table->id();
             $table->decimal('tasa');
-            $table->date('fecha')->default(now());
+            $table->dateTime('fecha')->default(now());
             $table->timestamps();
         });
     }

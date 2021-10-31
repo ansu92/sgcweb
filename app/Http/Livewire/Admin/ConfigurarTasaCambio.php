@@ -28,7 +28,7 @@ class ConfigurarTasaCambio extends Component
 
     public function mount()
     {
-        $this->tasa = TasaCambio::orderBy('created_at', 'desc')->first() ? TasaCambio::orderBy('created_at', 'desc')->first() : $this->tasa = new TasaCambio;
+        $this->tasa = TasaCambio::orderBy('created_at', 'desc')->firstOrNew();
     }
 
     public function render()
@@ -55,9 +55,11 @@ class ConfigurarTasaCambio extends Component
 
                 TasaCambio::create([
                     'tasa' => $this->tasa->tasa,
+                    'fecha' => now(),
                 ]);
             }
         } else {
+            $this->fecha = now();
             $this->tasa->save();
         }
 

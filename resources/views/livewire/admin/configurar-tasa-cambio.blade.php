@@ -64,7 +64,10 @@
                                                                 <tr>
                                                                     <td class="px-6 py-4 whitespace-nowrap">
                                                                         <div class="text-sm font-medium text-gray-900">
-                                                                            {{ $item->fecha }}
+                                                                            Fecha: {{ Str::substr($item->fecha, 0, 10) }}
+                                                                        </div>
+                                                                        <div class="text-sm font-medium text-gray-900">
+                                                                            Hora: {{ Str::substr($item->fecha, 11, 5) }}
                                                                         </div>
                                                                     </td>
 
