@@ -22,6 +22,8 @@ class ConfigurarIva extends Component
 
 	public function render()
 	{
+		$this->factor = Iva::orderBy('created_at', 'desc')->first()->factor;
+
 		$ivas = Iva::where('fecha', 'LIKE', '%' . $this->busqueda . '%')
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad);

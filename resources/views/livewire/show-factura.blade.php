@@ -167,22 +167,39 @@
                                 <th scope="col"
                                     class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{ $subSinIva }}
+                                        {{ $sub }}
                                     </div>
                                 </th>
                             </tr>
+                            {{-- @if ($factura->interes)
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 border-r border-gray-200 text-right text-xs text-gray-800 font-black uppercase tracking-wider">
+                                        Interés ({{ $factura->interes->factor }}%):
+                                    </th>
+                                    <th scope="col"
+                                        class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ $montoInteres }}
+                                        </div>
+                                    </th>
+                                </tr>
+                            @endif --}}
                             <tr>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 border-r border-gray-200 text-right text-xs text-gray-800 font-black uppercase tracking-wider">
-                                    IVA ({{$factura->iva->factor}}%):
+                                    IVA ({{ $factura->iva->factor }}%):
                                 </th>
                                 <th scope="col"
                                     class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{$montoIva}}
+                                        {{ $montoIva }}
                                     </div>
                                 </th>
                             </tr>
