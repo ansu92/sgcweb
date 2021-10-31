@@ -13,10 +13,10 @@
 
             @if (count($unidades))
 
-                <div class="grid sm:grid-cols-3 xl:grid-cols-5 gap-3">
+                <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
                     @foreach ($unidades as $item)
                         <a href="{{ route('admin.unidad.show', $item) }}">
-                            <x-card-unidad :unidad="$item" class="h-40" />
+                            <x-card-unidad :unidad="$item" />
                         </a>
                     @endforeach
                 </div>

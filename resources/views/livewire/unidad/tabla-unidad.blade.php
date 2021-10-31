@@ -11,7 +11,7 @@
 
             @if (count($unidades))
 
-                <div class="grid sm:grid-cols-3 xl:grid-cols-5 gap-3">
+                <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
                     @foreach ($unidades as $item)
                         <a href="{{ route('unidad.show', $item) }}">
                             <x-card-unidad :unidad="$item" conFactura="true" class="h-40" />

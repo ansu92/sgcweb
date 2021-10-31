@@ -35,12 +35,13 @@
 
         {{-- Mis otras unidades --}}
         <a href="{{ route('unidad.index') }}">
-            <div
+            {{-- <div
                 class="flex flex-col group shadow-md p-2 pl-5 pr-5 bg-transparent border hover:border-blue-500 text-gray-900 text-lg rounded-lg transition-colors duration-700 transform focus:border-4 focus:border-blue-300">
                 <div class="px-4 py-2 border-b-2 group-hover:border-blue-500 transition-colors duration-700 transform rounded-t text-xl font-bold text-center">
                     Mis otras unidades
                 </div>
-            </div>
+            </div> --}}
+            <x-btn-admin-ancho nombre="Mis unidades" icono="img/iconos/otras-unidades.png" />
         </a>
 
     </div>
