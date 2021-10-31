@@ -1,12 +1,12 @@
 <div>
 
     <div wire:click="$set('open', true)">
-        <x-btn-admin-ancho nombre="Configurar IVA" icono="/img/iconos/iva.png" />
+        <x-btn-admin-ancho nombre="Configurar interés" icono="img/iconos/interes.png" />
     </div>
 
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
-            Configurar IVA
+            Actualizar interés
         </x-slot>
 
         <x-slot name="content">
@@ -20,11 +20,35 @@
                             <label for="factor" class="block text-sm font-medium text-gray-700">
                                 Factor (%):
                             </label>
-                            <input wire:model="factor" type="text" name="factor" id="factor" class="form-control w-full">
-                            <x-jet-input-error for="factor" />
+                            <input wire:model="interes.factor" type="text" name="factor" id="factor" class="form-control w-full">
+                            <x-jet-input-error for="interes.factor" />
                         </div>
 
                         <div class="col-span-6">
+                            <label for="meses" class="block text-sm font-medium text-gray-700">
+                                Número de meses que debe tener una factura para que se aplique el interés:
+                            </label>
+                            <input wire:model="interes.meses" type="text" name="meses" id="meses" class="form-control w-full">
+                            <x-jet-input-error for="interes.meses" />
+                        </div>
+
+                        <div class="col-span-6">
+                            <label for="activar-intereses" class="block text-sm font-medium text-gray-700">
+                                Activar intereses?
+                            </label>
+                            <div>
+                                <input wire:model="interes.estado" type="radio" name="activar-intereses" id="si" value="1">
+                                <label for="si">Sí</label>
+                                <input wire:model="interes.estado" type="radio" name="activar-intereses" id="no" value="0"
+                                    class="ml-2">
+                                <label for="no">No</label>
+                            </div>
+                            <x-jet-input-error for="interes.estado" />
+                        </div>
+
+                        <div class="col-span-6">
+                            <x-jet-input-error for="asistentes" />
+
                             <div class="space-y-4">
                                 <div class="flex space-x-4 items-center">
 
@@ -40,7 +64,7 @@
                                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                                @if (count($ivas))
+                                                @if (count($intereses))
                                                     <table class="min-w-full divide-y divide-gray-200">
 
                                                         <thead class="bg-gray-50">
@@ -60,7 +84,7 @@
                                                         </thead>
                                                         <tbody class="bg-white divide-y divide-gray-200">
 
-                                                            @foreach ($ivas as $item)
+                                                            @foreach ($intereses as $item)
                                                                 <tr>
                                                                     <td class="px-6 py-4 whitespace-nowrap">
                                                                         <div class="text-sm font-medium text-gray-900">
@@ -78,9 +102,9 @@
                                                             @endforeach
                                                         </tbody>
                                                     </table>
-                                                    @if ($ivas->hasPages())
+                                                    @if ($intereses->hasPages())
                                                         <div class="px-6 py-3">
-                                                            {{ $ivas->links() }}
+                                                            {{ $intereses->links() }}
                                                         </div>
                                                     @endif
 
@@ -118,5 +142,4 @@
             </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>
-
 </div>

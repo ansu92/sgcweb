@@ -19,8 +19,12 @@
                 <x-btn-admin-ancho nombre="Actualizar mensualidad" icono="img/iconos/mensualidad.png" />
             </div>
 
-            <div wire:click="$set('openInteres', true)">
-                <x-btn-admin-ancho nombre="Configurar interés" icono="img/iconos/interes.png" />
+            <div class="self-end">
+                @livewire('admin.configurar-tasa-cambio')
+            </div>
+
+            <div class="self-end">
+                @livewire('admin.configurar-interes')
             </div>
 
             <div class="self-end">

@@ -53,6 +53,16 @@
                                         <x-jet-input-error for="direccion" />
                                     </div>
 
+                                    <h3 class="col-span-6 text-center">Tasa de cambio inicial</h3>
+
+                                    <div class="col-span-6">
+                                        <label for="tasa" class="block text-sm font-medium text-gray-700">
+                                            Tasa de cambio:
+                                        </label>
+                                        <input type="text" name="tasa" id="tasa" class="form-control w-full">
+                                        <x-jet-input-error for="tasa" />
+                                    </div>
+
                                     <h3 class="col-span-6 text-center">Mensualidad inicial</h3>
 
                                     <div class="col-span-6">

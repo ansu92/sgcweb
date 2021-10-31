@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Condominio;
 use App\Models\Mensualidad;
+use App\Models\TasaCambio;
 use Illuminate\Http\Request;
 
 class CtrCondominio extends Controller
@@ -20,6 +21,7 @@ class CtrCondominio extends Controller
 			'rif' => 'required|max:10',
 			'nombre' => 'required',
 			'direccion' => 'required',
+			'tasa' => 'required|numeric|gt:0',
 			'monto' => 'required|numeric|gt:0',
 			'moneda' => 'required',
 		]);
@@ -28,6 +30,10 @@ class CtrCondominio extends Controller
 			'rif' => 'J-' . $request->rif,
 			'nombre' => $request->nombre,
 			'direccion' => $request->direccion,
+		]);
+
+		TasaCambio::create([
+			'tasa' => $request->tasa,
 		]);
 
 		Mensualidad::create([

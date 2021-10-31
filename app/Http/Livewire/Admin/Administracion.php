@@ -11,17 +11,12 @@ class Administracion extends Component
 	public $monto;
 	public $moneda = 'Bolívar';
 
-	public $factor;
-	public $meses;
-	public $estado = false;
-
 	public $openMensualidad = false;
-	public $openInteres = false;
 
-	public $orden = 'created_at';
-	public $cantidad = 10;
 	public $busqueda = '';
+	public $orden = 'created_at';
 	public $direccion = 'desc';
+	public $cantidad = '10';
 
 	protected $rules = [
 		'monto' => 'required|numeric|gt:0',
@@ -32,14 +27,6 @@ class Administracion extends Component
 	{
 		$this->monto = Mensualidad::orderBy('created_at', 'desc')->first()->monto;
 		$this->moneda = Mensualidad::orderBy('created_at', 'desc')->first()->moneda;
-
-		$interes = Interes::orderBy('created_at', 'desc')->first();
-
-		if ($interes) {
-			$this->factor = $interes->factor;
-			$this->meses = $interes->meses;
-			$this->estado = $interes->estado;
-		}
 	}
 
 	public function render()
@@ -71,15 +58,15 @@ class Administracion extends Component
 				'imagen' => 'img/iconos/registrar-gastos.png',
 			],
 			[
-				'nombre' => 'Gestionar sanciones',
-				'ruta' => 'admin.sancion.index',
-				'imagen' => 'img/iconos/gestionar-sanciones.png',
-			],
-			[
 				'nombre' => 'Aplicar sanciones',
 				'ruta' => 'aplicar-sancion.index',
 				'imagen' => 'img/iconos/aplicar-sanciones.png',
 
+			],
+			[
+				'nombre' => 'Gestionar sanciones',
+				'ruta' => 'admin.sancion.index',
+				'imagen' => 'img/iconos/gestionar-sanciones.png',
 			],
 			[
 				'nombre' => 'Gestionar categorías',
@@ -105,11 +92,7 @@ class Administracion extends Component
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad);
 
-		$intereses = Interes::where('fecha', 'LIKE', '%' . $this->busqueda . '%')
-			->orderBy($this->orden, $this->direccion)
-			->paginate($this->cantidad);
-
-		return view('livewire.admin.administracion', compact('mensualidades', 'intereses', 'menu'));
+		return view('livewire.admin.administracion', compact('mensualidades', 'menu'));
 	}
 
 	public function updated($propertyName)
@@ -132,50 +115,5 @@ class Administracion extends Component
 		$this->moneda = Mensualidad::orderBy('created_at', 'desc')->first()->moneda;
 
 		$this->emit('alert', 'La mensaulidad fue actualizada con éxito');
-	}
-
-	public function actualizarInteres()
-	{
-		$rules = [
-			'factor' => 'required|numeric|gt:0|lte:5',
-			'meses' => 'required|numeric|gt:0',
-			'estado' => 'boolean',
-		];
-
-		$messages = [
-			'factor.gt' => 'El factor debe ser mayor a :value%.',
-			'factor.lte' => 'El factor no puede ser mayor a :value%.',
-		];
-
-		$this->validate($rules, $messages);
-
-		$interesActual = Interes::orderBy('created_at', 'desc')->first();
-
-		if ($interesActual) {
-
-			if ($interesActual->factor == $this->factor) {
-
-				if ($interesActual->estado != $this->estado) {
-					$interesActual->estado = $this->estado;
-					$interesActual->save();
-				}
-			} else {
-				Interes::create([
-					'factor' => $this->factor,
-					'meses' => $this->meses,
-					'estado' => $this->estado,
-				]);
-			}
-		} else {
-			Interes::create([
-				'factor' => $this->factor,
-				'meses' => $this->meses,
-				'estado' => $this->estado,
-			]);
-		}
-
-		$this->reset('openInteres');
-
-		$this->emit('alert', 'El interés fue actualizado con éxito');
 	}
 }
