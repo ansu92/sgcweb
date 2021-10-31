@@ -47,7 +47,8 @@ class AplicarSancion extends Component
             $this->sanciones = $this->consultaListaSanciones->pluck('id')->map(fn ($id) => (string)$id);
         }
 
-        $listaUnidades = Unidad::where('numero', 'LIKE', '%' . $this->busqueda . '%')
+        $listaUnidades = Unidad::has('propietario')
+			->where('numero', 'LIKE', '%' . $this->busqueda . '%')
             ->orderBy($this->orden, $this->direccion)
             ->paginate($this->cantidad);
 

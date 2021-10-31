@@ -185,15 +185,18 @@ class NuevoCierre extends Component
 				'iva_id' => $iva->id,
 			]);
 
-			$facturaMasVieja = $unidad->facturas()->orderBy('fecha', 'asc')->first();
+			if ($interes->estado) {
 
-			if (Carbon::today()->diffInMonths($facturaMasVieja->fecha) >= $interes->meses) {
-				$factura->interes()->associate($interes);
+				$facturaMasVieja = $unidad->facturas()->orderBy('fecha', 'asc')->first();
 
-				$factura->monto = $this->revertirIva($factura->monto, $iva->factor);
-				$factura->monto += $factura->monto * ($interes->factor / 100);
+				if (Carbon::today()->diffInMonths($facturaMasVieja->fecha) >= $interes->meses) {
+					$factura->interes()->associate($interes);
 
-				$factura->save();
+					$factura->monto = $this->revertirIva($factura->monto, $iva->factor);
+					$factura->monto += $factura->monto * ($interes->factor / 100);
+
+					$factura->save();
+				}
 			}
 
 			// Se guardan los items en la base de datos

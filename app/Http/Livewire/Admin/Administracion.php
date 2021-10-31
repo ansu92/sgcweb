@@ -137,12 +137,13 @@ class Administracion extends Component
 	public function actualizarInteres()
 	{
 		$rules = [
-			'factor' => 'required|numeric|lte:5',
+			'factor' => 'required|numeric|gt:0|lte:5',
 			'meses' => 'required|numeric|gt:0',
 			'estado' => 'boolean',
 		];
 
 		$messages = [
+			'factor.gt' => 'El factor debe ser mayor a :value%.',
 			'factor.lte' => 'El factor no puede ser mayor a :value%.',
 		];
 
