@@ -168,7 +168,7 @@
 
                         <div class="col-span-6">
                             <label for="factor" class="block text-sm font-medium text-gray-700">
-                                Factor:
+                                Factor (%):
                             </label>
                             <input wire:model="factor" type="text" name="factor" id="factor"
                                 class="form-control w-full">

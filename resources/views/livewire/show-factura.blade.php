@@ -171,7 +171,7 @@
                                     </div>
                                 </th>
                             </tr>
-                            {{-- @if ($factura->interes)
+                            @if ($factura->interes)
                                 <tr>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -187,7 +187,22 @@
                                         </div>
                                     </th>
                                 </tr>
-                            @endif --}}
+								<tr>
+									<th scope="col"
+										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+									</th>
+									<th scope="col"
+										class="px-6 py-3 border-r border-gray-200 text-right text-xs text-gray-800 font-black uppercase tracking-wider">
+										Subtotal (interés aplicado):
+									</th>
+									<th scope="col"
+										class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										<div class="text-sm font-medium text-gray-900">
+											{{ $subConInteres }}
+										</div>
+									</th>
+								</tr>
+								@endif
                             <tr>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -215,7 +230,6 @@
                                     class="bg-white px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
                                         {{ $total }}
-                                        {{-- {{ $factura->monto }} --}}
                                     </div>
                                 </th>
                             </tr>

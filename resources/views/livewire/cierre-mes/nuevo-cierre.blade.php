@@ -3,7 +3,8 @@
     <x-jet-button wire:click="$set('open', true)">
         Cerrar mes
     </x-jet-button>
-    <x-jet-dialog-modal wire:model="open">
+
+	<x-jet-dialog-modal wire:model="open">
 
         <x-slot name="title">
             Cierre de mes

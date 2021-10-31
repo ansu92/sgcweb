@@ -17,6 +17,7 @@ class Factura extends Model
 		'tasa_cambio',
 		'unidad_id',
 		'iva_id',
+		'interes_id',
 	];
 
 	public function pagar(float $monto)
@@ -40,5 +41,9 @@ class Factura extends Model
 
 	public function iva() {
 		return $this->belongsTo(Iva::class);
+	}
+
+	public function interes() {
+		return $this->belongsTo(Interes::class);
 	}
 }

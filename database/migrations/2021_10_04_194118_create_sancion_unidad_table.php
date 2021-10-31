@@ -18,10 +18,9 @@ class CreateSancionUnidadTable extends Migration
             $table->date('fecha')->default(now());
             $table->foreignId('unidad_id');
             $table->foreignId('sancion_id');
-            // $table->decimal('tasa_cambio');
             $table->decimal('monto_pagar');
 
-            $table->enum('estado', ['Pagada', 'Por pagar'])->default('Por pagar');
+            $table->enum('estado', ['Por procesar', 'Procesada'])->default('Por procesar');
             
             $table->timestamps();
         });

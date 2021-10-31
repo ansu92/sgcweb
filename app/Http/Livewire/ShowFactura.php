@@ -12,8 +12,10 @@ class ShowFactura extends Component
 	public Factura $factura;
 
 	public $countItems = 0;
-	public $subSinIva = 0;
+	public $sub = 0;
+	public $subConInteres = 0;
 	public $montoIva = 0;
+	public $montoInteres = 0;
 	public $total = 0;
 
 	public function mount()
@@ -23,14 +25,24 @@ class ShowFactura extends Component
 		foreach ($this->factura->items as $item) {
 			$item->montoSinIva = $this->revertirIva($item->monto);
 
-			$this->subSinIva += $item->montoSinIva;
-
-			$this->total += $item->monto;
+			$this->sub += $item->montoSinIva;
 		}
 
-		$this->montoIva = $this->subSinIva * ($this->factura->iva->factor / 100);
+		if ($this->factura->interes) {
+			$this->montoInteres = $this->sub * ($this->factura->interes->factor / 100);
 
-		$this->total = $this->subSinIva + $this->montoIva;
+			// $this->subConInteres = $this->sub + $this->montoInteres;
+			$this->subConInteres = $this->factura->monto;
+
+			$this->montoIva = $this->subConInteres * ($this->factura->iva->factor / 100);
+
+			$this->total = $this->subConInteres + $this->montoIva;
+		} else {
+
+			$this->montoIva = $this->sub * ($this->factura->iva->factor / 100);
+
+			$this->total = $this->sub + $this->montoIva;
+		}
 	}
 
 	public function render()

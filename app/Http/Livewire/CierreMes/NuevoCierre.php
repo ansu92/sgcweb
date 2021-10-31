@@ -4,12 +4,14 @@ namespace App\Http\Livewire\CierreMes;
 
 use App\Models\Factura;
 use App\Models\Gasto;
+use App\Models\Interes;
 use App\Models\Item;
 use App\Models\Iva;
 use App\Models\Mensualidad;
 use App\Models\Sancion;
 use App\Models\Unidad;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class NuevoCierre extends Component
@@ -72,6 +74,7 @@ class NuevoCierre extends Component
 			->get();
 
 		// Se obtienen los datos del interés
+		$interes = Interes::orderBy('created_at', 'desc')->first();
 
 		// Se obtienen los datos del IVA
 		$iva = Iva::orderBy('created_at', 'desc')->first();
@@ -147,17 +150,21 @@ class NuevoCierre extends Component
 				}
 			}
 
-			foreach ($unidad->sanciones as $item) {
+			foreach ($unidad->sanciones()->where('estado', 'Por procesar')->get() as $sancion) {
 
 				// Se crea el item para la factura
 				$item = Item::make([
-					'itemable_id' => $item->id,
+					'itemable_id' => $sancion->id,
 					'itemable_type' => Sancion::class,
-					'monto' => $item->monto,
+					'monto' => $sancion->monto,
 				]);
 
 				// Se agrega el item a la colección
 				$itemsFactura->push($item);
+
+				// Se cambia el estado de la sanción para indicar que ya fue procesada en una factura
+				$sancion->pivot->estado = 'Procesada';
+				$sancion->pivot->save();
 			}
 
 			// Se crea una variable para almacenar el monto total de la factura
@@ -178,6 +185,17 @@ class NuevoCierre extends Component
 				'iva_id' => $iva->id,
 			]);
 
+			$facturaMasVieja = $unidad->facturas()->orderBy('fecha', 'asc')->first();
+
+			if (Carbon::today()->diffInMonths($facturaMasVieja->fecha) >= $interes->meses) {
+				$factura->interes()->associate($interes);
+
+				$factura->monto = $this->revertirIva($factura->monto, $iva->factor);
+				$factura->monto += $factura->monto * ($interes->factor / 100);
+
+				$factura->save();
+			}
+
 			// Se guardan los items en la base de datos
 			foreach ($itemsFactura as $item) {
 				$item->factura()->associate($factura->id);
@@ -194,5 +212,11 @@ class NuevoCierre extends Component
 
 		$this->emitTo('cierre-mes.tabla-factura', 'render');
 		$this->emit('alert', 'El cierre de mes fue satisfactorio');
+	}
+
+	private function revertirIva($monto, $iva)
+	{
+		$montoSinIva = $monto / (($iva / 100) + 1);
+		return $montoSinIva;
 	}
 }
