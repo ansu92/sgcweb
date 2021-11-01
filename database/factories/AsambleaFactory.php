@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Administrador;
-use App\Models\Comunicado;
+use App\Models\Asamblea;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ComunicadoFactory extends Factory
+class AsambleaFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Comunicado::class;
+    protected $model = Asamblea::class;
 
     /**
      * Define the model's default state.
@@ -23,9 +23,8 @@ class ComunicadoFactory extends Factory
     public function definition()
     {
         return [
-            'asunto' => $this->faker->unique()->realText(45),
-			'contenido' => $this->faker->realText(),
-            'administrador_id' => Administrador::all()->random(),
+            'descripcion' => $this->faker->words(3, true),
+            'fecha' => $this->faker->date(),
         ];
     }
 }

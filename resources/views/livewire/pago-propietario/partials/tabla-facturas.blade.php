@@ -42,11 +42,6 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                                         wire:click="orden('descripcion')">
-                                        Tipo de factura
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                                        wire:click="orden('descripcion')">
                                         Monto
                                     </th>
                                     <th scope="col"
@@ -70,11 +65,6 @@
                                                 {{ $item->unidad->numero }} -
                                                 {{ $item->unidad->propietario->integrante->nombre }}
                                                 {{ $item->unidad->propietario->integrante->apellido }}
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm font-medium text-gray-900">
-                                                {{ Str::substr($item->facturable_type, 11) }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">

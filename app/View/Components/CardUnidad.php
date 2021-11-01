@@ -33,7 +33,7 @@ class CardUnidad extends Component
 		}
 
 		if ($conFactura) {
-			$this->tieneFacturas = $unidad->facturas->count();
+			$this->tieneFacturas = $unidad->facturas()->where('estado', 'Pendiente')->count();
 		}
 	}
 

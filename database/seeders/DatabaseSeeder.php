@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Administrador;
-use App\Models\Banco;
+use App\Models\Asamblea;
 use App\Models\Categoria;
 use App\Models\Comunicado;
 use App\Models\Cuenta;
@@ -38,7 +38,6 @@ class DatabaseSeeder extends Seeder
 
 		Enfermedad::factory(15)->create();
 		Medicamento::factory(15)->create();
-		Banco::factory(6)->create();
 		Categoria::factory(7)->create();
 		TipoUnidad::factory(5)->create();
 		TipoUsuario::factory(5)->create();
@@ -47,7 +46,8 @@ class DatabaseSeeder extends Seeder
 			->has(Fondo::factory())
 			->create();
 
-		Servicio::factory(15)->create();
+		$this->call(ServicioSeeder::class);
+		// Servicio::factory(15)->create();
 		Proveedor::factory(15)->create();
 		Sancion::factory(15)->create();
 
@@ -77,9 +77,8 @@ class DatabaseSeeder extends Seeder
 			$item->save();
 		}
 
-		Administrador::factory(20)
-			->has(Comunicado::factory(4))
-			->create();
+		Administrador::factory(20)->create();
+		Comunicado::factory(40)->create();
 
 		$this->call(UserSeeder::class);
 
@@ -91,5 +90,11 @@ class DatabaseSeeder extends Seeder
 		}
 
 		Iva::create(['factor' => 12]);
+
+		$asambleas = Asamblea::factory(5)->create();
+
+		foreach ($asambleas as $item) {
+			$item->asistentes()->attach(Integrante::has('unidad')->get()->random(rand(24, 30)));
+		}
 	}
 }

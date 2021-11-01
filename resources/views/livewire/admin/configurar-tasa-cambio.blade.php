@@ -1,7 +1,7 @@
 <div>
 
     <div wire:click="$set('open', true)">
-        <x-btn-admin-ancho nombre="Actualizar tasa de cambio" icono="img/iconos/interes.png" />
+        <x-btn-admin-ancho nombre="Actualizar tasa de cambio" icono="img/iconos/pariedad.png" />
     </div>
 
     <x-jet-dialog-modal wire:model="open">

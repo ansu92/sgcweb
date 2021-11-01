@@ -176,7 +176,7 @@ class NuevoCierre extends Component
 			}
 
 			// Se crea la factura
-			$factura = Factura::create([
+			$factura = Factura::make([
 				'monto' => $montoFactura,
 				'monto_por_pagar' => $montoFactura,
 				'moneda' => $this->moneda,
@@ -189,14 +189,19 @@ class NuevoCierre extends Component
 
 				$facturaMasVieja = $unidad->facturas()->orderBy('fecha', 'asc')->first();
 
-				if (Carbon::today()->diffInMonths($facturaMasVieja->fecha) >= $interes->meses) {
-					$factura->interes()->associate($interes);
+				if ($facturaMasVieja) {
 
-					$factura->monto = $this->revertirIva($factura->monto, $iva->factor);
-					$factura->monto += $factura->monto * ($interes->factor / 100);
+					if (Carbon::today()->diffInMonths($facturaMasVieja->fecha) >= $interes->meses) {
+						$factura->interes()->associate($interes);
 
-					$factura->save();
+						$factura->monto = $this->revertirIva($factura->monto, $iva->factor);
+						$factura->monto += $factura->monto * ($interes->factor / 100);
+					}
 				}
+
+				$factura->save();
+			} else {
+				$factura->save();
 			}
 
 			// Se guardan los items en la base de datos

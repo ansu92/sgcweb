@@ -64,6 +64,12 @@ class Administracion extends Component
 
 			],
 			[
+				'nombre' => 'Gestionar bancos',
+				'ruta' => 'banco.index',
+				'imagen' => 'img/iconos/banco.png',
+
+			],
+			[
 				'nombre' => 'Gestionar sanciones',
 				'ruta' => 'admin.sancion.index',
 				'imagen' => 'img/iconos/gestionar-sanciones.png',
@@ -72,6 +78,12 @@ class Administracion extends Component
 				'nombre' => 'Gestionar categorías',
 				'ruta' => 'categoria.index',
 				'imagen' => 'img/iconos/gestionar-categorias.png',
+
+			],
+			[
+				'nombre' => 'Gestionar servicios',
+				'ruta' => 'servicio.index',
+				'imagen' => 'img/iconos/servicios.png',
 
 			],
 			[

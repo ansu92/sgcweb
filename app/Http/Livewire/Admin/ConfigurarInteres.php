@@ -29,7 +29,7 @@ class ConfigurarInteres extends Component
 
     public function mount()
     {
-        $this->interes = Interes::orderBy('created_at', 'desc')->first();
+        $this->interes = Interes::orderBy('created_at', 'desc')->firstOrNew();
     }
 
     public function render()

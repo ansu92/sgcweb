@@ -76,6 +76,6 @@ class UserSeeder extends Seeder
 
 		$unidad = Unidad::factory()->create();
 		$unidad->propietario()->associate($propietario)->save();
-		$integrante->unidad()->associate($unidad);
+		$integrante->unidad()->associate($unidad)->save();
 	}
 }
