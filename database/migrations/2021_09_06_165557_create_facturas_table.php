@@ -15,6 +15,7 @@ class CreateFacturasTable extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
+			$table->string('numero')->unique();
 			$table->decimal('monto', 12);
 			$table->decimal('monto_por_pagar', 12);
 			$table->enum('moneda', ['Bolívar', 'Dólar']);

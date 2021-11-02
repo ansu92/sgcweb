@@ -4,6 +4,7 @@
         Cerrar mes
     </x-jet-button>
 
+	{{-- {{ Str::substr(today(), 5, 2) }} --}}
 	<x-jet-dialog-modal wire:model="open">
 
         <x-slot name="title">

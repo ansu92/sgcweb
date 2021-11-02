@@ -169,13 +169,6 @@
                         @if ($this->proveedor->id)
                             <div class="py-4">
                                 @include('livewire.gasto.partials.tabla-servicios')
-								{{-- {{$proveedor}}
-								<br>
-								<br>
-								{{var_dump($servicios)}}
-								<br>
-								<br>
-								{{var_dump($montos)}} --}}
                             </div>
                         @endif
 

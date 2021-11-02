@@ -10,6 +10,7 @@ class Factura extends Model
     use HasFactory;
 
 	protected $fillable = [
+		'numero',
 		'monto',
 		'monto_por_pagar',
 		'moneda',

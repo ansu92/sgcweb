@@ -168,9 +168,9 @@
                                     <label for="tasa-cambio" class="block text-sm font-medium text-gray-700">
                                         Tasa de cambio:
                                     </label>
-                                    <input wire:model.lazy="tasaCambio" type="text" name="tasa-cambio" id="tasa-cambio"
+                                    <input wire:model="tasaCambio.tasa" type="text" name="tasa-cambio" id="tasa-cambio"
                                         class="form-control w-full">
-                                    <x-jet-input-error for="tasaCambio" />
+                                    <x-jet-input-error for="tasaCambio.tasa" />
                                 </div>
                             @endif
 

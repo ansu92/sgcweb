@@ -13,6 +13,7 @@ use App\Models\TasaCambio;
 use App\Models\Unidad;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class NuevoCierre extends Component
@@ -178,11 +179,17 @@ class NuevoCierre extends Component
 
 			// Se suma el monto de todos los items
 			foreach ($itemsFactura as $item) {
+				$item->monto = $this->convertirMonto($item);
+
 				$montoFactura += $item->monto;
 			}
 
+			$count = 0;
+			$numero = Str::substr(today(), 0, 4) . Str::substr(today(), 5, 2) . '-' . $unidad->numero . '-' . ++$count;
+
 			// Se crea la factura
 			$factura = Factura::make([
+				'numero' => $numero,
 				'monto' => $montoFactura,
 				'monto_por_pagar' => $montoFactura,
 				'moneda' => $this->moneda,
@@ -235,5 +242,21 @@ class NuevoCierre extends Component
 	{
 		$montoSinIva = $monto / (($iva / 100) + 1);
 		return $montoSinIva;
+	}
+
+	private function convertirMonto(Item $item)
+	{
+		if ($item->itemable->moneda != $this->moneda) {
+
+			if ($item->itemable->moneda == 'Bolívar') {
+				$montoConvertido = $item->monto / $this->tasaCambio->tasa;
+			} else if ($item->itemable->moneda == 'Dólar') {
+				$montoConvertido = $item->monto * $this->tasaCambio->tasa;
+			}
+
+			return $montoConvertido;
+		}
+
+		return $item->monto;
 	}
 }

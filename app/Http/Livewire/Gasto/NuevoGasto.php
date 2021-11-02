@@ -34,7 +34,7 @@ class NuevoGasto extends Component
 
 	public $readyToLoad = false;
 
-	public $busqueda;
+	public $busqueda = '';
 	public $orden = 'nombre';
 	public $direccion = 'asc';
 	public $cantidad = '10';
@@ -66,7 +66,7 @@ class NuevoGasto extends Component
 		'proveedor.id.required' => 'Debe seleccionar un proveedor.',
 		'proveedor.id.not_in' => 'Debe seleccionar un proveedor.',
 		'servicios.min' => 'Debe seleccionar al menos un servicio.',
-		'montos.*.required_with' => 'El monto es requerido si ha seleccionado el servicio.',
+		'montos.*.required_with' => 'El monto es requerido.',
 		'montos.*.gt' => 'El monto debe ser mayor que 0.',
 	];
 
@@ -139,6 +139,7 @@ class NuevoGasto extends Component
 
 		foreach ($this->listaServicios as $servicio) {
 			$this->montos[$servicio->id] = '';
+			// $this->montos = [];
 		}
 	}
 
@@ -167,7 +168,7 @@ class NuevoGasto extends Component
 
 	public function updatedSelectPage($value)
 	{
-		$this->servicios = $value ? $this->deCollectionAArray($this->listaServicios) : [];
+		$this->servicios = $value ? $this->listaServicios->pluck('id')->toArray() : [];
 	}
 
 	public function orden($orden)
@@ -187,7 +188,9 @@ class NuevoGasto extends Component
 	private function sumarMontos()
 	{
 		foreach ($this->montos as $key => $monto) {
+
 			if ($monto != "") {
+
 				if (in_array($key, $this->servicios)) {
 					$this->monto = $this->monto + $monto;
 				}
@@ -195,15 +198,6 @@ class NuevoGasto extends Component
 		}
 
 		number_format($this->monto, 2, ',', '.');
-	}
-
-	private function deCollectionAArray($coleccion)
-	{
-		foreach ($coleccion as $item) {
-			$array[$item->id] = (string)$item->id;
-		}
-
-		return $array;
 	}
 
 	public function save()

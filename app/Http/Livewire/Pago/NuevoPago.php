@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pago;
 use App\Models\Fondo;
 use App\Models\Gasto;
 use App\Models\Pago;
+use App\Models\TasaCambio;
 use Livewire\Component;
 use Livewire\WithPagination;
 use NumberFormatter;
@@ -53,7 +54,7 @@ class NuevoPago extends Component
 			'moneda' => 'required',
 			'fondo.id' => 'required',
 			'referencia' => 'exclude_unless:formaPago,Transferencia,Pago móvil,Cheque|min:4|max:8',
-			'tasaCambio' => 'exclude_if:conCambio,false|required|numeric',
+			'tasaCambio.tasa' => 'exclude_if:conCambio,false|required|numeric',
 		];
 
 		if ($this->conCambio == true) {
@@ -89,13 +90,14 @@ class NuevoPago extends Component
 	protected $messages = [
 		'fondo.id.required' => 'Debe seleccionar un fondo.',
 		'monto.lte' => 'El monto no debe ser mayor al saldo del fondo seleccionado o al total de la deuda.',
-		'tasaCambio.required_if' => 'Debe ingresar la tasa de cambio.'
+		'tasaCambio.tasa.required_if' => 'Debe ingresar la tasa de cambio.'
 	];
 
 	public function mount()
 	{
 		$this->gasto = new Gasto;
 		$this->fondo = new Fondo;
+		$this->tasaCambio = TasaCambio::orderBy('created_at', 'desc')->first();
 
 		$this->conCambio = $this->moneda != $this->gasto->moneda;
 
@@ -222,10 +224,10 @@ class NuevoPago extends Component
 		$this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
 
 		if ($this->moneda == 'Bolívar') {
-			$this->montoGastoConvertido = $this->gasto->saldo * $this->tasaCambio;
+			$this->montoGastoConvertido = $this->gasto->saldo * $this->tasaCambio->tasa;
 			$this->montoGastoConvertidoFormateado = $this->formatoDinero->formatCurrency($this->montoGastoConvertido, 'VES');
 		} else if ($this->moneda == 'Dólar') {
-			$this->montoGastoConvertido = $this->gasto->saldo / $this->tasaCambio;
+			$this->montoGastoConvertido = $this->gasto->saldo / $this->tasaCambio->tasa;
 			$this->montoGastoConvertidoFormateado = $this->formatoDinero->formatCurrency($this->montoGastoConvertido, 'USD');
 		}
 	}
@@ -244,7 +246,7 @@ class NuevoPago extends Component
 					// $this->monto = '2';
 				}
 			} else {
-				$this->validateOnly('tasaCambio');
+				$this->validateOnly('tasaCambio.tasa');
 			}
 		} else {
 
@@ -267,7 +269,7 @@ class NuevoPago extends Component
 			'referencia' => $this->referencia,
 			'forma_pago' => $this->formaPago,
 			'moneda' => $this->moneda,
-			'tasa_cambio' => $this->tasaCambio,
+			'tasa_cambio_id' => $this->tasaCambio->id,
 		]);
 
 		$pago->gasto()->associate($this->gasto);
