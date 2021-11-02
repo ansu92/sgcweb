@@ -22,6 +22,7 @@ class CreateFacturasTable extends Migration
 			$table->foreignId('unidad_id');
 			$table->foreignId('iva_id');
 			$table->foreignId('interes_id')->nullable();
+			$table->foreignId('tasa_cambio_id');
 			$table->enum('estado', ['Pendiente', 'Pagada'])->default('Pendiente');
             $table->timestamps();
         });

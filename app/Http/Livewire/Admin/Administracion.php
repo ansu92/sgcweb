@@ -64,8 +64,20 @@ class Administracion extends Component
 
 			],
 			[
+				'nombre' => 'Lista de usuarios',
+				'ruta' => 'admin.usuario.index',
+				'imagen' => 'img/iconos/banco.png',
+
+			],
+			[
 				'nombre' => 'Gestionar bancos',
 				'ruta' => 'banco.index',
+				'imagen' => 'img/iconos/banco.png',
+
+			],
+			[
+				'nombre' => 'Gestionar cuentas',
+				'ruta' => 'cuenta.index',
 				'imagen' => 'img/iconos/banco.png',
 
 			],
@@ -95,6 +107,12 @@ class Administracion extends Component
 			[
 				'nombre' => 'Gestionar medicamentos',
 				'ruta' => 'medicamento.index',
+				'imagen' => 'img/iconos/gestionar-medicamentos.png',
+
+			],
+			[
+				'nombre' => 'Gestionar tipos de unidad',
+				'ruta' => 'tipo-unidad.index',
 				'imagen' => 'img/iconos/gestionar-medicamentos.png',
 
 			],

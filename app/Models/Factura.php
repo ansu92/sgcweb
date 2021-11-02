@@ -14,10 +14,10 @@ class Factura extends Model
 		'monto_por_pagar',
 		'moneda',
 		'fecha',
-		'tasa_cambio',
 		'unidad_id',
 		'iva_id',
 		'interes_id',
+		'tasa_cambio_id',
 	];
 
 	public function pagar(float $monto)

@@ -9,6 +9,7 @@ use App\Models\Item;
 use App\Models\Iva;
 use App\Models\Mensualidad;
 use App\Models\Sancion;
+use App\Models\TasaCambio;
 use App\Models\Unidad;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
@@ -18,7 +19,7 @@ class NuevoCierre extends Component
 {
 	public $mes;
 	public $moneda = 'Bolívar';
-	public $tasaCambio;
+	public TasaCambio $tasaCambio;
 
 	public $open = false;
 
@@ -27,12 +28,17 @@ class NuevoCierre extends Component
 	protected $rules = [
 		'mes' => 'required|before_or_equal:this month',
 		'moneda' => 'required',
-		'tasaCambio' => 'required|numeric|gt:0',
+		'tasaCambio.tasa' => 'required|numeric|gt:0',
 	];
 
 	protected $messages = [
 		'mes.before_or_equal' => 'El mes debe ser anterior o igual a este mes.',
 	];
+
+	public function mount()
+	{
+		$this->tasaCambio = TasaCambio::orderBy('created_at', 'desc')->first();
+	}
 
 	public function render()
 	{
@@ -183,23 +189,27 @@ class NuevoCierre extends Component
 				'fecha' => now(),
 				'unidad_id' => $unidad->id,
 				'iva_id' => $iva->id,
+				'tasa_cambio_id' => $this->tasaCambio->id,
 			]);
 
-			if ($interes->estado) {
+			if ($interes) {
 
-				$facturaMasVieja = $unidad->facturas()->orderBy('fecha', 'asc')->first();
+				if ($interes->estado) {
 
-				if ($facturaMasVieja) {
+					$facturaMasVieja = $unidad->facturas()->orderBy('fecha', 'asc')->first();
 
-					if (Carbon::today()->diffInMonths($facturaMasVieja->fecha) >= $interes->meses) {
-						$factura->interes()->associate($interes);
+					if ($facturaMasVieja) {
 
-						$factura->monto = $this->revertirIva($factura->monto, $iva->factor);
-						$factura->monto += $factura->monto * ($interes->factor / 100);
+						if (Carbon::today()->diffInMonths($facturaMasVieja->fecha) >= $interes->meses) {
+							$factura->interes()->associate($interes);
+
+							$factura->monto = $this->revertirIva($factura->monto, $iva->factor);
+							$factura->monto += $factura->monto * ($interes->factor / 100);
+						}
 					}
-				}
 
-				$factura->save();
+					$factura->save();
+				}
 			} else {
 				$factura->save();
 			}
@@ -215,7 +225,6 @@ class NuevoCierre extends Component
 			'open',
 			'mes',
 			'moneda',
-			'tasaCambio',
 		]);
 
 		$this->emitTo('cierre-mes.tabla-factura', 'render');

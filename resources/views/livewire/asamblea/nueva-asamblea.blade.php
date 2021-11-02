@@ -55,7 +55,6 @@
                                         <x-jet-input type="text" placeholder="Escriba para buscar..."
                                             class="w-full" wire:model="busqueda" />
 
-                                        {{-- @livewire('nueva-asamblea') --}}
                                     </div>
 
                                     <!-- tabla -->
