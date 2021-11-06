@@ -10,7 +10,7 @@ class PagoPropietario extends Model
 	use HasFactory;
 
 	protected $table = 'pagos_propietario';
-	
+
 	protected $fillable = [
 		'descripcion',
 		'monto',
@@ -24,8 +24,10 @@ class PagoPropietario extends Model
 		'factura_id',
 	];
 
-	public function pagarFactura(bool $conCambio)
+	public function pagarFactura()
 	{
+		$conCambio = $this->moneda != $this->factura->moneda;
+
 		if ($conCambio) {
 			if ($this->moneda == 'Bolívar') {
 				$montoConvertido = $this->monto / $this->tasa_cambio;
@@ -39,18 +41,30 @@ class PagoPropietario extends Model
 			$this->factura->pagar($this->monto);
 		}
 
-		$this->fondo->acreditar($this->monto);
+		if ($this->cuenta) {
+
+			if ($this->cuenta->fondo) {
+
+				$this->fondo->acreditar($this->monto);
+			}
+		}
+
+		$this->estado = 'Confirmado';
+		$this->save();
 	}
 
-	public function factura() {
+	public function factura()
+	{
 		return $this->belongsTo(Factura::class);
 	}
 
-	public function cuento() {
+	public function cuenta()
+	{
 		return $this->belongsTo(Cuenta::class);
 	}
 
-	public function unidad() {
+	public function unidad()
+	{
 		return $this->belongsTo(Unidad::class);
 	}
 }

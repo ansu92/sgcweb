@@ -73,10 +73,12 @@ $nav_links = [
                                 </x-jet-nav-link>
                             </x-slot>
                             <x-slot name="content">
-                                <x-jet-dropdown-link href="{{ route('pago.create') }}"
-                                    :active="request()->routeIs('pago.create')">
-                                    Pagos del condominio
-                                </x-jet-dropdown-link>
+                                @can('pago.create')
+                                    <x-jet-dropdown-link href="{{ route('pago.create') }}"
+                                        :active="request()->routeIs('pago.create')">
+                                        Pagos del condominio
+                                    </x-jet-dropdown-link>
+                                @endcan
                                 <x-jet-dropdown-link href="{{ route('pago-propietario.create') }}"
                                     :active="request()->routeIs('pago-propietario.create')">
                                     Pagos del propietario
@@ -210,7 +212,7 @@ $nav_links = [
                                     @csrf
 
                                     <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                            this.closest('form').submit();">
+                                                                                this.closest('form').submit();">
                                         {{ __('Cerrar sesión') }}
                                     </x-jet-dropdown-link>
                                 </form>
@@ -295,7 +297,7 @@ $nav_links = [
                         @csrf
 
                         <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">
+                                                                    this.closest('form').submit();">
                             {{ __('Cerrar sesión') }}
                         </x-jet-responsive-nav-link>
                     </form>

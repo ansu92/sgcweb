@@ -27,7 +27,8 @@ class ConfirmarPago extends Component
 		$this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
 
 		$pagos = $this->readyToLoad ?
-			PagoPropietario::where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
+			PagoPropietario::where('estado', 'Por confirmar')
+			->where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad) :
 			[];
@@ -43,6 +44,12 @@ class ConfirmarPago extends Component
 			}
 		}
 
-        return view('livewire.pago-propietario.confirmar-pago', compact('pagos'));
-    }
+		return view('livewire.pago-propietario.confirmar-pago', compact('pagos'));
+	}
+
+	public function confirmar(PagoPropietario $pago)
+	{
+		$pago->pagarFactura();
+		$this->emit('alert', 'El pago ha sido confirmado satisfactoriamente.');
+	}
 }

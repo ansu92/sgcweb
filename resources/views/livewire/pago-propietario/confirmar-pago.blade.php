@@ -52,7 +52,7 @@
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     {{ $pago->unidad->numero }}
                                                 </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-2">
+                                                <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
                                                     <a href="{{ route('pago-propietario.show', $pago) }}"
                                                         class="btn btn-blue">
                                                         <i class="fas fa-eye"></i>

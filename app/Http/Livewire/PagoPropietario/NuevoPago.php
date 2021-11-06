@@ -49,8 +49,8 @@ class NuevoPago extends Component
 			'fecha' => 'required|before_or_equal:today',
 			'formaPago' => 'required',
 			'moneda' => 'required',
-			'cuenta.id' => 'required|not_in:0',
-			'referencia' => 'exclude_unless:formaPago,Transferencia,Pago móvil|min:4|max:8',
+			'cuenta.id' => 'exclude_unless:formaPago,Transferencia,Pago móvil,Punto de venta,Depósito|not_in:0',
+			'referencia' => 'exclude_unless:formaPago,Transferencia,Pago móvil|required|min:4|max:8',
 			'tasaCambio.tasa' => 'exclude_if:conCambio,false|required|numeric',
 		];
 
@@ -266,9 +266,8 @@ class NuevoPago extends Component
 			'factura_id' => $this->factura->id
 		]);
 
-		$pago->save();
 
-		// $pago->pagarFactura($this->conCambio);
+		$pago->save();
 
 		$this->reset([
 			'open',

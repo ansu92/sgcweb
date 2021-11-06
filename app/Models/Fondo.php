@@ -32,6 +32,4 @@ class Fondo extends Model
 	{
 		return $this->hasMany(Pago::class);
 	}
-
-	public function cobros() {}
 }

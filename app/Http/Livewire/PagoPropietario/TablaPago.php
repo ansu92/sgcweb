@@ -35,13 +35,15 @@ class TablaPago extends Component
 		if ($this->readyToLoad) {
 
 			foreach ($unidades as $item) {
-				$pagos->push($item->pagos);
-			}
-			$pagos = PagoPropietario::paginate(10);
 
-			// $pagos->where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
-			// 	->orderBy($this->orden, $this->direccion)
-			// 	->paginate($this->cantidad);
+				foreach ($item->pagos as $pago) {
+					$pagos->push($pago);
+				}
+			}
+			$pagos = $pagos->toQuery()
+				->where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
+				->orderBy($this->orden, $this->direccion)
+				->paginate($this->cantidad);
 		} else {
 			$pagos = new Collection;
 		}

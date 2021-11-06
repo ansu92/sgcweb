@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\PagoPropietario;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 
 class CtrPagoPropietario extends Controller
 {
