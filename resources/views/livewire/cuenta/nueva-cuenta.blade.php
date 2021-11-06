@@ -1,10 +1,10 @@
 <div>
 
-    <x-jet-button wire:click="$set('abierto', true)">
+    <x-jet-button wire:click="$set('open', true)">
         Nuevo
     </x-jet-button>
 
-    <x-jet-dialog-modal wire:model="abierto">
+    <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             Nueva cuenta
         </x-slot>
@@ -76,6 +76,39 @@
                                 <x-jet-input-error for="tipo" />
                             </div>
 
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono afiliado
+                                    a pago móvil</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <div class="absolute inset-y-0 left-0 flex items-center">
+                                        <select wire:model="codigo" id="codigo" name="codigo"
+                                            class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                                            <option>0412</option>
+                                            <option>0414</option>
+                                            <option>0416</option>
+                                            <option>0424</option>
+                                            <option>0426</option>
+                                        </select>
+                                    </div>
+                                    <input wire:model.lazy="telefono" type="text" name="telefono" id="telefono"
+                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-16 sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <x-jet-input-error for="telefono" />
+                            </div>
+
+                            <div class="col-span-6">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    ¿Mostrar los datos de la cuenta a los propietarios?
+                                </label>
+                                <div>
+                                    <input wire:model="publica" type="radio" name="publica" id="si" value="1">
+                                    <label for="si">Sí</label>
+                                    <input wire:model="publica" type="radio" name="publica" id="no" value="0"
+                                        class="ml-2">
+                                    <label for="no">No</label>
+                                </div>
+                                <x-jet-input-error for="publica" />
+                            </div>
 
                         </div>
                     </div>
@@ -87,7 +120,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button class="mr-2" wire:click="$set('abierto', false)">
+            <x-jet-secondary-button class="mr-2" wire:click="$set('open', false)">
                 Cancelar
             </x-jet-secondary-button>
 

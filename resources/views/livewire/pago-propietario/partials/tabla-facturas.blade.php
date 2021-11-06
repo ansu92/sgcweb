@@ -17,6 +17,26 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                                         wire:click="orden('fecha')">
+                                        Código
+
+                                        @if ($orden == 'fecha')
+
+                                            @if ($direccion == 'asc')
+                                                <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+
+                                            @else
+                                                <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+
+                                            @endif
+
+                                        @else
+                                            <i class="fas fa-sort float-right mt-1"></i>
+
+                                        @endif
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                                        wire:click="orden('fecha')">
                                         Fecha
 
                                         @if ($orden == 'fecha')
@@ -55,6 +75,11 @@
                                 @foreach ($facturas as $item)
                                     <tr wire:click="mostrarForm({{ $item }})"
                                         class="cursor-pointer hover:bg-gray-100">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                {{ $item->numero }}
+                                            </div>
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm font-medium text-gray-900">
                                                 {{ $item->fecha }}

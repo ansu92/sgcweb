@@ -3,13 +3,11 @@
 namespace App\Http\Livewire\PagoPropietario;
 
 use App\Models\PagoPropietario;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use NumberFormatter;
 
-class TablaPago extends Component
+class ConfirmarPago extends Component
 {
 	use WithPagination;
 
@@ -28,23 +26,11 @@ class TablaPago extends Component
 	{
 		$this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
 
-		$pagos = new Collection;
-
-		$unidades = Auth::user()->propietario->unidades;
-
-		if ($this->readyToLoad) {
-
-			foreach ($unidades as $item) {
-				$pagos->push($item->pagos);
-			}
-			$pagos = PagoPropietario::paginate(10);
-
-			// $pagos->where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
-			// 	->orderBy($this->orden, $this->direccion)
-			// 	->paginate($this->cantidad);
-		} else {
-			$pagos = new Collection;
-		}
+		$pagos = $this->readyToLoad ?
+			PagoPropietario::where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
+			->orderBy($this->orden, $this->direccion)
+			->paginate($this->cantidad) :
+			[];
 
 		foreach ($pagos as $pago) {
 
@@ -57,6 +43,6 @@ class TablaPago extends Component
 			}
 		}
 
-		return view('livewire.pago-propietario.tabla-pago', compact('pagos'));
-	}
+        return view('livewire.pago-propietario.confirmar-pago', compact('pagos'));
+    }
 }

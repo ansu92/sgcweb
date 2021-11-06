@@ -19,14 +19,6 @@ class TablaUnidad extends Component
 
 	public $readyToLoad = false;
 
-	public $openEdit = false;
-	public $openDestroy = false;
-
-	protected $rules = [
-		'categoria.nombre' => 'required|max:25',
-		'categoria.descripcion' => 'max:255',
-	];
-
 	protected $listeners = ['render'];
 
 	public function mount()
@@ -37,11 +29,12 @@ class TablaUnidad extends Component
 	public function render()
 	{
 		if ($this->readyToLoad) {
-			$unidades = Unidad::where('numero', 'LIKE', '%'.$this->busqueda.'%')
-				->orWhere('direccion', 'LIKE', '%'.$this->busqueda.'%')
+			$unidades = Unidad::where('numero', 'LIKE', '%' . $this->busqueda . '%')
+				->orWhere('direccion', 'LIKE', '%' . $this->busqueda . '%')
 				->orderBy($this->orden, $this->direccion)
 				->paginate($this->cantidad);
-		} else {
+				// $unidades = Unidad::doesntHave('propietario');
+			} else {
 			$unidades = [];
 		}
 
@@ -58,11 +51,6 @@ class TablaUnidad extends Component
 		$this->resetPage();
 	}
 
-	public function loadUnidades()
-	{
-		$this->readyToLoad = true;
-	}
-
 	public function orden($orden)
 	{
 		if ($this->orden == $orden) {
@@ -75,37 +63,5 @@ class TablaUnidad extends Component
 			$this->orden = $orden;
 			$this->direccion = 'asc';
 		}
-	}
-
-	public function edit(Unidad $unidad)
-	{
-		$this->unidad = $unidad;
-		$this->openEdit = true;
-	}
-
-	public function update()
-	{
-		$this->validate();
-
-		$this->unidad->save();
-
-		$this->reset('openEdit');
-
-		$this->emit('alert', 'La unidad se actualizó satisfactoriamente');
-	}
-
-	public function destroy(Unidad $unidad)
-	{
-		$this->unidad = $unidad;
-		$this->openDestroy = true;
-	}
-
-	public function delete()
-	{
-		$this->unidad->delete();
-
-		$this->reset('openDestroy');
-
-		$this->emit('alert', 'La unidad se eliminó satisfactoriamente');
 	}
 }

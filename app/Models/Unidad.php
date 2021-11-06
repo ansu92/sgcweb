@@ -54,4 +54,9 @@ class Unidad extends Model
 	{
 		return $this->hasMany(Factura::class);
 	}
+
+	public function pagos()
+	{
+		return $this->hasMany(PagoPropietario::class);
+	}
 }

@@ -75,6 +75,8 @@ Route::resource('pago-condominio', CtrPago::class)->only(['index', 'create', 'sh
 
 Route::resource('pago-propietario', CtrPagoPropietario::class)->only(['index', 'create', 'show'])->names('pago-propietario');
 
+Route::get('confirmar-pagos', [CtrPagoPropietario::class, 'confirmar'])->name('pago.confirmar');
+
 Route::resource('proveedor', CtrProveedor::class)->only(['index', 'show'])->names('proveedor');
 
 Route::get('aplicar-sancion', [CtrAplicarSancion::class, 'index'])->name('aplicar-sancion.index');

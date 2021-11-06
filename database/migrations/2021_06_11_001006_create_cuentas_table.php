@@ -20,6 +20,8 @@ class CreateCuentasTable extends Migration
             $table->string('documento', 12);
             $table->string('beneficiario', 45);
             $table->foreignId('banco_id');
+            $table->string('telefono', 12)->nullable();
+            $table->boolean('publica')->default(false);
             $table->timestamps();
         });
     }

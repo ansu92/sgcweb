@@ -11,6 +11,12 @@
                 @livewire('banco.nuevo-banco')
             @endcan
 
+            <a href="{{ route('banco.exportar') }}">
+                <button class="btn btn-blue">
+                    Exportar todos
+                </button>
+            </a>
+
         </div>
 
         <!-- tabla -->

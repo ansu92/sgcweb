@@ -30,8 +30,4 @@ class Propietario extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
-
-	public function facturas() {
-		return $this->hasManyThrough(Factura::class, Unidad::class);
-	}
 }

@@ -46,8 +46,8 @@ class PagoPropietario extends Model
 		return $this->belongsTo(Factura::class);
 	}
 
-	public function fondo() {
-		return $this->belongsTo(Fondo::class);
+	public function cuento() {
+		return $this->belongsTo(Cuenta::class);
 	}
 
 	public function unidad() {

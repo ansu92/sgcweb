@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\PagoPropietario;
 
 use App\Models\Factura;
-use App\Models\Fondo;
+use App\Models\Cuenta;
 use App\Models\PagoPropietario;
 use App\Models\TasaCambio;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +25,7 @@ class NuevoPago extends Component
 	public $tasaCambio;
 
 	public Factura $factura;
-	public Fondo $fondo;
+	public Cuenta $cuenta;
 
 	public bool $conCambio = false;
 	public $montoFacturaConvertido;
@@ -49,8 +49,8 @@ class NuevoPago extends Component
 			'fecha' => 'required|before_or_equal:today',
 			'formaPago' => 'required',
 			'moneda' => 'required',
-			'fondo.id' => 'required|not_in:0',
-			'referencia' => 'exclude_unless:formaPago,Transferencia,Pago móvil,Cheque|min:4|max:8',
+			'cuenta.id' => 'required|not_in:0',
+			'referencia' => 'exclude_unless:formaPago,Transferencia,Pago móvil|min:4|max:8',
 			'tasaCambio.tasa' => 'exclude_if:conCambio,false|required|numeric',
 		];
 
@@ -62,10 +62,6 @@ class NuevoPago extends Component
 					'gt:0',
 					'lte:' . $this->montoFacturaConvertido,
 				];
-
-				if ($this->fondo->id > 0) {
-					array_push($rules['monto'], 'lte:fondo.saldo');
-				}
 			} else {
 				$rules['monto'] = 'required|numeric';
 			}
@@ -75,26 +71,22 @@ class NuevoPago extends Component
 				'numeric',
 				'lte:factura.monto_por_pagar',
 			];
-
-			if ($this->fondo->id > 0) {
-				array_push($rules['monto'], 'lte:fondo.saldo');
-			}
 		}
 
 		return $rules;
 	}
 
 	protected $messages = [
-		'fondo.id.required' => 'Debe seleccionar un fondo.',
-		'fondo.id.not_in' => 'Debe seleccionar un fondo.',
-		'monto.lte' => 'El monto no debe ser mayor al saldo del fondo seleccionado o al total de la deuda.',
+		'cuenta.id.required' => 'Debe seleccionar una cuenta.',
+		'cuenta.id.not_in' => 'Debe seleccionar una cuenta.',
+		'monto.lte' => 'El monto no debe ser mayor al total de la deuda.',
 		'tasaCambio.tasa.required_if' => 'Debe ingresar la tasa de cambio.'
 	];
 
 	public function mount()
 	{
 		$this->factura = new Factura;
-		$this->fondo = new Fondo;
+		$this->cuenta = new Cuenta;
 		$this->tasaCambio = TasaCambio::orderBy('created_at', 'desc')->first();
 
 		$this->conCambio = $this->moneda != $this->factura->moneda;
@@ -108,9 +100,19 @@ class NuevoPago extends Component
 			->where('estado', 'Pendiente')
 			->paginate($this->cantidad);
 
-		$fondos = Fondo::where('moneda', $this->moneda)->get();
+		if ($this->formaPago == 'Pago móvil') {
+			$cuentas = Cuenta::where('publica', true)->get();
+		} else {
+			$cuentas = Cuenta::where('publica', true)
+				->whereNotNull('telefono')
+				->get();
+		}
 
-		return view('livewire.pago-propietario.nuevo-pago', compact('facturas', 'fondos'));
+		foreach ($cuentas as $item) {
+			$item->ocultarNumero();
+		}
+
+		return view('livewire.pago-propietario.nuevo-pago', compact('facturas', 'cuentas'));
 	}
 
 	public function mostrarForm(Factura $factura)
@@ -119,7 +121,6 @@ class NuevoPago extends Component
 			'descripcion',
 			'monto',
 			'fecha',
-			// 'recibo',
 			'referencia',
 			'formaPago',
 			'moneda',
@@ -149,27 +150,28 @@ class NuevoPago extends Component
 	{
 		$this->formaPago = $value == '----' ? null : $value;
 		$this->validateOnly('formaPago');
+
+		$this->cuenta = new Cuenta;
+		$this->cuenta->id = 0;
 	}
 
 	public function updatedMoneda()
 	{
-		$this->fondo = new Fondo;
+		$this->cuenta = new Cuenta;
 
 		$this->conCambio = $this->moneda != $this->factura->moneda;
 
 		$this->validarMonto();
 	}
 
-	public function updatingFondo($value)
+	public function updatingCuenta($value)
 	{
 		if ($value == 0) {
-			$this->fondo = new Fondo;
+			$this->cuenta = new Cuenta;
 		} else {
 
-			$this->fondo = Fondo::find($value);
+			$this->cuenta = Cuenta::find($value);
 		};
-
-		$this->validarMonto();
 	}
 
 	public function updatedTasaCambio()
@@ -192,10 +194,6 @@ class NuevoPago extends Component
 					'lte:' . $this->montoFacturaConvertido,
 				];
 
-				if ($this->fondo->id > 0) {
-					array_push($rules['monto'], 'lte:fondo.saldo');
-				}
-
 				$this->validateOnly('monto', $rules);
 			} else {
 				$this->validateOnly('monto', ['monto' => '']);
@@ -208,10 +206,6 @@ class NuevoPago extends Component
 				'gt:0',
 				'lte:factura.monto_por_pagar',
 			];
-
-			if ($this->fondo->id > 0) {
-				array_push($rules['monto'], 'lte:fondo.saldo');
-			}
 
 			$this->validateOnly('monto', $rules);
 		}
@@ -267,17 +261,14 @@ class NuevoPago extends Component
 			'forma_pago' => $this->formaPago,
 			'moneda' => $this->moneda,
 			'tasa_cambio_id' => $this->tasaCambio->id,
-			'fondo_id' => $this->fondo->id,
+			'cuenta_id' => $this->cuenta->id,
 			'unidad_id' => $this->factura->unidad->id,
 			'factura_id' => $this->factura->id
 		]);
 
-		// $pago->factura()->associate($this->factura);
-		// $pago->fondo()->associate($this->fondo);
-
 		$pago->save();
 
-		$pago->pagarFactura($this->conCambio);
+		// $pago->pagarFactura($this->conCambio);
 
 		$this->reset([
 			'open',
@@ -290,8 +281,8 @@ class NuevoPago extends Component
 		]);
 
 		$this->factura = new Factura;
-		$this->fondo = new Fondo;
+		$this->cuenta = new Cuenta;
 
-		$this->emit('alert', 'El pago se ha realizado satisfactoriamente');
+		$this->emit('alert', 'El pago ha sido registrado, debe esperar que el condominio confirme el pago para ver los cambios.');
 	}
 }

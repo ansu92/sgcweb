@@ -28,6 +28,8 @@ class CuentaFactory extends Factory
             'beneficiario' => 'Condominio',
             'documento' => $this->faker->numerify('V-########-#'),
             'banco_id' => Banco::all('id')->random(),
+            'telefono' => '04'.$this->faker->randomElement(['12', '14', '16', '24', '26']) . $this->faker->unique()->numerify('-#######'),
+            'publica' => $this->faker->randomElement([true, false]),
         ];
     }
 }

@@ -15,6 +15,9 @@ class TablaCuenta extends Component
 
 	public $cuenta;
 
+	public $codigo = '0412';
+	public $telefono;
+
 	public $busqueda;
 	public $orden = 'numero';
 	public $direccion = "desc";
@@ -33,11 +36,14 @@ class TablaCuenta extends Component
 
 	protected $rules = [
 		'letra' => 'required',
-		'documento' => 'required|digits_between: 6,10',
+		'documento' => 'required|min:6|max:10',
 		'cuenta.beneficiario' => 'required|string|max:45',
 		'cuenta.numero' => 'required|numeric|digits:20',
 		'cuenta.banco_id' => 'required|not_in:0',
 		'cuenta.tipo' => 'required|not_in:0',
+		'codigo' => 'nullable',
+		'telefono' => 'nullable|digits:7',
+		'cuenta.publica' => 'boolean',
 	];
 
 	public function mount()
@@ -53,7 +59,6 @@ class TablaCuenta extends Component
 				->orwhere('tipo', 'like', '%' . $this->busqueda . '%')
 				->orwhere('documento', 'like', '%' . $this->busqueda . '%')
 				->orwhere('beneficiario', 'like', '%' . $this->busqueda . '%')
-				->orwhere('banco_id', 'like', '%' . $this->busqueda . '%')
 				->orderBy($this->orden, $this->direccion)
 				->paginate($this->cantidad);
 		} else {
@@ -64,9 +69,9 @@ class TablaCuenta extends Component
 	}
 
 	public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
+	{
+		$this->validateOnly($propertyName);
+	}
 
 	public function loadCuentas()
 	{
@@ -103,6 +108,10 @@ class TablaCuenta extends Component
 
 		$this->letra = Str::substr($cuenta->documento, 0, 1);
 		$this->documento = Str::substr($cuenta->documento, 2);
+
+		$this->codigo = Str::substr($cuenta->telefono, 0, 4);
+		$this->telefono = Str::substr($cuenta->telefono, 5, 7);
+
 		$this->bancos = Banco::all();
 		$this->cuenta = $cuenta;
 		$this->openEdit = true;
@@ -111,8 +120,12 @@ class TablaCuenta extends Component
 	public function update()
 	{
 		$this->cuenta->documento = $this->letra . '-' . $this->documento;
-		
+
 		$this->validate();
+
+		if ($this->telefono) {
+			$this->telefono = $this->codigo . '-' . $this->telefono;
+		}
 
 		$this->cuenta->save();
 

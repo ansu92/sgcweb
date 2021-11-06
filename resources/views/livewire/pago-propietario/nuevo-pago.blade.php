@@ -31,7 +31,7 @@
                                 <label for="factura" class="block text-sm font-medium text-gray-700">
                                     Factura:
                                 </label>
-                                <input type="text" name="factura" id="factura" readonly value="{{ $factura->id }}"
+                                <input type="text" name="factura" id="factura" readonly value="{{ $factura->numero }}"
                                     class="form-control w-full">
                             </div>
 
@@ -73,6 +73,20 @@
                                 <x-jet-input-error for="fecha" />
                             </div>
 
+                            <div class="col-span-6 sm:col-span-2">
+                                <label for="monto" class="block text-sm font-medium text-gray-700">
+                                    Monto:
+                                </label>
+                                <input wire:model="monto" type="text" name="monto" id="monto"
+                                    class="form-control w-full">
+                                <x-jet-input-error for="monto" />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-1">
+                                <input wire:click="pagarTotal" wire:loading.attr="disabled" type="button"
+                                    value="Monto total" class="btn btn-blue text-xs h-14 disabled:bg-opacity-25">
+                            </div>
+
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="forma-pago" class="block text-sm font-medium text-gray-700">
                                     Forma de pago:
@@ -103,54 +117,49 @@
                                 <x-jet-input-error for="moneda" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="fondo" class="block text-sm font-medium text-gray-700">
-                                    Fondo:
-                                </label>
-                                <select wire:model="fondo.id" name="fondo" id="fondo" class="form-control w-full">
-                                    <option value="0" selected>----</option>
+                            @switch($formaPago)
+                                @case('Pago móvil')
+                                @case('Transferencia')
+                                @case('Punto de venta')
+                                @case('Depósito')
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="cuenta" class="block text-sm font-medium text-gray-700">
+                                            Cuenta:
+                                        </label>
+                                        <select wire:model="cuenta.id" name="cuenta" id="cuenta"
+                                            class="form-control w-full">
+                                            <option value="0" selected>----</option>
 
-                                    @foreach ($fondos as $item)
-                                        <option value="{{ $item->id }}">{{ $item->descripcion }}</option>
-                                    @endforeach
+                                            @if ($formaPago == 'Pago móvil')
+                                                @foreach ($cuentas as $item)
+                                                    <option value="{{ $item->id }}">
+                                                        {{ Str::substr($item->numero, 0, 4) }}
+                                                        - {{ $item->telefono }}
+                                                    </option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($cuentas as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->numero }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
 
-                                </select>
-                                <x-jet-input-error for="fondo.id" />
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-2">
-                                <label for="monto" class="block text-sm font-medium text-gray-700">
-                                    Monto:
-                                </label>
-                                <input wire:model="monto" type="text" name="monto" id="monto"
-                                    class="form-control w-full">
-                                <x-jet-input-error for="monto" />
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-1">
-                                <input wire:click="pagarTotal" wire:loading.attr="disabled" type="button"
-                                    value="Monto total" class="btn btn-blue text-xs h-14 disabled:bg-opacity-25">
-                            </div>
-
-                            {{-- <div class="col-span-6 sm:col-span-3">
-                                <label for="recibo" class="block text-sm font-medium text-gray-700">
-                                    Número de recibo:
-                                </label>
-                                <input wire:model="recibo" type="text" name="recibo" id="recibo"
-                                    class="form-control w-full">
-                                <x-jet-input-error for="recibo" />
-                            </div> --}}
+                                        </select>
+                                        <x-jet-input-error for="cuenta.id" />
+                                    </div>
+                                @break
+                            @endswitch
 
                             @switch($formaPago)
                                 @case('Transferencia')
                                 @case('Pago móvil')
-                                @case('Cheque')
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="referencia" class="block text-sm font-medium text-gray-700">
+                                        <label for="referencia"
+                                            class="block text-sm font-medium text-gray-700">
                                             Referencia:
                                         </label>
-                                        <input wire:model="referencia" type="text" name="referencia" id="referencia"
-                                            class="form-control w-full">
+                                        <input wire:model="referencia" type="text" name="referencia"
+                                            id="referencia" class="form-control w-full">
                                         <x-jet-input-error for="referencia" />
                                     </div>
                                 @break
@@ -161,7 +170,8 @@
 
                             @if ($factura->moneda != $moneda)
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="tasa-cambio" class="block text-sm font-medium text-gray-700">
+                                    <label for="tasa-cambio"
+                                        class="block text-sm font-medium text-gray-700">
                                         Tasa de cambio:
                                     </label>
                                     <input wire:model="tasaCambio.tasa" type="text" name="tasa-cambio"
@@ -170,25 +180,25 @@
                                 </div>
                             @endif
 
-                    </div>
-                </div>
             </div>
         </div>
-        {{-- /formulario --}}
+    </div>
+</div>
+{{-- /formulario --}}
 
-    </x-slot>
+</x-slot>
 
-    <x-slot name="footer">
+<x-slot name="footer">
 
-        <x-jet-secondary-button wire:click="$set('open', false)">
-            Cancelar
-        </x-jet-secondary-button>
+<x-jet-secondary-button wire:click="$set('open', false)">
+    Cancelar
+</x-jet-secondary-button>
 
-        <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
-            Registrar
-        </x-jet-button>
+<x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
+    Registrar
+</x-jet-button>
 
-    </x-slot>
+</x-slot>
 
 </x-jet-dialog-modal>
 

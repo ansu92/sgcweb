@@ -1,5 +1,4 @@
 <div>
-	{{-- Do your work, then step back. --}}
 	<x-jet-button wire:click="$set('abierto', true)">
 		Nuevo
 	</x-jet-button>

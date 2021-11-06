@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class ShowCuenta extends Component
 {
-
     public Cuenta $cuenta;
 
     public function render()

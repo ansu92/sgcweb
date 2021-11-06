@@ -4,10 +4,6 @@
             <x-select-cantidad />
 
             <x-jet-input wire:model="busqueda" type="text" placeholder="Escriba para buscar..." class="w-full" />
-
-            <a href="{{ route('pago-propietario.create') }}">
-                <button class="btn btn-blue w-44">Pagar gasto</button>
-            </a>
         </div>
 
         {{-- tabla --}}
@@ -22,7 +18,7 @@
                                         <tr>
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Descripción
+                                                Fecha
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -30,23 +26,11 @@
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Fecha
-                                            </th>
-                                            {{-- <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Recibo
-                                            </th> --}}
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Factura
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Unidad
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Estado
                                             </th>
                                             <th scope="col" class="relative px-6 py-3">
                                                 <span class="sr-only">Acciones</span>
@@ -57,30 +41,25 @@
                                         @foreach ($pagos as $pago)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $pago->descripcion }}
+                                                    {{ $pago->fecha }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     {{ $pago->montoFormateado }}
                                                 </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $pago->fecha }}
-                                                </td>
-                                                {{-- <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $pago->recibo }}
-                                                </td> --}}
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     {{ $pago->factura->numero }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     {{ $pago->unidad->numero }}
                                                 </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $pago->estado }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium">
+                                                <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-2">
                                                     <a href="{{ route('pago-propietario.show', $pago) }}"
                                                         class="btn btn-blue">
                                                         <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a class="btn btn-green"
+                                                        wire:click="confirmar({{ $pago }})">
+                                                        <i class="fas fa-check"></i>
                                                     </a>
                                                 </td>
                                             </tr>

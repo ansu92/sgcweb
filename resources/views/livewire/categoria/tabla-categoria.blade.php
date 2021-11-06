@@ -7,6 +7,13 @@
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
             @livewire('categoria.nueva-categoria')
+
+            <a href="{{ route('categoria.exportar') }}">
+                <button class="btn btn-blue">
+                    Exportar todos
+                </button>
+            </a>
+
         </div>
 
         <!-- tabla -->

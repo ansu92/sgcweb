@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Interes;
 use App\Models\Mensualidad;
 use Livewire\Component;
 
@@ -41,6 +40,11 @@ class Administracion extends Component
 				'nombre' => 'Lista de habitantes',
 				'ruta' => 'admin.habitante.index',
 				'imagen' => 'img/iconos/lista-habitantes.png',
+			],
+			[
+				'nombre' => 'Confirmar pagos',
+				'ruta' => 'pago.confirmar',
+				'imagen' => 'img/iconos/pagar-gastos.png',
 			],
 			[
 				'nombre' => 'Pagar gastos',

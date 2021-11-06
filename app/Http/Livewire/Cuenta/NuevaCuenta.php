@@ -8,8 +8,7 @@ use Livewire\Component;
 
 class NuevaCuenta extends Component
 {
-
-    public $abierto = false;
+    public $open = false;
 
     public $numero;
     public $tipo = 0;
@@ -17,17 +16,28 @@ class NuevaCuenta extends Component
     public $documento;
     public $beneficiario;
     public $banco_id = 0;
-
-    public $bancos;
+    public $codigo = '0412';
+    public $telefono;
+    public $publica = false;
 
     protected $rules = [
         'letra' => 'required',
-		'documento' => 'required|digits_between:6,10',
-		'beneficiario' => 'required|string|max:45',
-		'numero' => 'required|numeric|digits:20',
-		'banco_id' => 'not_in:0',
-		'tipo' => 'not_in:0',
+        'documento' => 'required|min:6|max:10',
+        'beneficiario' => 'required|string|max:45',
+        'numero' => 'required|numeric|digits:20',
+        'banco_id' => 'not_in:0',
+        'tipo' => 'not_in:0',
+        'codigo' => 'nullable',
+        'telefono' => 'nullable|digits:7',
+        'publica' => 'boolean',
     ];
+
+    public function render()
+    {
+        $bancos = Banco::all();
+
+        return view('livewire.cuenta.nueva-cuenta', compact('bancos'));
+    }
 
     public function updated($propertyName)
     {
@@ -38,32 +48,34 @@ class NuevaCuenta extends Component
     {
         $this->validate();
 
-        Cuenta::create([
+        $cuenta = Cuenta::create([
             'numero' => $this->numero,
             'tipo' => $this->tipo,
-            'documento' => $this->letra.'-'.$this->documento,
+            'documento' => $this->letra . '-' . $this->documento,
             'beneficiario' => $this->beneficiario,
-            'banco_id' => $this->banco_id
+            'banco_id' => $this->banco_id,
+            'publica' => $this->publica,
         ]);
 
+        if ($this->telefono) {
+            $cuenta->telefono = $this->codigo . '-' . $this->telefono;
+            $cuenta->save();
+        }
+
         $this->reset([
-            'abierto',
+            'open',
             'letra',
             'numero',
             'tipo',
             'documento',
             'beneficiario',
             'banco_id',
+            'codigo',
+            'telefono',
+            'publica',
         ]);
 
         $this->emitTo('cuenta.tabla-cuenta', 'render');
-        $this->emit('alert', 'El registro se creó satisfactoriamente');
-    }
-
-    public function render()
-    {
-        $this->bancos = Banco::all();
-        return view('livewire.cuenta.nueva-cuenta');
-
+        $this->emit('alert', 'La cuenta se creó satisfactoriamente');
     }
 }
