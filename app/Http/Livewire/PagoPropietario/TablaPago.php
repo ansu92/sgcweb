@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\PagoPropietario;
 
-use App\Models\PagoPropietario;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -40,10 +39,13 @@ class TablaPago extends Component
 					$pagos->push($pago);
 				}
 			}
-			$pagos = $pagos->toQuery()
-				->where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
-				->orderBy($this->orden, $this->direccion)
-				->paginate($this->cantidad);
+
+			if ($pagos->count() > 0) {
+				$pagos = $pagos->toQuery()
+					->where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
+					->orderBy($this->orden, $this->direccion)
+					->paginate($this->cantidad);
+			}
 		} else {
 			$pagos = new Collection;
 		}

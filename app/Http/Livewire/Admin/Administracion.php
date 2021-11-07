@@ -74,6 +74,12 @@ class Administracion extends Component
 
 			],
 			[
+				'nombre' => 'Gestionar responsables',
+				'ruta' => 'admin.administrador.index',
+				'imagen' => 'img/iconos/banco.png',
+
+			],
+			[
 				'nombre' => 'Gestionar bancos',
 				'ruta' => 'banco.index',
 				'imagen' => 'img/iconos/banco.png',

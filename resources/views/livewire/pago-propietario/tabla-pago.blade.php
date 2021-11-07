@@ -6,7 +6,7 @@
             <x-jet-input wire:model="busqueda" type="text" placeholder="Escriba para buscar..." class="w-full" />
 
             <a href="{{ route('pago-propietario.create') }}">
-                <button class="btn btn-blue w-44">Pagar gasto</button>
+                <button class="btn btn-blue w-44">Notificar pago</button>
             </a>
         </div>
 
@@ -77,7 +77,15 @@
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     {{ $pago->estado }}
                                                 </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium">
+
+                                                <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
+                                                    @if ($pago->estado == 'Confirmado')
+                                                        <a href="{{ route('pago-propietario.recibo', $pago) }}"
+                                                            class="btn btn-green">
+                                                            <i class="fas fa-download"></i>
+                                                        </a>
+                                                    @endif
+
                                                     <a href="{{ route('pago-propietario.show', $pago) }}"
                                                         class="btn btn-blue">
                                                         <i class="fas fa-eye"></i>

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Condominio;
 use App\Models\PagoPropietario;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Collection;
+use PDF;
 
 class CtrPagoPropietario extends Controller
 {
@@ -27,5 +27,13 @@ class CtrPagoPropietario extends Controller
 	public function confirmar()
 	{
 		return view('pago-propietario.confirmar');
+	}
+
+	public function exportarRecibo(PagoPropietario $pago)
+	{
+		$condominio = Condominio::first();
+
+		$pdf = PDF::loadView('pago-propietario.recibo', compact('pago', 'condominio'));
+		return $pdf->stream('recibo.pdf');
 	}
 }

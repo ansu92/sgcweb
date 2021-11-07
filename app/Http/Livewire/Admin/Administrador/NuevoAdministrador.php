@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Administrador;
 
 use App\Models\Administrador;
 use App\Models\Integrante;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -20,6 +21,7 @@ class NuevoAdministrador extends Component
 	public $apellido;
 	public $segundoApellido = null;
 	public $fecha_nacimiento;
+	public $edad;
 	public $codigo = '0412';
 	public $telefono = null;
 	public $email;
@@ -35,7 +37,6 @@ class NuevoAdministrador extends Component
 			'documento' => [
 				'required',
 				'digits_between:6,8',
-				// Rule::unique()
 			],
 			'nombre' => 'required|max:20',
 			'segundoNombre' => 'nullable|max:20',
@@ -89,6 +90,11 @@ class NuevoAdministrador extends Component
 		$this->buscarAdministrador();
 	}
 
+	public function updatedFechaNacimiento()
+	{
+		$this->edad = Carbon::parse($this->fecha_nacimiento)->age;
+	}
+
 	private function buscarIntegrante()
 	{
 		$integrante = Integrante::where('letra', $this->letra)
@@ -119,6 +125,8 @@ class NuevoAdministrador extends Component
 				'email',
 			]);
 		}
+
+		$this->edad = Carbon::parse($this->integrante->fecha_nacimiento)->age;
 	}
 
 	public function buscarAdministrador()

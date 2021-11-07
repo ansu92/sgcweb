@@ -9,3 +9,15 @@
 .fila {
     background-color: gainsboro;
 }
+
+.flex {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.grid {
+    display: grid;
+}

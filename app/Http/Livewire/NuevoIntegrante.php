@@ -6,6 +6,7 @@ use App\Models\Enfermedad;
 use App\Models\Integrante;
 use App\Models\Medicamento;
 use App\Models\Unidad;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -18,6 +19,7 @@ class NuevoIntegrante extends Component
 	public $apellido;
 	public $segundoApellido = null;
 	public $fecha_nacimiento;
+	public $edad;
 	public $telefono = null;
 	public $email = null;
 
@@ -32,7 +34,7 @@ class NuevoIntegrante extends Component
 
 	protected $rules = [
 		'letra' => 'required',
-		'documento' => 'required|digits_between:6,8',
+		'documento' => 'nullable|digits_between:6,8',
 		'nombre' => 'required|max:20',
 		'segundoNombre' => 'nullable|max:20',
 		'apellido' => 'required|max:20',
@@ -72,6 +74,11 @@ class NuevoIntegrante extends Component
 		$this->buscarIntegrante();
 	}
 
+	public function updatedFechaNacimiento()
+	{
+		$this->edad = Carbon::parse($this->fecha_nacimiento)->age;
+	}
+
 	private function buscarIntegrante()
 	{
 		$integrante = Integrante::where('letra', $this->letra)
@@ -88,7 +95,6 @@ class NuevoIntegrante extends Component
 			$this->email = $integrante->email;
 			$this->enfermedades = $integrante->enfermedades()->pluck('enfermedades.id')->toArray();
 			$this->medicamentos = $integrante->medicamentos()->pluck('medicamentos.id')->toArray();
-
 		} else {
 			$this->integrante = new Integrante;
 
@@ -111,8 +117,12 @@ class NuevoIntegrante extends Component
 	{
 		$this->validate();
 
-		$integrante = Integrante::where('letra', $this->letra)
-			->where('documento', $this->documento)->first();
+		$integrante = new Integrante;
+
+		if ($this->documento != '') {
+			$integrante = Integrante::where('letra', $this->letra)
+				->where('documento', $this->documento)->first();
+		}
 
 		if ($integrante) {
 			$integrante->nombre = $this->nombre;
@@ -131,8 +141,6 @@ class NuevoIntegrante extends Component
 		} else {
 
 			$datosIntegrante = [
-				'letra' => $this->letra,
-				'documento' => $this->documento,
 				'nombre' => $this->nombre,
 				's_nombre' => $this->segundoNombre,
 				'apellido' => $this->apellido,
@@ -141,6 +149,11 @@ class NuevoIntegrante extends Component
 				'email' => $this->email,
 				'unidad_id' => $this->unidad->id,
 			];
+
+			if ($this->documento != "") {
+				$datosIntegrante['letra'] = $this->letra;
+				$datosIntegrante['documento'] = $this->documento;
+			}
 
 			if ($this->telefono) {
 				$datosIntegrante['telefono'] = $this->codigo . '-' . $this->telefono;
@@ -169,8 +182,9 @@ class NuevoIntegrante extends Component
 			'medicamentos',
 		]);
 
+		// $this->integran
+
 		$this->emitTo('unidad.show-unidad', 'render');
 		$this->emit('alert', 'El integrante se añadió satisfactoriamente');
-		// redirect()->route('unidad.show', $this->unidad);
 	}
 }

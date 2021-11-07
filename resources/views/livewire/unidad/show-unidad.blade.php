@@ -55,7 +55,7 @@
         </dl>
     </div>
 
-    {{-- Habitantes de la unidad --}}
+    {{-- Tabla habitantes de la unidad --}}
     <div class="border rounded-md shadow-md m-4">
 
         <div class="flex items-center px-4 py-2">
@@ -105,9 +105,11 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm font-medium text-gray-900">
-                                                    {{ $item->letra }}-{{ $item->documento }}
-                                                </div>
+                                                @if ($item->documento != '')
+                                                    <div class="text-sm font-medium text-gray-900">
+                                                        {{ $item->letra }}-{{ $item->documento }}
+                                                    </div>
+                                                @endif
                                             </td>
                                             <td class="px-6 py-4">
                                                 <div class="text-sm font-medium text-gray-900">
@@ -149,6 +151,7 @@
             </div>
         @endif
 
+        {{-- Modal modificar integrante --}}
         <x-jet-dialog-modal wire:model="openEdit">
             <x-slot name="title">
                 Editar el integrante
@@ -190,8 +193,7 @@
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="s_nombre" class="block text-sm font-medium text-gray-700">Segundo
                                         nombre:</label>
-                                    <input wire:model="integrante.s_nombre" type="text" name="s_nombre"
-                                        id="s_nombre"
+                                    <input wire:model="integrante.s_nombre" type="text" name="s_nombre" id="s_nombre"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     <x-jet-input-error for="integrante.s_nombre" />
                                 </div>
@@ -300,6 +302,7 @@
             </x-slot>
         </x-jet-dialog-modal>
 
+        {{-- Modal eliminar integrante --}}
         <x-jet-confirmation-modal wire:model="openDestroy">
 
             <x-slot name="title">
@@ -324,7 +327,7 @@
 
     </div>
 
-    {{-- Facturas pendientes --}}
+    {{-- Tabla facturas pendientes --}}
     <div class="border rounded-md shadow-md m-4">
 
         <div class="flex items-center px-4 py-2">
@@ -377,8 +380,7 @@
                                             </td>
                                             <td
                                                 class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
-                                                <a href="{{ route('factura.show', $item) }}"
-                                                    class="btn btn-blue">
+                                                <a href="{{ route('factura.show', $item) }}" class="btn btn-blue">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 <a class="btn btn-red"

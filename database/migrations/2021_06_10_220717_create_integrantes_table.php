@@ -15,8 +15,8 @@ class CreateIntegrantesTable extends Migration
     {
         Schema::create('integrantes', function (Blueprint $table) {
             $table->id();
-			$table->enum('letra', ['V', 'E']);
-            $table->string('documento', 10);
+			$table->enum('letra', ['V', 'E'])->nullable();
+            $table->string('documento', 10)->nullable();
             $table->string('nombre', 20);
             $table->string('s_nombre', 20)->nullable();
             $table->string('apellido', 20);

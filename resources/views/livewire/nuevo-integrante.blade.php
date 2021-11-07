@@ -73,6 +73,14 @@
                                 <x-jet-input-error for="fecha_nacimiento" />
                             </div>
 
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="edad" class="block text-sm font-medium text-gray-700">Edad:</label>
+                                <input wire:model="edad" type="text" name="edad"
+                                    id="edad" readonly
+                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <x-jet-input-error for="edad" />
+                            </div>
+
                             <div class="col-span-6 sm:col-span-3 sm:col-start-1">
                                 <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">

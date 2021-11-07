@@ -42,24 +42,47 @@ class NuevoGasto extends Component
 	public $selectAll = false;
 	public $selectPage = false;
 
-	protected function rules()
-	{
-		return [
-			'descripcion' => 'required|max:255',
-			'tipo' => 'required',
-			'numeroMeses' => 'required_if:tipo,Extraordinario',
-			'asamblea.id' => 'exclude_if:tipo,Ordinario|required_if:elegidoAsamblea,si',
-			'calculo' => 'required|not_in:----',
-			'comienzoCobro' => 'required|date|after:last month',
-			'moneda' => 'required',
-			'monto' => 'required|numeric',
-			'observaciones' => 'nullable',
-			'proveedor.id' => 'required|not_in:0',
-			'factura' => 'required',
-			'servicios' => 'exclude_if:proveedor.id,0|min:1',
-			'montos.*' => 'exclude_if:servicios.*,false|required_with:servicios.*|numeric|gt:0',
-		];
-	}
+	protected $rules = [
+		'descripcion' => [
+			'required',
+			'max:255',
+		],
+		'tipo' => 'required',
+		'numeroMeses' => 'required_if:tipo,Extraordinario',
+		'asamblea.id' => [
+			'exclude_if:tipo,Ordinario',
+			'required_if:elegidoAsamblea,si',
+		],
+		'calculo' => 'required',
+		'comienzoCobro' => [
+			'required',
+			'date',
+			'after:last month',
+		],
+		'moneda' => 'required',
+		'monto' => [
+			'required',
+			'numeric',
+		],
+		'observaciones' => 'nullable',
+		'proveedor.id' => [
+			'required',
+			'not_in:0',
+		],
+		'factura' => 'required',
+		'servicios' => [
+			'exclude_if:proveedor.id,0',
+			'array',
+			'min:1',
+		],
+		'montos.*' => [
+			// Parece ser que esta validación es la que está causando el error -_-
+			// 'exclude_if:servicios.*,false',
+			'required_with:servicios.*',
+			'numeric',
+			'gt:0',
+		],
+	];
 
 	protected $messages = [
 		'comienzoCobro.after' => 'El comienzo de cobro no puede ser un mes anterior al actual.',
@@ -74,6 +97,7 @@ class NuevoGasto extends Component
 	{
 		$this->asamblea = new Asamblea;
 		$this->proveedor = new Proveedor;
+		$this->proveedor->id = 0;
 	}
 
 	public function render()
@@ -125,9 +149,20 @@ class NuevoGasto extends Component
 		$this->asamblea = $value == '--' ? new Asamblea : Asamblea::find($value);
 	}
 
+	public function updatingCalculo($value)
+	{
+		$this->calculo = $value == '----' ? '' : $value;
+		$this->validateOnly('calculo');
+	}
+
 	public function updatingProveedor($value)
 	{
-		$this->proveedor = $value == '----' ? new Proveedor : Proveedor::find($value);
+		if ($value == '----') {
+			$this->proveedor = new Proveedor;
+			$this->proveedor->id = 0;
+		} else {
+			Proveedor::find($value);
+		}
 	}
 
 	public function updatedProveedor()
@@ -136,10 +171,10 @@ class NuevoGasto extends Component
 		$this->selectPage = false;
 
 		$this->servicios = [];
+		$this->montos = [];
 
 		foreach ($this->listaServicios as $servicio) {
 			$this->montos[$servicio->id] = '';
-			// $this->montos = [];
 		}
 	}
 
@@ -253,6 +288,7 @@ class NuevoGasto extends Component
 
 		$this->asamblea = new Asamblea;
 		$this->proveedor = new Proveedor;
+		$this->proveedor->id = 0;
 
 		$this->emitTo('gasto.tabla-gasto', 'render');
 		$this->emit('alert', 'El gasto se registró satisfactoriamente');

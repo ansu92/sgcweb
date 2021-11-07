@@ -6,6 +6,7 @@ use App\Models\Integrante;
 use App\Models\Propietario;
 use App\Models\Unidad;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -19,6 +20,7 @@ class ShowUnidad extends Component
 	public $ci;
 	public $codigo = '0412';
 	public $telefono;
+	public $edad;
 
 	public $openAsignar = false;
 	public $openCambiar = false;
@@ -77,6 +79,11 @@ class ShowUnidad extends Component
 		$this->buscarIntegrante();
 	}
 
+	public function updatedIntegranteFechaNacimiento()
+	{
+		$this->edad = Carbon::parse($this->integrante->fecha_nacimiento)->age;
+	}
+
 	private function buscarIntegrante()
 	{
 		$integrante = Integrante::where('letra', $this->letra)
@@ -90,6 +97,8 @@ class ShowUnidad extends Component
 			$this->integrante = new Integrante;
 			$this->reset(['codigo', 'telefono']);
 		}
+
+		$this->edad = Carbon::parse($this->integrante->fecha_nacimiento)->age;
 	}
 
 	public function asignarPropietario()
@@ -143,42 +152,6 @@ class ShowUnidad extends Component
 		$this->asignarPropietario();
 
 		$this->reset('openCambiar');
-
-		// $integrante = Integrante::where('letra', $this->integrante->letra)
-		// 	->where('documento', $this->integrante->documento)->first();
-
-		// if ($integrante) {
-		// 	$this->integrante = $integrante;
-		// } else {
-		// 	$this->integrante->telefono = $this->codigo . '-' . $this->telefono;
-		// 	$this->integrante->save();
-		// }
-
-		// $propietario = new Propietario;
-		// $propietario->documento = $this->documento;
-		// $propietario->integrante()->associate($this->integrante);
-		// $propietario->user()->associate(User::create([
-		// 	'name' => $this->integrante->nombre . ' ' . $this->integrante->apellido,
-		// 	'email' => $this->integrante->email,
-		// 	'password' => bcrypt('password'),
-		// ]));
-
-		// $propietario->save();
-
-		// $this->unidad->propietario()->associate($propietario);
-		// $this->unidad->save();
-
-		// $this->reset([
-		// 	'openCambiar',
-		// 	'documento',
-		// 	'codigo',
-		// 	'telefono',
-		// ]);
-
-		// $this->unidad = new Unidad;
-		// $this->integrante = new Integrante;
-
-		// $this->emit('alert', 'El propietario fue cambiado satisfactoriamente');
 	}
 
 	public function retirar()
@@ -196,20 +169,4 @@ class ShowUnidad extends Component
 
 		$this->reset('openRetirar');
 	}
-
-	// public function destroy(Integrante $integrante)
-	// {
-	// 	$this->integrante = $integrante;
-	// 	$this->openDestroy = true;
-	// }
-
-	// public function remove()
-	// {
-	// 	$this->integrante->delete();
-
-	// 	$this->reset('openDestroy');
-
-	// 	$this->emitTo('unidad.show-unidad', 'render');
-	// 	$this->emit('alert', 'El integrante fue removido satisfactoriamente');
-	// }
 }

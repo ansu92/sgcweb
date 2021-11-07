@@ -5,6 +5,7 @@ use App\Http\Controllers\CtrBanco;
 use App\Http\Controllers\CtrCategoria;
 use App\Http\Controllers\CtrCuenta;
 use App\Http\Controllers\CtrEnfermedad;
+use App\Http\Controllers\CtrPagoPropietario;
 use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,5 @@ Route::get('unidades-sin-propietario/exportar', [CtrUnidad::class, 'exportarSinP
 Route::get('unidades-con-habitantes/exportar', [CtrUnidad::class, 'exportarConHabitantes'])->name('unidad.exportar-con-habitantes');
 
 Route::get('unidades-sin-habitantes/exportar', [CtrUnidad::class, 'exportarSinHabitantes'])->name('unidad.exportar-sin-habitantes');
+
+Route::get('recibo/{pago}', [CtrPagoPropietario::class, 'exportarRecibo'])->name('pago-propietario.recibo');

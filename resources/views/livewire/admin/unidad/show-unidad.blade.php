@@ -92,8 +92,6 @@
             @if (count($unidad->integrantes))
                 <div class="flex items-center px-4 py-2">
                     <h2 class="px-4 py-2 text-lg inline w-full">Habitantes de la unidad</h2>
-
-                    {{-- @livewire('nuevo-integrante', ['unidad' => $unidad]) --}}
                 </div>
 
                 <!-- tabla -->

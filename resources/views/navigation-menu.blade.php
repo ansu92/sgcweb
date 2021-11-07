@@ -81,7 +81,7 @@ $nav_links = [
                                 @endcan
                                 <x-jet-dropdown-link href="{{ route('pago-propietario.create') }}"
                                     :active="request()->routeIs('pago-propietario.create')">
-                                    Pagos del propietario
+                                    Notificar pago
                                 </x-jet-dropdown-link>
                             </x-slot>
                         </x-jet-dropdown>

@@ -25,8 +25,8 @@ class ShowUnidad extends Component
 	public $openDestroy = false;
 
 	protected $rules = [
-		'integrante.letra' => 'required',
-		'integrante.documento' => 'required|digits_between:6,8',
+		'integrante.letra' => 'nullable',
+		'integrante.documento' => 'nullable|digits_between:6,8',
 		'integrante.nombre' => 'required|max:20',
 		'integrante.s_nombre' => 'nullable|max:20',
 		'integrante.apellido' => 'required|max:20',
@@ -50,6 +50,11 @@ class ShowUnidad extends Component
 	public function edit(Integrante $integrante)
 	{
 		$this->integrante = $integrante;
+
+		if($integrante->documento == '') {
+			$this->integrante->letra = 'V';
+		}
+
 		$this->codigo = Str::substr($integrante->telefono, 0, 4);
 		$this->telefono = Str::substr($integrante->telefono, 5, 7);
 		$this->enfermedades = $integrante->enfermedades()->pluck('enfermedades.id')->toArray();

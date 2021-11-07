@@ -161,7 +161,6 @@
                                 </select>
                                 <x-jet-input-error for="proveedor.id" />
 								<x-jet-input-error for="servicios" />
-								{{-- {{$proveedor->id}} --}}
                             </div>
 
                         </div>
@@ -170,6 +169,13 @@
                             <div class="py-4">
                                 @include('livewire.gasto.partials.tabla-servicios')
                             </div>
+                            {{-- Servicios:
+                            <br>
+                            {{var_dump($servicios)}}
+                            <br>
+                            Montos:
+                            <br>
+                            {{var_dump($montos)}} --}}
                         @endif
 
                     </div>
