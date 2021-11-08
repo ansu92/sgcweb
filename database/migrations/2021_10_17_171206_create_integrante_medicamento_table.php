@@ -14,8 +14,8 @@ class CreateIntegranteMedicamentoTable extends Migration
     public function up()
     {
         Schema::create('integrante_medicamento', function (Blueprint $table) {
-            $table->foreignId('integrante_id');
-            $table->foreignId('medicamento_id');
+            $table->foreignId('integrante_id')->constrained();
+            $table->foreignId('medicamento_id')->constrained();
             $table->timestamps();
         });
     }

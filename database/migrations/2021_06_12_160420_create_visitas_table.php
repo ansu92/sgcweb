@@ -19,7 +19,7 @@ class CreateVisitasTable extends Migration
             $table->string('ci', 8);
             $table->string('nombre', 45);
             $table->string('apellido', 45);
-            $table->foreignId('unidad_id');
+            $table->foreignId('unidad_id')->constrained('unidades');
             $table->integer('numero_personas')->nullable();
             $table->timestamp('fecha_hora_entrada')->default(now());
             $table->timestamp('fecha_hora_salida')->nullable();

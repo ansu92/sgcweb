@@ -15,9 +15,9 @@ class CreateGastosExtraordinariosTable extends Migration
     {
         Schema::create('gastos_extraordinarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gasto_id');
+            $table->foreignId('gasto_id')->constrained();
             $table->integer('num_meses');
-            $table->foreignId('asamblea_id')->nullable();
+            $table->foreignId('asamblea_id')->nullable()->constrained();
             $table->timestamps();
             $table->softDeletes();
         });

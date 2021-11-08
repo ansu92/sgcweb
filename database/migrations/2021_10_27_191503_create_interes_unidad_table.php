@@ -15,8 +15,8 @@ class CreateInteresUnidadTable extends Migration
     {
         Schema::create('interes_unidad', function (Blueprint $table) {
 			$table->id();
-            $table->foreignId('unidad_id');
-			$table->foreignId('interes_id');
+            $table->foreignId('unidad_id')->constrained('unidades');
+			$table->foreignId('interes_id')->constrained('intereses');
 			$table->date('fecha');
 			$table->boolean('estado');
             $table->timestamps();

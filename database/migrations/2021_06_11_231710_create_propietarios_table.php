@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdministradoresTable extends Migration
+class CreatePropietariosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateAdministradoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('administradores', function (Blueprint $table) {
+        Schema::create('propietarios', function (Blueprint $table) {
             $table->id();
-			$table->string('rol');
-            $table->foreignId('integrante_id');
-			$table->foreignId('user_id');
+            $table->foreignId('integrante_id')->unique()->constrained();
+            $table->foreignId('user_id')->unique()->constrained();
             $table->timestamps();
-			$table->softDeletes();
         });
     }
 
@@ -30,6 +28,6 @@ class CreateAdministradoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('administradores');
+        Schema::dropIfExists('propietarios');
     }
 }

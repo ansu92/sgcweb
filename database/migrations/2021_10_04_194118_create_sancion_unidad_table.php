@@ -16,8 +16,8 @@ class CreateSancionUnidadTable extends Migration
         Schema::create('sancion_unidad', function (Blueprint $table) {
             $table->id();
             $table->date('fecha')->default(now());
-            $table->foreignId('unidad_id');
-            $table->foreignId('sancion_id');
+            $table->foreignId('unidad_id')->constrained('unidades');
+            $table->foreignId('sancion_id')->constrained('sanciones');
             $table->decimal('monto_pagar');
 
             $table->enum('estado', ['Por procesar', 'Procesada'])->default('Por procesar');

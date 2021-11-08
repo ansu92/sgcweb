@@ -23,7 +23,7 @@ class CreateGastosTable extends Migration
             $table->decimal('monto', 12);
             $table->decimal('saldo', 12);
             $table->text('observaciones')->nullable();
-            $table->foreignId('proveedor_id');
+            $table->foreignId('proveedor_id')->constrained('proveedores');
             $table->string('factura');
             $table->date('fecha')->default(now());
             $table->enum('estado_pago', ['Pendiente', 'Pagado'])->default('Pendiente');

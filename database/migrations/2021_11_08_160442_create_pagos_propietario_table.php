@@ -21,10 +21,10 @@ class CreatePagosPropietarioTable extends Migration
             $table->string('referencia', 8)->nullable();
             $table->enum('forma_pago', ['Efectivo', 'Transferencia', 'Depósito', 'Pago móvil', 'Cheque', 'Punto de venta']);
             $table->enum('moneda', ['Bolívar', 'Dólar',]);
-            $table->foreignId('tasa_cambio_id')->nullable();
-            $table->foreignId('cuenta_id')->nullable();
-            $table->foreignId('unidad_id');
-            $table->foreignId('factura_id');
+            $table->foreignId('tasa_cambio_id')->nullable()->constrained('tasas_cambio');
+            $table->foreignId('cuenta_id')->nullable()->constrained();
+            $table->foreignId('unidad_id')->constrained('unidades');
+            $table->foreignId('factura_id')->constrained();
             $table->enum('estado', ['Por confirmar', 'Confirmado'])->nullable()->default('Por confirmar');
             $table->timestamps();
         });

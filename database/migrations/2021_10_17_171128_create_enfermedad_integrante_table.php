@@ -14,8 +14,8 @@ class CreateEnfermedadIntegranteTable extends Migration
     public function up()
     {
         Schema::create('enfermedad_integrante', function (Blueprint $table) {
-            $table->foreignId('enfermedad_id');
-            $table->foreignId('integrante_id');
+            $table->foreignId('enfermedad_id')->constrained('enfermedades');
+            $table->foreignId('integrante_id')->constrained();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePropietariosTable extends Migration
+class CreateFondosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreatePropietariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('propietarios', function (Blueprint $table) {
+        Schema::create('fondos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('integrante_id')->unique();
-            $table->foreignId('user_id')->unique();
+            $table->string('descripcion');
+            $table->decimal('saldo', 12)->default(0);
+            $table->enum('moneda', ['Bolívar', 'Dólar']);
+			$table->foreignId('cuenta_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreatePropietariosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('propietarios');
+        Schema::dropIfExists('fondos');
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\PagoPropietario;
 
 use App\Models\PagoPropietario;
+use App\Models\Recibo;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use NumberFormatter;
@@ -50,6 +52,18 @@ class ConfirmarPago extends Component
 	public function confirmar(PagoPropietario $pago)
 	{
 		$pago->pagarFactura();
+
+		$ultimoRecibo = Recibo::orderBy('created_at', 'desc')->first();
+
+		$count = $ultimoRecibo ? Str::substr($ultimoRecibo->numero, 12) : 0;
+
+		$numero = 'R'.Str::substr(today(), 0, 4) . Str::substr(today(), 5, 2) . '-' . $pago->unidad->numero . '-' . ++$count;
+
+		Recibo::create([
+			'numero' => $numero,
+			'pago_propietario_id' => $pago->id,
+		]);
+
 		$this->emit('alert', 'El pago ha sido confirmado satisfactoriamente.');
 	}
 }

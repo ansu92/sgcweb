@@ -77,6 +77,7 @@ class NuevoPago extends Component
 	}
 
 	protected $messages = [
+		'fecha.before_or_equal' => 'La fecha debe ser anterior o igual al día actual.',
 		'cuenta.id.required' => 'Debe seleccionar una cuenta.',
 		'cuenta.id.not_in' => 'Debe seleccionar una cuenta.',
 		'monto.lte' => 'El monto no debe ser mayor al total de la deuda.',

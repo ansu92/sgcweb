@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProveedorServicioTable extends Migration
+class AddForeignKeyIntegrantesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateProveedorServicioTable extends Migration
      */
     public function up()
     {
-        Schema::create('proveedor_servicio', function (Blueprint $table) {
-            $table->foreignId('proveedor_id')->constrained('proveedores');
-            $table->foreignId('servicio_id')->constrained();
-            $table->timestamps();
+        Schema::table('integrantes', function (Blueprint $table) {
+            $table->foreign('unidad_id')->references('id')->on('unidades');
         });
     }
 
@@ -27,6 +25,6 @@ class CreateProveedorServicioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proveedores_servicios');
+        //
     }
 }

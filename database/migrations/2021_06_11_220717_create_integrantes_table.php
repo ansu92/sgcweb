@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Unidad;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ class CreateIntegrantesTable extends Migration
     {
         Schema::create('integrantes', function (Blueprint $table) {
             $table->id();
-			$table->enum('letra', ['V', 'E'])->nullable();
+            $table->enum('letra', ['V', 'E'])->nullable();
             $table->string('documento', 10)->nullable();
             $table->string('nombre', 20);
             $table->string('s_nombre', 20)->nullable();
@@ -25,9 +26,9 @@ class CreateIntegrantesTable extends Migration
             $table->string('telefono', 12)->nullable();
             $table->string('email', 45)->nullable()->unique();
             $table->foreignId('unidad_id')->nullable();
-			
-			$table->unique(['letra', 'documento']);
-			
+
+            $table->unique(['letra', 'documento']);
+
             $table->timestamps();
             $table->softDeletes();
         });

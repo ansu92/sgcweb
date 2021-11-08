@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComunicadosTable extends Migration
+class CreateRecibosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateComunicadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('comunicados', function (Blueprint $table) {
+        Schema::create('recibos', function (Blueprint $table) {
             $table->id();
-            $table->string('asunto', 45);
-            $table->text('contenido');
+            $table->string('numero');
             $table->date('fecha')->default(now());
-            $table->foreignId('administrador_id')->nullable();
+            $table->foreignId('pago_propietario_id')->constrained('pagos_propietario');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateComunicadosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comunicados');
+        Schema::dropIfExists('recibos');
     }
 }
