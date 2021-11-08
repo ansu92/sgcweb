@@ -13,4 +13,8 @@ class Recibo extends Model
         'numero',
         'pago_propietario_id',
     ];
+
+    public function pago() {
+        return $this->belongsTo(PagoPropietario::class, 'pago_propietario_id');
+    }
 }

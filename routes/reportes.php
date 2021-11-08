@@ -25,4 +25,4 @@ Route::get('unidades-con-habitantes/exportar', [CtrUnidad::class, 'exportarConHa
 
 Route::get('unidades-sin-habitantes/exportar', [CtrUnidad::class, 'exportarSinHabitantes'])->name('unidad.exportar-sin-habitantes');
 
-Route::get('recibo/{pago}', [CtrPagoPropietario::class, 'exportarRecibo'])->name('pago-propietario.recibo');
+Route::get('recibo/{recibo}', [CtrPagoPropietario::class, 'exportarRecibo'])->name('pago-propietario.recibo');

@@ -67,4 +67,8 @@ class PagoPropietario extends Model
 	{
 		return $this->belongsTo(Unidad::class);
 	}
+
+	public function recibo() {
+		return $this->hasOne(Recibo::class);
+	}
 }

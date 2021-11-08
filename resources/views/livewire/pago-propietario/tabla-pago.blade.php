@@ -80,7 +80,7 @@
 
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
                                                     @if ($pago->estado == 'Confirmado')
-                                                        <a href="{{ route('pago-propietario.recibo', $pago) }}"
+                                                        <a href="{{ route('pago-propietario.recibo', $pago->recibo) }}"
                                                             class="btn btn-green">
                                                             <i class="fas fa-download"></i>
                                                         </a>

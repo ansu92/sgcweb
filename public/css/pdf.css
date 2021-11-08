@@ -1,23 +1,15 @@
-.bg-red-500 {
-    background-color: #EF4444;
+.absolute {
+    position: absolute;
 }
 
-.border-1 {
-    border: 5px solid aqua;
+.relative {
+    position: relative;
 }
 
-.fila {
-    background-color: gainsboro;
+.bg-azul {
+    background-color: #3B82F6;
 }
 
-.flex {
-    display: flex;
-}
-
-.flex-row {
-    flex-direction: row;
-}
-
-.grid {
-    display: grid;
+.p-2 {
+    padding: 0.5rem;
 }

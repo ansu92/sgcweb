@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Condominio;
 use App\Models\PagoPropietario;
+use App\Models\Recibo;
 use PDF;
 
 class CtrPagoPropietario extends Controller
@@ -29,11 +30,17 @@ class CtrPagoPropietario extends Controller
 		return view('pago-propietario.confirmar');
 	}
 
-	public function exportarRecibo(PagoPropietario $pago)
+	public function exportarRecibo(Recibo $recibo)
 	{
 		$condominio = Condominio::first();
 
-		$pdf = PDF::loadView('pago-propietario.recibo', compact('pago', 'condominio'));
+		if ($recibo->pago->moneda == 'Bolívar') {
+			$recibo->pago->monto .= ' Bs';
+		} else if ($recibo->pago->moneda == 'Dólar') {
+			$recibo->pago->monto .= '$';
+		}
+
+		$pdf = PDF::loadView('pago-propietario.recibo', compact('recibo', 'condominio'));
 		return $pdf->stream('recibo.pdf');
 	}
 }
