@@ -22,6 +22,8 @@
         <br>
         <span>Propietario: {{ $recibo->pago->unidad->propietario->integrante->nombre }}
             {{ $recibo->pago->unidad->propietario->integrante->apellido }}</span>
+        <br>
+        <span>Fecha: {{ $recibo->fecha }}</span>
     </div>
 
     <div class="absolute" style="top: 0px; right: 0px;">
