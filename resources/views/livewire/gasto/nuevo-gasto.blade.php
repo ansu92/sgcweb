@@ -169,13 +169,6 @@
                             <div class="py-4">
                                 @include('livewire.gasto.partials.tabla-servicios')
                             </div>
-                            {{-- Servicios:
-                            <br>
-                            {{var_dump($servicios)}}
-                            <br>
-                            Montos:
-                            <br>
-                            {{var_dump($montos)}} --}}
                         @endif
 
                     </div>

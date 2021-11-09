@@ -10,9 +10,7 @@
 
         <div class="col-span-5 row-span-3 flex flex-col gap-4">
             @foreach ($comunicados as $item)
-                <a href="{{ route('comunicado.show', $item) }}">
-                    <x-card-comunicado :comunicado="$item" class="border" />
-                </a>
+				<x-card-comunicado :comunicado="$item" class="border" />
             @endforeach
         </div>
     </div>

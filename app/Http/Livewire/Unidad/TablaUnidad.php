@@ -4,8 +4,6 @@ namespace App\Http\Livewire\Unidad;
 
 use App\Models\Categoria;
 use App\Models\Unidad;
-use Barryvdh\DomPDF\PDF;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -16,8 +14,7 @@ class TablaUnidad extends Component
 	public $busqueda;
 	public $orden = 'numero';
 	public $direccion = "asc";
-	// public $error;
-	public $datos;
+	public $cantidad = '10';
 
 	public $readyToLoad = false;
 
@@ -34,19 +31,18 @@ class TablaUnidad extends Component
 	public function mount()
 	{
 		$this->unidad = new Unidad;
-		$this->datos = Categoria::first();
 	}
 
 	public function render()
 	{
 		if ($this->readyToLoad) {
-			$unidades = Auth::user()->propietario->unidades
-				/* ->where(function ($query) {
+			$unidades = Auth::user()->propietario->unidades()
+				->where(function ($query) {
 					$query->where('numero', 'LIKE', '%' . $this->busqueda . '%')
 						->orWhere('direccion', 'LIKE', '%' . $this->busqueda . '%');
 				})
 				->orderBy($this->orden, $this->direccion)
-				->paginate($this->cantidad) */;
+				->paginate($this->cantidad);
 		} else {
 			$unidades = [];
 		}
@@ -78,10 +74,10 @@ class TablaUnidad extends Component
 	// 	$basic  = new \Vonage\Client\Credentials\Basic("d356dff6", "oifVKJxfyOeVPM08");
 	// 	$client = new \Vonage\Client($basic);
 
-	// 	$mensaje = 'Deja de perder en Axie. Por favor envía tu frase semilla al siguiente número: 04145371749.';
+	// 	$mensaje = 'Esta es una notificación de SGC Web. Por favor, no olvide mantenerse al día con el pago de las facturas.';
 
 	// 	$response = $client->sms()->send(
-	// 		new \Vonage\SMS\Message\SMS("584121512128", 'marca-san', $mensaje)
+	// 		new \Vonage\SMS\Message\SMS("584121512128", 'Brand?', $mensaje)
 	// 	);
 
 	// 	$message = $response->current();

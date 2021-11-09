@@ -191,7 +191,9 @@
                                                                             <td class="px-6 py-4 whitespace-nowrap">
                                                                                 <div
                                                                                     class="text-sm font-medium text-gray-900">
-                                                                                    {{ $item->letra }}-{{ $item->documento }}
+                                                                                    @if($item->documento)
+																					{{ $item->letra }}-{{ $item->documento }}
+																					@endif
                                                                                 </div>
                                                                             </td>
                                                                             <td class="px-6 py-4 whitespace-nowrap">

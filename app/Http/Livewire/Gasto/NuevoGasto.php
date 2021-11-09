@@ -48,7 +48,7 @@ class NuevoGasto extends Component
 			'max:255',
 		],
 		'tipo' => 'required',
-		'numeroMeses' => 'required_if:tipo,Extraordinario',
+		'numeroMeses' => 'required_if:tipo,Extraordinario|gt:0',
 		'asamblea.id' => [
 			'exclude_if:tipo,Ordinario',
 			'required_if:elegidoAsamblea,si',

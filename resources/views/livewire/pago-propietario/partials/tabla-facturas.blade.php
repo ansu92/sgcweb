@@ -16,10 +16,10 @@
                                 <tr>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                                        wire:click="orden('fecha')">
+                                        wire:click="orden('numero')">
                                         Código
 
-                                        @if ($orden == 'fecha')
+                                        @if ($orden == 'numero')
 
                                             @if ($direccion == 'asc')
                                                 <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>

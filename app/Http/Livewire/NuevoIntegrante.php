@@ -150,7 +150,7 @@ class NuevoIntegrante extends Component
 				'unidad_id' => $this->unidad->id,
 			];
 
-			if ($this->documento != "") {
+			if ($this->documento != '') {
 				$datosIntegrante['letra'] = $this->letra;
 				$datosIntegrante['documento'] = $this->documento;
 			}
@@ -181,8 +181,6 @@ class NuevoIntegrante extends Component
 			'enfermedades',
 			'medicamentos',
 		]);
-
-		// $this->integran
 
 		$this->emitTo('unidad.show-unidad', 'render');
 		$this->emit('alert', 'El integrante se añadió satisfactoriamente');

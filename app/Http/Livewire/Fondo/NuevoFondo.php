@@ -15,7 +15,7 @@ class NuevoFondo extends Component
 
 	protected $rules = [
 		'descripcion' => 'required|max:255',
-		'saldoInicial' => 'nullable|numeric',
+		'saldoInicial' => 'nullable|numeric|gt:0',
 		'moneda' => 'required',
 		'cuenta.id' => 'nullable',
 	];

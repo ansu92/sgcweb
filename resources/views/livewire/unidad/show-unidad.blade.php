@@ -383,10 +383,6 @@
                                                 <a href="{{ route('factura.show', $item) }}" class="btn btn-blue">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a class="btn btn-red"
-                                                    wire:click="removerIntegrante({{ $item }})">
-                                                    <i class="fas fa-times"></i>
-                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -250,6 +250,20 @@ class NuevoPago extends Component
 		$this->validateOnly('monto');
 	}
 
+	public function orden($orden)
+	{
+		if ($this->orden == $orden) {
+			if ($this->direccion == 'desc') {
+				$this->direccion = 'asc';
+			} else {
+				$this->direccion = 'desc';
+			}
+		} else {
+			$this->orden = $orden;
+			$this->direccion = 'asc';
+		}
+	}
+
 	public function save()
 	{
 		$this->validate();

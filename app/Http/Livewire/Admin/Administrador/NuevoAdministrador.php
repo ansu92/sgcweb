@@ -43,6 +43,7 @@ class NuevoAdministrador extends Component
 			'apellido' => 'required|max:20',
 			'segundoApellido' => 'nullable|max:20',
 			'fecha_nacimiento' => 'required|before_or_equal:today',
+			'edad' => 'numeric|gt:18',
 			'codigo' => 'nullable',
 			'telefono' => 'nullable|digits:7',
 			'email' => [
@@ -61,6 +62,7 @@ class NuevoAdministrador extends Component
 		'documento.unique' => 'La cédula ya está registrada',
 		'fecha_nacimiento.required' => 'El campo fecha de nacimiento es obligatorio.',
 		'fecha_nacimiento.before_or_equal' => 'La fecha no puede ser mayor a la fecha de hoy.',
+		'edad.gt' => 'El responsable debe ser mayor de 18 años.'
 	];
 
 	public function mount()
@@ -93,6 +95,7 @@ class NuevoAdministrador extends Component
 	public function updatedFechaNacimiento()
 	{
 		$this->edad = Carbon::parse($this->fecha_nacimiento)->age;
+		$this->validateOnly('edad');
 	}
 
 	private function buscarIntegrante()
