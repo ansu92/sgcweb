@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,33 +10,44 @@
     <link rel="stylesheet" href="{{ public_path('css/pdf.css') }}">
 
 <body>
-    <div>
-        <h1>{{ $titulo }}</h1>
+    <div class="text-center">
+        <h1>Lista de unidades</h1>
     </div>
 
-    <table class="" border="4">
-        <thead class="">
-            <tr class="">
+    <table>
+        <thead>
+            <tr>
                 <th>Número</th>
+                <th>Propietario</th>
                 <th>Dirección</th>
-                <th>Tipo</th>
+                <th>Tipo de unidad</th>
                 <th>Área</th>
+                <th>Número de habitantes</th>
             </tr>
         </thead>
-        <tbody class="">
+        <tbody>
             @foreach ($unidades as $item)
-                <tr class="">
-                    <td class="">
+                <tr>
+                    <td>
                         {{ $item->numero }}
                     </td>
-                    <td class="">
+                    <td>
+                        @if ($item->propietario)
+                            {{ $item->propietario->integrante->nombre }}
+                            {{ $item->propietario->integrante->apellido }}
+                        @endif
+                    </td>
+                    <td>
                         {{ $item->direccion }}
                     </td>
-                    <td class="">
+                    <td>
                         {{ $item->tipoUnidad->nombre }}
                     </td>
-                    <td class="">
-                        {{ $item->tipoUnidad->area }}
+                    <td class="whitespace-nowrap">
+                        {{ $item->tipoUnidad->area }} m2
+                    </td>
+                    <td>
+                        {{ $item->integrantes->count() }}
                     </td>
                 </tr>
             @endforeach

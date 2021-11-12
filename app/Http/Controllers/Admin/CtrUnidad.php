@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Unidad;
+use Illuminate\Support\Str;
 use PDF;
 
 class CtrUnidad extends Controller
@@ -18,40 +19,78 @@ class CtrUnidad extends Controller
 		return view('admin.unidad.show', compact('unidad'));
 	}
 
-	public function exportarConPropietario()
+	public function exportar($filtros)
 	{
-		$titulo = 'Lista de unidades con propietario';
-		$unidades = Unidad::has('propietario')->get();
-		// return view('admin.unidad.pdf', compact('unidades', 'titulo'));
+		$filtros = Str::after($filtros, '-');
+		$busqueda = Str::before($filtros, '-');
 
-		$pdf = PDF::loadView('admin.unidad.pdf', compact('unidades', 'titulo'));
-		return $pdf->stream('unidades-con-propietario.pdf');
-	}
+		$filtros = Str::after($filtros, '-');
+		$orden = Str::before($filtros, '-');
 
-	public function exportarSinPropietario()
-	{
-		$titulo = 'Lista de unidades sin propietario';
-		$unidades = Unidad::doesntHave('propietario')->get();
+		$filtros = Str::after($filtros, '-');
+		$direccion = Str::before($filtros, '-');
 
-		$pdf = PDF::loadView('admin.unidad.pdf', compact('unidades', 'titulo'));
-		return $pdf->stream('unidades-sin-propietario.pdf');
-	}
+		$filtros = Str::after($filtros, '-');
+		$propietario = Str::before($filtros, '-');
 
-	public function exportarConHabitantes()
-	{
-		$titulo = 'Lista de unidades con habitantes';
-		$unidades = Unidad::has('integrantes')->get();
+		$filtros = Str::after($filtros, '-');
+		$habitantes = Str::before($filtros, '-');
+		
+		$filtros = Str::after($filtros, '-');
+		$facturas = Str::before($filtros, '-');
 
-		$pdf = PDF::loadView('admin.unidad.pdf', compact('unidades', 'titulo'));
-		return $pdf->stream('unidades-con-habitantes.pdf');
-	}
+		$unidades = Unidad::all();
 
-	public function exportarSinHabitantes()
-	{
-		$titulo = 'Lista de unidades sin habitantes';
-		$unidades = Unidad::doesntHave('integrantes')->get();
+		switch ($habitantes) {
+			case '0':
+				$unidades = $unidades->diff(Unidad::has('integrantes')->get());
+				break;
+			case '1':
+				$unidades = $unidades->diff(Unidad::doesntHave('integrantes')->get());
+				break;
 
-		$pdf = PDF::loadView('admin.unidad.pdf', compact('unidades', 'titulo'));
-		return $pdf->stream('unidades-sin-habitantes.pdf');
+			default:
+				# code...
+				break;
+		}
+
+		switch ($propietario) {
+			case '0':
+				$unidades = $unidades->diff(Unidad::has('propietario')->get());
+				break;
+
+			case '1':
+				$unidades = $unidades->diff(Unidad::doesntHave('propietario')->get());
+				break;
+
+			default:
+				# code...
+				break;
+		}
+
+		switch ($facturas) {
+			case '0':
+				$unidades = $unidades->diff(Unidad::has('facturas')->get());
+				break;
+
+			case '1':
+				$unidades = $unidades->diff(Unidad::doesntHave('facturas')->get());
+				break;
+
+			default:
+				# code...
+				break;
+		}
+
+		$unidades = $unidades->toQuery()
+			->where(function ($query) use ($busqueda) {
+				$query->where('numero', 'LIKE', '%' . $busqueda . '%')
+					->orWhere('direccion', 'LIKE', '%' . $busqueda . '%');
+			})
+			->orderBy($orden, $direccion)
+			->get();
+
+		$pdf = PDF::loadView('admin.unidad.pdf', compact('unidades'));
+		return $pdf->stream('unidades.pdf');
 	}
 }

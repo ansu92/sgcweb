@@ -12,14 +12,21 @@ class TablaUnidad extends Component
 
 	public $unidad;
 
-	public $busqueda;
-	public $orden = 'numero';
-	public $direccion = "asc";
+	public $busqueda = '';
+	// public $orden = 'numero';
+	// public $direccion = "asc";
 	public $cantidad = '10';
 
 	public $readyToLoad = false;
 
 	protected $listeners = ['render'];
+
+	// Modal exportar
+	public $openExportar = false;
+
+	public $propietario = '2';
+	public $habitantes = '2';
+	public $facturas = '2';
 
 	public function mount()
 	{
@@ -28,13 +35,23 @@ class TablaUnidad extends Component
 
 	public function render()
 	{
+		$unidades = $this->filtrar();
+
 		if ($this->readyToLoad) {
-			$unidades = Unidad::where('numero', 'LIKE', '%' . $this->busqueda . '%')
-				->orWhere('direccion', 'LIKE', '%' . $this->busqueda . '%')
-				->orderBy($this->orden, $this->direccion)
-				->paginate($this->cantidad);
-				// $unidades = Unidad::doesntHave('propietario');
+
+			if ($unidades->count()) {
+
+				$unidades = $unidades->toQuery()
+					->where(function ($query) {
+						$query->where('numero', 'LIKE', '%' . $this->busqueda . '%')
+							->orWhere('direccion', 'LIKE', '%' . $this->busqueda . '%');
+					})
+					->orderBy('numero', 'asc')
+					->paginate($this->cantidad);
 			} else {
+				$unidades = [];
+			}
+		} else {
 			$unidades = [];
 		}
 
@@ -51,17 +68,52 @@ class TablaUnidad extends Component
 		$this->resetPage();
 	}
 
-	public function orden($orden)
+	private function filtrar()
 	{
-		if ($this->orden == $orden) {
-			if ($this->direccion == 'desc') {
-				$this->direccion = 'asc';
-			} else {
-				$this->direccion = 'desc';
-			}
-		} else {
-			$this->orden = $orden;
-			$this->direccion = 'asc';
+		$unidades = Unidad::all();
+
+		switch ($this->habitantes) {
+			case '0':
+				$unidades = $unidades->intersect(Unidad::doesntHave('integrantes')->get());
+				break;
+
+			case '1':
+				$unidades = $unidades->intersect(Unidad::has('integrantes')->get());
+				break;
+
+			default:
+				# code...
+				break;
 		}
+
+		switch ($this->propietario) {
+			case '0':
+				$unidades = $unidades->intersect(Unidad::doesntHave('propietario')->get());
+				break;
+
+			case '1':
+				$unidades = $unidades->intersect(Unidad::has('propietario')->get());
+				break;
+
+			default:
+				# code...
+				break;
+		}
+
+		switch ($this->facturas) {
+			case '0':
+				$unidades = $unidades->intersect(Unidad::doesntHave('facturas')->get());
+				break;
+
+			case '1':
+				$unidades = $unidades->intersect(Unidad::has('facturas')->get());
+				break;
+
+			default:
+				# code...
+				break;
+		}
+
+		return $unidades;
 	}
 }

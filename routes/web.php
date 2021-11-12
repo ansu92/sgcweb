@@ -93,4 +93,4 @@ Route::get('unidad', [CtrUnidad::class, 'index'])->name('unidad.index');
 
 Route::get('unidad/{unidad}', [CtrUnidad::class, 'show'])->name('unidad.show');
 
-Route::get('nosotros', CtrNosotros::class)->name('nosotros.index');
+Route::view('nosotros', 'nosotros.index')->name('nosotros.index');

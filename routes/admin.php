@@ -8,24 +8,27 @@ use App\Http\Controllers\Admin\CtrInicio;
 use App\Http\Controllers\Admin\CtrSancion;
 use App\Http\Controllers\Admin\CtrUnidad;
 use App\Http\Controllers\Admin\CtrUser;
+use App\Http\Controllers\CtrVisita;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', CtrInicio::class)->middleware('can:admin')->name('admin');
+Route::get('/', CtrInicio::class)->middleware('can:admin')->name('home');
 
-Route::resource('administrador', CtrAdministrador::class)->only(['index', 'show'])->names('admin.administrador');
+Route::resource('administrador', CtrAdministrador::class)->only(['index', 'show'])->names('administrador');
 
-Route::get('condominio', [CtrCondominio::class, 'index'])->name('admin.condominio');
+Route::get('condominio', [CtrCondominio::class, 'index'])->name('condominio');
 
-Route::post('condominio', [CtrCondominio::class, 'store'])->name('admin.condominio.store');
+Route::post('condominio', [CtrCondominio::class, 'store'])->name('condominio.store');
 
-Route::resource('comunicado', CtrComunicado::class)->only('index', 'show')->names('admin.comunicado');
+Route::resource('comunicado', CtrComunicado::class)->only('index', 'show')->names('comunicado');
 
-Route::resource('habitante', CtrHabitante::class)->only(['index', 'show'])->names('admin.habitante');
+Route::resource('habitante', CtrHabitante::class)->only(['index', 'show'])->names('habitante');
 
-Route::resource('sancion', CtrSancion::class)->only(['index', 'show'])->names('admin.sancion');
+Route::resource('sancion', CtrSancion::class)->only(['index', 'show'])->names('sancion');
 
-Route::resource('unidad', CtrUnidad::class)->only(['index', 'show'])->names('admin.unidad');
+Route::resource('unidad', CtrUnidad::class)->only(['index', 'show'])->names('unidad');
 
-Route::get('usuario', [CtrUser::class, 'index'])->middleware('can:admin.usuario.index')->name('admin.usuario.index');
+Route::get('usuario', [CtrUser::class, 'index'])->middleware('can:admin.usuario.index')->name('usuario.index');
 
-Route::get('usuario/{usuario}', [CtrUser::class, 'show'])->middleware('can:admin.usuario.show')->name('admin.usuario.show');
+Route::get('usuario/{usuario}', [CtrUser::class, 'show'])->middleware('can:admin.usuario.show')->name('usuario.show');
+
+Route::get('visita/lista', [CtrVisita::class, 'lista'])->middleware('can:admin.visita.lista')->name('visita.lista');

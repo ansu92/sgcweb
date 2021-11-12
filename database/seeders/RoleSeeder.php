@@ -103,6 +103,8 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'admin.usuario.edit']);
 		Permission::create(['name' => 'admin.usuario.delete']);
 		Permission::create(['name' => 'admin.usuario.show']);
+		
+		Permission::create(['name' => 'admin.visita.lista'])->assignRole($role4);
 
 
 		$role1->syncPermissions(Permission::all());

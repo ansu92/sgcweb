@@ -12,6 +12,7 @@ use App\Http\Controllers\CtrPagoPropietario;
 use App\Http\Controllers\CtrProveedor;
 use App\Http\Controllers\CtrServicio;
 use App\Http\Controllers\CtrTipoUnidad;
+use App\Http\Controllers\CtrVisita;
 use Illuminate\Support\Facades\Route;
 
 // Reportes de lista
@@ -37,13 +38,9 @@ Route::get('tipo-unidad/exportar', [CtrTipoUnidad::class, 'exportar'])->name('ti
 
 
 // Reportes parametrizados
-Route::get('unidades-con-propietario/exportar', [CtrUnidad::class, 'exportarConPropietario'])->name('unidad.exportar-con-propietario');
+Route::get('unidad/exportar/{fitros}', [CtrUnidad::class, 'exportar'])->name('unidad.exportar');
 
-Route::get('unidades-sin-propietario/exportar', [CtrUnidad::class, 'exportarSinPropietario'])->name('unidad.exportar-sin-propietario');
-
-Route::get('unidades-con-habitantes/exportar', [CtrUnidad::class, 'exportarConHabitantes'])->name('unidad.exportar-con-habitantes');
-
-Route::get('unidades-sin-habitantes/exportar', [CtrUnidad::class, 'exportarSinHabitantes'])->name('unidad.exportar-sin-habitantes');
+Route::get('visita/exportar/{fitros}', [CtrVisita::class, 'exportar'])->name('visita.exportar');
 
 
 // Reportes de procesos

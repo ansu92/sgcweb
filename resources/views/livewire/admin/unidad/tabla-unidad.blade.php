@@ -4,65 +4,92 @@
         <div class="flex space-x-4 items-center">
             <x-select-cantidad />
 
-            <div class="flex flex-wrap">
-                <div class="w-full sm:w-6/12 md:w-4/12">
-                    <div class="relative inline-flex align-middle w-full">
+            <x-filtro>
+                <x-slot name="contenido">
 
-                        {{-- Botón --}}
-                        <button class="btn btn-blue" type="button" onclick="openDropdown(event,'dropdown-example-1')">
-                            Exportar<i class="fas fa-file-export"></i>
-                        </button>
+                    <div>
+                        <label for="propietario" class="block text-sm font-medium text-gray-700 px-4">
+                            Propietario
+                        </label>
+                        <label for="todos-propietario"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="propietario" type="radio" name="propietario" id="todos-propietario"
+                                value="2">
+                            Todas
+                        </label>
 
-                        {{-- Contenido --}}
-                        <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-                            style="min-width: 12rem" id="dropdown-example-1">
+                        <label for="con-propietario"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="propietario" type="radio" name="propietario" id="con-propietario"
+                                value="1">
+                            Con propietario
+                        </label>
 
-                            <a href="{{ route('unidad.exportar-con-propietario') }}"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                                Lista de unidades con propietario
-                            </a>
-
-                            <a href="{{ route('unidad.exportar-sin-propietario') }}"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                                Lista de unidades sin propietario
-                            </a>
-
-                            <a href="{{ route('unidad.exportar-con-habitantes') }}"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                                Lista de unidades habitadas
-                            </a>
-
-                            <a href="{{ route('unidad.exportar-sin-habitantes') }}"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                                Lista de unidades sin habitantes
-                            </a>
-
-                        </div>
+                        <label for="sin-propietario"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="propietario" type="radio" name="propietario" id="sin-propietario"
+                                value="0">
+                            Sin propietario
+                        </label>
                     </div>
-                </div>
-            </div>
 
-            <!-- Required popper.js -->
-            <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
-            <script>
-                function openDropdown(event, dropdownID) {
-                    let element = event.target;
-                    while (element.nodeName !== "BUTTON") {
-                        element = element.parentNode;
-                    }
-                    var popper = Popper.createPopper(
-                        element,
-                        document.getElementById(dropdownID), {
-                            placement: "bottom-start",
-                        }
-                    );
-                    document.getElementById(dropdownID).classList.toggle("hidden");
-                    document.getElementById(dropdownID).classList.toggle("block");
-                }
-            </script>
+                    <div>
+                        <label for="habitantes" class="block text-sm font-medium text-gray-700 px-4">
+                            Habitantes
+                        </label>
+                        <label for="todos-habitantes"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="habitantes" type="radio" name="habitantes" id="todos-habitantes"
+                                value="2">
+                            Todas
+                        </label>
 
-            <x-jet-input wire:model="busqueda" type="text" placeholder="Escriba para buscar..."
+                        <label for="con-habitantes"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="habitantes" type="radio" name="habitantes" id="con-habitantes" value="1">
+                            Con habitantes
+                        </label>
+
+                        <label for="sin-habitantes"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="habitantes" type="radio" name="habitantes" id="sin-habitantes" value="0">
+                            Sin habitantes
+                        </label>
+                    </div>
+
+                    <div>
+                        <label for="facturas" class="block text-sm font-medium text-gray-700 px-4">
+                            Facturas
+                        </label>
+                        <label for="todos-facturas"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="facturas" type="radio" name="facturas" id="todos-facturas" value="2">
+                            Todas
+                        </label>
+
+                        <label for="con-facturas"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="facturas" type="radio" name="facturas" id="con-facturas" value="1">
+                            Con facturas
+                        </label>
+
+                        <label for="sin-facturas"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="facturas" type="radio" name="facturas" id="sin-facturas" value="0">
+                            Sin facturas
+                        </label>
+                    </div>
+
+                </x-slot>
+            </x-filtro>
+
+            <x-jet-input wire:model="busqueda" type="text" placeholder="Escriba para buscar por número o dirección..."
                 class="w-full" />
+
+            <a href="{{ route('unidad.exportar', ['-' . $busqueda . '-' . 'numero' . '-' . 'asc' . '-' . $propietario . '-' . $habitantes . '-' . $facturas]) }}"
+                class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
+            </a>
 
             @livewire('admin.unidad.nueva-unidad')
         </div>

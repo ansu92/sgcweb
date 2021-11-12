@@ -123,6 +123,7 @@
                 <div class="shadow overflow-hidden sm:rounded-md">
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
+
                             <div class="col-span-6">
                                 <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
                                 <input type="text" name="nombre" id="nombre"
@@ -130,6 +131,7 @@
                                     wire:model="banco.nombre">
                                 <x-jet-input-error for="nombre" />
                             </div>
+
                         </div>
                     </div>
                 </div>

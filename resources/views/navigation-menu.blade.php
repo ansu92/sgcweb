@@ -184,7 +184,7 @@ $nav_links = [
                             <x-slot name="content">
 
                                 @can('admin')
-                                    <x-jet-dropdown-link href="{{ route('admin') }}">
+                                    <x-jet-dropdown-link href="{{ route('admin.home') }}">
                                         {{-- <i class="fa fas-settings"></i> --}}
                                         {{ __('Administración del condominio') }}
                                     </x-jet-dropdown-link>
@@ -274,7 +274,7 @@ $nav_links = [
                 <div class="mt-3 space-y-1">
 
                     @can('admin')
-                        <x-jet-responsive-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')">
+                        <x-jet-responsive-nav-link href="{{ route('admin.home') }}" :active="request()->routeIs('admin.home')">
                             {{ __('Configuración') }}
                         </x-jet-responsive-nav-link>
                     @endcan
