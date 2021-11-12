@@ -11,7 +11,7 @@
 
 <body>
     <div class="text-center">
-        <h1>Lista de bancos</h1>
+        <h1>Lista de medicamentos</h1>
     </div>
 
     <table>
@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($bancos as $item)
+            @foreach ($medicamentos as $item)
                 <tr>
                     <td>
                         {{ $item->nombre }}

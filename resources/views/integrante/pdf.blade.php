@@ -11,36 +11,36 @@
 
 <body>
     <div class="text-center">
-        <h1>Lista de cuentas bancarias del condominio</h1>
+        <h1>Lista de habitantes del condominio</h1>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Número</th>
-                <th>Tipo</th>
-                <th>Cédula o RIF</th>
-                <th>Nombre del beneficiario</th>
-                <th>Banco</th>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Correo electrónico</th>
+                <th>Unidad</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($cuentas as $item)
+            @foreach ($habitantes as $item)
                 <tr>
-                    <td>
-                        {{ $item->numero }}
+                    <td class="whitespace-nowrap">
+                        {{$item->letra}}-{{ $item->documento }}
                     </td>
                     <td>
-                        {{ $item->tipo }}
+                        {{ $item->nombre }}
                     </td>
                     <td class="whitespace-nowrap">
-                        {{ $item->documento }}
+                        {{ $item->telefono }}
                     </td>
                     <td>
-                        {{ $item->beneficiario }}
+                        {{ $item->email }}
                     </td>
                     <td>
-                        {{ $item->banco->nombre }}
+                        {{ $item->unidad->numero }}
                     </td>
                 </tr>
             @endforeach

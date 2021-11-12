@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,20 +10,20 @@
     <link rel="stylesheet" href="{{ public_path('css/pdf.css') }}">
 
 <body>
-    <div>
+    <div class="text-center">
         <h1>Lista de categorías</h1>
     </div>
 
-    <table class="" border="4">
-        <thead class="">
-            <tr class="">
+    <table>
+        <thead>
+            <tr>
                 <th>Nombre</th>
             </tr>
         </thead>
-        <tbody class="">
+        <tbody>
             @foreach ($categorias as $item)
-                <tr class="">
-                    <td class="">
+                <tr>
+                    <td>
                         {{ $item->nombre }}
                     </td>
                 </tr>

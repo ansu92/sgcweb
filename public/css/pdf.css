@@ -1,3 +1,5 @@
+/* Pocisionamiento */
+
 .absolute {
     position: absolute;
 }
@@ -6,10 +8,86 @@
     position: relative;
 }
 
+/* Colores de fondo */
+
 .bg-azul {
     background-color: #3B82F6;
 }
 
+/* Espaciado */
+
 .p-2 {
     padding: 0.5rem;
+}
+
+/* Alineación del texto */
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+/* Estilo de borde */
+
+.border-solid {
+    border-style: solid;
+}
+
+/* Anchura de borde */
+
+.border-0 {
+    border-width: 0px;
+}
+
+.border {
+    border-width: 1px;
+}
+
+.border-2 {
+    border-width: 2px;
+}
+
+.border-4 {
+    border-width: 4px;
+}
+
+.border-8 {
+    border-width: 8px;
+}
+
+/* Colores de borde */
+
+.border-black {
+    --tw-border-opacity: 1;
+    border-color: rgba(0, 0, 0, var(--tw-border-opacity));
+}
+
+/* Otras */
+
+.whitespace-nowrap {
+    white-space: nowrap;
+}
+
+/* Personalizadas */
+
+table {
+    border: 1px solid gray;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table tr * {
+    border: 1px solid gray;
+    padding: 6px;
 }

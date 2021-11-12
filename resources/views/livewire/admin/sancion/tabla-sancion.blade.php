@@ -8,6 +8,11 @@
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
             @livewire('admin.sancion.nueva-sancion')
+
+            <a href="{{ route('sancion.exportar') }}" class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
+            </a>
+
         </div>
 
         <!-- tabla -->

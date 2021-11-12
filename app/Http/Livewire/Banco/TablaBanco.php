@@ -8,7 +8,6 @@ use Livewire\WithPagination;
 
 class TablaBanco extends Component
 {
-
     use WithPagination;
 
     public $banco;
@@ -51,12 +50,6 @@ class TablaBanco extends Component
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
-    }
-
-    public function loadBancos()
-    {
-
-        $this->readyToLoad = true;
     }
 
     public function updatingBusqueda()

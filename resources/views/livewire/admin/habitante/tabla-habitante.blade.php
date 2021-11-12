@@ -6,7 +6,10 @@
 
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
-            {{-- @livewire('nuevo-integrante') --}}
+            <a href="{{ route('habitante.exportar') }}" class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
+            </a>
+
         </div>
 
         <!-- tabla -->

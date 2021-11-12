@@ -7,6 +7,11 @@
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
             @livewire('medicamento.nuevo-medicamento')
+
+            <a href="{{ route('medicamento.exportar') }}" class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
+            </a>
+
         </div>
 
         <!-- tabla -->

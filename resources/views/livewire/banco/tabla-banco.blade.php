@@ -1,4 +1,4 @@
-<div wire:init="loadBancos">
+<div wire:init="$set('readyToLoad', true)">
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
@@ -11,10 +11,8 @@
                 @livewire('banco.nuevo-banco')
             @endcan
 
-            <a href="{{ route('banco.exportar') }}">
-                <button class="btn btn-blue">
-                    Exportar todos
-                </button>
+            <a href="{{ route('banco.exportar') }}" class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
             </a>
 
         </div>

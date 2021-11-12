@@ -1,6 +1,8 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
+    // mode: 'jit',
+
     purge: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
@@ -8,7 +10,7 @@ module.exports = {
         './resources/views/**/*.blade.php',
     ],
 
-    darMode: false, // or 'media or 'class'
+    // darMode: false, // or 'media or 'class'
 
     theme: {
         extend: {

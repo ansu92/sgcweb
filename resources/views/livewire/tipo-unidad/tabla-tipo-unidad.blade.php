@@ -7,6 +7,11 @@
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
             @livewire('tipo-unidad.nuevo-tipo-unidad')
+
+            <a href="{{ route('tipo-unidad.exportar') }}" class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
+            </a>
+
         </div>
 
         <!-- tabla -->
@@ -197,7 +202,7 @@
         </x-slot>
     </x-jet-dialog-modal>
 
-	<x-jet-confirmation-modal wire:model="openDestroy">
+    <x-jet-confirmation-modal wire:model="openDestroy">
 
         <x-slot name="title">
             Eliminar

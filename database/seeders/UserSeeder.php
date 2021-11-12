@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
 		$usuario = User::factory([
 			'name' => 'Anthony Suárez',
 			'email' => 'ajhensuarez@gmail.com',
-			'password' => bcrypt('password'),
+			'password' => bcrypt('22318939'),
 		])->create()->assignRole('Administrador');
 
 		$propietario = Propietario::factory()->create([
@@ -71,6 +71,37 @@ class UserSeeder extends Seeder
 		Administrador::create([
 			'integrante_id' => $integrante->id,
 			'rol' => 'Master',
+			'user_id' => $usuario->id,
+		]);
+
+		$unidad = Unidad::factory()->create();
+		$unidad->propietario()->associate($propietario)->save();
+		$integrante->unidad()->associate($unidad)->save();
+
+
+		$integrante = Integrante::factory([
+			'letra' => 'V',
+			'documento' => '00000000',
+			'nombre' => 'Admin',
+			'apellido' => 'Istrador',
+			'fecha_nacimiento' => '01-01-2000',
+			'email' => 'teamsgcweb2.0@gmail.com',
+		])->create();
+
+		$usuario = User::factory([
+			'name' => 'AdminIstrador',
+			'email' => 'teamsgcweb2.0@gmail.com',
+			'password' => bcrypt('admin'),
+		])->create()->assignRole('Administrador');
+
+		$propietario = Propietario::factory()->create([
+			'integrante_id' => $integrante->id,
+			'user_id' => $usuario->id,
+		]);
+
+		Administrador::create([
+			'integrante_id' => $integrante->id,
+			'rol' => 'Administrador',
 			'user_id' => $usuario->id,
 		]);
 

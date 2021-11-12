@@ -44,7 +44,7 @@ class Administracion extends Component
 			[
 				'nombre' => 'Confirmar pagos',
 				'ruta' => 'pago.confirmar',
-				'imagen' => 'img/iconos/pagar-gastos.png',
+				'imagen' => 'img/iconos/confirmarPagos.png',
 			],
 			[
 				'nombre' => 'Pagar gastos',
@@ -70,13 +70,13 @@ class Administracion extends Component
 			[
 				'nombre' => 'Lista de usuarios',
 				'ruta' => 'admin.usuario.index',
-				'imagen' => 'img/iconos/banco.png',
+				'imagen' => 'img/iconos/ListaUsuario.png',
 
 			],
 			[
 				'nombre' => 'Gestionar responsables',
 				'ruta' => 'admin.administrador.index',
-				'imagen' => 'img/iconos/banco.png',
+				'imagen' => 'img/iconos/gestionarResponsable.png',
 
 			],
 			[
@@ -88,7 +88,7 @@ class Administracion extends Component
 			[
 				'nombre' => 'Gestionar cuentas',
 				'ruta' => 'cuenta.index',
-				'imagen' => 'img/iconos/banco.png',
+				'imagen' => 'img/iconos/cuentaBanco.png',
 
 			],
 			[
@@ -123,7 +123,7 @@ class Administracion extends Component
 			[
 				'nombre' => 'Gestionar tipos de unidad',
 				'ruta' => 'tipo-unidad.index',
-				'imagen' => 'img/iconos/gestionar-medicamentos.png',
+				'imagen' => 'img/iconos/gestionarUnidad.png',
 
 			],
 		];

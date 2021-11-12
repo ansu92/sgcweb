@@ -11,20 +11,36 @@
 
 <body>
     <div class="text-center">
-        <h1>Lista de bancos</h1>
+        <h1>Lista de proveedores</h1>
     </div>
 
     <table>
         <thead>
             <tr>
+                <th>Cédula o RIF</th>
                 <th>Nombre</th>
+                <th>Nombre del contacto</th>
+                <th>Teléfono</th>
+                <th>Correo electrónico</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($bancos as $item)
+            @foreach ($proveedores as $item)
                 <tr>
+                    <td class="whitespace-nowrap">
+                        {{$item->letra}}-{{ $item->documento }}
+                    </td>
                     <td>
                         {{ $item->nombre }}
+                    </td>
+                    <td>
+                        {{ $item->contacto }}
+                    </td>
+                    <td>
+                        {{ $item->telefono }}
+                    </td>
+                    <td>
+                        {{ $item->email }}
                     </td>
                 </tr>
             @endforeach

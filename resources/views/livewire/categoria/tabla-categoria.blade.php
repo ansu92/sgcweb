@@ -8,10 +8,8 @@
 
             @livewire('categoria.nueva-categoria')
 
-            <a href="{{ route('categoria.exportar') }}">
-                <button class="btn btn-blue">
-                    Exportar todos
-                </button>
+            <a href="{{ route('categoria.exportar') }}" class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
             </a>
 
         </div>

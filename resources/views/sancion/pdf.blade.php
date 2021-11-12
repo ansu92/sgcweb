@@ -11,20 +11,28 @@
 
 <body>
     <div class="text-center">
-        <h1>Lista de bancos</h1>
+        <h1>Lista de sanciones</h1>
     </div>
 
     <table>
         <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Monto</th>
+                <th>Moneda</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($bancos as $item)
+            @foreach ($sanciones as $item)
                 <tr>
                     <td>
-                        {{ $item->nombre }}
+                        {{ $item->descripcion }}
+                    </td>
+                    <td>
+                        {{ $item->monto }}
+                    </td>
+                    <td>
+                        {{ $item->moneda }}
                     </td>
                 </tr>
             @endforeach

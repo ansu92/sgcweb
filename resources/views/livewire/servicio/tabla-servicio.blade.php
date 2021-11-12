@@ -2,22 +2,16 @@
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
-            <div class="flex items-center">
-                <span>Mostrar</span>
-
-                <select wire:model="cantidad" class="mx-2 form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-
-                <span>entradas</span>
-            </div>
+            <x-select-cantidad />
 
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
 
             @livewire('servicio.nuevo-servicio')
+
+            <a href="{{ route('servicio.exportar') }}" class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
+            </a>
+
         </div>
 
         <!-- tabla -->
@@ -95,7 +89,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap space-x-1 text-xs">
-                                                <a href="{{ route('servicio.show', $item) }}"
+                                                    <a href="{{ route('servicio.show', $item) }}"
                                                         class="btn btn-blue">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
@@ -178,7 +172,7 @@
                                 <x-jet-input-error for="servicio.descripcion" />
                             </div>
 
-						</div>
+                        </div>
                     </div>
                 </div>
                 {{-- /formulario --}}
