@@ -110,7 +110,15 @@ class NuevoPago extends Component
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad);
 
-		$fondos = Fondo::where('moneda', $this->moneda)->get();
+		if ($this->formaPago == 'Transferencia') {
+			$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get();
+
+		} else	if ($this->formaPago == 'Pago móvil') {
+			$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get();
+
+		} else {
+			$fondos = Fondo::doesntHave('cuenta')->where('moneda', $this->moneda)->get();
+		}
 
 		return view('livewire.pago.nuevo-pago', compact('gastos', 'fondos'));
 	}
