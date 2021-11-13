@@ -19,7 +19,7 @@ class PagoPropietario extends Model
 		'forma_pago',
 		'moneda',
 		'tasa_cambio',
-		'fondo_id',
+		'cuenta_id',
 		'unidad_id',
 		'factura_id',
 	];
@@ -45,7 +45,7 @@ class PagoPropietario extends Model
 
 			if ($this->cuenta->fondo) {
 
-				$this->fondo->acreditar($this->monto);
+				$this->cuenta->fondo->acreditar($this->monto);
 			}
 		}
 

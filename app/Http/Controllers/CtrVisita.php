@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Condominio;
 use App\Models\Visita;
 use Illuminate\Support\Str;
 use PDF;
@@ -58,7 +59,10 @@ class CtrVisita extends Controller
 			->orderBy($orden, $direccion)
 			->get();
 
-		$pdf = PDF::loadView('visita.pdf', compact('visitas'));
+			$condominio = Condominio::first();
+
+		$pdf = PDF::loadView('visita.pdf', compact('visitas', 'condominio'));
+		$pdf->setPaper('letter', 'landscape');
 		return $pdf->stream('visitas.pdf');
 	}
 }

@@ -10,6 +10,21 @@
     <link rel="stylesheet" href="{{ public_path('css/pdf.css') }}">
 
 <body>
+
+    <div>
+        Condominio: <span>{{ $condominio->nombre }}</span>
+        <br>
+        <span>Fecha: {{ substr(today(), 0, 10) }}</span>
+    </div>
+
+    <div class="absolute" style="top: 0px; right: 0px;">
+        <span style="font-size: 2rem">SGC Web</span>
+
+        <div class="bg-azul p-2 relative" style="height: 50px; width: 50px; border-radius: 30px; left:35px">
+            <img width="50" height="50" src="{{ asset('img/logo/blanco.png') }}" alt="">
+        </div>
+    </div>
+
     <div class="text-center">
         <h1>Lista de visitas</h1>
     </div>
@@ -24,6 +39,9 @@
                 <th>Nombre</th>
                 <th>Número de personas</th>
                 <th>Matrícula del vehículo</th>
+                <th>Marca del vehículo</th>
+                <th>Modelo del vehículo</th>
+                <th>Color del vehículo</th>
             </tr>
         </thead>
         <tbody>
@@ -50,6 +68,15 @@
                     </td>
                     <td>
                         {{ $item->matricula }}
+                    </td>
+                    <td>
+                        {{ $item->marca }}
+                    </td>
+                    <td>
+                        {{ $item->modelo }}
+                    </td>
+                    <td>
+                        {{ $item->color }}
                     </td>
                 </tr>
             @endforeach

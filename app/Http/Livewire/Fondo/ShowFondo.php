@@ -10,6 +10,10 @@ class ShowFondo extends Component
 	public Fondo $fondo;
 
 	protected $listeners = ['render'];
+
+    public function mount() {
+        $this->fondo->cuenta->ocultarNumero();
+    }
 	
     public function render()
     {

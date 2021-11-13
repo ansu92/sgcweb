@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Condominio;
 use App\Models\Unidad;
 use Illuminate\Support\Str;
 use PDF;
@@ -35,7 +36,7 @@ class CtrUnidad extends Controller
 
 		$filtros = Str::after($filtros, '-');
 		$habitantes = Str::before($filtros, '-');
-		
+
 		$filtros = Str::after($filtros, '-');
 		$facturas = Str::before($filtros, '-');
 
@@ -90,7 +91,9 @@ class CtrUnidad extends Controller
 			->orderBy($orden, $direccion)
 			->get();
 
-		$pdf = PDF::loadView('admin.unidad.pdf', compact('unidades'));
+		$condominio = Condominio::first();
+
+		$pdf = PDF::loadView('admin.unidad.pdf', compact('unidades', 'condominio'));
 		return $pdf->stream('unidades.pdf');
 	}
 }

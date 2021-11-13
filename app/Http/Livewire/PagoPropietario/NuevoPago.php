@@ -268,7 +268,7 @@ class NuevoPago extends Component
 	{
 		$this->validate();
 
-		$pago = PagoPropietario::create([
+		$datos = [
 			'descripcion' => $this->descripcion,
 			'monto' => $this->monto,
 			'fecha' => $this->fecha,
@@ -276,11 +276,15 @@ class NuevoPago extends Component
 			'forma_pago' => $this->formaPago,
 			'moneda' => $this->moneda,
 			'tasa_cambio_id' => $this->tasaCambio->id,
-			'cuenta_id' => $this->cuenta->id,
 			'unidad_id' => $this->factura->unidad->id,
 			'factura_id' => $this->factura->id
-		]);
+		];
 
+		if ($this->formaPago == 'Transferencia' || $this->formaPago == 'Pago móvil') {
+			$datos['cuenta_id'] = $this->cuenta->id;
+		}
+
+		$pago = PagoPropietario::create($datos);
 
 		$pago->save();
 
