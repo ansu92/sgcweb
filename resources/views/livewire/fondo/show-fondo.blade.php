@@ -52,6 +52,10 @@
         <div class="border rounded-md shadow-md m-6">
             <div class="flex items-center px-4 py-2">
                 <h2 class="px-4 py-2 text-lg inline w-full">Movimientos</h2>
+
+                <a href="{{ route('fondo.movimiento', $fondo) }}" class="btn btn-blue whitespace-nowrap">
+                    <i class="fas fa-file-export"></i> Exportar
+                </a>
             </div>
 
             <!-- tabla -->
@@ -93,9 +97,15 @@
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->monto }}
-                                                    </div>
+                                                    @if ($item->tipo == 'Débito')
+                                                        <div class="text-sm font-medium text-red-500">
+                                                            -{{ $item->monto }}
+                                                        </div>
+                                                    @else
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            {{ $item->monto }}
+                                                        </div>
+                                                    @endif
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     <div class="text-sm font-medium text-gray-900">

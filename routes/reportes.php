@@ -6,6 +6,7 @@ use App\Http\Controllers\CtrBanco;
 use App\Http\Controllers\CtrCategoria;
 use App\Http\Controllers\CtrCuenta;
 use App\Http\Controllers\CtrEnfermedad;
+use App\Http\Controllers\CtrFondo;
 use App\Http\Controllers\CtrIntegrante;
 use App\Http\Controllers\CtrMedicamento;
 use App\Http\Controllers\CtrPagoPropietario;
@@ -45,3 +46,5 @@ Route::get('visita/exportar/{fitros}', [CtrVisita::class, 'exportar'])->name('vi
 
 // Reportes de procesos
 Route::get('recibo/{recibo}', [CtrPagoPropietario::class, 'exportarRecibo'])->name('pago-propietario.recibo');
+
+Route::get('fondos/{fondo}/movimientos', [CtrFondo::class, 'exportarMovimientos'])->name('fondo.movimiento');

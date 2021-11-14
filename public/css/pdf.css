@@ -20,6 +20,12 @@
     padding: 0.5rem;
 }
 
+/* Colores de texto */
+
+.text-red-500 {
+    color: red;
+}
+
 /* Alineación del texto */
 
 .text-left {
