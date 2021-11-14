@@ -110,18 +110,27 @@ class NuevoPago extends Component
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad);
 
-		if ($this->formaPago == 'Transferencia') {
-			$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get();
+		if ($this->formaPago != '') {
+			
+			if ($this->formaPago == 'Transferencia' || $this->formaPago == 'Punto de venta') {
+				$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get();
 
-		} else	if ($this->formaPago == 'Pago móvil') {
-			$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get()->whereNotNull('cuenta.telefono');
+				foreach ($fondos as $item) {
+					$item->cuenta->ocultarNumero();
+				}
 
+			} else	if ($this->formaPago == 'Pago móvil') {
+				$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get()->whereNotNull('cuenta.telefono');
+
+				foreach ($fondos as $item) {
+					$item->cuenta->ocultarNumero();
+				}
+
+			} else {
+				$fondos = Fondo::doesntHave('cuenta')->where('moneda', $this->moneda)->get();
+			}
 		} else {
-			$fondos = Fondo::doesntHave('cuenta')->where('moneda', $this->moneda)->get();
-		}
-
-		foreach ($fondos as $item) {
-			$item->cuenta->ocultarNumero();
+			$fondos = [];
 		}
 
 		return view('livewire.pago.nuevo-pago', compact('gastos', 'fondos'));
@@ -171,6 +180,7 @@ class NuevoPago extends Component
 	public function updatedMoneda()
 	{
 		$this->fondo = new Fondo;
+		$this->fondo->id = 0;
 
 		$this->conCambio = $this->moneda != $this->gasto->moneda;
 

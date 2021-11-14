@@ -2,7 +2,7 @@
 
     <div class="w-full flex justify-end gap-4">
 
-        <a href="{{route('pago.index')}}" class="w-full">
+        <a href="{{ route('pago.index') }}" class="w-full">
             <button class="btn btn-blue w-full h-20 text-2xl">Lista de pagos</button>
         </a>
 
@@ -113,18 +113,24 @@
                                     <option value="0">----</option>
 
                                     @if ($formaPago == 'Pago móvil')
-                                    @foreach ($fondos as $item)
-                                        <option value="{{ $item->id }}">
-                                            {{ Str::substr($item->cuenta->numero, 0, 4) }}
-                                            - {{ $item->cuenta->telefono }}
-                                        </option>
-                                    @endforeach
-                                @else
-                                    @foreach ($fondos as $item)
-                                        <option value="{{ $item->id }}">{{ $item->cuenta->numero }}
-                                        </option>
-                                    @endforeach
-                                @endif
+                                        @foreach ($fondos as $item)
+                                            <option value="{{ $item->id }}">
+                                                {{ Str::substr($item->cuenta->numero, 0, 4) }}
+                                                - {{ $item->cuenta->telefono }}
+                                            </option>
+                                        @endforeach
+                                    @elseif($formaPago == 'Efectivo' || $formaPago == 'Cheque' || $formaPago ==
+                                        'Depósito')
+                                        @foreach ($fondos as $item)
+                                            <option value="{{ $item->id }}">{{ $item->descripcion }}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        @foreach ($fondos as $item)
+                                            <option value="{{ $item->id }}">{{ $item->cuenta->numero }}
+                                            </option>
+                                        @endforeach
+                                    @endif
 
                                 </select>
                                 <x-jet-input-error for="fondo.id" />
@@ -176,32 +182,32 @@
                                     <label for="tasa-cambio" class="block text-sm font-medium text-gray-700">
                                         Tasa de cambio:
                                     </label>
-                                    <input wire:model="tasaCambio.tasa" type="text" name="tasa-cambio" id="tasa-cambio"
-                                        class="form-control w-full">
+                                    <input wire:model="tasaCambio.tasa" type="text" name="tasa-cambio"
+                                        id="tasa-cambio" class="form-control w-full">
                                     <x-jet-input-error for="tasaCambio.tasa" />
                                 </div>
                             @endif
 
-                        </div>
                     </div>
                 </div>
             </div>
-            {{-- /formulario --}}
+        </div>
+        {{-- /formulario --}}
 
-        </x-slot>
+    </x-slot>
 
-        <x-slot name="footer">
+    <x-slot name="footer">
 
-            <x-jet-secondary-button wire:click="$set('open', false)">
-                Cancelar
-            </x-jet-secondary-button>
+        <x-jet-secondary-button wire:click="$set('open', false)">
+            Cancelar
+        </x-jet-secondary-button>
 
-            <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
-                Registrar
-            </x-jet-button>
+        <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
+            Registrar
+        </x-jet-button>
 
-        </x-slot>
+    </x-slot>
 
-    </x-jet-dialog-modal>
+</x-jet-dialog-modal>
 
 </div>

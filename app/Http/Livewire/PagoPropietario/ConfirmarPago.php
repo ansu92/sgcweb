@@ -81,7 +81,8 @@ class ConfirmarPago extends Component
 
 	public function aceptar(Fondo $fondo)
 	{
-		$this->pago->aceptarPago($fondo);
+		$this->pago->fondo()->associate($fondo);
+		$this->pago->aceptarPago();
 
 		$ultimoRecibo = Recibo::orderBy('created_at', 'desc')->first();
 

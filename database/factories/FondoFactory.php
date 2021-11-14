@@ -25,13 +25,6 @@ class FondoFactory extends Factory
 
 		$saldo = 400 * rand(1, 4);
 
-		// if($moneda == 'Bolívar') {
-		// 	$saldo = 600000000 * rand(1, 4);
-
-		// } else if($moneda == 'Dólar') {
-		// 	$saldo = 200 * rand(1, 4);
-		// }
-
 		return [
 			'descripcion' => $this->faker->unique()->word,
 			'saldo' => $saldo,

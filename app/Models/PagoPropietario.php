@@ -19,7 +19,7 @@ class PagoPropietario extends Model
 		'forma_pago',
 		'moneda',
 		'tasa_cambio',
-		'cuenta_id',
+		'fondo_id',
 		'unidad_id',
 		'factura_id',
 	];
@@ -41,21 +41,17 @@ class PagoPropietario extends Model
 			$this->factura->pagar($this->monto);
 		}
 
-		if ($this->cuenta) {
-
-			if ($this->cuenta->fondo) {
-
-				$this->cuenta->fondo->acreditar($this->monto);
-			}
+		if ($this->fondo) {
+			$this->fondo->acreditar($this->monto);
 		}
 
 		$this->estado = 'Confirmado';
 		$this->save();
 	}
 
-	public function aceptarPago(Fondo $fondo)
+	public function aceptarPago()
 	{
-		$fondo->acreditar($this->monto);
+		$this->fondo->acreditar($this->monto);
 
 		$this->estado = 'Confirmado';
 		$this->save();
@@ -66,9 +62,9 @@ class PagoPropietario extends Model
 		return $this->belongsTo(Factura::class);
 	}
 
-	public function cuenta()
+	public function fondo()
 	{
-		return $this->belongsTo(Cuenta::class);
+		return $this->belongsTo(Fondo::class);
 	}
 
 	public function unidad()

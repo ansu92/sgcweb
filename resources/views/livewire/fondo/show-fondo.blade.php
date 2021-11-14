@@ -33,14 +33,17 @@
                         {{ $fondo->saldo }}
                     </dd>
                 </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Cuenta afiliada:
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $fondo->cuenta->numero }}
-                    </dd>
-                </div>
+
+                @if ($fondo->cuenta)
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Cuenta afiliada:
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ $fondo->cuenta->numero }}
+                        </dd>
+                    </div>
+                @endif
 
             </dl>
         </div>
@@ -82,16 +85,11 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        @foreach ($fondo->pagos as $item)
+                                        @foreach ($fondo->getMovimientos() as $item)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{-- @foreach ($fondo->pagos as $item) --}}
-                                                        {{-- {{var_dump($fondo->getMovimientos)}} --}}
-                                                        {{-- @endforeach --}}
-                                                        {{-- {{var_dump($fondo->pagos)}} --}}
-                                                        {{var_dump($fondo->getMovimientos())}}
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        Débito
+                                                        {{ $item->tipo }}
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4">
@@ -111,10 +109,17 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
-                                                    <a href="{{ route('pago.show', $item) }}"
-                                                        class="btn btn-blue">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
+                                                    @if ($item->tipo == 'Crédito')
+                                                        <a href="{{ route('pago-propietario.show', $item->id) }}"
+                                                            class="btn btn-blue">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('pago.show', $item->id) }}"
+                                                            class="btn btn-blue">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

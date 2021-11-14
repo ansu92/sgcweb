@@ -280,7 +280,7 @@ class NuevoPago extends Component
 		];
 
 		if ($this->formaPago == 'Transferencia' || $this->formaPago == 'Pago móvil') {
-			$datos['cuenta_id'] = $this->cuenta->id;
+			$datos['fondo_id'] = $this->cuenta->fondo->id;
 		}
 
 		$pago = PagoPropietario::create($datos);

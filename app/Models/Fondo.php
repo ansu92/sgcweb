@@ -16,17 +16,26 @@ class Fondo extends Model
 	{
 		$egresos = DB::table('pagos_gastos')
 			->join('fondos', 'pagos_gastos.fondo_id', '=', 'fondos.id')
-			->select(['monto', 'fecha', 'pagos_gastos.descripcion'])
+			->select(['pagos_gastos.id', 'monto', 'fecha', 'pagos_gastos.descripcion'])
+			->where('fondo_id', $this->id)
 			->get();
 
 		$ingresos = DB::table('pagos_propietario')
-			->join('fondos', 'pagos_propietario.cuenta_id', '=', 'fondos.cuenta_id')
-			->select(['monto', 'fecha', 'pagos_propietario.descripcion'])
+			->join('fondos', 'fondo_id', '=', 'fondos.id')
+			->select(['pagos_propietario.id', 'monto', 'fecha', 'pagos_propietario.descripcion'])
+			->where('fondo_id', $this->id)
 			->get();
 
-		$movimientos = $egresos->merge($ingresos);
+		foreach ($egresos as $item) {
+			$item->tipo = 'Débito';
+		}
 
-		return $egresos;
+		foreach ($ingresos as $item) {
+			$item->tipo = 'Crédito';
+		}
+
+		$movimientos = $egresos->merge($ingresos)->sortBy('fecha');
+
 		return $movimientos;
 	}
 

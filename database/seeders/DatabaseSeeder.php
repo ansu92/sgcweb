@@ -47,6 +47,8 @@ class DatabaseSeeder extends Seeder
 			->has(Fondo::factory())
 			->create();
 
+		$this->call(FondoSeeder::class);
+
 		$this->call(ServicioSeeder::class);
 		// Servicio::factory(15)->create();
 		Proveedor::factory(15)->create();
