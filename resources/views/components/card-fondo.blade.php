@@ -1,5 +1,5 @@
 <div
-    class="shadow-lg group border hover:border-blue-500 transition-colors duration-1000 transform rounded-xl p-4 bg-white relative overflow-hidden">
+    {{ $attributes->merge(['class' => 'shadow-lg group border hover:border-blue-500 transition-colors duration-1000 transform rounded-xl p-4 bg-white relative overflow-hidden']) }}>
 
     <div
         class="flex items-center border-b-2 group-hover:border-blue-500 transition-colors duration-1000 transform mb-2 pb-2">
@@ -13,7 +13,7 @@
 
         <div class="pl-3">
             <div class="text-lg text-gray-700">
-                {{$fondo->descripcion}}
+                {{ $fondo->descripcion }}
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
             Saldo:
         </p>
         <p class="text-gray-700 font-black text-xl text-center mb-2">
-            {{$fondo->saldo}} @if ($fondo->moneda == 'Dólar') $ @else Bs @endif
+            {{ $fondo->saldo }} @if ($fondo->moneda == 'Dólar') $ @else Bs @endif
         </p>
     </div>
 </div>

@@ -102,11 +102,10 @@ class NuevoPago extends Component
 			->paginate($this->cantidad);
 
 		if ($this->formaPago == 'Pago móvil') {
-			$cuentas = Cuenta::where('publica', true)->get();
+			$cuentas = Cuenta::where('publica', true)->whereNotNull('telefono')->get();
+			
 		} else {
-			$cuentas = Cuenta::where('publica', true)
-				->whereNotNull('telefono')
-				->get();
+			$cuentas = Cuenta::where('publica', true)->get();
 		}
 
 		foreach ($cuentas as $item) {

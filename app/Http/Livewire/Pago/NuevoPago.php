@@ -114,10 +114,14 @@ class NuevoPago extends Component
 			$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get();
 
 		} else	if ($this->formaPago == 'Pago móvil') {
-			$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get();
+			$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get()->whereNotNull('cuenta.telefono');
 
 		} else {
 			$fondos = Fondo::doesntHave('cuenta')->where('moneda', $this->moneda)->get();
+		}
+
+		foreach ($fondos as $item) {
+			$item->cuenta->ocultarNumero();
 		}
 
 		return view('livewire.pago.nuevo-pago', compact('gastos', 'fondos'));
@@ -159,6 +163,9 @@ class NuevoPago extends Component
 	{
 		$this->formaPago = $value == '----' ? null : $value;
 		$this->validateOnly('formaPago');
+
+		$this->fondo = new Fondo;
+		$this->fondo->id = 0;
 	}
 
 	public function updatedMoneda()

@@ -15,9 +15,8 @@
                 <div class="grid grid-cols-4 gap-3">
                     @foreach ($fondos as $item)
                         <a href="{{ route('fondo.show', $item) }}">
-							{{-- <x-horizontal-card :descripcion="$item->descripcion" :moneda="$item->moneda" :saldo="$item->saldoFormateado" /> --}}
-                                <x-card-fondo :fondo="$item"/>
-						</a>
+                            <x-card-fondo :fondo="$item" />
+                        </a>
                     @endforeach
 
                     @if ($fondos->hasPages())

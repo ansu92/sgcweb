@@ -98,7 +98,7 @@
 
                             <div class="col-span-6">
                                 <label class="block text-sm font-medium text-gray-700">
-                                    ¿Mostrar los datos de la cuenta a los propietarios?
+                                    ¿Permitir que los propietarios registren pagos a esta cuenta?
                                 </label>
                                 <div>
                                     <input wire:model="publica" type="radio" name="publica" id="si" value="1">

@@ -53,6 +53,14 @@ class PagoPropietario extends Model
 		$this->save();
 	}
 
+	public function aceptarPago(Fondo $fondo)
+	{
+		$fondo->acreditar($this->monto);
+
+		$this->estado = 'Confirmado';
+		$this->save();
+	}
+
 	public function factura()
 	{
 		return $this->belongsTo(Factura::class);
@@ -68,7 +76,8 @@ class PagoPropietario extends Model
 		return $this->belongsTo(Unidad::class);
 	}
 
-	public function recibo() {
+	public function recibo()
+	{
 		return $this->hasOne(Recibo::class);
 	}
 }

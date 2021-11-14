@@ -112,11 +112,19 @@
                                 <select wire:model="fondo.id" name="fondo" id="fondo" class="form-control w-full">
                                     <option value="0">----</option>
 
+                                    @if ($formaPago == 'Pago móvil')
                                     @foreach ($fondos as $item)
-                                        <option value="{{ $item->id }}">{{ $item->descripcion }} -
-                                            {{ $item->saldo }} @if ($item->moneda == 'Bolívar')Bs. @else $ @endif
+                                        <option value="{{ $item->id }}">
+                                            {{ Str::substr($item->cuenta->numero, 0, 4) }}
+                                            - {{ $item->cuenta->telefono }}
                                         </option>
                                     @endforeach
+                                @else
+                                    @foreach ($fondos as $item)
+                                        <option value="{{ $item->id }}">{{ $item->cuenta->numero }}
+                                        </option>
+                                    @endforeach
+                                @endif
 
                                 </select>
                                 <x-jet-input-error for="fondo.id" />

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PagoPropietario;
 
+use App\Models\Fondo;
 use App\Models\PagoPropietario;
 use App\Models\Recibo;
 use Illuminate\Support\Str;
@@ -23,6 +24,10 @@ class ConfirmarPago extends Component
 	public $cantidad = '10';
 
 	public $readyToLoad = false;
+
+	public $openConfirmar = false;
+	public $pago;
+	public $fondos = [];
 
 	public function render()
 	{
@@ -57,12 +62,39 @@ class ConfirmarPago extends Component
 
 		$count = $ultimoRecibo ? Str::substr($ultimoRecibo->numero, 12) : 0;
 
-		$numero = 'R'.Str::substr(today(), 0, 4) . Str::substr(today(), 5, 2) . '-' . $pago->unidad->numero . '-' . ++$count;
+		$numero = 'R' . Str::substr(today(), 0, 4) . Str::substr(today(), 5, 2) . '-' . $pago->unidad->numero . '-' . ++$count;
 
 		Recibo::create([
 			'numero' => $numero,
 			'pago_propietario_id' => $pago->id,
 		]);
+
+		$this->emit('alert', 'El pago ha sido confirmado satisfactoriamente.');
+	}
+
+	public function elegirFondo(PagoPropietario $pago)
+	{
+		$this->pago = $pago;
+		$this->fondos = Fondo::doesntHave('cuenta')->where('moneda', $this->pago->moneda)->get();
+		$this->openConfirmar = true;
+	}
+
+	public function aceptar(Fondo $fondo)
+	{
+		$this->pago->aceptarPago($fondo);
+
+		$ultimoRecibo = Recibo::orderBy('created_at', 'desc')->first();
+
+		$count = $ultimoRecibo ? Str::substr($ultimoRecibo->numero, 12) : 0;
+
+		$numero = 'R' . Str::substr(today(), 0, 4) . Str::substr(today(), 5, 2) . '-' . $this->pago->unidad->numero . '-' . ++$count;
+
+		Recibo::create([
+			'numero' => $numero,
+			'pago_propietario_id' => $this->pago->id,
+		]);
+
+		$this->reset('openConfirmar');
 
 		$this->emit('alert', 'El pago ha sido confirmado satisfactoriamente.');
 	}
