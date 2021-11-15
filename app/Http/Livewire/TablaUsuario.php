@@ -25,7 +25,7 @@ class TablaUsuario extends Component
 	public $openDestroy = false;
 
 	protected $rules = [
-		'roles' => 'required|min:1',
+		'roles' => 'array',
 	];
 
 	protected $listeners = ['render'];
@@ -78,7 +78,7 @@ class TablaUsuario extends Component
 	public function edit(User $usuario)
 	{
 		$this->usuario = $usuario;
-		$this->roles = $this->usuario->roles()->allRelatedIds();
+		$this->roles = $this->usuario->roles()->allRelatedIds()->map(fn ($id) => (string)$id);
 
 		$this->openEdit = true;
 	}

@@ -37,6 +37,36 @@ $nav_links = [
         'can' => 'visita.index',
     ],
 ];
+
+$linksDropdown = [
+    [
+        'name' => 'Pagos del condominio',
+        'route' => route('pago.create'),
+        'active' => request()->routeIs('pago.create'),
+        'can' => 'pago-condominio.create',
+    ],
+    [
+        'name' => 'Notificar pago',
+        'route' => route('pago-propietario.create'),
+        'active' => request()->routeIs('pago-propietario.create'),
+        'can' => 'pago-propietario.create',
+    ],
+    [
+        'name' => 'Confirmar pagos',
+        'route' => route('pago.confirmar'),
+        'active' => request()->routeIs('pago.confirmar'),
+        'can' => 'pago-propietario.confirmar',
+    ],
+];
+
+$dropCount = 0;
+
+foreach ($linksDropdown as $item) {
+    if (Auth::user()->can($item['can'])) {
+        $dropCount++;
+    }
+}
+
 @endphp
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
@@ -66,32 +96,44 @@ $nav_links = [
                         <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                             Inicio
                         </x-jet-nav-link>
-                        <x-jet-dropdown>
-                            <x-slot name="trigger">
-                                <x-jet-nav-link class="h-full cursor-pointer">
-                                    Pagos
-                                </x-jet-nav-link>
-                            </x-slot>
-                            <x-slot name="content">
-                                @can('pago.create')
-                                    <x-jet-dropdown-link href="{{ route('pago.create') }}"
-                                        :active="request()->routeIs('pago.create')">
-                                        Pagos del condominio
-                                    </x-jet-dropdown-link>
-                                @endcan
-                                <x-jet-dropdown-link href="{{ route('pago-propietario.create') }}"
-                                    :active="request()->routeIs('pago-propietario.create')">
-                                    Notificar pago
-                                </x-jet-dropdown-link>
-                            </x-slot>
-                        </x-jet-dropdown>
+
+                        @if ($dropCount)
+                            <x-jet-dropdown>
+
+                                <x-slot name="trigger">
+                                    <x-jet-nav-link class="h-full cursor-pointer">
+                                        Pagos
+                                    </x-jet-nav-link>
+                                </x-slot>
+
+                                <x-slot name="content">
+
+                                    @foreach ($linksDropdown as $item)
+
+                                        @can($item['can'])
+                                            <x-jet-dropdown-link href="{{ $item['route'] }}" :active="$item['active']">
+                                                {{ $item['name'] }}
+                                            </x-jet-dropdown-link>
+                                        @endcan
+
+                                    @endforeach
+                                </x-slot>
+
+                            </x-jet-dropdown>
+                        @endif
+
                         @foreach ($nav_links as $item)
+
                             @can($item['can'])
+
                                 <x-jet-nav-link href="{{ $item['route'] }}" :active="$item['active']">
                                     {{ $item['name'] }}
                                 </x-jet-nav-link>
+
                             @endcan
+
                         @endforeach
+
                     </div>
                 @endauth
             </div>
@@ -183,9 +225,14 @@ $nav_links = [
 
                             <x-slot name="content">
 
-                                @can('admin')
+                                @can('home')
+                                    <x-jet-dropdown-link href="{{ route('home') }}">
+                                        {{ __('Panel de propietario') }}
+                                    </x-jet-dropdown-link>
+                                @endcan
+
+                                @can('admin.home')
                                     <x-jet-dropdown-link href="{{ route('admin.home') }}">
-                                        {{-- <i class="fa fas-settings"></i> --}}
                                         {{ __('Administración del condominio') }}
                                     </x-jet-dropdown-link>
                                 @endcan
@@ -211,8 +258,9 @@ $nav_links = [
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <x-jet-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                                this.closest('form').submit();">
+                                    <x-jet-dropdown-link href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                                                    this.closest('form').submit();">
                                         {{ __('Cerrar sesión') }}
                                     </x-jet-dropdown-link>
                                 </form>
@@ -274,7 +322,8 @@ $nav_links = [
                 <div class="mt-3 space-y-1">
 
                     @can('admin')
-                        <x-jet-responsive-nav-link href="{{ route('admin.home') }}" :active="request()->routeIs('admin.home')">
+                        <x-jet-responsive-nav-link href="{{ route('admin.home') }}"
+                            :active="request()->routeIs('admin.home')">
                             {{ __('Configuración') }}
                         </x-jet-responsive-nav-link>
                     @endcan
@@ -296,8 +345,9 @@ $nav_links = [
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
-                        <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                    this.closest('form').submit();">
+                        <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                                                                                        this.closest('form').submit();">
                             {{ __('Cerrar sesión') }}
                         </x-jet-responsive-nav-link>
                     </form>

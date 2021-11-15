@@ -21,6 +21,8 @@ class RoleSeeder extends Seeder
 		$role4 = Role::create(['name' => 'Condominio']);
 
 
+		Permission::create(['name' => 'home'])->assignRole($role2);
+
 		Permission::create(['name' => 'asamblea.index'])->assignRole($role4);
 		Permission::create(['name' => 'asamblea.create'])->assignRole($role4);
 		Permission::create(['name' => 'asamblea.show'])->assignRole($role4);
@@ -56,9 +58,14 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'gasto.create'])->assignRole($role4);
 		Permission::create(['name' => 'gasto.show'])->assignRole($role4);
 
-		Permission::create(['name' => 'pago.index'])->assignRole($role4);
-		Permission::create(['name' => 'pago.create'])->assignRole($role4);
-		Permission::create(['name' => 'pago.show'])->assignRole($role4);
+		Permission::create(['name' => 'pago-condominio.index'])->assignRole($role4);
+		Permission::create(['name' => 'pago-condominio.create'])->assignRole($role4);
+		Permission::create(['name' => 'pago-condominio.show'])->assignRole($role4);
+
+		Permission::create(['name' => 'pago-propietario.index'])->assignRole($role2);
+		Permission::create(['name' => 'pago-propietario.create'])->assignRole($role2);
+		Permission::create(['name' => 'pago-propietario.show'])->assignRole($role2);
+		Permission::create(['name' => 'pago-propietario.confirmar'])->assignRole($role4);
 
 		Permission::create(['name' => 'proveedor.index'])->assignRole($role4);
 		Permission::create(['name' => 'proveedor.create'])->assignRole($role4);
@@ -82,9 +89,11 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'visita.create'])->assignRole($role3);
 		Permission::create(['name' => 'visita.show'])->assignRole($role3);
 
+		Permission::create(['name' => 'visita.lista'])->assignRole($role4);
+
 
 		// Permisos exclusivos de administrador
-		Permission::create(['name' => 'admin']);
+		Permission::create(['name' => 'admin.home'])->assignRole($role4);
 
 		Permission::create(['name' => 'admin.administrador.index']);
 		Permission::create(['name' => 'admin.administrador.create']);
@@ -103,8 +112,6 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'admin.usuario.edit']);
 		Permission::create(['name' => 'admin.usuario.delete']);
 		Permission::create(['name' => 'admin.usuario.show']);
-		
-		Permission::create(['name' => 'admin.visita.lista'])->assignRole($role4);
 
 
 		$role1->syncPermissions(Permission::all());

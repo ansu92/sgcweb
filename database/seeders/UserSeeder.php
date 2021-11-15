@@ -79,6 +79,7 @@ class UserSeeder extends Seeder
 		$integrante->unidad()->associate($unidad)->save();
 
 
+		// Usuario con rol de Administrador
 		$integrante = Integrante::factory([
 			'letra' => 'V',
 			'documento' => '00000000',
@@ -108,5 +109,77 @@ class UserSeeder extends Seeder
 		$unidad = Unidad::factory()->create();
 		$unidad->propietario()->associate($propietario)->save();
 		$integrante->unidad()->associate($unidad)->save();
+
+
+		// Usuario con rol de Propietario
+		$integrante = Integrante::factory([
+			'letra' => 'V',
+			'documento' => '00000001',
+			'nombre' => 'Pro',
+			'apellido' => 'Pietario',
+			'fecha_nacimiento' => '01-01-2000',
+			'email' => 'propietario@gmail.com',
+		])->create();
+
+		$usuario = User::factory([
+			'name' => 'ProPietario',
+			'email' => 'propietario@gmail.com',
+			'password' => bcrypt('1234'),
+		])->create()->assignRole('Propietario');
+
+		$propietario = Propietario::factory()->create([
+			'integrante_id' => $integrante->id,
+			'user_id' => $usuario->id,
+		]);
+
+		$unidad = Unidad::factory()->create();
+		$unidad->propietario()->associate($propietario)->save();
+		$integrante->unidad()->associate($unidad)->save();
+
+
+		// Usuario con rol de Condominio
+		$integrante = Integrante::factory([
+			'letra' => 'V',
+			'documento' => '00000002',
+			'nombre' => 'Condo',
+			'apellido' => 'Minio',
+			'fecha_nacimiento' => '01-01-2000',
+			'email' => 'condominio@gmail.com',
+		])->create();
+
+		$usuario = User::factory([
+			'name' => 'CondoMinio',
+			'email' => 'condominio@gmail.com',
+			'password' => bcrypt('1234'),
+		])->create()->assignRole('Condominio');
+
+		Administrador::create([
+			'integrante_id' => $integrante->id,
+			'rol' => 'Administrador',
+			'user_id' => $usuario->id,
+		]);
+
+
+		// Usuario con rol de Portero
+		$integrante = Integrante::factory([
+			'letra' => 'V',
+			'documento' => '00000003',
+			'nombre' => 'Por',
+			'apellido' => 'Tero',
+			'fecha_nacimiento' => '01-01-2000',
+			'email' => 'portero@gmail.com',
+		])->create();
+
+		$usuario = User::factory([
+			'name' => 'PorTero',
+			'email' => 'portero@gmail.com',
+			'password' => bcrypt('1234'),
+		])->create()->assignRole('Portero');
+
+		Administrador::create([
+			'integrante_id' => $integrante->id,
+			'rol' => 'Administrador',
+			'user_id' => $usuario->id,
+		]);
 	}
 }

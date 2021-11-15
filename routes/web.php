@@ -89,6 +89,8 @@ Route::get('visita', [CtrVisita::class, 'index'])->name('visita.index');
 
 Route::get('visita/{visita}', [CtrVisita::class, 'show'])->name('visita.show');
 
+Route::get('visita/lista', [CtrVisita::class, 'lista'])->middleware('can:visita.lista')->name('visita.lista');
+
 Route::get('unidad', [CtrUnidad::class, 'index'])->name('unidad.index');
 
 Route::get('unidad/{unidad}', [CtrUnidad::class, 'show'])->name('unidad.show');

@@ -130,12 +130,15 @@
                                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
 
+                            {{-- {{var_dump($listaRoles)}} --}}
+                            {{ var_dump($roles) }}
                             @foreach ($listaRoles as $key => $item)
                                 <div class="col-span-6">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input wire:model="roles" id="role_{{ $key }}"
-                                                name="role_{{ $key }}" type="checkbox"
+                                            <input wire:model="roles" type="checkbox"
+                                            id="role_{{ $key }}"
+                                                name="role_{{ $key }}"
                                                 value="{{ $item->id }}"
                                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                         </div>

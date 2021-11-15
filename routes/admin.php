@@ -8,10 +8,9 @@ use App\Http\Controllers\Admin\CtrInicio;
 use App\Http\Controllers\Admin\CtrSancion;
 use App\Http\Controllers\Admin\CtrUnidad;
 use App\Http\Controllers\Admin\CtrUser;
-use App\Http\Controllers\CtrVisita;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', CtrInicio::class)->middleware('can:admin')->name('home');
+Route::get('/', CtrInicio::class)->middleware('can:admin.home')->name('home');
 
 Route::resource('administrador', CtrAdministrador::class)->only(['index', 'show'])->names('administrador');
 
@@ -30,5 +29,3 @@ Route::resource('unidad', CtrUnidad::class)->only(['index', 'show'])->names('uni
 Route::get('usuario', [CtrUser::class, 'index'])->middleware('can:admin.usuario.index')->name('usuario.index');
 
 Route::get('usuario/{usuario}', [CtrUser::class, 'show'])->middleware('can:admin.usuario.show')->name('usuario.show');
-
-Route::get('visita/lista', [CtrVisita::class, 'lista'])->middleware('can:admin.visita.lista')->name('visita.lista');
