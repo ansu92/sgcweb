@@ -13,16 +13,11 @@ class TablaUnidad extends Component
 	public $unidad;
 
 	public $busqueda = '';
-	// public $orden = 'numero';
-	// public $direccion = "asc";
 	public $cantidad = '10';
 
 	public $readyToLoad = false;
 
 	protected $listeners = ['render'];
-
-	// Modal exportar
-	public $openExportar = false;
 
 	public $propietario = '2';
 	public $habitantes = '2';

@@ -1,10 +1,66 @@
-<div wire:init="loadFondos">
+<div wire:init="$set('readyToLoad', true)">
 
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
             <x-select-cantidad />
 
-            <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
+            <x-filtro>
+                <x-slot name="contenido">
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 px-4">
+                            Moneda
+                        </label>
+
+                        <label for="todos-moneda"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="moneda" type="radio" name="moneda" id="todos-moneda" value="2">
+                            Todas
+                        </label>
+
+                        <label for="bolivar"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="moneda" type="radio" name="moneda" id="bolivar" value="1">
+                            Bolívar
+                        </label>
+
+                        <label for="dolar"
+                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                            <input wire:model="moneda" type="radio" name="moneda" id="dolar" value="0">
+                            Dólar
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 px-4">
+                            Saldo
+                        </label>
+
+                        <label for="minimo"
+                            class="text-sm py-2 px-4 font-normal block w-full bg-transparent text-gray-700">
+                            Mínimo:
+                            <input wire:model="minimo" type="text" name="minimo" id="minimo"
+                                class="form-control w-full">
+                        </label>
+
+                        <label for="maximo"
+                            class="text-sm py-2 px-4 font-normal block w-full bg-transparent text-gray-700">
+                            Máximo:
+                            <input wire:model="maximo" type="text" name="maximo" id="maximo"
+                                class="form-control w-full">
+                        </label>
+                    </div>
+
+                </x-slot>
+            </x-filtro>
+
+            <x-jet-input type="text" placeholder="Escriba para buscar por nombre..." class="w-full"
+                wire:model="busqueda" />
+
+                <a href="{{ route('fondo.exportar', ['-' . $busqueda . '-' . $orden . '-' . $direccion . '-' . $moneda . '-' . $minimo . '-' . $maximo]) }}"
+                class="btn btn-blue whitespace-nowrap">
+                <i class="fas fa-file-export"></i> Exportar
+            </a>
 
             @livewire('fondo.nuevo-fondo')
         </div>
@@ -12,7 +68,7 @@
         <!-- tabla -->
         @if ($readyToLoad)
             @if (count($fondos))
-                <div class="grid grid-cols-4 gap-3">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                     @foreach ($fondos as $item)
                         <a href="{{ route('fondo.show', $item) }}">
                             <x-card-fondo :fondo="$item" />

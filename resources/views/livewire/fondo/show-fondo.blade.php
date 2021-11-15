@@ -1,6 +1,6 @@
 <div>
 
-    <div class="bg-white overflow-hidden  shadow-xl rounded-xl">
+    <div class="bg-white overflow-hidden shadow-xl rounded-xl">
         <div class="px-4 py-5 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
                 Fondo
@@ -53,9 +53,11 @@
             <div class="flex items-center px-4 py-2">
                 <h2 class="px-4 py-2 text-lg inline w-full">Movimientos</h2>
 
-                <a href="{{ route('fondo.movimiento', $fondo) }}" class="btn btn-blue whitespace-nowrap">
-                    <i class="fas fa-file-export"></i> Exportar
-                </a>
+                @if (count($fondo->getMovimientos()))
+                    <a href="{{ route('fondo.movimiento', $fondo) }}" class="btn btn-blue whitespace-nowrap">
+                        <i class="fas fa-file-export"></i> Exportar
+                    </a>
+                @endif
             </div>
 
             <!-- tabla -->
@@ -63,7 +65,7 @@
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            @if (count($fondo->pagos))
+                            @if (count($fondo->getMovimientos()))
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
                                         <tr>

@@ -113,23 +113,31 @@
                                     <option value="0">----</option>
 
                                     @if ($formaPago == 'Pago móvil')
+
                                         @foreach ($fondos as $item)
                                             <option value="{{ $item->id }}">
-                                                {{ Str::substr($item->cuenta->numero, 0, 4) }}
-                                                - {{ $item->cuenta->telefono }}
+                                                #{{ Str::substr($item->cuenta->numero, 0, 4) }}
+                                                - {{ $item->cuenta->telefono }} - {{ $item->saldoFormateado }}
                                             </option>
                                         @endforeach
+
                                     @elseif($formaPago == 'Efectivo' || $formaPago == 'Cheque' || $formaPago ==
                                         'Depósito')
+
                                         @foreach ($fondos as $item)
-                                            <option value="{{ $item->id }}">{{ $item->descripcion }}
+                                            <option value="{{ $item->id }}">{{ $item->descripcion }} -
+                                                {{ $item->saldoFormateado }}
                                             </option>
                                         @endforeach
+
                                     @else
+
                                         @foreach ($fondos as $item)
-                                            <option value="{{ $item->id }}">{{ $item->cuenta->numero }}
+                                            <option value="{{ $item->id }}">{{ $item->cuenta->numero }} -
+                                                {{ $item->saldoFormateado }}
                                             </option>
                                         @endforeach
+
                                     @endif
 
                                 </select>

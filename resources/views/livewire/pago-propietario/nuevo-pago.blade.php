@@ -131,17 +131,21 @@
                                             <option value="0" selected>----</option>
 
                                             @if ($formaPago == 'Pago móvil')
+
                                                 @foreach ($cuentas as $item)
                                                     <option value="{{ $item->id }}">
-                                                        {{ Str::substr($item->numero, 0, 4) }}
+                                                        #{{ Str::substr($item->numero, 0, 4) }}
                                                         - {{ $item->telefono }}
                                                     </option>
                                                 @endforeach
+
                                             @else
+
                                                 @foreach ($cuentas as $item)
                                                     <option value="{{ $item->id }}">{{ $item->numero }}
                                                     </option>
                                                 @endforeach
+
                                             @endif
 
                                         </select>

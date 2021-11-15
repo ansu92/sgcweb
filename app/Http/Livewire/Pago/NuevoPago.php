@@ -52,7 +52,7 @@ class NuevoPago extends Component
 			'recibo' => 'required|numeric|unique:pagos_gastos,recibo',
 			'formaPago' => 'required',
 			'moneda' => 'required',
-			'fondo.id' => 'required',
+			'fondo.id' => 'required|not_in:0',
 			'referencia' => 'exclude_unless:formaPago,Transferencia,Pago móvil,Cheque|min:4|max:8',
 			'tasaCambio.tasa' => 'exclude_if:conCambio,false|required|numeric',
 		];
@@ -89,6 +89,7 @@ class NuevoPago extends Component
 
 	protected $messages = [
 		'fondo.id.required' => 'Debe seleccionar un fondo.',
+		'fondo.id.not_in' => 'Debe seleccionar un fondo.',
 		'monto.lte' => 'El monto no debe ser mayor al saldo del fondo seleccionado o al total de la deuda.',
 		'tasaCambio.tasa.required_if' => 'Debe ingresar la tasa de cambio.'
 	];
@@ -106,28 +107,36 @@ class NuevoPago extends Component
 
 	public function render()
 	{
+		$this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
+
 		$gastos = Gasto::where('estado_pago', 'Pendiente')
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad);
 
 		if ($this->formaPago != '') {
-			
+
 			if ($this->formaPago == 'Transferencia' || $this->formaPago == 'Punto de venta') {
 				$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get();
 
 				foreach ($fondos as $item) {
 					$item->cuenta->ocultarNumero();
 				}
-
 			} else	if ($this->formaPago == 'Pago móvil') {
 				$fondos = Fondo::has('cuenta')->where('moneda', $this->moneda)->get()->whereNotNull('cuenta.telefono');
 
 				foreach ($fondos as $item) {
 					$item->cuenta->ocultarNumero();
 				}
-
 			} else {
 				$fondos = Fondo::doesntHave('cuenta')->where('moneda', $this->moneda)->get();
+			}
+
+			foreach ($fondos as $item) {
+				if ($item->moneda == 'Bolívar') {
+					$item->saldoFormateado = $this->formatoDinero->format($item->saldo);
+				} elseif ($item->moneda == 'Dólar') {
+					$item->saldoFormateado = $this->formatoDinero->formatCurrency($item->saldo, $this->dolar);
+				}
 			}
 		} else {
 			$fondos = [];

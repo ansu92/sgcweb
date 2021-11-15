@@ -23,6 +23,10 @@ class TablaFondo extends Component
 	public $openEdit = false;
 	public $openDestroy = false;
 
+	public $moneda = '2';
+	public $minimo = '';
+	public $maximo = '';
+
 	protected $rules = [
 		'fondo.descripcion' => 'required|max:255',
 		'fondo.moneda' => 'required'
@@ -32,15 +36,26 @@ class TablaFondo extends Component
 
 	public function render()
 	{
-		if ($this->readyToLoad) {
-			$fondos = Fondo::where('descripcion', 'like', '%' . $this->busqueda . '%')
-				->orWhere('moneda', 'like', '%' . $this->busqueda . '%')
-				->orderBy($this->orden, $this->direccion)
-				->paginate($this->cantidad);
+		$fondos = $this->filtrar();
 
-				foreach ($fondos as $fondo) {
-					$fondo->saldoFormateado = $this->formatearMonto($fondo->saldo, $fondo->moneda);
-				}
+		if ($this->readyToLoad) {
+
+			if ($fondos->count()) {
+
+				$fondos = $fondos->toQuery()
+					->where(function ($query) {
+						$query->where('descripcion', 'like', '%' . $this->busqueda . '%');
+					})
+					->orderBy($this->orden, $this->direccion)
+					->paginate($this->cantidad);
+
+			} else {
+				$fondos = [];
+			}
+
+			foreach ($fondos as $fondo) {
+				$fondo->saldoFormateado = $this->formatearMonto($fondo->saldo, $fondo->moneda);
+			}
 		} else {
 			$fondos = [];
 		}
@@ -78,11 +93,6 @@ class TablaFondo extends Component
 		$this->resetPage();
 	}
 
-	public function loadFondos()
-	{
-		$this->readyToLoad = true;
-	}
-
 	public function orden($orden)
 	{
 		if ($this->orden == $orden) {
@@ -95,5 +105,34 @@ class TablaFondo extends Component
 			$this->orden = $orden;
 			$this->direccion = 'asc';
 		}
+	}
+
+	private function filtrar()
+	{
+		$fondos = Fondo::all();
+
+		switch ($this->moneda) {
+			case '0':
+				$fondos = $fondos->intersect(Fondo::where('moneda', 'Dólar')->get());
+				break;
+
+			case '1':
+				$fondos = $fondos->intersect(Fondo::where('moneda', 'Bolívar')->get());
+				break;
+
+			default:
+				# code...
+				break;
+		}
+
+		if ($this->minimo != '') {
+			$fondos = $fondos->intersect(Fondo::where('saldo', '>=', $this->minimo)->get());
+		}
+
+		if ($this->maximo != '') {
+			$fondos = $fondos->intersect(Fondo::where('saldo', '<=', $this->maximo)->get());
+		}
+
+		return $fondos;
 	}
 }

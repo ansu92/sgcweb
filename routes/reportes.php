@@ -39,6 +39,8 @@ Route::get('tipo-unidad/exportar', [CtrTipoUnidad::class, 'exportar'])->name('ti
 
 
 // Reportes parametrizados
+Route::get('fondo/exportar/{fitros}', [CtrFondo::class, 'exportar'])->name('fondo.exportar');
+
 Route::get('unidad/exportar/{fitros}', [CtrUnidad::class, 'exportar'])->name('unidad.exportar');
 
 Route::get('visita/exportar/{fitros}', [CtrVisita::class, 'exportar'])->name('visita.exportar');

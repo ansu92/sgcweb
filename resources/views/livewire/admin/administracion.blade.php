@@ -1,8 +1,10 @@
 <div>
 
-    <div class="grid grid-cols-5 gap-4 h-auto">
+    <div class="flex flex-col lg:grid lg:grid-cols-5 gap-4 h-auto">
 
-        <div class="col-span-3 grid grid-cols-3 gap-3">
+        <x-card-condominio class="col-span-2 lg:order-2" />
+
+        <div class="col-span-3 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 lg:order-1">
 
             @foreach ($menu as $item)
                 <a href="{{ route($item['ruta']) }}">
@@ -12,7 +14,6 @@
 
         </div>
 
-        <x-card-condominio class="col-span-2" />
     </div>
 
     <x-jet-dialog-modal wire:model="openMensualidad">

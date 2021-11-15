@@ -34,7 +34,7 @@ class Fondo extends Model
 			$item->tipo = 'Crédito';
 		}
 
-		$movimientos = $egresos->merge($ingresos)->sortBy('fecha');
+		$movimientos = $ingresos->merge($egresos)->sortBy('fecha');
 
 		return $movimientos;
 	}
