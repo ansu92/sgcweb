@@ -9,6 +9,13 @@ use PDF;
 
 class CtrPagoPropietario extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('can:pago-propietario.index')->only('index');
+		$this->middleware('can:pago-propietario.show')->only('show');
+		$this->middleware('can:pago-propietario.confirmar')->only('confirmar');
+	}
+
 	public function index()
 	{
 		return view('pago-propietario.index');

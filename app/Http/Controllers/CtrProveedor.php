@@ -7,6 +7,11 @@ use PDF;
 
 class CtrProveedor extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('can:proveedor.index')->only('index');
+		$this->middleware('can:proveedor.show')->only('show');
+	}
 
 	public function index()
 	{

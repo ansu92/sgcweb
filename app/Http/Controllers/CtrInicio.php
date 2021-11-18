@@ -18,7 +18,8 @@ class CtrInicio extends Controller
 				// Si el usuario es un portero
 
 				return redirect()->route('visita.index');
-			} else if ($usuario->hasRole('Propietario')) {
+
+			} else if (!$usuario->hasRole('Propietario')) {
 				// Si el usaurio es un propietario
 
 				if (Condominio::first()) {

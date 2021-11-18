@@ -6,7 +6,13 @@ use App\Models\Gasto;
 
 class CtrGasto extends Controller
 {
-    public function index() {
+	public function __construct()
+	{
+		$this->middleware('can:gasto.index')->only('index');
+		$this->middleware('can:gasto.show')->only('show');
+	}
+
+	public function index() {
 		return view('gasto.index');
 	}
 

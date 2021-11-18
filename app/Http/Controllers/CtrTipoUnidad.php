@@ -7,6 +7,11 @@ use PDF;
 
 class CtrTipoUnidad extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('can:tipo-unidad.index')->only('index');
+		$this->middleware('can:tipo-unidad.show')->only('show');
+	}
 
 	public function index()
 	{

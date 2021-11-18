@@ -17,6 +17,9 @@
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
+                                        <th scope="col" class="relative px-6 py-3">
+                                            <x-jet-checkbox wire:model="selectPage" name="selectPage" id="selectPage" />
+                                        </th>
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                                             wire:click="orden('nombre')">
@@ -62,10 +65,6 @@
                                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Monto
                                         </th>
-                                        <th scope="col" class="relative px-6 py-3">
-                                            <input wire:model="selectPage" type="checkbox" name="selectPage"
-                                                id="selectPage" class="form-control">
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
@@ -74,7 +73,7 @@
                                             <td colspan="5" class=" text-sm px-6 py-4 whitespace-nowrap bg-gray-200">
 
                                                 @unless($selectAll)
-                                                    @if(count($servicios) != $listaServicios->total())
+                                                    @if (count($servicios) != $listaServicios->total())
                                                         <div>
                                                             <span>Ha seleccionado
                                                                 <strong>{{ count($servicios) }}</strong>
@@ -84,15 +83,16 @@
                                                                 servicios?</span>
 
 
-                                                            <button class="text-blue-500" wire:click="$set('selectAll', true)">
+                                                            <button class="text-blue-500"
+                                                                wire:click="$set('selectAll', true)">
                                                                 Seleccionar todo
                                                             </button>
                                                         </div>
-													@else
-														<span>Ha seleccionado
-															<strong>{{ $listaServicios->total() }}</strong>
-															servicios
-														</span>
+                                                    @else
+                                                        <span>Ha seleccionado
+                                                            <strong>{{ $listaServicios->total() }}</strong>
+                                                            servicios
+                                                        </span>
                                                     @endif
                                                 @else
 
@@ -108,6 +108,10 @@
                                     @endif
                                     @foreach ($listaServicios as $item)
                                         <tr>
+                                            <td class="px-6 py-4">
+                                                <x-jet-checkbox wire:model="servicios.{{ $item->id }}"
+                                                    value="{{ $item->id }}" />
+                                            </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">
                                                     {{ $item->nombre }}
@@ -129,10 +133,6 @@
                                                         class="form-control w-36">
                                                     <x-jet-input-error for="montos.{{ $item->id }}" />
                                                 </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap space-x-1 text-xs">
-                                                <input wire:model="servicios.{{ $item->id }}" type="checkbox"
-                                                    value="{{ $item->id }}" class="form-control">
                                             </td>
                                         </tr>
                                     @endforeach

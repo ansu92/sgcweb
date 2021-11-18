@@ -7,6 +7,12 @@ use PDF;
 
 class CtrEnfermedad extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('can:enfermedad.index')->only('index');
+		$this->middleware('can:enfermedad.show')->only('show');
+	}
+
     public function index()
     {
         return view('enfermedad.index');

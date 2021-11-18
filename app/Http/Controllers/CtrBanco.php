@@ -7,11 +7,12 @@ use PDF;
 
 class CtrBanco extends Controller
 {
-	public function __construct()
-	{
-		// $this->middleware('can:banco.index')->only('index');
-		// $this->middleware('can:banco.show')->only('show');
-	}
+    public function __construct()
+    {
+        $this->middleware('can:banco.index')->only('index');
+        $this->middleware('can:banco.show')->only('show');
+    }
+
     public function index()
     {
         return view('banco.index');
@@ -22,9 +23,10 @@ class CtrBanco extends Controller
         return view('banco.show', compact('banco'));
     }
 
-    public function exportar() {
+    public function exportar()
+    {
         $bancos = Banco::all();
-       
+
         $pdf = PDF::loadView('banco.pdf', compact('bancos'));
         return $pdf->stream('bancos.pdf');
     }

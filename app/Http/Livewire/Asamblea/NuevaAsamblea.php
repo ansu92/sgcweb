@@ -14,7 +14,7 @@ class NuevaAsamblea extends Component
 	public $descripcion, $fecha, $observacion;
 	public $asistentes = [];
 
-	public $abierto = false;
+	public $open = false;
 
 	public $selectAll = false;
 	public $selectPage = false;
@@ -26,11 +26,15 @@ class NuevaAsamblea extends Component
 
 	public $readyToLoad = false;
 
-	public $rules = [
+	protected $rules = [
 		'descripcion' => 'required',
 		'fecha' => 'required',
 		'observacion' => 'nullable',
-		'asistentes' => 'required',
+		'asistentes' => 'array|min:1',
+	];
+
+	protected $messages = [
+		'asistentes.min' => 'Debe seleccionar al menos un asistente.',
 	];
 
 	public function getConsultaIntegrantesProperty()
@@ -51,7 +55,6 @@ class NuevaAsamblea extends Component
 
 	public function render()
 	{
-
 		if ($this->selectAll) {
 			$this->asistentes = $this->consultaIntegrantes->pluck('id')->map(fn ($id) => (string)$id);
 		}
@@ -59,11 +62,6 @@ class NuevaAsamblea extends Component
 		$integrantes = $this->readyToLoad ? $this->integrantes : [];
 
 		return view('livewire.asamblea.nueva-asamblea', compact('integrantes'));
-	}
-
-	public function loadIntegrantes()
-	{
-		$this->readyToLoad = true;
 	}
 
 	public function updated($propertyName)
@@ -119,7 +117,7 @@ class NuevaAsamblea extends Component
 		$asamblea->asistentes()->attach($this->asistentes);
 
 		$this->reset([
-			'abierto',
+			'open',
 			'descripcion',
 			'fecha',
 			'observacion',

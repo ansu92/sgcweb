@@ -260,7 +260,7 @@ foreach ($linksDropdown as $item) {
 
                                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                    this.closest('form').submit();">
+                                                                                                                                            this.closest('form').submit();">
                                         {{ __('Cerrar sesión') }}
                                     </x-jet-dropdown-link>
                                 </form>
@@ -296,10 +296,24 @@ foreach ($linksDropdown as $item) {
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         @auth
             <div class="pt-2 pb-3 space-y-1">
+                @foreach ($linksDropdown as $item)
+
+                    @can($item['can'])
+                        <x-jet-responsive-nav-link href="{{ $item['route'] }}" :active="$item['active']">
+                            {{ $item['name'] }}
+                        </x-jet-responsive-nav-link>
+                    @endcan
+
+                @endforeach
+
                 @foreach ($nav_links as $item)
-                    <x-jet-responsive-nav-link href="{{ $item['route'] }}" :active="$item['active']">
-                        {{ $item['name'] }}
-                    </x-jet-responsive-nav-link>
+
+                    @can($item['can'])
+                        <x-jet-responsive-nav-link href="{{ $item['route'] }}" :active="$item['active']">
+                            {{ $item['name'] }}
+                        </x-jet-responsive-nav-link>
+                    @endcan
+
                 @endforeach
             </div>
 
@@ -321,10 +335,10 @@ foreach ($linksDropdown as $item) {
 
                 <div class="mt-3 space-y-1">
 
-                    @can('admin')
+                    @can('admin.home')
                         <x-jet-responsive-nav-link href="{{ route('admin.home') }}"
                             :active="request()->routeIs('admin.home')">
-                            {{ __('Configuración') }}
+                            {{ __('Administración del condominio') }}
                         </x-jet-responsive-nav-link>
                     @endcan
 
@@ -345,9 +359,8 @@ foreach ($linksDropdown as $item) {
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
-                        <x-jet-responsive-nav-link href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                                                                                        this.closest('form').submit();">
+                        <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
+                        this.closest('form').submit();">
                             {{ __('Cerrar sesión') }}
                         </x-jet-responsive-nav-link>
                     </form>

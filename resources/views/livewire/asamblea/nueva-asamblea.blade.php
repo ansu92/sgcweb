@@ -1,10 +1,10 @@
-<div wire:init="loadIntegrantes">
+<div wire:init="$set('readyToLoad', true)">
 
-    <x-jet-button wire:click="$set('abierto', true)">
+    <x-jet-button wire:click="$set('open', true)">
         Nuevo
     </x-jet-button>
 
-    <x-jet-dialog-modal wire:model="abierto" maxWidth='4xl'>
+    <x-jet-dialog-modal wire:model="open" maxWidth='4xl'>
         <x-slot name="title">
             Nueva asamblea
         </x-slot>
@@ -69,6 +69,12 @@
 
                                                                 <thead class="bg-gray-50">
                                                                     <tr>
+                                                                        <th scope="col"
+                                                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1">
+                                                                            <x-jet-checkbox wire:model="selectPage"
+                                                                                name="selectPage" id="selectPage" />
+
+                                                                        </th>
 
                                                                         <th scope="col"
                                                                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
@@ -140,22 +146,15 @@
 
                                                                             @endif
                                                                         </th>
+
                                                                         <th scope="col"
                                                                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                                             Unidad
                                                                         </th>
-                                                                        <th scope="col"
-                                                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-
-                                                                            <input wire:model="selectPage"
-                                                                                type="checkbox" name="selectPage"
-                                                                                id="selectPage" class="form-control">
-
-                                                                        </th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="bg-white divide-y divide-gray-200">
-                                                                    @if ($selectPage)
+                                                                    @if (count($asistentes) > 0)
                                                                         <tr>
                                                                             <td colspan="5"
                                                                                 class=" text-sm px-6 py-4 whitespace-nowrap bg-gray-200">
@@ -188,12 +187,17 @@
                                                                     @endif
                                                                     @foreach ($integrantes as $item)
                                                                         <tr>
+                                                                            <td
+                                                                                class="px-6 py-4 whitespace-nowrap text-xs space-x-1 font-medium">
+                                                                                <x-jet-checkbox wire:model="asistentes"
+                                                                                    value="{{ $item->id }}" />
+                                                                            </td>
                                                                             <td class="px-6 py-4 whitespace-nowrap">
                                                                                 <div
                                                                                     class="text-sm font-medium text-gray-900">
-                                                                                    @if($item->documento)
-																					{{ $item->letra }}-{{ $item->documento }}
-																					@endif
+                                                                                    @if ($item->documento)
+                                                                                        {{ $item->letra }}-{{ $item->documento }}
+                                                                                    @endif
                                                                                 </div>
                                                                             </td>
                                                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -213,16 +217,6 @@
                                                                                     class="text-sm font-medium text-gray-900">
                                                                                     {{ $item->unidad->numero }}
                                                                                 </div>
-                                                                            </td>
-                                                                            <td
-                                                                                class="px-6 py-4 whitespace-nowrap text-xs space-x-1 font-medium">
-                                                                                <input type="checkbox"
-                                                                                    {{-- name="check_integrante_{{ $item->id }}"
-                                                                                    id="check_integrante_{{ $item->id }}" --}}
-                                                                                    value="{{ $item->id }}"
-                                                                                    class="form-control"
-                                                                                    wire:model="asistentes">
-
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -266,7 +260,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button class="mr-2" wire:click="$set('abierto', false)">
+            <x-jet-secondary-button class="mr-2" wire:click="$set('open', false)">
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-button wire:click="save()" wire:loading.attr="disabled">

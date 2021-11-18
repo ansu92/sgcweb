@@ -9,6 +9,12 @@ use PDF;
 
 class CtrFondo extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('can:fondo.index')->only('index');
+		$this->middleware('can:fondo.show')->only('show');
+	}
+
 	public function index()
 	{
 		return view('fondo.index');

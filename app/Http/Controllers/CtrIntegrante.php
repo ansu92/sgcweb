@@ -8,6 +8,8 @@ use PDF;
 class CtrIntegrante extends Controller
 {
     public function show(Integrante $integrante) {
+		$this->authorize('view', $integrante);
+
 		return view('integrante.show', compact('integrante'));
 	}
 

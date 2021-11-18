@@ -21,6 +21,12 @@
 
                                 <thead class="bg-gray-50">
                                     <tr>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+                                            <x-jet-checkbox wire:model="selectPage" name="selectPage" id="selectPage" />
+
+                                        </th>
 
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
@@ -68,13 +74,6 @@
                                             wire:click="orden('apellido')">
                                             Categoría
                                         </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-
-                                            <input wire:model="selectPage" type="checkbox" name="selectPage"
-                                                id="selectPage" class="form-control">
-
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
@@ -109,6 +108,10 @@
                                     @endif
                                     @foreach ($listaServicios as $item)
                                         <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-xs space-x-1 font-medium">
+                                                <x-jet-checkbox value="{{ $item->id }}" class="form-control"
+                                                    wire:model="servicios" />
+                                            </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">
                                                     {{ $item->nombre }}
@@ -123,11 +126,6 @@
                                                 <div class="text-sm font-medium text-gray-900">
                                                     {{ $item->categoria->nombre }}
                                                 </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-xs space-x-1 font-medium">
-                                                <input type="checkbox" value="{{ $item->id }}" class="form-control"
-                                                    wire:model="servicios">
-
                                             </td>
                                         </tr>
                                     @endforeach

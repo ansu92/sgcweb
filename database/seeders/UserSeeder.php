@@ -124,7 +124,7 @@ class UserSeeder extends Seeder
 		$usuario = User::factory([
 			'name' => 'ProPietario',
 			'email' => 'propietario@gmail.com',
-			'password' => bcrypt('1234'),
+			'password' => bcrypt('123'),
 		])->create()->assignRole('Propietario');
 
 		$propietario = Propietario::factory()->create([
@@ -150,7 +150,7 @@ class UserSeeder extends Seeder
 		$usuario = User::factory([
 			'name' => 'CondoMinio',
 			'email' => 'condominio@gmail.com',
-			'password' => bcrypt('1234'),
+			'password' => bcrypt('123'),
 		])->create()->assignRole('Condominio');
 
 		Administrador::create([
@@ -173,7 +173,7 @@ class UserSeeder extends Seeder
 		$usuario = User::factory([
 			'name' => 'PorTero',
 			'email' => 'portero@gmail.com',
-			'password' => bcrypt('1234'),
+			'password' => bcrypt('123'),
 		])->create()->assignRole('Portero');
 
 		Administrador::create([

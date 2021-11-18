@@ -13,10 +13,11 @@
         </div>
 
         <hr class="mt-3 mb-3">
+
         <div class="space-y-2">
 
-            <div wire:click="$set('openMensualidad', true)">
-                <x-btn-admin-ancho nombre="Actualizar mensualidad" icono="img/iconos/mensualidad.png" />
+            <div class="self-end">
+                @livewire('admin.configurar-mensualidad')
             </div>
 
             <div class="self-end">

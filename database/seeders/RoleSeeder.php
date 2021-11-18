@@ -22,6 +22,7 @@ class RoleSeeder extends Seeder
 
 
 		Permission::create(['name' => 'home'])->assignRole($role2);
+		Permission::create(['name' => 'admin.home'])->assignRole($role4);
 
 		Permission::create(['name' => 'asamblea.index'])->assignRole($role4);
 		Permission::create(['name' => 'asamblea.create'])->assignRole($role4);
@@ -49,6 +50,12 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'comunicado.edit'])->assignRole($role4);
 		Permission::create(['name' => 'comunicado.show'])->assignRole($role4);
 
+		Permission::create(['name' => 'enfermedad.index']);
+		Permission::create(['name' => 'enfermedad.show']);
+		Permission::create(['name' => 'enfermedad.create']);
+		Permission::create(['name' => 'enfermedad.edit']);
+		Permission::create(['name' => 'enfermedad.delete']);
+
 		Permission::create(['name' => 'fondo.index'])->assignRole($role4);
 		Permission::create(['name' => 'fondo.create'])->assignRole($role4);
 		Permission::create(['name' => 'fondo.edit'])->assignRole($role4);
@@ -57,6 +64,15 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'gasto.index'])->assignRole($role4);
 		Permission::create(['name' => 'gasto.create'])->assignRole($role4);
 		Permission::create(['name' => 'gasto.show'])->assignRole($role4);
+
+		Permission::create(['name' => 'integrante.index'])->assignRole($role4);
+		Permission::create(['name' => 'integrante.show'])->assignRole([$role4, $role2]);
+
+		Permission::create(['name' => 'medicamento.index']);
+		Permission::create(['name' => 'medicamento.show']);
+		Permission::create(['name' => 'medicamento.create']);
+		Permission::create(['name' => 'medicamento.edit']);
+		Permission::create(['name' => 'medicamento.delete']);
 
 		Permission::create(['name' => 'pago-condominio.index'])->assignRole($role4);
 		Permission::create(['name' => 'pago-condominio.create'])->assignRole($role4);
@@ -71,6 +87,11 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'proveedor.create'])->assignRole($role4);
 		Permission::create(['name' => 'proveedor.edit'])->assignRole($role4);
 		Permission::create(['name' => 'proveedor.show'])->assignRole($role4);
+
+		Permission::create(['name' => 'sancion.index']);
+		Permission::create(['name' => 'sancion.create']);
+		Permission::create(['name' => 'sancion.edit']);
+		Permission::create(['name' => 'sancion.aplicar']);
 
 		Permission::create(['name' => 'servicio.index']);
 		Permission::create(['name' => 'servicio.create']);
@@ -88,12 +109,7 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'visita.index'])->assignRole($role3);
 		Permission::create(['name' => 'visita.create'])->assignRole($role3);
 		Permission::create(['name' => 'visita.show'])->assignRole($role3);
-
 		Permission::create(['name' => 'visita.lista'])->assignRole($role4);
-
-
-		// Permisos exclusivos de administrador
-		Permission::create(['name' => 'admin.home'])->assignRole($role4);
 
 		Permission::create(['name' => 'admin.administrador.index']);
 		Permission::create(['name' => 'admin.administrador.create']);
@@ -102,10 +118,10 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'admin.comunicado.index']);
 		Permission::create(['name' => 'admin.comunicado.delete']);
 
-		Permission::create(['name' => 'admin.unidad.index']);
-		Permission::create(['name' => 'admin.unidad.create']);
-		Permission::create(['name' => 'admin.unidad.edit']);
-		Permission::create(['name' => 'admin.unidad.delete']);
+		Permission::create(['name' => 'admin.unidad.index'])->assignRole($role4);
+		Permission::create(['name' => 'admin.unidad.create'])->assignRole($role4);
+		Permission::create(['name' => 'admin.unidad.edit'])->assignRole($role4);
+		Permission::create(['name' => 'admin.unidad.delete'])->assignRole($role4);
 
 		Permission::create(['name' => 'admin.usuario.index']);
 		Permission::create(['name' => 'admin.usuario.create']);

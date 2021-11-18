@@ -14,7 +14,6 @@ use App\Http\Controllers\CtrGasto;
 use App\Http\Controllers\CtrInicio;
 use App\Http\Controllers\CtrIntegrante;
 use App\Http\Controllers\CtrMedicamento;
-use App\Http\Controllers\CtrNosotros;
 use App\Http\Controllers\CtrPago;
 use App\Http\Controllers\CtrPagoPropietario;
 use App\Http\Controllers\CtrProveedor;
@@ -37,27 +36,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', CtrInicio::class)->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
-Route::get('asamblea', [CtrAsamblea::class, 'index'])->name('asamblea.index');
+Route::get('asamblea', [CtrAsamblea::class, 'index'])->middleware('can:asamblea.index')->name('asamblea.index');
 
-Route::get('asamblea/{asamblea}', [CtrAsamblea::class, 'show'])->name('asamblea.show');
+Route::get('asamblea/{asamblea}', [CtrAsamblea::class, 'show'])->middleware('can:asamblea.show')->name('asamblea.show');
 
 Route::resource('banco', CtrBanco::class)->only(['index', 'show'])->names('banco');
 
-Route::get('categoria', [CtrCategoria::class, 'index'])->name('categoria.index');
+Route::get('categoria', [CtrCategoria::class, 'index'])->middleware('can:categoria.index')->name('categoria.index');
 
-Route::get('categoria/{categoria}', [CtrCategoria::class, 'show'])->name('categoria.show');
+Route::get('categoria/{categoria}', [CtrCategoria::class, 'show'])->middleware('can:categoria.show')->name('categoria.show');
 
-Route::get('cierre-de-mes', CtrCierreMes::class)->name('cierre-mes.index');
+Route::get('cierre-de-mes', CtrCierreMes::class)->middleware('can:cierre-de-mes.index')->name('cierre-mes.index');
 
 Route::resource('comunicado', CtrComunicado::class)->only('index', 'show')->names('comunicado');
 
-Route::get('cuenta', [CtrCuenta::class, 'index'])->name('cuenta.index');
+Route::get('cuenta', [CtrCuenta::class, 'index'])->middleware('can:cuenta.index')->name('cuenta.index');
 
-Route::get('cuenta/{cuenta}', [CtrCuenta::class, 'show'])->name('cuenta.show');
+Route::get('cuenta/{cuenta}', [CtrCuenta::class, 'show'])->middleware('can:cuenta.show')->name('cuenta.show');
 
 Route::resource('enfermedad', CtrEnfermedad::class)->only('index', 'show')->names('enfermedad');
 
@@ -67,7 +66,7 @@ Route::resource('fondo', CtrFondo::class)->only(['index', 'show'])->names('fondo
 
 Route::resource('gasto', CtrGasto::class)->only(['index', 'show'])->names('gasto');
 
-Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->name('integrante.show');
+Route::get('integrante/{integrante}', [CtrIntegrante::class, 'show'])->middleware('can:integrante.show')->name('integrante.show');
 
 Route::resource('medicamento', CtrMedicamento::class)->only('index', 'show')->names('medicamento');
 
@@ -79,20 +78,20 @@ Route::get('confirmar-pagos', [CtrPagoPropietario::class, 'confirmar'])->name('p
 
 Route::resource('proveedor', CtrProveedor::class)->only(['index', 'show'])->names('proveedor');
 
-Route::get('aplicar-sancion', [CtrAplicarSancion::class, 'index'])->name('aplicar-sancion.index');
+Route::get('aplicar-sancion', [CtrAplicarSancion::class, 'index'])->middleware('can:sancion.aplicar')->name('aplicar-sancion.index');
 
 Route::resource('servicio', CtrServicio::class)->only(['index', 'show'])->names('servicio');
 
 Route::resource('tipo-unidad', CtrTipoUnidad::class)->only(['index', 'show'])->names('tipo-unidad');
 
-Route::get('visita', [CtrVisita::class, 'index'])->name('visita.index');
+Route::get('visita', [CtrVisita::class, 'index'])->middleware('can:visita.index')->name('visita.index');
 
-Route::get('visita/{visita}', [CtrVisita::class, 'show'])->name('visita.show');
+Route::get('visita/{visita}', [CtrVisita::class, 'show'])->middleware('can:visita.show')->name('visita.show');
 
 Route::get('visita/lista', [CtrVisita::class, 'lista'])->middleware('can:visita.lista')->name('visita.lista');
 
-Route::get('unidad', [CtrUnidad::class, 'index'])->name('unidad.index');
+Route::get('unidad', [CtrUnidad::class, 'index'])->middleware('can:unidad.index')->name('unidad.index');
 
-Route::get('unidad/{unidad}', [CtrUnidad::class, 'show'])->name('unidad.show');
+Route::get('unidad/{unidad}', [CtrUnidad::class, 'show'])->middleware('can:unidad.show')->name('unidad.show');
 
-Route::view('nosotros', 'nosotros.index')->name('nosotros.index');
+Route::view('nosotros', 'nosotros.index')->withoutMiddleware(['auth:sanctum', 'verified'])->name('nosotros.index');
