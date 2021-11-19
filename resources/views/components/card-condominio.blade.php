@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'flex flex-col shadow-md rounded bg-white h-auto']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col shadow-md rounded bg-white']) }}>
 
     <div class="p-5">
         <h5 class="text-gray-900 border-b-2 font-bold text-2xl tracking-tight mb-2 text-center">
@@ -12,25 +12,25 @@
             <div>Número de unidades: {{ $numUnidades }}</div>
         </div>
 
-        <hr class="mt-3 mb-3">
+        <hr class="my-3">
 
-        <div class="space-y-2">
+        <div class="space-y-3">
 
-            <div class="self-end">
+            {{-- <div class="self-end"> --}}
                 @livewire('admin.configurar-mensualidad')
-            </div>
+            {{-- </div> --}}
 
-            <div class="self-end">
+            {{-- <div class="self-end"> --}}
                 @livewire('admin.configurar-tasa-cambio')
-            </div>
+            {{-- </div> --}}
 
-            <div class="self-end">
+            {{-- <div class="self-end"> --}}
                 @livewire('admin.configurar-interes')
-            </div>
+            {{-- </div> --}}
 
-            <div class="self-end">
+            {{-- <div class="self-end"> --}}
                 @livewire('admin.configurar-iva')
-            </div>
+            {{-- </div> --}}
 
         </div>
     </div>

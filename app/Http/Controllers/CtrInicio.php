@@ -14,25 +14,27 @@ class CtrInicio extends Controller
 
 		if ($usuario->administrador) {
 
-			if ($usuario->hasRole('Portero')) {
-				// Si el usuario es un portero
-
-				return redirect()->route('visita.index');
-
-			} else if (!$usuario->hasRole('Propietario')) {
-				// Si el usaurio es un propietario
-
-				if (Condominio::first()) {
-					// Si los datos de condominio están registrados
-					return redirect()->route('admin.home');
-				} else {
-
-					return redirect()->route('admin.condominio');
-				}
-			} else {
+			if ($usuario->propietario) {
+				// Si el usuario es un propietario
 				$comunicados = Comunicado::orderBy('created_at', 'desc')->take(5)->get();
 
 				return view('welcome', compact('comunicados'));
+			} else {
+
+				if ($usuario->hasRole('Portero')) {
+					// Si el usuario es un portero
+
+					return redirect()->route('visita.index');
+				} else {
+
+					if (Condominio::first()) {
+						// Si los datos de condominio están registrados
+						return redirect()->route('admin.home');
+					} else {
+
+						return redirect()->route('admin.condominio');
+					}
+				}
 			}
 		} else {
 			$comunicados = Comunicado::orderBy('created_at', 'desc')->take(5)->get();

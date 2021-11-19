@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\CtrUnidad;
 use App\Http\Controllers\Admin\CtrUser;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', CtrInicio::class)->middleware('can:admin.home')->name('home');
+Route::view('/', 'admin.index')->middleware('can:admin.home')->name('home');
 
 Route::resource('administrador', CtrAdministrador::class)->only(['index', 'show'])->names('administrador');
 
