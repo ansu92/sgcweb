@@ -116,17 +116,15 @@
         <x-slot name="content">
             <div class="mt-10 sm:mt-0">
 
-                {{-- formulario --}}
-                        <h1 class="text-center text-lg mb-4">Seleccione el fondo donde se agregará el pago</h1>
+                <h1 class="text-center text-lg mb-4">Seleccione el fondo donde se agregará el pago</h1>
 
-                        <div class="grid grid-cols-2 gap-6">
+                <div class="grid grid-cols-2 gap-6">
 
-                            @foreach ($fondos as $item)
-                                <x-card-fondo wire:click="aceptar({{$item}})" :fondo="$item" class="cursor-pointer" />
-                            @endforeach
+                    @foreach ($fondos as $item)
+                        <x-card-fondo wire:click="aceptar({{ $item }})" :fondo="$item" class="cursor-pointer" />
+                    @endforeach
 
-                        </div>
-                {{-- /formulario --}}
+                </div>
 
             </div>
         </x-slot>

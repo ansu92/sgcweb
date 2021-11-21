@@ -76,6 +76,9 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
+            'dump' => [
+                'add_extra_option' => '--data-only'
+            ],
         ],
 
         'sqlsrv' => [
