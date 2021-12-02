@@ -130,6 +130,7 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'admin.usuario.show']);
 
 
+		Permission::create(['name' => 'admin.database']);
 		Permission::create(['name' => 'admin.database.backup']);
 		Permission::create(['name' => 'admin.database.restore']);
 

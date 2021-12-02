@@ -8,11 +8,13 @@
     position: relative;
 }
 
+
 /* Colores de fondo */
 
 .bg-azul {
     background-color: #3B82F6;
 }
+
 
 /* Espaciado */
 
@@ -20,11 +22,13 @@
     padding: 0.5rem;
 }
 
+
 /* Colores de texto */
 
 .text-red-500 {
     color: red;
 }
+
 
 /* Alineación del texto */
 
@@ -44,11 +48,13 @@
     text-align: justify;
 }
 
+
 /* Estilo de borde */
 
 .border-solid {
     border-style: solid;
 }
+
 
 /* Anchura de borde */
 
@@ -72,6 +78,7 @@
     border-width: 8px;
 }
 
+
 /* Colores de borde */
 
 .border-black {
@@ -79,11 +86,13 @@
     border-color: rgba(0, 0, 0, var(--tw-border-opacity));
 }
 
+
 /* Otras */
 
 .whitespace-nowrap {
     white-space: nowrap;
 }
+
 
 /* Personalizadas */
 

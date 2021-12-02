@@ -50,7 +50,7 @@ Route::get('categoria', [CtrCategoria::class, 'index'])->middleware('can:categor
 
 Route::get('categoria/{categoria}', [CtrCategoria::class, 'show'])->middleware('can:categoria.show')->name('categoria.show');
 
-Route::get('cierre-de-mes', CtrCierreMes::class)->middleware('can:cierre-de-mes.index')->name('cierre-mes.index');
+Route::get('cierre-de-mes', CtrCierreMes::class)->middleware('can:cierre-mes.index')->name('cierre-mes.index');
 
 Route::resource('comunicado', CtrComunicado::class)->only('index', 'show')->names('comunicado');
 

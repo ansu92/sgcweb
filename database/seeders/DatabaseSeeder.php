@@ -17,7 +17,6 @@ use App\Models\Proveedor;
 use App\Models\Sancion;
 use App\Models\Servicio;
 use App\Models\TipoUnidad;
-use App\Models\TipoUsuario;
 use App\Models\Unidad;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -41,7 +40,6 @@ class DatabaseSeeder extends Seeder
 		Medicamento::factory(15)->create();
 		Categoria::factory(7)->create();
 		TipoUnidad::factory(5)->create();
-		TipoUsuario::factory(5)->create();
 
 		Cuenta::factory(4)
 			->has(Fondo::factory())

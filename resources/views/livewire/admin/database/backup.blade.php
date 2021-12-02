@@ -10,8 +10,8 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
 
                 <div class="space-y-2">
-                    <x-btn-admin wire:click="respaldar" nombre="Respaldar" imagen="no" class="cursor-pointer" />
-                    <x-btn-admin wire:click="$set('openRestaurar', true)" nombre="Restaurar" imagen="no"
+                    <x-btn-admin wire:click="respaldar" nombre="Respaldar" imagen="img/iconos/respaldo.png" class="cursor-pointer" />
+                    <x-btn-admin wire:click="$set('openRestaurar', true)" nombre="Restaurar" imagen="img/iconos/recuperacion.png"
                         class="cursor-pointer" />
                 </div>
 

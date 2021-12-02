@@ -30,10 +30,10 @@ class Cuenta extends Model
         return $this->hasOne(Fondo::class);
     }
 
-    public function ocultarNumero()
-    {
-        $this->numero = Str::substr($this->numero, 0, 4) . '-####-##-######' . Str::substr($this->numero, 16, 4);
-    }
+    // public function ocultarNumero()
+    // {
+    //     $this->numero = Str::substr($this->numero, 0, 4) . '-####-##-######' . Str::substr($this->numero, 16, 4);
+    // }
 
     public function getNumeroOculto()
     {

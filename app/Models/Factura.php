@@ -47,4 +47,8 @@ class Factura extends Model
 	public function interes() {
 		return $this->belongsTo(Interes::class);
 	}
+
+	public function tasa() {
+		return $this->belongsTo(TasaCambio::class);
+	}
 }

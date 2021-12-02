@@ -89,10 +89,6 @@
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Beneficiario
-                                            </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Banco
                                             </th>
                                             <th scope="col"
@@ -122,13 +118,8 @@
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4">
-                                                    <div class="text-sm font-medium text-gray-900">
+                                                    <div class="text-sm font-medium text-gray-900 whitespace-nowrap">
                                                         {{ $item->documento }}
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->beneficiario }}
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4">
