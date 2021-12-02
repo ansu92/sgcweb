@@ -44,7 +44,6 @@ class Backup extends Component
     {
         Artisan::call('backup:run --only-db');
 
-        $this->reset('open');
         $this->emit('alert', 'Se ha creado el respaldo de la base de datos satisfactoriamente');
     }
 

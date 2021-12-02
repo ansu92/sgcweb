@@ -18,7 +18,7 @@ class CreateUnidadesTable extends Migration
 			$table->string('numero')->unique();
 			$table->string('direccion');
 			$table->foreignId('tipo_unidad_id')->constrained('tipo_unidades');
-			$table->foreignId('propietario_id')->nullable()->constrained();
+			$table->foreignId('propietario_id')->nullable()/* ->constrained() */;
 			$table->string('documento', 20)->nullable()->unique();
 			$table->timestamps();
 		});
