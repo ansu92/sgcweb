@@ -15,6 +15,8 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
+        "php-flasher/flasher-livewire": "^0.9.6",
+        "php-flasher/flasher-toastr-laravel": "^0.9.6",
         "spatie/laravel-backup": "^6.16",
         "spatie/laravel-permission": "^4.2",
         "vonage/client": "^2.4"

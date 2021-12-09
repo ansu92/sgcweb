@@ -74,6 +74,7 @@
                             <x-card-fondo :fondo="$item" />
                         </a>
                     @endforeach
+                </div>
 
                     @if ($fondos->hasPages())
                         <div class="px-6 py-3">
@@ -81,7 +82,6 @@
                         </div>
                     @endif
 
-                </div>
             @else
                 <div class="px-6 py-4">
                     Su búsqueda no tuvo resultado
