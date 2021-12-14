@@ -19,6 +19,7 @@ class Factura extends Model
 		'iva_id',
 		'interes_id',
 		'tasa_cambio_id',
+		'cierre_mes_id',
 	];
 
 	public function pagar(float $monto)
@@ -30,6 +31,11 @@ class Factura extends Model
 		}
 
 		$this->save();
+	}
+
+	public function revertirIva()
+	{
+		$this->monto = $this->monto / (($this->iva->factor / 100) + 1);
 	}
 
 	public function items() {

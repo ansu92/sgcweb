@@ -24,4 +24,19 @@ class Item extends Model
 	public function itemable() {
 		return $this->morphTo();
 	}
+
+	public function convertirMonto($moneda, $tasa)
+	{
+		if ($this->itemable->moneda != $moneda) {
+
+			if ($this->itemable->moneda == 'Bolívar') {
+				$montoConvertido = $this->monto / $tasa;
+
+			} else if ($this->itemable->moneda == 'Dólar') {
+				$montoConvertido = $this->monto * $tasa;
+			}
+
+			$this->monto = $montoConvertido;
+		}
+	}
 }

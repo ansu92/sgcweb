@@ -1,6 +1,6 @@
 <div>
 
-    <x-jet-button wire:click="$set('open', true)">
+    <x-jet-button wire:click="$set('open', true)" class="whitespace-nowrap">
         Cerrar mes
     </x-jet-button>
 

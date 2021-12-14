@@ -19,7 +19,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -45,16 +44,6 @@
 
     @stack('modals')
 
-    <script>
-        Livewire.on('alert', function(message) {
-            Swal.fire(
-                'Good job!',
-                message,
-                'success'
-            )
-        });
-    </script>
-    
     @flasher_render
     @flasher_livewire_render
     @livewireScripts
