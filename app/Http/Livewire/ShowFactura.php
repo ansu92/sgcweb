@@ -5,10 +5,13 @@ namespace App\Http\Livewire;
 use App\Models\Condominio;
 use App\Models\Factura;
 use App\Models\Iva;
+use App\Traits\WithCurrencies;
 use Livewire\Component;
 
 class ShowFactura extends Component
 {
+	use WithCurrencies;
+
 	public Factura $factura;
 
 	public $countItems = 0;

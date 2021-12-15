@@ -99,12 +99,12 @@
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->monto }}
+                                                        {{ $item->montoFormateado }}
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->monto_por_pagar }}
+                                                        {{ $item->montoPorPagarFormateado }}
                                                     </div>
                                                 </td>
                                                 <td

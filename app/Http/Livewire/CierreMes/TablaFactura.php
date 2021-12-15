@@ -20,15 +20,14 @@ class TablaFactura extends Component
 	protected $listeners = ['render'];
 
 	public function render()
-    {
+	{
 		if ($this->readyToLoad) {
-			$facturas = Factura::select()
-				->orderBy($this->orden, $this->direccion)
-				->paginate($this->cantidad);
+
+			$facturas = Factura::orderBy($this->orden, $this->direccion)->paginate($this->cantidad);
 		} else {
 			$facturas = [];
 		}
 
-        return view('livewire.cierre-mes.tabla-factura', compact('facturas'));
-    }
+		return view('livewire.cierre-mes.tabla-factura', compact('facturas'));
+	}
 }

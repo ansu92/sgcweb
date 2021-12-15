@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\WithCurrencies;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Factura extends Model
 {
     use HasFactory;
+	use WithCurrencies;
 
 	protected $fillable = [
 		'numero',
@@ -36,6 +38,14 @@ class Factura extends Model
 	public function revertirIva()
 	{
 		$this->monto = $this->monto / (($this->iva->factor / 100) + 1);
+	}
+
+	public function getMontoFormateadoAttribute() {
+		return $this->formatearMonto($this->monto, $this->moneda);
+	}
+
+	public function getMontoPorPagarFormateadoAttribute() {
+		return $this->formatearMonto($this->monto_por_pagar, $this->moneda);
 	}
 
 	public function items() {

@@ -24,6 +24,11 @@ class Integrante extends Model
 		'unidad_id',
 	];
 
+	public function getNombreCompletoAttribute()
+	{
+		return $this->nombre . ' ' . $this->apellido;
+	}
+
 	public function propietario()
 	{
 		return $this->hasOne(Propietario::class);
@@ -44,11 +49,13 @@ class Integrante extends Model
 		return $this->belongsToMany(Asamblea::class, 'asistentes');
 	}
 
-	public function enfermedades() {
+	public function enfermedades()
+	{
 		return $this->belongsToMany(Enfermedad::class);
 	}
 
-	public function medicamentos() {
+	public function medicamentos()
+	{
 		return $this->belongsToMany(Medicamento::class);
 	}
 }

@@ -50,8 +50,7 @@
                             Nombre:
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{ $factura->unidad->propietario->integrante->nombre }}
-                            {{ $factura->unidad->propietario->integrante->apellido }}
+                            {{ $factura->unidad->propietario->integrante->nombreCompleto }}
                         </dd>
                     </div>
                     <div>
@@ -149,7 +148,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            {{ number_format($item->montoSinIva, 2, ',', '.') }}
+                                            {{ $this->formatearMonto($item->montoSinIva, $factura->moneda) }}
                                         </div>
                                     </td>
                                 </tr>
@@ -167,7 +166,7 @@
                                 <th scope="col"
                                     class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{ number_format($sub, 2, ',', '.') }}
+                                        {{ $this->formatearMonto($sub, $factura->moneda) }}
                                     </div>
                                 </th>
                             </tr>
@@ -184,7 +183,7 @@
                                         class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         <div class="text-sm font-medium text-gray-900">
                                             {{-- {{ $montoInteres }} --}}
-                                            {{ number_format($montoInteres, 2, ',', '.') }}
+                                            {{ $this->formatearMonto($montoInteres, $factura->moneda) }}
                                         </div>
                                     </th>
                                 </tr>
@@ -199,8 +198,8 @@
                                     <th scope="col"
                                         class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         <div class="text-sm font-medium text-gray-900">
-                                            {{ $subConInteres }}
-                                            {{ number_format($subConInteres, 2, ',', '.') }}
+                                            {{-- {{ $subConInteres }} --}}
+                                            {{ $this->formatearMonto($subConInteres, $factura->moneda) }}
                                         </div>
                                     </th>
                                 </tr>
@@ -216,7 +215,7 @@
                                 <th scope="col"
                                     class="bg-white px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{ number_format($montoIva, 2, ',', '.') }}
+                                        {{ $this->formatearMonto($montoIva, $factura->moneda) }}
                                     </div>
                                 </th>
                             </tr>
@@ -232,7 +231,7 @@
                                     class="bg-white px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="text-sm font-medium text-gray-900">
                                         {{-- {{ $total }} --}}
-                                        {{ number_format($total, 2, ',', '.') }}
+                                        {{ $this->formatearMonto($total, $factura->moneda) }}
                                     </div>
                                 </th>
                             </tr>
