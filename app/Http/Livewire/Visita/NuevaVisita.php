@@ -97,9 +97,9 @@ class NuevaVisita extends Component
 			'color',
 		]);
 
-		// $this->unidad = new Unidad;
+		$this->unidad = new Unidad;
 
 		$this->emitTo('visita.tabla-visita', 'render');
-		$this->emit('alert', 'La visita se registró satisfactoriamente');
+		toastr()->livewire()->addSuccess('La visita se registró satisfactoriamente');
 	}
 }

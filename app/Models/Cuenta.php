@@ -35,7 +35,7 @@ class Cuenta extends Model
     //     $this->numero = Str::substr($this->numero, 0, 4) . '-####-##-######' . Str::substr($this->numero, 16, 4);
     // }
 
-    public function getNumeroOculto()
+    public function getNumeroOcultoAttribute()
     {
         return $this->numero = Str::substr($this->numero, 0, 4) . '-####-##-######' . Str::substr($this->numero, 16, 4);
     }

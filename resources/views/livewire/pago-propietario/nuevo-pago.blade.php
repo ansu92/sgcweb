@@ -32,7 +32,7 @@
                                     Factura:
                                 </label>
                                 <input type="text" name="factura" id="factura" readonly value="{{ $factura->numero }}"
-                                    class="form-control w-full">
+                                    class="form-control w-full" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
@@ -40,10 +40,10 @@
                                     Monto restante por pagar:
                                 </label>
                                 <input type="text" name="monto-por-pagar" id="monto-por-pagar" readonly
-                                    value="{{ $montoFormateado }}" class="form-control w-full">
+                                    value="{{ $montoFormateado }}" class="form-control w-full" />
                             </div>
 
-                            @if ($conCambio && $this->tasaCambio)
+                            @if ($conCambio)
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="monto-por-pagar-convertido"
                                         class="block text-sm font-medium text-gray-700">
@@ -51,7 +51,7 @@
                                     </label>
                                     <input type="text" name="monto-por-pagar-convertido" id="monto-por-pagar-convertido"
                                         value="{{ $montoFacturaConvertidoFormateado }}" readonly
-                                        class="form-control w-full">
+                                        class="form-control w-full" />
                                 </div>
                             @endif
 
@@ -60,7 +60,7 @@
                                     Descripción:
                                 </label>
                                 <input wire:model.lazy="descripcion" type="text" name="descripcion" id="descripcion"
-                                    class="form-control w-full">
+                                    class="form-control w-full" />
                                 <x-jet-input-error for="descripcion" />
                             </div>
 
@@ -69,7 +69,7 @@
                                     Fecha de pago:
                                 </label>
                                 <input wire:model="fecha" type="date" name="fecha" id="fecha"
-                                    class="form-control w-full">
+                                    class="form-control w-full" />
                                 <x-jet-input-error for="fecha" />
                             </div>
 
@@ -78,13 +78,13 @@
                                     Monto:
                                 </label>
                                 <input wire:model="monto" type="text" name="monto" id="monto"
-                                    class="form-control w-full">
+                                    class="form-control w-full" />
                                 <x-jet-input-error for="monto" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-1">
                                 <input wire:click="pagarTotal" wire:loading.attr="disabled" type="button"
-                                    value="Monto total" class="btn btn-blue text-xs h-14 disabled:bg-opacity-25">
+                                    value="Monto total" class="btn btn-blue text-xs h-14 disabled:bg-opacity-25" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
@@ -142,7 +142,7 @@
                                             @else
 
                                                 @foreach ($cuentas as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->numero }}
+                                                    <option value="{{ $item->id }}">{{ $item->numeroOculto }}
                                                     </option>
                                                 @endforeach
 
@@ -162,13 +162,10 @@
                                             class="block text-sm font-medium text-gray-700">
                                             Referencia:
                                         </label>
-                                        <input wire:model="referencia" type="text" name="referencia"
-                                            id="referencia" class="form-control w-full">
+                                        <input wire:model.lazy="referencia" type="text" name="referencia"
+                                            id="referencia" class="form-control w-full" />
                                         <x-jet-input-error for="referencia" />
                                     </div>
-                                @break
-
-                                @default
                                 @break
                             @endswitch
 
@@ -178,31 +175,29 @@
                                         class="block text-sm font-medium text-gray-700">
                                         Tasa de cambio:
                                     </label>
-                                    <input wire:model="tasaCambio.tasa" type="text" name="tasa-cambio"
-                                        id="tasa-cambio" class="form-control w-full">
-                                    <x-jet-input-error for="tasaCambio.tasa" />
+                                    <input type="text" name="tasa-cambio" id="tasa-cambio" value="{{$this->tasaCambio->tasa}}" class="form-control w-full" readonly />
                                 </div>
                             @endif
 
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-{{-- /formulario --}}
+            {{-- /formulario --}}
 
-</x-slot>
+        </x-slot>
 
-<x-slot name="footer">
+    <x-slot name="footer">
 
-<x-jet-secondary-button wire:click="$set('open', false)">
-    Cancelar
-</x-jet-secondary-button>
+        <x-jet-secondary-button wire:click="$set('open', false)">
+            Cancelar
+        </x-jet-secondary-button>
 
-<x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
-    Registrar
-</x-jet-button>
+        <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
+            Registrar
+        </x-jet-button>
 
-</x-slot>
+    </x-slot>
 
 </x-jet-dialog-modal>
 

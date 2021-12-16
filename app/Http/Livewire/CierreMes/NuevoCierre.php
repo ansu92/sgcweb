@@ -262,10 +262,4 @@ class NuevoCierre extends Component
 			throw $e;
 		}
 	}
-
-	private function revertirIva($monto, $iva)
-	{
-		$montoSinIva = $monto / (($iva / 100) + 1);
-		return $montoSinIva;
-	}
 }

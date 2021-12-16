@@ -24,6 +24,11 @@ class Factura extends Model
 		'cierre_mes_id',
 	];
 
+	protected $casts = [
+		'monto' => 'decimal:2',
+		'monto_por_pagar' => 'decimal:2',
+	];
+
 	public function pagar(float $monto)
 	{
 		$this->monto_por_pagar -= $monto;

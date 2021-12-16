@@ -26,7 +26,7 @@ class CreatePagosPropietarioTable extends Migration
             $table->foreignId('fondo_id')->nullable()->constrained();
             $table->foreignId('unidad_id')->constrained('unidades');
             $table->foreignId('factura_id')->constrained();
-            $table->enum('estado', ['Por confirmar', 'Confirmado'])->nullable()->default('Por confirmar');
+            $table->enum('estado', ['Por confirmar', 'Confirmado', 'Rechazado'])->nullable()->default('Por confirmar');
             $table->timestamps();
         });
     }
