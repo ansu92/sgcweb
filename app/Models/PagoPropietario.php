@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\WithCurrencies;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PagoPropietario extends Model
 {
 	use HasFactory;
+	use WithCurrencies;
 
 	protected $table = 'pagos_propietario';
 
@@ -18,7 +20,7 @@ class PagoPropietario extends Model
 		'referencia',
 		'forma_pago',
 		'moneda',
-		'tasa_cambio',
+		'tasa_cambio_id',
 		'fondo_id',
 		'unidad_id',
 		'factura_id',
@@ -49,11 +51,20 @@ class PagoPropietario extends Model
 		$this->save();
 	}
 
+	public function getMontoFormateadoAttribute() {
+		return $this->formatearMonto($this->monto, $this->moneda);
+	}
+
 	public function aceptarPago()
 	{
 		$this->fondo->acreditar($this->monto);
 
 		$this->estado = 'Confirmado';
+		$this->save();
+	}
+
+	public function rechazar() {
+		$this->estado = 'Rechazado';
 		$this->save();
 	}
 
@@ -75,5 +86,9 @@ class PagoPropietario extends Model
 	public function recibo()
 	{
 		return $this->hasOne(Recibo::class);
+	}
+
+	public function tasa() {
+		return $this->belongsTo(TasaCambio::class, 'tasa_cambio_id');
 	}
 }

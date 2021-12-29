@@ -6,6 +6,8 @@ use App\Models\Asamblea;
 use App\Models\Gasto;
 use App\Models\GastoExtraordinario;
 use App\Models\Proveedor;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -76,8 +78,6 @@ class NuevoGasto extends Component
 			'min:1',
 		],
 		'montos.*' => [
-			// Parece ser que esta validación es la que está causando el error -_-
-			// 'exclude_if:servicios.*,false',
 			'required_with:servicios.*',
 			'numeric',
 			'gt:0',
@@ -131,7 +131,9 @@ class NuevoGasto extends Component
 
 	public function updated($propertyName)
 	{
-		$this->validateOnly($propertyName);
+		if (strpos($propertyName, 'montos.') === false) {
+			$this->validateOnly($propertyName);
+		}
 	}
 
 	public function updatingBusqueda()
@@ -172,10 +174,6 @@ class NuevoGasto extends Component
 
 		$this->servicios = [];
 		$this->montos = [];
-
-		foreach ($this->listaServicios as $servicio) {
-			$this->montos[$servicio->id] = '';
-		}
 	}
 
 	public function updatingServicios()
@@ -183,8 +181,15 @@ class NuevoGasto extends Component
 		$this->reset('monto');
 	}
 
-	public function updatedServicios()
+	public function updatedServicios($value, $key)
 	{
+		if ($value == false) {
+			unset($this->servicios[$key]);
+			unset($this->montos[$key]);
+		} else {
+			// $this->montos[$key] = null;
+		}
+
 		$this->selectAll = false;
 		$this->selectPage = false;
 
@@ -196,8 +201,12 @@ class NuevoGasto extends Component
 		$this->reset('monto');
 	}
 
-	public function updatedMontos()
+	public function updatedMontos($value, $key)
 	{
+		if ($value == '') {
+			unset($this->montos[$key]);
+		}
+
 		$this->sumarMontos();
 	}
 
@@ -224,12 +233,12 @@ class NuevoGasto extends Component
 	{
 		foreach ($this->montos as $key => $monto) {
 
-			if ($monto != "") {
+			// if ($monto != null) {
 
-				if (in_array($key, $this->servicios)) {
-					$this->monto = $this->monto + $monto;
-				}
+			if (in_array($key, $this->servicios)) {
+				$this->monto = $this->monto + $monto;
 			}
+			// }
 		}
 
 		number_format($this->monto, 2, ',', '.');
@@ -239,58 +248,68 @@ class NuevoGasto extends Component
 	{
 		$this->validate();
 
-		$gasto = Gasto::create([
-			'descripcion' => $this->descripcion,
-			'tipo' => $this->tipo,
-			'calculo_por' => $this->calculo,
-			'mes_cobro' => $this->comienzoCobro,
-			'moneda' => $this->moneda,
-			'monto' => $this->monto,
-			'saldo' => $this->monto,
-			'observaciones' => $this->observaciones,
-			'proveedor_id' => $this->proveedor->id,
-			'factura' => $this->factura,
-		]);
+		DB::beginTransaction();
 
-		if ($this->tipo == 'Extraordinario') {
-			$gastoExtraordinario = GastoExtraordinario::create([
-				'gasto_id' => $gasto->id,
-				'num_meses' => $this->numeroMeses,
+		try {
+			$gasto = Gasto::create([
+				'descripcion' => $this->descripcion,
+				'tipo' => $this->tipo,
+				'calculo_por' => $this->calculo,
+				'mes_cobro' => $this->comienzoCobro,
+				'moneda' => $this->moneda,
+				'monto' => $this->monto,
+				'saldo' => $this->monto,
+				'observaciones' => $this->observaciones,
+				'proveedor_id' => $this->proveedor->id,
+				'factura' => $this->factura,
 			]);
 
-			if ($this->elegidoAsamblea) {
-				$gastoExtraordinario->asamblea()->associate($this->asamblea);
-				$gastoExtraordinario->save();
+			if ($this->tipo == 'Extraordinario') {
+				$gastoExtraordinario = GastoExtraordinario::create([
+					'gasto_id' => $gasto->id,
+					'num_meses' => $this->numeroMeses,
+				]);
+
+				if ($this->elegidoAsamblea) {
+					$gastoExtraordinario->asamblea()->associate($this->asamblea);
+					$gastoExtraordinario->save();
+				}
 			}
+
+			foreach ($this->servicios as $item) {
+				$gasto->servicios()->attach($item, ['monto' => $this->montos[$item]]);
+			}
+
+			DB::commit();
+
+			$this->reset([
+				'open',
+				'descripcion',
+				'tipo',
+				'numeroMeses',
+				'elegidoAsamblea',
+				'calculo',
+				'comienzoCobro',
+				'moneda',
+				'monto',
+				'observaciones',
+				'factura',
+				'servicios',
+				'montos',
+				'selectPage',
+				'selectAll',
+			]);
+
+			$this->asamblea = new Asamblea;
+			$this->proveedor = new Proveedor;
+			$this->proveedor->id = 0;
+
+			$this->emitTo('gasto.tabla-gasto', 'render');
+			toastr()->livewire()->addSuccess('El gasto se registró satisfactoriamente');
+
+		} catch (Exception $e) {
+			DB::rollBack();
+			throw $e;
 		}
-
-		foreach ($this->servicios as $item) {
-			$gasto->servicios()->attach($item, ['monto' => $this->montos[$item]]);
-		}
-
-		$this->reset([
-			'open',
-			'descripcion',
-			'tipo',
-			'numeroMeses',
-			'elegidoAsamblea',
-			'calculo',
-			'comienzoCobro',
-			'moneda',
-			'monto',
-			'observaciones',
-			'factura',
-			'servicios',
-			'montos',
-			'selectPage',
-			'selectAll',
-		]);
-
-		$this->asamblea = new Asamblea;
-		$this->proveedor = new Proveedor;
-		$this->proveedor->id = 0;
-
-		$this->emitTo('gasto.tabla-gasto', 'render');
-		$this->emit('alert', 'El gasto se registró satisfactoriamente');
 	}
 }

@@ -70,13 +70,21 @@
                                                         <button class="btn btn-green"
                                                             wire:click="elegirFondo({{ $pago }})">
                                                             <i class="fas fa-check"></i>
+                                                            Aceptar
                                                         </button>
                                                     @else
                                                         <a class="btn btn-green"
                                                             wire:click="confirmar({{ $pago }})">
                                                             <i class="fas fa-check"></i>
+                                                            Aceptar
                                                         </a>
                                                     @endif
+
+                                                    <button class="btn btn-red"
+                                                        wire:click="abrirRechazar( {{ $pago }} )">
+                                                        <i class="fas fa-times"></i>
+                                                        Rechazar
+                                                    </button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -121,7 +129,8 @@
                 <div class="grid grid-cols-2 gap-6">
 
                     @foreach ($fondos as $item)
-                        <x-card-fondo wire:click="aceptar({{ $item }})" :fondo="$item" class="cursor-pointer" />
+                        <x-card-fondo wire:click="aceptar({{ $item }})" :fondo="$item"
+                            class="cursor-pointer" />
                     @endforeach
 
                 </div>
@@ -136,4 +145,25 @@
         </x-slot>
     </x-jet-dialog-modal>
 
+    <x-jet-confirmation-modal wire:model="openRechazar">
+
+        <x-slot name="title">
+            Rechazar pago
+        </x-slot>
+
+        <x-slot name="content">
+            ¿Seguro que desea rechazar el pago?
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$set('openRechazar', false)">
+                Cancelar
+            </x-jet-secondary-button>
+
+            <x-jet-danger-button wire:click="rechazar" wire:loading.attr="disabled" class="disabled:opacity-25">
+                Rechazar
+            </x-jet-danger-button>
+        </x-slot>
+
+    </x-jet-confirmation-modal>
 </div>

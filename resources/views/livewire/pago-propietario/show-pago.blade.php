@@ -7,7 +7,7 @@
         </div>
         <div class="border-t border-gray-200">
             <dl>
-			
+
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
                         Descripción:
@@ -22,16 +22,7 @@
                         Monto:
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $pago->monto }}
-
-                        @switch($pago->moneda)
-                            @case('Bolívar')
-                                Bs.
-                            @break
-                            @case('Dólar')
-                                $
-                            @break
-                        @endswitch
+                        {{ $pago->montoFormateado }}
                     </dd>
                 </div>
 
@@ -83,16 +74,16 @@
                     </div>
 
                 @endif
-				
+
                 @if ($pago->moneda != $pago->factura->moneda)
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Tasa de cambio:
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $pago->tasa_cambio }} Bs.S
-                    </dd>
-                </div>
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Tasa de cambio:
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ $pago->tasa->tasaFormateada }}
+                        </dd>
+                    </div>
                 @endif
 
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -116,3 +107,4 @@
             </dl>
         </div>
     </div>
+</div>

@@ -5,18 +5,15 @@ namespace App\Http\Livewire\PagoPropietario;
 use App\Models\Fondo;
 use App\Models\PagoPropietario;
 use App\Models\Recibo;
+use App\Traits\WithCurrencies;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
-use NumberFormatter;
 
 class ConfirmarPago extends Component
 {
 	use WithPagination;
-
-	private NumberFormatter $formatoDinero;
-	private $bolivar = 'VES';
-	private $dolar = 'USD';
+	use WithCurrencies;
 
 	public $busqueda;
 	public $orden = 'fecha';
@@ -29,27 +26,16 @@ class ConfirmarPago extends Component
 	public $pago;
 	public $fondos = [];
 
+	public $openRechazar = false;
+
 	public function render()
 	{
-		$this->formatoDinero = new NumberFormatter('es_VE', NumberFormatter::CURRENCY);
-
 		$pagos = $this->readyToLoad ?
 			PagoPropietario::where('estado', 'Por confirmar')
 			->where('descripcion', 'LIKE', '%' . $this->busqueda . '%')
 			->orderBy($this->orden, $this->direccion)
 			->paginate($this->cantidad) :
 			[];
-
-		foreach ($pagos as $pago) {
-
-			if ($pago->moneda == 'Bolívar') {
-
-				$pago->montoFormateado = $this->formatoDinero->format($pago->monto);
-			} else if ($pago->moneda == 'Dólar') {
-
-				$pago->montoFormateado = $this->formatoDinero->formatCurrency($pago->monto, $this->dolar);
-			}
-		}
 
 		return view('livewire.pago-propietario.confirmar-pago', compact('pagos'));
 	}
@@ -69,7 +55,7 @@ class ConfirmarPago extends Component
 			'pago_propietario_id' => $pago->id,
 		]);
 
-		$this->emit('alert', 'El pago ha sido confirmado satisfactoriamente.');
+		toastr()->livewire()->addSuccess('El pago ha sido confirmado satisfactoriamente.');
 	}
 
 	public function elegirFondo(PagoPropietario $pago)
@@ -97,6 +83,20 @@ class ConfirmarPago extends Component
 
 		$this->reset('openConfirmar');
 
-		$this->emit('alert', 'El pago ha sido confirmado satisfactoriamente.');
+		toastr()->livewire()->addSuccess('El pago ha sido confirmado satisfactoriamente.');
+	}
+
+	public function abrirRechazar(PagoPropietario $pago) {
+		$this->pago = $pago;
+		$this->openRechazar = true;
+	}
+
+	public function rechazar() {
+		$this->pago->rechazar();
+
+		$this->reset('openRechazar');
+		$this->pago = new PagoPropietario;
+
+		toastr()->livewire()->addSuccess('El pago ha sido rechazado');
 	}
 }
