@@ -48,6 +48,8 @@
     @flasher_livewire_render
     @livewireScripts
 
+    @stack('js')
+
 </body>
 
 </html>

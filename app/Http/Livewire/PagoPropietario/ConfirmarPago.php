@@ -86,16 +86,10 @@ class ConfirmarPago extends Component
 		toastr()->livewire()->addSuccess('El pago ha sido confirmado satisfactoriamente.');
 	}
 
-	public function abrirRechazar(PagoPropietario $pago) {
-		$this->pago = $pago;
-		$this->openRechazar = true;
-	}
-
-	public function rechazar() {
-		$this->pago->rechazar();
+	public function rechazar(PagoPropietario $pago) {
+		$pago->rechazar();
 
 		$this->reset('openRechazar');
-		$this->pago = new PagoPropietario;
 
 		toastr()->livewire()->addSuccess('El pago ha sido rechazado');
 	}

@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
 			'nombre' => 'Diego',
 			's_nombre' => 'A.',
 			'apellido' => 'Rodríguez',
-			'fecha_nacimiento' => '25-08-1999',
+			'fecha_nacimiento' => '1999-08-25',
 			'email' => 'diegordgz8@outlook.com',
 		])->create();
 
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
 		$integrante = Integrante::factory([
 			'nombre' => 'Anthony',
 			'apellido' => 'Suárez',
-			'fecha_nacimiento' => '08-09-1992',
+			'fecha_nacimiento' => '1992-09-08',
 			'email' => 'ajhensuarez@gmail.com',
 		])->create();
 
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
 			'documento' => '00000000',
 			'nombre' => 'Admin',
 			'apellido' => 'Istrador',
-			'fecha_nacimiento' => '01-01-2000',
+			'fecha_nacimiento' => '2000-01-01',
 			'email' => 'teamsgcweb2.0@gmail.com',
 		])->create();
 
@@ -117,7 +117,7 @@ class UserSeeder extends Seeder
 			'documento' => '00000001',
 			'nombre' => 'Pro',
 			'apellido' => 'Pietario',
-			'fecha_nacimiento' => '01-01-2000',
+			'fecha_nacimiento' => '2000-01-01',
 			'email' => 'propietario@gmail.com',
 		])->create();
 
@@ -143,7 +143,7 @@ class UserSeeder extends Seeder
 			'documento' => '00000002',
 			'nombre' => 'Condo',
 			'apellido' => 'Minio',
-			'fecha_nacimiento' => '01-01-2000',
+			'fecha_nacimiento' => '2000-01-01',
 			'email' => 'condominio@gmail.com',
 		])->create();
 
@@ -166,7 +166,7 @@ class UserSeeder extends Seeder
 			'documento' => '00000003',
 			'nombre' => 'Por',
 			'apellido' => 'Tero',
-			'fecha_nacimiento' => '01-01-2000',
+			'fecha_nacimiento' => '2000-01-01',
 			'email' => 'portero@gmail.com',
 		])->create();
 

@@ -38,6 +38,8 @@ class NuevoPago extends Component
 	public $direccion = 'desc';
 	public $cantidad = '10';
 
+	public $facturaMasVieja;
+
 	protected function rules()
 	{
 		$rules = [
@@ -88,16 +90,22 @@ class NuevoPago extends Component
 
 		if ($this->formaPago == 'Pago móvil') {
 			$cuentas = Cuenta::where('publica', true)->whereNotNull('telefono')->get();
-			
 		} else {
 			$cuentas = Cuenta::where('publica', true)->get();
 		}
+
+		$this->facturaMasVieja = $facturas->sortBy('fecha')->first();
 
 		return view('livewire.pago-propietario.nuevo-pago', compact('facturas', 'cuentas'));
 	}
 
 	public function mostrarForm(Factura $factura)
 	{
+		if ($this->facturaMasVieja->id != $factura->id) {
+			toastr()->livewire()->addError('No puede pagar una factura si existe otra más vieja.');
+			return false;
+		}
+
 		$this->reset([
 			'descripcion',
 			'monto',
@@ -257,7 +265,8 @@ class NuevoPago extends Component
 		toastr()->livewire()->addSuccess('El pago ha sido registrado, debe esperar que el condominio confirme el pago para ver los cambios.');
 	}
 
-	public function getTasaCambioProperty() {
+	public function getTasaCambioProperty()
+	{
 		return TasaCambio::orderBy('created_at', 'desc')->first();
 	}
 }

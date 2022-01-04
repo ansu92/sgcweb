@@ -1,4 +1,4 @@
-<div wire:init="$set('readyToLoad', true)">
+<div x-data="initConfirmarPago()" x-init="init" wire:init="$set('readyToLoad', true)">
     <div class="space-y-4">
         <div class="flex space-x-4 items-center">
             <x-select-cantidad />
@@ -80,8 +80,7 @@
                                                         </a>
                                                     @endif
 
-                                                    <button class="btn btn-red"
-                                                        wire:click="abrirRechazar( {{ $pago }} )">
+                                                    <button class="btn btn-red" @click="abrirRechazar(@js($pago))">
                                                         <i class="fas fa-times"></i>
                                                         Rechazar
                                                     </button>
@@ -129,8 +128,7 @@
                 <div class="grid grid-cols-2 gap-6">
 
                     @foreach ($fondos as $item)
-                        <x-card-fondo wire:click="aceptar({{ $item }})" :fondo="$item"
-                            class="cursor-pointer" />
+                        <x-card-fondo wire:click="aceptar({{ $item }})" :fondo="$item" class="cursor-pointer" />
                     @endforeach
 
                 </div>
@@ -160,10 +158,34 @@
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-danger-button wire:click="rechazar" wire:loading.attr="disabled" class="disabled:opacity-25">
+            <x-jet-danger-button @click="rechazar" wire:loading.attr="disabled"
+                class="disabled:opacity-25">
                 Rechazar
             </x-jet-danger-button>
         </x-slot>
 
     </x-jet-confirmation-modal>
 </div>
+
+@push('js')
+    <script>
+        function initConfirmarPago() {
+            return {
+                pago: null,
+
+                init: function() {
+                },
+
+                abrirRechazar: function(pago) {
+                    this.$wire.openRechazar = true;
+                    this.pago = pago.id;
+                },
+
+                rechazar: function() {
+                    console.log(this.pago);
+                    this.$wire.rechazar(this.pago);
+                }
+            }
+        }
+    </script>
+@endpush
