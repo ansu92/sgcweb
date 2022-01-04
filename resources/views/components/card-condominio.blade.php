@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'flex flex-col shadow-md rounded bg-white']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col shadow-md rounded bg-white border']) }}>
 
     <div class="p-5">
         <h5 class="text-gray-900 border-b-2 font-bold text-2xl tracking-tight mb-2 text-center">

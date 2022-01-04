@@ -2,13 +2,18 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\CierreMes;
 use Livewire\Component;
 
 class Administracion extends Component
 {
-	public function render()
-	{
-		$menu = [
+	public bool $mesEstaPendiente;
+	public $menu;
+
+	public function mount() {
+		$this->mesEstaPendiente = CierreMes::where('mes', now()->subMonth()->format('Y-m'))->exists();
+
+		$this->menu = [
 			[
 				'nombre' => 'Lista de unidades',
 				'ruta' => 'admin.unidad.index',
@@ -118,7 +123,10 @@ class Administracion extends Component
 				'can' => 'admin.database',
 			],
 		];
+	}
 
-		return view('livewire.admin.administracion', compact('menu'));
+	public function render()
+	{
+		return view('livewire.admin.administracion');
 	}
 }
