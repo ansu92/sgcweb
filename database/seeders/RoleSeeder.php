@@ -129,6 +129,17 @@ class RoleSeeder extends Seeder
 		Permission::create(['name' => 'admin.usuario.delete']);
 		Permission::create(['name' => 'admin.usuario.show']);
 
+		Permission::create(['name' => 'admin.rol.index']);
+		Permission::create(['name' => 'admin.rol.create']);
+		Permission::create(['name' => 'admin.rol.edit']);
+		Permission::create(['name' => 'admin.rol.delete']);
+		// Permission::create(['name' => 'admin.rol.show']);
+
+		Permission::create(['name' => 'admin.permiso.index']);
+		Permission::create(['name' => 'admin.permiso.create']);
+		Permission::create(['name' => 'admin.permiso.edit']);
+		Permission::create(['name' => 'admin.permiso.delete']);
+
 
 		Permission::create(['name' => 'admin.database']);
 		Permission::create(['name' => 'admin.database.backup']);

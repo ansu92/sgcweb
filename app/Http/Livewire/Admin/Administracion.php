@@ -63,6 +63,18 @@ class Administracion extends Component
 				'can' => 'admin.usuario.index',
 			],
 			[
+				'nombre' => 'Gestionar roles',
+				'ruta' => 'admin.rol.index',
+				'imagen' => 'img/iconos/rol.png',
+				'can' => 'admin.rol.index',
+			],
+			[
+				'nombre' => 'Gestionar permisos',
+				'ruta' => 'admin.permiso.index',
+				'imagen' => 'img/iconos/permission.png',
+				'can' => 'admin.permiso.index',
+			],
+			[
 				'nombre' => 'Gestionar responsables',
 				'ruta' => 'admin.administrador.index',
 				'imagen' => 'img/iconos/gestionarResponsable.png',

@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\CtrSancion;
 use App\Http\Controllers\Admin\CtrUnidad;
 use App\Http\Controllers\Admin\CtrUser;
 use App\Http\Livewire\Admin\Database\Backup;
+use App\Http\Livewire\Admin\Permisos\TablaPermiso;
+use App\Http\Livewire\Admin\Roles\TablaRol;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'admin.index')->middleware('can:admin.home')->name('home');
@@ -23,6 +25,12 @@ Route::post('condominio', [CtrCondominio::class, 'store'])->name('condominio.sto
 Route::resource('comunicado', CtrComunicado::class)->only('index', 'show')->names('comunicado');
 
 Route::resource('habitante', CtrHabitante::class)->only(['index', 'show'])->names('habitante');
+
+Route::get('permisos', TablaPermiso::class)->name('permiso.index');
+
+Route::get('roles', TablaRol::class)->name('rol.index');
+
+// Route::get('roles', CtrProveedor::class)->name('rol.show');
 
 Route::resource('sancion', CtrSancion::class)->only(['index', 'show'])->names('sancion');
 
