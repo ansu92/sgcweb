@@ -7,11 +7,11 @@
             <x-jet-input type="search" placeholder="Escriba para buscar..." class="w-full"
                 wire:model="busqueda" />
 
-            @livewire('proveedor.nuevo-proveedor')
-
             <a href="{{ route('proveedor.exportar') }}" class="btn btn-blue whitespace-nowrap">
                 <i class="fas fa-file-export"></i> Exportar
             </a>
+
+            @livewire('proveedor.nuevo-proveedor')
 
         </div>
 

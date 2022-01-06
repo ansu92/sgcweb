@@ -375,7 +375,7 @@
                                             </td>
                                             <td class="px-6 py-4">
                                                 <div class="text-sm font-medium text-gray-900">
-                                                    {{ $item->monto }}
+                                                    {{ $item->montoFormateado }}
                                                 </div>
                                             </td>
                                             <td

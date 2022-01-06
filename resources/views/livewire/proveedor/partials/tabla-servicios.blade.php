@@ -109,8 +109,7 @@
                                     @foreach ($listaServicios as $item)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-xs space-x-1 font-medium">
-                                                <x-jet-checkbox value="{{ $item->id }}" class="form-control"
-                                                    wire:model="servicios" />
+                                                <x-jet-checkbox value="{{ $item->id }}" wire:model="servicios" />
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">

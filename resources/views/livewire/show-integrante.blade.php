@@ -104,10 +104,12 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
-                                                    <a href="{{ route('integrante.show', $item) }}"
+                                                    @can('enfermedad.show')
+                                                    <a href="{{ route('enfermedad.show', $item) }}"
                                                         class="btn btn-blue">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    @endcan
                                                     {{-- <a class="btn btn-red" wire:click="destroy({{ $item }})">
 												<i class="fas fa-times"></i>
 											</a> --}}
@@ -165,10 +167,12 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-1">
-                                                    <a href="{{ route('integrante.show', $item) }}"
+                                                    @can('medicamento.show')
+                                                    <a href="{{ route('medicamento.show', $item) }}"
                                                         class="btn btn-blue">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    @endcan
                                                     {{-- <a class="btn btn-red" wire:click="destroy({{ $item }})">
 												<i class="fas fa-times"></i>
 											</a> --}}

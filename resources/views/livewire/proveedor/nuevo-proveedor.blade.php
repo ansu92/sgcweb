@@ -20,7 +20,7 @@
 
                             <div class="col-span-6 sm:col-span-2">
                                 <label for="documento" class="block text-sm font-medium text-gray-700">Documento</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 flex items-center">
                                         <select wire:model="letra" id="letra" name="letra"
                                             class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
@@ -54,7 +54,7 @@
 
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 flex items-center">
                                         <select wire:model="codigo" id="codigo" name="codigo"
                                             class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">

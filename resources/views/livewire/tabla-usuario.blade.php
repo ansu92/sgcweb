@@ -5,8 +5,6 @@
             <x-select-cantidad />
 
             <x-jet-input type="text" placeholder="Escriba para buscar..." class="w-full" wire:model="busqueda" />
-
-            @livewire('nuevo-usuario')
         </div>
 
         <!-- tabla -->
@@ -132,11 +130,15 @@
 
                             {{-- {{var_dump($listaRoles)}} --}}
                             {{-- {{ var_dump($roles) }} --}}
-                            @foreach ($listaRoles as $key => $item)
-                                <div class="col-span-6">
+                            <div class="col-span-6">
+                                <h1 class="mb-2">Roles</h1>
+
+                                <div class="grid grid-cols-2 xl:grid-cols-3 gap-2">
+
+                                    @foreach ($listaRoles as $key => $item)
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input wire:model="roles" type="checkbox"
+                                            <input wire:model.defer="roles" type="checkbox"
                                             id="role_{{ $key }}"
                                                 name="role_{{ $key }}"
                                                 value="{{ $item->id }}"
@@ -147,9 +149,11 @@
                                                 class="font-medium text-gray-700">{{ $item->name }}</label>
                                         </div>
                                     </div>
+                                    @endforeach
+
                                 </div>
-                            @endforeach
-                            <x-jet-input-error for="roles" />
+                                <x-jet-input-error for="roles" />
+                            </div>
 
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-<div>
+<div x-data="nuevoPagoPropietario" x-init="init">
 
     <div class="w-full flex justify-end gap-4">
 
@@ -92,7 +92,7 @@
                                     Forma de pago:
                                 </label>
                                 <div>
-                                    <select wire:model="formaPago" name="forma-pago" id="forma-pago"
+                                    <select wire:model.lazy="formaPago" x-model="formaPago" name="forma-pago" id="forma-pago"
                                         class="form-control w-full">
                                         <option>----</option>
                                         <option>Transferencia</option>
@@ -110,64 +110,52 @@
                                 <label for="moneda" class="block text-sm font-medium text-gray-700">
                                     Moneda:
                                 </label>
-                                <select wire:model="moneda" name="moneda" id="moneda" class="form-control w-full">
+                                <select wire:model="moneda" x-model="moneda" name="moneda" id="moneda" class="form-control w-full">
                                     <option>Bolívar</option>
                                     <option>Dólar</option>
                                 </select>
                                 <x-jet-input-error for="moneda" />
                             </div>
 
-                            @switch($formaPago)
-                                @case('Pago móvil')
-                                @case('Transferencia')
-                                @case('Punto de venta')
-                                @case('Depósito')
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="cuenta" class="block text-sm font-medium text-gray-700">
-                                            Cuenta:
-                                        </label>
-                                        <select wire:model="cuenta.id" name="cuenta" id="cuenta"
-                                            class="form-control w-full">
-                                            <option value="0" selected>----</option>
+                            <div x-show="mostrarCuenta" x-transition class="col-span-6 sm:col-span-3">
+                                <label for="cuenta" class="block text-sm font-medium text-gray-700">
+                                    Cuenta:
+                                </label>
+                                <select wire:model="cuenta.id" name="cuenta" id="cuenta"
+                                    class="form-control w-full">
+                                    <option value="0" selected>----</option>
 
-                                            @if ($formaPago == 'Pago móvil')
+                                    @if ($formaPago == 'Pago móvil')
 
-                                                @foreach ($cuentas as $item)
-                                                    <option value="{{ $item->id }}">
-                                                        #{{ Str::substr($item->numero, 0, 4) }}
-                                                        - {{ $item->telefono }}
-                                                    </option>
-                                                @endforeach
+                                        @foreach ($cuentas as $item)
+                                            <option value="{{ $item->id }}">
+                                                #{{ Str::substr($item->numero, 0, 4) }}
+                                                - {{ $item->telefono }}
+                                            </option>
+                                        @endforeach
 
-                                            @else
+                                    @else
 
-                                                @foreach ($cuentas as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->numeroOculto }}
-                                                    </option>
-                                                @endforeach
+                                        @foreach ($cuentas as $item)
+                                            <option value="{{ $item->id }}">{{ $item->numeroOculto }}
+                                            </option>
+                                        @endforeach
 
-                                            @endif
+                                    @endif
 
-                                        </select>
-                                        <x-jet-input-error for="cuenta.id" />
-                                    </div>
-                                @break
-                            @endswitch
+                                </select>
+                                <x-jet-input-error for="cuenta.id" />
+                            </div>
 
-                            @switch($formaPago)
-                                @case('Transferencia')
-                                @case('Pago móvil')
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="referencia"
-                                            class="block text-sm font-medium text-gray-700">
-                                            Referencia:
-                                        </label>
-                                        <input wire:model.lazy="referencia" type="text" name="referencia"
-                                            id="referencia" class="form-control w-full" />
-                                        <x-jet-input-error for="referencia" />
-                                    </div>
-                                @break
-                            @endswitch
+                            <div x-show="mostrarReferencia" x-transition class="col-span-6 sm:col-span-3">
+                                <label for="referencia"
+                                    class="block text-sm font-medium text-gray-700">
+                                    Referencia:
+                                </label>
+                                <input wire:model.lazy="referencia" type="text" name="referencia"
+                                    id="referencia" class="form-control w-full" />
+                                <x-jet-input-error for="referencia" />
+                            </div>
 
                             @if ($factura->moneda != $moneda)
                                 <div class="col-span-6 sm:col-span-3">
@@ -187,18 +175,59 @@
 
         </x-slot>
 
-    <x-slot name="footer">
+        <x-slot name="footer">
 
-        <x-jet-secondary-button wire:click="$set('open', false)">
-            Cancelar
-        </x-jet-secondary-button>
+            <x-jet-secondary-button wire:click="$set('open', false)">
+                Cancelar
+            </x-jet-secondary-button>
 
-        <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
-            Registrar
-        </x-jet-button>
+            <x-jet-button wire:click="save" wire:loading.attr="disabled" class="disabled:bg-opacity-25">
+                Registrar
+            </x-jet-button>
 
-    </x-slot>
+        </x-slot>
 
-</x-jet-dialog-modal>
+    </x-jet-dialog-modal>
 
 </div>
+
+@push('js')
+<script>
+    function nuevoPagoPropietario() {
+        return {
+            monedaFactura: null,
+            moneda: null,
+            conCambio: null,
+            formaPago: false,
+
+            init: function() {
+                // console.log('Listo!');
+            },
+
+            mostrarCuenta: function() {
+                switch(this.formaPago) {
+                    case 'Pago móvil':
+                    case 'Transferencia':
+                    case 'Punto de venta':
+                    case 'Depósito':
+                        return true;
+                        break;
+                    default:
+                        return false
+                }
+            },
+
+            mostrarReferencia: function() {
+                switch(this.formaPago) {
+                    case 'Pago móvil':
+                    case 'Transferencia':
+                        return true;
+                        break;
+                    default:
+                        return false
+                }
+            }
+        }
+    }
+</script>
+@endpush

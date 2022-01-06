@@ -46,7 +46,7 @@ class TablaUsuario extends Component
 			$usuarios = [];
 		}
 
-		$listaRoles = Role::all();
+		$listaRoles = Role::orderBy('name', 'asc')->get();
 
 		return view('livewire.tabla-usuario', compact('usuarios', 'listaRoles'));
 	}
@@ -92,7 +92,7 @@ class TablaUsuario extends Component
 		$this->reset(['openEdit', 'roles']);
 
 		$this->emitTo('tabla-usuario', 'render');
-		$this->emit('alert', 'Los roles fueron asignados satisfactoriamente');
+		toastr()->livewire()->addSuccess('Los roles fueron asignados satisfactoriamente');
 	}
 
 	public function destroy(User $usuario)
@@ -107,6 +107,6 @@ class TablaUsuario extends Component
 
 		$this->reset('openDestroy');
 
-		$this->emit('alert', 'El usuario se eliminó satisfactoriamente');
+		toastr()->livewire()->addSuccess('El usuario se eliminó satisfactoriamente');
 	}
 }
