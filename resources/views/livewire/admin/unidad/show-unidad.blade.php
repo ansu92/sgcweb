@@ -222,7 +222,7 @@
             </x-jet-secondary-button>
 
             <x-jet-button wire:click="cambiarPropietario" wire:loading.attr="disabled" class="disabled:opacity-25">
-                Asignar propietario
+                Cambiar propietario
             </x-jet-button>
         </x-slot>
 

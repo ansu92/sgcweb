@@ -152,6 +152,7 @@ class ShowUnidad extends Component
 		$this->asignarPropietario();
 
 		$this->reset('openCambiar');
+		toastr()->livewire()->addSucces('El fondo se registró satisfactoriamente');
 	}
 
 	public function retirar()
