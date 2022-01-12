@@ -86,7 +86,7 @@ class TablaCategoria extends Component
 		$this->reset('openEdit');
 
 		$this->emitTo('categoria.tabla-categoria', 'render');
-		$this->emit('alert', 'La categoría se actualizó satisfactoriamente');
+		toastr()->livewire()->addSuccess('La categoría se actualizó satisfactoriamente');
 	}
 
 	public function destroy(Categoria $categoria) {
@@ -100,6 +100,6 @@ class TablaCategoria extends Component
 		$this->reset('openDestroy');
 
 		$this->emitTo('categoria.tabla-categoria', 'render');
-		$this->emit('alert', 'La categoría se eliminó satisfactoriamente');
+		toastr()->livewire()->addSuccess('La categoría se eliminó satisfactoriamente');
 	}
 }

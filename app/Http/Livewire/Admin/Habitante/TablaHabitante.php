@@ -37,9 +37,12 @@ class TablaHabitante extends Component
     public function render()
     {
 		if ($this->readyToLoad) {
-			$integrantes = Integrante::where('documento', 'like', '%' . $this->busqueda . '%')
-				->orWhere('nombre', 'like', '%' . $this->busqueda . '%')
-				->orWhere('apellido', 'like', '%' . $this->busqueda . '%')
+			$integrantes = Integrante::has('unidad')
+				->where(function($query) {
+					$query->where('documento', 'like', '%' . $this->busqueda . '%')
+					->orWhere('nombre', 'like', '%' . $this->busqueda . '%')
+					->orWhere('apellido', 'like', '%' . $this->busqueda . '%');
+				})
 				->orderBy($this->orden, $this->direccion)
 				->paginate($this->cantidad);
 		} else {
@@ -91,7 +94,7 @@ class TablaHabitante extends Component
 
 		$this->reset('openEdit');
 
-		$this->emit('alert', 'La persona se actualizó satisfactoriamente');
+		toastr()->livewire()->addSuccess('La persona se actualizó satisfactoriamente');
 	}
 
 	public function destroy(Integrante $integrante) {
@@ -104,6 +107,6 @@ class TablaHabitante extends Component
 
 		$this->reset('openDestroy');
 
-		$this->emit('alert', 'La persona se eliminó satisfactoriamente');
+		toastr()->livewire()->addSuccess('La persona se eliminó satisfactoriamente');
 	}
 }

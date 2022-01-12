@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{ public_path('css/pdf.css') }}">
 
 <body>
-
     <div>
         Condominio: <span>{{ $condominio->nombre }}</span>
         <br>

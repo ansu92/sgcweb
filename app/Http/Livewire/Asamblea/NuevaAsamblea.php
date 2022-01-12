@@ -125,6 +125,6 @@ class NuevaAsamblea extends Component
 		]);
 
 		$this->emitTo('asamblea.tabla-asamblea', 'render');
-		$this->emit('alert', 'La asamblea se registró satisfactoriamente');
+		toastr()->livewire()->addSuccess('La asamblea se registró satisfactoriamente');
 	}
 }

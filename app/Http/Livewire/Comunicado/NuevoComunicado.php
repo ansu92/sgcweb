@@ -37,7 +37,7 @@ class NuevoComunicado extends Component
 		]);
 
 		$this->emitTo('comunicado.tabla-comunicado', 'render');
-		$this->emit('alert', 'El comunicado se creó satisfactoriamente');
+		toastr()->livewire()->addSuccess('El comunicado se creó satisfactoriamente');
 	}
 
 	public function render()

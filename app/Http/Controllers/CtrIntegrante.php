@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Condominio;
 use App\Models\Integrante;
 use PDF;
 
@@ -15,9 +16,11 @@ class CtrIntegrante extends Controller
 
 	public function exportar()
 	{
-		$habitantes = Integrante::all();
+		$habitantes = Integrante::has('unidad')->get();
 
-		$pdf = PDF::loadView('integrante.pdf', compact('habitantes'));
+		$condominio = Condominio::first();
+
+		$pdf = PDF::loadView('integrante.pdf', compact('habitantes', 'condominio'));
 		return $pdf->stream('habitantes.pdf');
 	}
 }

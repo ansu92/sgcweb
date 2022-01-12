@@ -141,7 +141,7 @@ class ShowUnidad extends Component
 
 		$this->integrante = new Integrante;
 
-		$this->emit('alert', 'El propietario fue asignado satisfactoriamente');
+		toastr()->livewire()->addSuccess('El propietario fue asignado satisfactoriamente');
 	}
 
 	public function cambiarPropietario()

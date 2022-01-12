@@ -11,7 +11,7 @@ use ZipArchive;
 class Backup extends Component
 {
     public $zippedBackup = '0';
-    public $holo;
+    public bool $creandoBackup = false;
 
     public $openRestaurar = false;
 
@@ -42,9 +42,11 @@ class Backup extends Component
 
     public function respaldar()
     {
+        $this->creandoBackup = true;
         Artisan::call('backup:run --only-db');
 
-        $this->emit('alert', 'Se ha creado el respaldo de la base de datos satisfactoriamente');
+        toastr()->livewire()->addSuccess('Se ha creado el respaldo de la base de datos satisfactoriamente');
+        $this->creandoBackup = false;
     }
 
     public function restaurar()
@@ -59,6 +61,6 @@ class Backup extends Component
         Storage::deleteDirectory('backups/SGC-Web/db-dumps');
 
         $this->reset('open');
-        $this->emit('alert', 'Se ha restaurado la base de datos satisfactoriamente');
+        toastr()->livewire()->addSuccess('Se ha restaurado la base de datos satisfactoriamente');
     }
 }

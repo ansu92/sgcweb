@@ -91,7 +91,7 @@ class TablaAdministrador extends Component
 
 		$this->reset('openEdit');
 
-		$this->emit('alert', 'El administrador se actualizó satisfactoriamente');
+		toastr()->livewire()->addSuccess('El administrador se actualizó satisfactoriamente');
 	}
 
 	public function destroy(Administrador $administrador)
@@ -106,6 +106,6 @@ class TablaAdministrador extends Component
 
 		$this->reset('openDestroy');
 
-		$this->emit('alert', 'El administrador se eliminó satisfactoriamente');
+		toastr()->livewire()->addSuccess('El administrador se eliminó satisfactoriamente');
 	}
 }

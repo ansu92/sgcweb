@@ -183,6 +183,6 @@ class NuevoIntegrante extends Component
 		]);
 
 		$this->emitTo('unidad.show-unidad', 'render');
-		$this->emit('alert', 'El integrante se añadió satisfactoriamente');
+		toastr()->livewire()->addSuccess('El integrante se añadió satisfactoriamente');
 	}
 }

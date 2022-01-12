@@ -35,7 +35,7 @@ class NuevoBanco extends Component
         ]);
 
         $this->emitTo('banco.tabla-banco', 'render');
-        $this->emit('alert', 'El registro se creó satisfactoriamente');
+        toastr()->livewire()->addSuccess('El registro se creó satisfactoriamente');
     }
 
     public function render()

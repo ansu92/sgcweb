@@ -116,7 +116,7 @@ class TablaProveedor extends Component
 
 		$this->reset('openEdit');
 
-		$this->emit('alert', 'El proveedor se actualizó satisfactoriamente');
+		toastr()->livewire()->addSuccess('El proveedor se actualizó satisfactoriamente');
 	}
 
 	public function destroy(Proveedor $proveedor)
@@ -131,6 +131,6 @@ class TablaProveedor extends Component
 
 		$this->reset('openDestroy');
 
-		$this->emit('alert', 'El proveedor se eliminó satisfactoriamente');
+		toastr()->livewire()->addSuccess('El proveedor se eliminó satisfactoriamente');
 	}
 }

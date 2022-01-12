@@ -124,13 +124,13 @@ class Administracion extends Component
 			],
 			[
 				'nombre' => 'Gestionar tipos de unidad',
-				'ruta' => 'admin.backup',
+				'ruta' => 'tipo-unidad.index',
 				'imagen' => 'img/iconos/gestionarUnidad.png',
 				'can' => 'tipo-unidad.index',
 			],
 			[
 				'nombre' => 'Recuperación de base de datos',
-				'ruta' => 'tipo-unidad.index',
+				'ruta' => 'admin.backup',
 				'imagen' => 'img/iconos/base-datos.png',
 				'can' => 'admin.database',
 			],

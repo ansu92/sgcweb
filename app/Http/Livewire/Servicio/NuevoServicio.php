@@ -61,6 +61,6 @@ class NuevoServicio extends Component
 		]);
 
 		$this->emitTo('servicio.tabla-servicio', 'render');
-		$this->emit('alert', 'El servicio se creó satisfactoriamente');
+		toastr()->livewire()->addSuccess('El servicio se creó satisfactoriamente');
 	}
 }

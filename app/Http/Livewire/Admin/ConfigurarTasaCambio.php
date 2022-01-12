@@ -65,6 +65,6 @@ class ConfigurarTasaCambio extends Component
 
         $this->reset('open');
 
-        $this->emit('alert', 'La tasa de cambio fue actualizada con éxito');
+        toastr()->livewire()->addSuccess('La tasa de cambio fue actualizada con éxito');
     }
 }

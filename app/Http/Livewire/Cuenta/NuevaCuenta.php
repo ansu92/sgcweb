@@ -76,6 +76,6 @@ class NuevaCuenta extends Component
         ]);
 
         $this->emitTo('cuenta.tabla-cuenta', 'render');
-        $this->emit('alert', 'La cuenta se creó satisfactoriamente');
+        toastr()->livewire()->addSuccess('La cuenta se creó satisfactoriamente');
     }
 }

@@ -40,7 +40,7 @@
                             Cuenta afiliada:
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{ $fondo->cuenta->numero }}
+                            {{ $fondo->cuenta->numeroOculto }}
                         </dd>
                     </div>
                 @endif

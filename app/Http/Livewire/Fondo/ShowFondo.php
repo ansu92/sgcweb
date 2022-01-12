@@ -11,13 +11,13 @@ class ShowFondo extends Component
 
     protected $listeners = ['render'];
 
-    public function mount()
-    {
-        if ($this->fondo->cuenta) {
+    // public function mount()
+    // {
+    //     if ($this->fondo->cuenta) {
 
-            $this->fondo->cuenta->ocultarNumero();
-        }
-    }
+    //         $this->fondo->cuenta->ocultarNumero();
+    //     }
+    // }
 
     public function render()
     {

@@ -85,6 +85,6 @@ class TablaComunicado extends Component
 		$this->reset('openEdit');
 
 		$this->emitTo('comunicado.tabla-comunicado', 'render');
-		$this->emit('alert', 'El comunicado se actualizó satisfactoriamente');
+		toastr()->livewire()->addSuccess('El comunicado se actualizó satisfactoriamente');
 	}
 }

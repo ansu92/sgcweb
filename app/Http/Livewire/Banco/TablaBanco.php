@@ -87,7 +87,7 @@ class TablaBanco extends Component
         $this->validate();
         $this->banco->save();
         $this->reset('openEdit');
-        $this->emit('alert','El banco se actualizó satisfactoriamente');
+        toastr()->livewire()->addSuccess('El banco se actualizó satisfactoriamente');
     }
 
     public function destroy(Banco $banco)
@@ -100,6 +100,6 @@ class TablaBanco extends Component
     {
         $this->banco->delete();
         $this->reset('openDestroy');
-        $this->emit('alert','El banco se eliminó satisfactoriamente');
+        toastr()->livewire()->addSuccess('El banco se eliminó satisfactoriamente');
     }
 }

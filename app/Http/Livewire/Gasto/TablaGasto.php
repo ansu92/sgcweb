@@ -98,7 +98,7 @@ class TablaGasto extends Component
 		if ($this->gasto->save()) {
 			$this->reset('openEdit');
 
-			$this->emit('alert', 'El gasto fue actualizado satisfactoriamente');
+			toastr()->livewire()->addSuccess('El gasto fue actualizado satisfactoriamente');
 		}
 	}
 
@@ -113,7 +113,7 @@ class TablaGasto extends Component
 		if ($this->gasto->delete()) {
 			$this->reset('openCancelar');
 
-			$this->emit('alert', 'El gasto fue detenido satisfactoriamente');
+			toastr()->livewire()->addSuccess('El gasto fue detenido satisfactoriamente');
 		}
 	}
 }

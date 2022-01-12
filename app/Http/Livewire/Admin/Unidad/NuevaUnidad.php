@@ -59,6 +59,6 @@ class NuevaUnidad extends Component
 		$this->tipo = new TipoUnidad;
 
 		$this->emitTo('admin.unidad.tabla-unidad', 'render');
-		$this->emit('alert', 'La unidad se registró satisfactoriamente');
+		toastr()->livewire()->addSuccess('La unidad se registró satisfactoriamente');
 	}
 }
