@@ -96,4 +96,26 @@ class CtrUnidad extends Controller
 		$pdf = PDF::loadView('admin.unidad.pdf', compact('unidades', 'condominio'));
 		return $pdf->stream('unidades.pdf');
 	}
+
+    public function exportarConFacturasPendientes($type)
+	{
+		$condominio = Condominio::first();
+        
+        $unidades = Unidad::with('facturas')->has('facturas')->get();
+
+		$unidades = $unidades->count() > 0
+			? $unidades->filter(function ($unidad) {
+				return $unidad->facturas->where('monto_por_pagar', '!=', 0)->count() > 0;
+			})
+			: [];
+
+		$pdf = PDF::loadView('reporte.unidades-con-facturas-pendientes', compact('unidades', 'condominio'));
+
+		if($type == 1)
+		{
+			return $pdf->stream('unidades-con-facturas-pendientes.pdf');
+		} else if($type == 2){
+			return $pdf->download('unidades-con-facturas-pendientes.pdf');
+		}
+    }
 }

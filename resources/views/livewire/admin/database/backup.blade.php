@@ -43,8 +43,12 @@
 
                 </select>
 				<x-jet-input-error for="backup" />
-
             </div>
+
+                <div wire:loading class="p-2">
+                    <span class="text-red-500">Restaurando...</span>
+                </div>
+
         </x-slot>
 
         <x-slot name="footer">

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{ public_path('css/pdf.css') }}">
 
 <body>
-
     <div>
         Condominio: <span>{{ $condominio->nombre }}</span>
         <br>
@@ -26,33 +25,25 @@
     </div>
 
     <div class="text-center">
-        <h1>Lista de fondos</h1>
+        <h1>Lista de unidades con<br>facturas sin pagar</h1>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Saldo</th>
-                <th>Moneda</th>
-                <th>Cuenta</th>
+                <th>Número</th>
+                <th>Propietario</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($fondos as $item)
+            @foreach ($unidades as $item)
                 <tr>
                     <td>
-                        {{ $item->descripcion }}
+                        {{ $item->numero }}
                     </td>
                     <td>
-                        {{ $item->moneda }}
-                    </td>
-                    <td>
-                        {{ $item->saldo }}
-                    </td>
-                    <td>
-                        @if ($item->cuenta)
-                            {{ $item->cuenta->numeroOculto }}
+                        @if ($item->propietario)
+                            {{ $item->propietario->integrante->nombreCompleto }}
                         @endif
                     </td>
                 </tr>

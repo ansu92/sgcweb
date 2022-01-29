@@ -50,3 +50,7 @@ Route::get('visita/exportar/{fitros}', [CtrVisita::class, 'exportar'])->name('vi
 Route::get('recibo/{recibo}', [CtrPagoPropietario::class, 'exportarRecibo'])->name('pago-propietario.recibo');
 
 Route::get('fondos/{fondo}/movimientos', [CtrFondo::class, 'exportarMovimientos'])->name('fondo.movimiento');
+
+Route::get('fondos/saldo-total/{type}', [CtrFondo::class, 'exportarSaldoTotal'])->name('reporte.saldoTotal');
+
+Route::get('unidad/con-facturas-pendientes/{type}', [CtrUnidad::class, 'exportarConFacturasPendientes'])->name('reporte.con-facturas-pendientes');

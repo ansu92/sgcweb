@@ -88,4 +88,20 @@ class CtrFondo extends Controller
 		$pdf = PDF::loadView('fondo.movimiento', compact('movimientos', 'condominio'));
 		return $pdf->stream('movimientos.pdf');
 	}
+
+    public function exportarSaldoTotal($type)
+	{
+		$condominio = Condominio::first();
+        
+        $fondos = Fondo::all();
+
+		$pdf = PDF::loadView('reporte.saldoTotal', compact('fondos', 'condominio'));
+
+		if($type == 1)
+		{
+			return $pdf->stream('saldo-total.pdf');
+		} else if($type == 2){
+			return $pdf->download('saldo-total.pdf');
+		}
+    }
 }

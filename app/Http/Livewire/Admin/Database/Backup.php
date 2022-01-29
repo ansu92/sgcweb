@@ -60,7 +60,7 @@ class Backup extends Component
 
         Storage::deleteDirectory('backups/SGC-Web/db-dumps');
 
-        $this->reset('open');
+        $this->reset('openRestaurar');
         toastr()->livewire()->addSuccess('Se ha restaurado la base de datos satisfactoriamente');
     }
 }

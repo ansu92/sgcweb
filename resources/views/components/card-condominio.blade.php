@@ -6,10 +6,10 @@
         </h5>
 
         <div class="flex flex-col gap-1">
-            <div>Rif: {{ $condominio->rif }}</div>
+            <div>Rif: <b>{{ $condominio->rif }}</b></div>
             <div>Dirección:</div>
-            <div> {{ $condominio->direccion }}</div>
-            <div>Número de unidades: {{ $numUnidades }}</div>
+            <div> <em>{{ $condominio->direccion }}</em></div>
+            <div>Número de unidades: <b>{{ $numUnidades }}</b></div>
         </div>
 
         <hr class="my-3">
@@ -31,6 +31,8 @@
             {{-- <div class="self-end"> --}}
                 @livewire('admin.configurar-iva')
             {{-- </div> --}}
+
+            @livewire('admin.reportes')
 
         </div>
     </div>

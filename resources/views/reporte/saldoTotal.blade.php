@@ -26,7 +26,7 @@
     </div>
 
     <div class="text-center">
-        <h1>Lista de fondos</h1>
+        <h1>Lista de fondos y saldo total</h1>
     </div>
 
     <table>
@@ -58,6 +58,23 @@
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"></td>
+                <th>Saldo en efectivo</th>
+                <td>{{$fondos->whereNull('cuenta_id')->sum('saldo')}}</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <th>Saldo digital</th>
+                <td>{{$fondos->whereNotNull('cuenta_id')->sum('saldo')}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" border="2" style="border: 0px;"></td>
+                <th>Total</th>
+                <td>{{$fondos->sum('saldo')}}</td>
+            </tr>
+    </tfoot>
     </table>
 </body>
 
