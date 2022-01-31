@@ -1,4 +1,4 @@
-<div wire:init="$set('readyToLoad', true)">
+<div wire:init="$set('readyToLoad', true)" x-data="nuevoGasto">
 
     <x-jet-button wire:click="$set('open', true)">
         Nuevo
@@ -32,19 +32,19 @@
                                     Tipo de gasto:
                                 </label>
                                 <div>
-                                    <input wire:model="tipo" type="radio" name="tipo" id="ordinario" value="Ordinario">
+                                    <input x-model="tipo" type="radio" name="tipo" id="ordinario" value="Ordinario">
                                     <label for="ordinario">Ordinario</label>
                                 </div>
                                 <div>
-                                    <input wire:model="tipo" type="radio" name="tipo" id="extraordinario"
+                                    <input x-model="tipo" type="radio" name="tipo" id="extraordinario"
                                         value="Extraordinario">
                                     <label for="extraordinario">Extraordinario</label>
                                 </div>
                                 <x-jet-input-error for="tipo" />
                             </div>
 
-                            @if ($tipo == 'Extraordinario')
-                                <div class="col-span-6 sm:col-span-2">
+                            {{-- @if ($tipo == 'Extraordinario') --}}
+                                <div x-show="tipo == 'Extraordinario'" x-transition class="col-span-6 sm:col-span-2">
                                     <label for="numero-meses" class="block text-sm font-medium text-gray-700">
                                         Número de meses:
                                     </label>
@@ -53,23 +53,23 @@
                                     <x-jet-input-error for="numeroMeses" />
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-2">
+                                <div x-show="tipo == 'Extraordinario'" x-transition class="col-span-6 sm:col-span-2">
                                     <label for="elegido-asamblea" class="block text-sm font-medium text-gray-700">
-                                        ¿El gasto fue decidio en una asamblea?
+                                        ¿El gasto fue decidido en una asamblea?
                                     </label>
                                     <div>
-                                        <input wire:model="elegidoAsamblea" type="radio" name="elegido-asamblea" id="si"
+                                        <input x-model="elegidoAsamblea" type="radio" name="elegido-asamblea" id="si"
                                             value="si">
                                         <label for="si">Sí</label>
-                                        <input wire:model="elegidoAsamblea" type="radio" name="elegido-asamblea" id="no"
+                                        <input x-model="elegidoAsamblea" type="radio" name="elegido-asamblea" id="no"
                                             value="no" class="ml-2">
                                         <label for="no">No</label>
                                     </div>
                                     <x-jet-input-error for="elegidoAsamblea" />
                                 </div>
 
-                                @if ($elegidoAsamblea == 'si')
-                                    <div class="col-span-2">
+                                {{-- @if ($elegidoAsamblea == 'si') --}}
+                                    <div x-show="elegidoAsamblea == 'si'" x-transition class="col-span-2">
                                         <label for="asamblea" class="block text-sm font-medium text-gray-700">
                                             Asamblea:
                                         </label>
@@ -83,8 +83,8 @@
                                         </select>
                                         <x-jet-input-error for="asamblea.id" />
                                     </div>
-                                @endif
-                            @endif
+                                {{-- @endif --}}
+                            {{-- @endif --}}
 
                             <div class="col-span-6 sm:col-span-2 sm:col-start-1">
                                 <label for="calculo" class="block text-sm font-medium text-gray-700">
@@ -193,3 +193,18 @@
     </x-jet-dialog-modal>
 
 </div>
+
+@push('js')
+<script>
+    function nuevoGasto() {
+        return {
+            tipo: @entangle('tipo').defer,
+            elegidoAsamblea: @entangle('elegidoAsamblea').defer,
+
+            init: function() {
+                // console.log('Listo!');
+            },
+        }
+    }
+</script>
+@endpush

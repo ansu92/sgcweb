@@ -128,9 +128,11 @@
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $item->fondo->descripcion }}
-                                                    </div>
+                                                    @if($item->fondo)
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            {{ $item->fondo->descripcion }}
+                                                        </div>
+                                                    @endif
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     <div class="text-sm font-medium text-gray-900">

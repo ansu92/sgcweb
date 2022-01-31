@@ -53,7 +53,7 @@ class ConfigurarTasaCambio extends Component
 
             if ($this->tasa->isDirty()) {
 
-                TasaCambio::create([
+                $this->tasa = TasaCambio::create([
                     'tasa' => $this->tasa->tasa,
                     'fecha' => now(),
                 ]);
@@ -62,8 +62,6 @@ class ConfigurarTasaCambio extends Component
             $this->fecha = now();
             $this->tasa->save();
         }
-
-        $this->reset('open');
 
         toastr()->livewire()->addSuccess('La tasa de cambio fue actualizada con éxito');
     }

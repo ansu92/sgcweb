@@ -201,7 +201,7 @@
         </x-slot>
 
         <x-slot name="content">
-            ¿Seguro que desea detener el gasto común?
+            ¿Seguro que desea detener el gasto?
         </x-slot>
 
         <x-slot name="footer">

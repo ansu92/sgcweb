@@ -32,9 +32,9 @@ class PagoPropietario extends Model
 
 		if ($conCambio) {
 			if ($this->moneda == 'Bolívar') {
-				$montoConvertido = $this->monto / $this->tasa_cambio;
+				$montoConvertido = $this->monto / $this->tasa->tasa;
 			} else if ($this->moneda == 'Dólar') {
-				$montoConvertido = $this->monto * $this->tasa_cambio;
+				$montoConvertido = $this->monto * $this->tasa->tasa;
 			}
 
 			$this->factura->pagar($montoConvertido);
